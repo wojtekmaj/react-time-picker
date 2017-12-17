@@ -405,20 +405,20 @@ export default class TimeInput extends Component {
   renderNativeInput() {
     const { nativeValueParser } = this;
     const {
-      required, value,
+      maxTime, minTime, required, value,
     } = this.props;
 
     return (
       <input
         type="time"
-        max={null /* TODO */}
-        min={null /* TODO */}
+        max={maxTime ? nativeValueParser(maxTime) : null}
+        min={minTime ? nativeValueParser(minTime) : null}
         name="time"
         key="time"
         onChange={this.onChangeNative}
         onFocus={this.stopPropagation}
         required={required}
-        step={this.yearStep}
+        step={this.valueType === 'second' ? 1 : null}
         style={{
           visibility: 'hidden',
           position: 'absolute',
