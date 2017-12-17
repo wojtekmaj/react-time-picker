@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import HourInput from './TimeInput/HourInput';
+import MinuteInput from './TimeInput/MinuteInput';
+import SecondInput from './TimeInput/SecondInput';
+import NativeInput from './TimeInput/NativeInput';
+
 import { formatTime } from './shared/dateFormatter';
 import {
   getHours,
@@ -19,20 +24,6 @@ const hoursAreDifferent = (date1, date2) => (
   (!date1 && date2) ||
   (date1 && date2 && date1 !== date2) // TODO: Compare 11:22:00 and 11:22 properly
 );
-
-const updateInputWidth = (element) => {
-  const span = document.createElement('span');
-  span.innerHTML = element.value || element.placeholder;
-
-  const container = element.parentElement;
-
-  container.appendChild(span);
-
-  const width = span.clientWidth + 4;
-  element.style.width = `${width}px`;
-
-  container.removeChild(span);
-};
 
 const findPreviousInput = (element) => {
   const previousElement = element.previousElementSibling; // Divider between inputs
@@ -66,17 +57,14 @@ const removeUnwantedCharacters = str => str
   .filter(a => a.charCodeAt(0) !== 8206)
   .join('');
 
-const min = (...args) => Math.min(...args.filter(a => typeof a === 'number'));
-const max = (...args) => Math.max(...args.filter(a => typeof a === 'number'));
-
 export default class TimeInput extends Component {
   state = {
-    hour: '',
-    minute: '',
-    second: '',
+    hour: null,
+    minute: null,
+    second: null,
   }
 
-  componentDidMount() {
+  componentWillMount() {
     setLocale(this.props.locale);
     this.updateValues();
   }
@@ -97,64 +85,6 @@ export default class TimeInput extends Component {
     ) {
       this.updateValues(nextProps);
     }
-  }
-
-  get maxSecond() {
-    const { maxTime } = this.props;
-    const { hour, minute } = this.state;
-    return min(
-      59,
-      maxTime &&
-      hour === getHours(maxTime) &&
-      minute === getMinutes(maxTime) &&
-        getSeconds(maxTime),
-    );
-  }
-
-  get minSecond() {
-    const { minTime } = this.props;
-    const { hour, minute } = this.state;
-    return max(
-      0,
-      minTime &&
-      hour === getHours(minTime) &&
-      minute === getMinutes(minTime) &&
-        getSeconds(minTime),
-    );
-  }
-
-  get maxMinute() {
-    const { maxTime } = this.props;
-    const { hour } = this.state;
-    return min(
-      59,
-      maxTime && hour === getHours(maxTime) && getMinutes(maxTime),
-    );
-  }
-
-  get minMinute() {
-    const { minTime } = this.props;
-    const { hour } = this.state;
-    return max(
-      0,
-      minTime && hour === getHours(minTime) && getMinutes(minTime),
-    );
-  }
-
-  get maxHour() {
-    const { maxTime } = this.props;
-    return min(
-      23,
-      maxTime && getHours(maxTime),
-    );
-  }
-
-  get minHour() {
-    const { minTime } = this.props;
-    return max(
-      0,
-      minTime && getHours(minTime),
-    );
   }
 
   /**
@@ -220,21 +150,18 @@ export default class TimeInput extends Component {
 
   get commonInputProps() {
     return {
-      type: 'number',
+      maxTime: this.props.maxTime,
+      minTime: this.props.minTime,
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
       placeholder: '--',
       // This is only for showing validity when editing
       required: this.props.required || this.props.isClockOpen,
-      ref: (ref) => {
-        if (!ref) {
-          return;
-        }
+      itemRef: (ref) => {
+        if (!ref) return;
 
         // Save a reference to each input field
         this[`${ref.name}Input`] = ref;
-
-        updateInputWidth(ref);
       },
     };
   }
@@ -243,9 +170,9 @@ export default class TimeInput extends Component {
     const { value } = props;
 
     this.setState({
-      hour: value ? getHours(value) : '',
-      minute: value ? getMinutes(value) : '',
-      second: value ? getSeconds(value) : '',
+      hour: value ? getHours(value) : null,
+      minute: value ? getMinutes(value) : null,
+      second: value ? getSeconds(value) : null,
     });
   }
 
@@ -298,32 +225,26 @@ export default class TimeInput extends Component {
    * calls props.onChange.
    */
   onChangeExternal = () => {
-    const formElements = [this.hourInput, this.minuteInput, this.secondInput].filter(a => a);
+    if (this.props.onChange) {
+      const formElements = [this.hourInput, this.minuteInput, this.secondInput].filter(a => a);
 
-    const values = {};
-    formElements.forEach((formElement) => {
-      values[formElement.name] = formElement.value;
-    });
+      const values = {};
+      formElements.forEach((formElement) => {
+        values[formElement.name] = formElement.value;
+      });
 
-    if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
-      const timeString = `${`0${values.hour}`.slice(-2)}:${`0${values.minute || 0}`.slice(-2)}:${`0${values.second || 0}`.slice(-2)}`;
-      const processedValue = this.getProcessedValue(timeString);
-      if (this.props.onChange) {
+      if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
+        const timeString = `${`0${values.hour}`.slice(-2)}:${`0${values.minute || 0}`.slice(-2)}:${`0${values.second || 0}`.slice(-2)}`;
+        const processedValue = this.getProcessedValue(timeString);
         this.props.onChange(processedValue, false);
       }
     }
   }
 
-  stopPropagation = event => event.stopPropagation()
-
   renderHour() {
     return (
-      <input
-        className="react-time-picker__button__input__hour"
-        name="hour"
+      <HourInput
         key="hour"
-        max={this.maxHour}
-        min={this.minHour}
         value={this.state.hour}
         {...this.commonInputProps}
       />
@@ -339,12 +260,9 @@ export default class TimeInput extends Component {
     }
 
     return (
-      <input
-        className="react-time-picker__button__input__minute"
-        name="minute"
+      <MinuteInput
         key="minute"
-        max={this.maxMinute}
-        min={this.minMinute}
+        maxDetail={this.props.maxDetail}
         value={this.state.minute}
         {...this.commonInputProps}
       />
@@ -360,12 +278,9 @@ export default class TimeInput extends Component {
     }
 
     return (
-      <input
-        className="react-time-picker__button__input__second"
-        name="second"
+      <SecondInput
         key="second"
-        max={this.maxSecond}
-        min={this.minSecond}
+        maxDetail={this.props.maxDetail}
         value={this.state.second}
         {...this.commonInputProps}
       />
@@ -403,29 +318,15 @@ export default class TimeInput extends Component {
   }
 
   renderNativeInput() {
-    const { nativeValueParser } = this;
-    const {
-      maxTime, minTime, required, value,
-    } = this.props;
-
     return (
-      <input
-        type="time"
-        max={maxTime ? nativeValueParser(maxTime) : null}
-        min={minTime ? nativeValueParser(minTime) : null}
-        name="time"
+      <NativeInput
         key="time"
+        maxTime={this.props.maxTime}
+        minTime={this.props.minTime}
         onChange={this.onChangeNative}
-        onFocus={this.stopPropagation}
-        required={required}
-        step={this.valueType === 'second' ? 1 : null}
-        style={{
-          visibility: 'hidden',
-          position: 'absolute',
-          top: '-9999px',
-          left: '-9999px',
-        }}
-        value={value ? nativeValueParser(value) : ''}
+        required={this.props.required}
+        value={this.props.value}
+        valueType={this.valueType}
       />
     );
   }
