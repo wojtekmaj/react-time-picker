@@ -126,11 +126,14 @@ export default class TimePicker extends Component {
     const {
       clockClassName,
       className: timePickerClassName, // Unused, here to exclude it from clockProps
+      maxDetail,
       onChange,
       ...clockProps
     } = this.props;
 
     const className = 'react-time-picker__clock';
+
+    const maxDetailIndex = allViews.indexOf(maxDetail);
 
     return (
       <div
@@ -154,6 +157,8 @@ export default class TimePicker extends Component {
       >
         <Clock
           className={clockClassName}
+          renderMinuteHand={maxDetailIndex > 0}
+          renderSecondHand={maxDetailIndex > 1}
           {...clockProps}
         />
       </div>
