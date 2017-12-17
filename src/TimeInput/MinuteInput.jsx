@@ -51,7 +51,7 @@ export default class MinuteInput extends PureComponent {
         }}
         required={required}
         type="number"
-        value={value}
+        value={value !== null ? value : ''}
       />
     );
   }

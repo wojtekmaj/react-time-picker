@@ -58,7 +58,7 @@ export default class SecondInput extends PureComponent {
         }}
         required={required}
         type="number"
-        value={value}
+        value={value !== null ? value : ''}
       />
     );
   }

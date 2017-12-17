@@ -50,7 +50,7 @@ export default class HourInput extends PureComponent {
         }}
         required={required}
         type="number"
-        value={value}
+        value={value !== null ? value : ''}
       />
     );
   }
