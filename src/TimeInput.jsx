@@ -226,7 +226,7 @@ export default class TimeInput extends Component {
    */
   onChangeExternal = () => {
     if (this.props.onChange) {
-      const formElements = [this.hourInput, this.minuteInput, this.secondInput].filter(a => a);
+      const formElements = [this.hourInput, this.minuteInput, this.secondInput].filter(Boolean);
 
       const values = {};
       formElements.forEach((formElement) => {
@@ -303,7 +303,7 @@ export default class TimeInput extends Component {
             default: return null;
           }
         })
-        .filter(part => part)
+        .filter(Boolean)
         .reduce((result, element, index, array) => {
           result.push(element);
 
