@@ -11,7 +11,6 @@
   box-sizing: border-box;
 }
 .react-time-picker__button {
-  min-width: 140px;
   display: flex;
   border: thin solid gray;
 }
@@ -25,8 +24,8 @@
 .react-time-picker__button__input__divider {
   padding: 1px 0;
 }
-.react-time-picker__button__input__input {
-  min-width: calc(4px +  1.08em);
+.react-time-picker__button__input input {
+  min-width: calc(4px +  0.54em);
   height: 100%;
   position: relative;
   padding: 1px;
@@ -34,20 +33,18 @@
   background: none;
   -moz-appearance: textfield;
 }
-.react-time-picker__button__input__input::-webkit-outer-spin-button,
-.react-time-picker__button__input__input::-webkit-inner-spin-button {
+.react-time-picker__button__input input::-webkit-outer-spin-button,
+.react-time-picker__button__input input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.react-time-picker__button__input__input:invalid {
+.react-time-picker__button__input input:invalid {
   background: rgba(255, 0, 0, 0.1);
 }
-.react-time-picker__button__input__input--hasLeadingZero {
+input.react-time-picker__button__input__input--hasLeadingZero {
+  min-width: calc(4px +  1.08em);
   margin-left: -0.54em;
   padding-left: calc(1px +  0.54em);
-}
-.react-time-picker__button__input__hour {
-  min-width: 0;
 }
 .react-time-picker__button__icon {
   border: 0;

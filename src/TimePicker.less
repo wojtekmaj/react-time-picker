@@ -9,7 +9,6 @@
   }
 
   &__button {
-    min-width: 140px;
     display: flex;
     border: thin solid gray;
 
@@ -27,8 +26,8 @@
         padding: 1px 0;
       }
 
-      &__input {
-        min-width: calc(~"4px + " 2 * @digit-width);
+      input {
+        min-width: calc(~"4px + " @digit-width);
         height: 100%;
         position: relative;
         padding: 1px;
@@ -45,15 +44,12 @@
         &:invalid {
           background: fade(red, 10%);
         }
-
-        &--hasLeadingZero {
-          margin-left: -@digit-width;
-          padding-left: calc(~"1px + " @digit-width);
-        }
       }
 
-      &__hour {
-        min-width: 0;
+      input&__input--hasLeadingZero {
+        min-width: calc(~"4px + " 2 * @digit-width);
+        margin-left: -@digit-width;
+        padding-left: calc(~"1px + " @digit-width);
       }
     }
 
