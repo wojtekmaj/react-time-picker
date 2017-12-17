@@ -40,9 +40,9 @@
     "lodash.once": "^4.1.1",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
-    "react": ">=15.5",
+    "react": ">=16.2",
     "react-clock": "^2.1.0",
-    "react-dom": ">=15.5"
+    "react-dom": ">=16.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
