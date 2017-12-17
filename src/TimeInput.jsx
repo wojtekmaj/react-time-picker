@@ -177,7 +177,6 @@ export default class TimeInput extends Component {
   get nativeValueParser() {
     switch (this.valueType) {
       case 'hour':
-        return getHours;
       case 'minute':
         return getHoursMinutes;
       case 'second':
