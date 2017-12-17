@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import mergeClassNames from 'merge-class-names';
 
 import {
   getHours,
@@ -30,9 +31,14 @@ export default class HourInput extends PureComponent {
       itemRef, onChange, onKeyDown, required, value,
     } = this.props;
 
+    const className = 'react-time-picker__button__input';
+
     return (
       <input
-        className="react-time-picker__button__input__hour"
+        className={mergeClassNames(
+          `${className}__input`,
+          `${className}__hour`,
+        )}
         name="hour"
         max={maxHour}
         min={minHour}

@@ -39,6 +39,10 @@
 .react-time-picker__button__input input:invalid {
   background: rgba(255, 0, 0, 0.1);
 }
+.react-time-picker__button__input__input--hasLeadingZero {
+  margin-left: -0.54em;
+  padding-left: calc(1px +  0.54em);
+}
 .react-time-picker__button__icon {
   border: 0;
   background: transparent;

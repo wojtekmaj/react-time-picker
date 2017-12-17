@@ -14,6 +14,7 @@
     border: thin solid gray;
 
     &__input {
+      @digit-width: .54em;
       flex-grow: 1;
       display: flex;
       padding: 0 2px;
@@ -39,6 +40,12 @@
         &:invalid {
           background: fade(red, 10%);
         }
+
+        &--hasLeadingZero {
+          margin-left: -@digit-width;
+          padding-left: calc(~"1px + " @digit-width);
+        }
+      }
       }
     }
 

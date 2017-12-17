@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import mergeClassNames from 'merge-class-names';
 
 import {
   getHours,
@@ -30,29 +31,39 @@ export default class MinuteInput extends PureComponent {
     const {
       itemRef, onChange, onKeyDown, required, value,
     } = this.props;
+    const hasLeadingZero = value !== null && value < 10;
+
+    const className = 'react-time-picker__button__input';
 
     return (
-      <input
-        className="react-time-picker__button__input__minute"
-        name="minute"
-        max={maxMinute}
-        min={minMinute}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        placeholder="--"
-        ref={(ref) => {
-          if (!ref) return;
+      <Fragment>
+        {hasLeadingZero ? '0' : null}
+        <input
+          className={mergeClassNames(
+            `${className}__input`,
+            `${className}__minute`,
+            hasLeadingZero && `${className}__input--hasLeadingZero`,
+          )}
+          name="minute"
+          max={maxMinute}
+          min={minMinute}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          placeholder="--"
+          ref={(ref) => {
+            if (!ref) return;
 
-          updateInputWidth(ref);
+            updateInputWidth(ref);
 
-          if (itemRef) {
-            itemRef(ref);
-          }
-        }}
-        required={required}
-        type="number"
-        value={value !== null ? value : ''}
-      />
+            if (itemRef) {
+              itemRef(ref);
+            }
+          }}
+          required={required}
+          type="number"
+          value={value !== null ? value : ''}
+        />
+      </Fragment>
     );
   }
 }
