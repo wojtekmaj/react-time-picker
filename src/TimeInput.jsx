@@ -289,7 +289,7 @@ export default class TimeInput extends Component {
     const { value } = event.target;
 
     if (this.props.onChange) {
-      this.props.onChange(new Date(value));
+      this.props.onChange(value);
     }
   }
 
