@@ -10,7 +10,36 @@ An input component for picking time for your React application.
 * Import by adding `import TimePicker from 'react-time-picker'`.
 * Use by adding `<TimePicker />`. Use `onChange` prop for getting new values.
 
+## Demo
+
+Minimal demo page is included in sample directory.
+
+[Online demo](http://projekty.wojtekmaj.pl/react-time-picker/) is also available!
+
+## Looking for a date picker?
+
+React-Time-Picker will play nicely with [React-Date-Picker](https://github.com/wojtekmaj/react-date-picker). Check it out!
+
 ## Getting started
+
+### Compatibility
+
+[React-Calendar](https://github.com/wojtekmaj/react-calendar), on which React-Date-Picker relies heavily, uses modern web technologies. That's why it's so fast, lightweight and easy to style. This, however, comes at a cost of supporting only modern browsers.
+
+|Browser|Minimum supported version|
+|----|----|
+|Google Chrome|24|
+|Mozilla Firefox|29|
+|Microsoft Edge|12|
+|Apple Safari|10|
+|Apple Safari (iOS)|10.2|
+|Opera|15|
+|Internet Explorer|11|
+|Samsung Internet|4|
+
+#### Legacy browsers
+
+If you need to support legacy browsers like Internet Explorer 10, you will need to use [Intl.js](https://github.com/andyearnshaw/Intl.js/) or another Intl polyfill along with React-Date-Picker.
 
 ### Installation
 
@@ -47,6 +76,29 @@ class MyApp extends Component {
 ### Custom styling
 
 If you don't want to use default React-Time-Picker styling to build upon it, you can import React-Time-Picker by using `import TimePicker from 'react-time-picker/build/entry.nostyle';` instead.
+
+## User guide
+
+### TimePicker
+
+Displays an input field complete with custom inputs, native input and a clock.
+
+#### Props
+
+|Prop name|Description|Example values|
+|----|----|----|
+|clockClassName|Defines class name(s) that will be added along with "react-clock" to the main React-Clock `<time>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
+|clockIcon|Defines the content of the clock button.|<ul><li>String: `"Clock"`</li><li>React element: `<ClockIcon />`</li></ul>|
+|className|Defines class name(s) that will be added along with "react-time-picker" to the main React-Time-Picker `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
+|clearIcon|Defines the content of the clear button.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
+|isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
+|locale|Defines which locale should be used by the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
+|maxDetail|Defines how detailed time picking shall be. Can be "hour", "minute" or "second". Defaults to "minute".|`"second"`|
+|maxTime|Defines maximum time that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
+|minTime|Defines minimum date that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
+|onChange|Function called when the user picks a valid time.|`(value) => alert('New time is: ', value)`|
+|required|Defines whether date input should be required. Defaults to false.|`true`|
+|value|Defines the value of the input.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 
 ## License
 
