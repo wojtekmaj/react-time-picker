@@ -11,11 +11,11 @@
   box-sizing: border-box;
 }
 .react-time-picker__button {
-  min-width: 140px;
   display: flex;
   border: thin solid gray;
 }
 .react-time-picker__button__input {
+  min-width: calc(4px + (4px * 3) +  3.24em  +  0.434em);
   flex-grow: 1;
   display: flex;
   padding: 0 2px;
@@ -25,7 +25,7 @@
   padding: 1px 0;
 }
 .react-time-picker__button__input input {
-  min-width: 9px;
+  min-width: calc(4px +  0.54em);
   height: 100%;
   padding: 1px;
   border: 0;
