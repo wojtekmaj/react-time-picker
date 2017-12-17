@@ -15,6 +15,9 @@
 
     &__input {
       @digit-width: .54em;
+      @colon-width: .217em;
+      // own padding + inputs padding + digits width + dots width
+      min-width: calc(~"4px + (4px * 3) + " @digit-width * 6 ~" + " @colon-width * 2);
       flex-grow: 1;
       display: flex;
       padding: 0 2px;
@@ -24,11 +27,13 @@
         padding: 1px 0;
       }
 
-      input {
-        min-width: 9px;
+      &__input {
+        min-width: calc(~"4px + " 2 * @digit-width);
         height: 100%;
+        position: relative;
         padding: 1px;
         border: 0;
+        background: none;
         -moz-appearance: textfield;
 
         &::-webkit-outer-spin-button,
@@ -46,6 +51,9 @@
           padding-left: calc(~"1px + " @digit-width);
         }
       }
+
+      &__hour {
+        min-width: 0;
       }
     }
 
@@ -87,9 +95,6 @@
     &--above-label {
       bottom: 100%;
       top: auto;
-    }
-
-    .react-clock {
     }
   }
 }
