@@ -2,11 +2,11 @@
   "name": "react-time-picker",
   "version": "2.0.0",
   "description": "An input component for picking time for your React application.",
-  "main": "build/entry.js",
+  "main": "dist/entry.js",
   "es6": "src/entry.js",
   "scripts": {
     "build": "npm run build-js && npm run build-styles && npm run copy-styles",
-    "build-js": "babel src -d build --ignore **/__tests__",
+    "build-js": "babel src -d dist --ignore **/__tests__",
     "build-styles": "lessc ./src/TimePicker.less ./src/TimePicker.css",
     "copy-styles": "node ./copy-styles.js",
     "prepublishOnly": "npm run build",
@@ -36,7 +36,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "detect-element-overflow": "^1.1.0",
+    "detect-element-overflow": "^1.1.1",
     "lodash.once": "^4.1.1",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
@@ -69,7 +69,7 @@
     "LICENSE",
     "README.md",
     "index.d.ts",
-    "build/",
+    "dist/",
     "src/"
   ],
   "repository": {

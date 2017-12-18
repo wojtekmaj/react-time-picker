@@ -75,7 +75,7 @@ class MyApp extends Component {
 
 ### Custom styling
 
-If you don't want to use default React-Time-Picker styling to build upon it, you can import React-Time-Picker by using `import TimePicker from 'react-time-picker/build/entry.nostyle';` instead.
+If you don't want to use default React-Time-Picker styling to build upon it, you can import React-Time-Picker by using `import TimePicker from 'react-time-picker/dist/entry.nostyle';` instead.
 
 ## User guide
 
