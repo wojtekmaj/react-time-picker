@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 import detectElementOverflow from 'detect-element-overflow';
 
-import Clock from 'react-clock/build/entry.nostyle';
+import Clock from 'react-clock/dist/entry.nostyle';
 
 import TimeInput from './TimeInput';
 
