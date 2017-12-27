@@ -1,6 +1,6 @@
 {
   "name": "react-time-picker",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "An input component for picking time for your React application.",
   "main": "dist/entry.js",
   "es6": "src/entry.js",
