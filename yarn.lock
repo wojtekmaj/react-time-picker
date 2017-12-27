@@ -3639,9 +3639,9 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-clock@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/react-clock/-/react-clock-2.1.0.tgz#178fe90149a9170d54dbeeffaa4ab217ba0fbb1a"
+react-clock@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-clock/-/react-clock-2.2.0.tgz#3c2950e7505a0aefef0bee2f92971dd411ca7fda"
   dependencies:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
