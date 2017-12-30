@@ -1,4 +1,4 @@
-import React, { Fragment, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 
@@ -42,36 +42,35 @@ export default class SecondInput extends PureComponent {
 
     const className = 'react-time-picker__button__input';
 
-    return (
-      <Fragment>
-        {hasLeadingZero ? '0' : null}
-        <input
-          className={mergeClassNames(
-            `${className}__input`,
-            `${className}__second`,
-            hasLeadingZero && `${className}__input--hasLeadingZero`,
-          )}
-          name="second"
-          max={maxSecond}
-          min={minSecond}
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          placeholder="--"
-          ref={(ref) => {
-            if (!ref) return;
+    return [
+      (hasLeadingZero ? '0' : null),
+      <input
+        key="second"
+        className={mergeClassNames(
+          `${className}__input`,
+          `${className}__second`,
+          hasLeadingZero && `${className}__input--hasLeadingZero`,
+        )}
+        name="second"
+        max={maxSecond}
+        min={minSecond}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        placeholder="--"
+        ref={(ref) => {
+          if (!ref) return;
 
-            updateInputWidth(ref);
+          updateInputWidth(ref);
 
-            if (itemRef) {
-              itemRef(ref);
-            }
-          }}
-          required={required}
-          type="number"
-          value={value !== null ? value : ''}
-        />
-      </Fragment>
-    );
+          if (itemRef) {
+            itemRef(ref);
+          }
+        }}
+        required={required}
+        type="number"
+        value={value !== null ? value : ''}
+      />,
+    ];
   }
 }
 
