@@ -29,8 +29,10 @@
       input {
         min-width: calc(~"4px + " @digit-width);
         height: 100%;
+        position: relative;
         padding: 1px;
         border: 0;
+        background: none;
         -moz-appearance: textfield;
 
         &::-webkit-outer-spin-button,
@@ -42,6 +44,12 @@
         &:invalid {
           background: fade(red, 10%);
         }
+      }
+
+      input&__input--hasLeadingZero {
+        min-width: calc(~"4px + " 2 * @digit-width);
+        margin-left: -@digit-width;
+        padding-left: calc(~"1px + " @digit-width);
       }
     }
 
@@ -83,9 +91,6 @@
     &--above-label {
       bottom: 100%;
       top: auto;
-    }
-
-    .react-clock {
     }
   }
 }

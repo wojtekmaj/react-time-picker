@@ -27,8 +27,10 @@
 .react-time-picker__button__input input {
   min-width: calc(4px +  0.54em);
   height: 100%;
+  position: relative;
   padding: 1px;
   border: 0;
+  background: none;
   -moz-appearance: textfield;
 }
 .react-time-picker__button__input input::-webkit-outer-spin-button,
@@ -38,6 +40,11 @@
 }
 .react-time-picker__button__input input:invalid {
   background: rgba(255, 0, 0, 0.1);
+}
+input.react-time-picker__button__input__input--hasLeadingZero {
+  min-width: calc(4px +  1.08em);
+  margin-left: -0.54em;
+  padding-left: calc(1px +  0.54em);
 }
 .react-time-picker__button__icon {
   border: 0;

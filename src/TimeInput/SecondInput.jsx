@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import mergeClassNames from 'merge-class-names';
 
 import {
   getHours,
@@ -37,10 +38,19 @@ export default class SecondInput extends PureComponent {
     const {
       itemRef, onChange, onKeyDown, required, value,
     } = this.props;
+    const hasLeadingZero = value !== null && value < 10;
 
-    return (
+    const className = 'react-time-picker__button__input';
+
+    return [
+      (hasLeadingZero ? '0' : null),
       <input
-        className="react-time-picker__button__input__second"
+        key="second"
+        className={mergeClassNames(
+          `${className}__input`,
+          `${className}__second`,
+          hasLeadingZero && `${className}__input--hasLeadingZero`,
+        )}
         name="second"
         max={maxSecond}
         min={minSecond}
@@ -59,8 +69,8 @@ export default class SecondInput extends PureComponent {
         required={required}
         type="number"
         value={value !== null ? value : ''}
-      />
-    );
+      />,
+    ];
   }
 }
 
