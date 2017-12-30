@@ -51,10 +51,12 @@ const selectIfPossible = (element) => {
 
 const removeUnwantedCharacters = str => str
   .split('')
-  // We don't want spaces in time
-  .filter(a => a.charCodeAt(0) !== 32)
-  // Internet Explorer specific
-  .filter(a => a.charCodeAt(0) !== 8206)
+  .filter(a => (
+    // We don't want spaces in dates
+    a.charCodeAt(0) !== 32 &&
+    // Internet Explorer specific
+    a.charCodeAt(0) !== 8206
+  ))
   .join('');
 
 export default class TimeInput extends Component {
@@ -226,7 +228,7 @@ export default class TimeInput extends Component {
    */
   onChangeExternal = () => {
     if (this.props.onChange) {
-      const formElements = [this.hourInput, this.minuteInput, this.secondInput].filter(a => a);
+      const formElements = [this.hourInput, this.minuteInput, this.secondInput].filter(Boolean);
 
       const values = {};
       formElements.forEach((formElement) => {
@@ -303,7 +305,7 @@ export default class TimeInput extends Component {
             default: return null;
           }
         })
-        .filter(part => part)
+        .filter(Boolean)
         .reduce((result, element, index, array) => {
           result.push(element);
 

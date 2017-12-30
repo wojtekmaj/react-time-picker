@@ -1,4 +1,4 @@
-import 'react-clock/build/Clock.css';
+import 'react-clock/dist/Clock.css';
 
 import TimePicker from './TimePicker';
 import './TimePicker.css';

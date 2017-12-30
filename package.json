@@ -1,12 +1,12 @@
 {
   "name": "react-time-picker",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "description": "An input component for picking time for your React application.",
-  "main": "build/entry.js",
+  "main": "dist/entry.js",
   "es6": "src/entry.js",
   "scripts": {
     "build": "npm run build-js && npm run build-styles && npm run copy-styles",
-    "build-js": "babel src -d build --ignore **/__tests__",
+    "build-js": "babel src -d dist --ignore **/__tests__",
     "build-styles": "lessc ./src/TimePicker.less ./src/TimePicker.css",
     "copy-styles": "node ./copy-styles.js",
     "prepublishOnly": "npm run build",
@@ -17,7 +17,6 @@
   },
   "jest": {
     "setupFiles": [
-      "<rootDir>/jest.shim.js",
       "<rootDir>/jest.setup.js"
     ],
     "collectCoverageFrom": [
@@ -36,13 +35,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "detect-element-overflow": "^1.1.0",
+    "detect-element-overflow": "^1.1.1",
     "lodash.once": "^4.1.1",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
-    "react": ">=16.2",
-    "react-clock": "^2.1.0",
-    "react-dom": ">=16.2"
+    "react": ">=15.5",
+    "react-clock": "^2.2.0",
+    "react-dom": ">=15.5"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -61,7 +60,8 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
-    "jest": "^21.2.1",
+    "jest": "^22.0.4",
+    "jest-cli": "^22.0.4",
     "less": "^2.7.3",
     "react-test-renderer": "^16.2.0"
   },
@@ -69,7 +69,7 @@
     "LICENSE",
     "README.md",
     "index.d.ts",
-    "build/",
+    "dist/",
     "src/"
   ],
   "repository": {

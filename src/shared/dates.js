@@ -2,7 +2,7 @@ import {
   getHours,
   getMinutes,
   getSeconds,
-} from 'react-clock/build/shared/dates';
+} from 'react-clock/dist/shared/dates';
 
 export {
   getHours,

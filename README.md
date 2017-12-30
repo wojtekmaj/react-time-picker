@@ -16,9 +16,9 @@ Minimal demo page is included in sample directory.
 
 [Online demo](http://projekty.wojtekmaj.pl/react-time-picker/) is also available!
 
-## Looking for a date picker?
+## Looking for a date picker or a datetime picker?
 
-React-Time-Picker will play nicely with [React-Date-Picker](https://github.com/wojtekmaj/react-date-picker). Check it out!
+React-Time-Picker will play nicely with [React-Date-Picker](https://github.com/wojtekmaj/react-date-picker) and [React-DateTime-Picker](https://github.com/wojtekmaj/react-datetime-picker). Check them out!
 
 ## Getting started
 
@@ -75,7 +75,7 @@ class MyApp extends Component {
 
 ### Custom styling
 
-If you don't want to use default React-Time-Picker styling to build upon it, you can import React-Time-Picker by using `import TimePicker from 'react-time-picker/build/entry.nostyle';` instead.
+If you don't want to use default React-Time-Picker styling to build upon it, you can import React-Time-Picker by using `import TimePicker from 'react-time-picker/dist/entry.nostyle';` instead.
 
 ## User guide
 
