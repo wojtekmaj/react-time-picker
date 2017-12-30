@@ -18,7 +18,7 @@ Minimal demo page is included in sample directory.
 
 ## Looking for a date picker?
 
-React-Time-Picker will play nicely with [React-Date-Picker](https://github.com/wojtekmaj/react-date-picker). Check it out!
+React-Time-Picker will play nicely with [React-Date-Picker](https://github.com/wojtekmaj/react-date-picker) and [React-DateTime-Picker](https://github.com/wojtekmaj/react-datetime-picker). Check them out!
 
 ## Getting started
 
