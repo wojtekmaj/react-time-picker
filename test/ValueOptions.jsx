@@ -14,8 +14,8 @@ export default class ValueOptions extends Component {
     const { value } = this.props;
 
     return (
-      <fieldset id="detailoptions">
-        <legend htmlFor="viewoptions">Set time externally</legend>
+      <fieldset id="valueOptions">
+        <legend htmlFor="valueOptions">Set time externally</legend>
 
         <div>
           <label htmlFor="time">Time</label>
