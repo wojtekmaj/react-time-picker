@@ -325,6 +325,7 @@ export default class TimeInput extends Component {
         key="time"
         maxTime={this.props.maxTime}
         minTime={this.props.minTime}
+        name={this.props.name}
         onChange={this.onChangeNative}
         required={this.props.required}
         value={this.props.value}
@@ -345,6 +346,7 @@ export default class TimeInput extends Component {
 
 TimeInput.defaultProps = {
   maxDetail: 'minute',
+  name: 'time',
 };
 
 TimeInput.propTypes = {
@@ -353,6 +355,7 @@ TimeInput.propTypes = {
   maxDetail: PropTypes.oneOf(allViews),
   maxTime: isTime,
   minTime: isTime,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.oneOfType([

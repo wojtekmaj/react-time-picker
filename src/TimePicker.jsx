@@ -77,6 +77,7 @@ export default class TimePicker extends Component {
       maxDetail,
       maxTime,
       minTime,
+      name,
       required,
       value,
     } = this.props;
@@ -90,6 +91,7 @@ export default class TimePicker extends Component {
           maxDetail={maxDetail}
           maxTime={maxTime}
           minTime={minTime}
+          name={name}
           onChange={this.onChange}
           placeholder={this.placeholder}
           required={required}
@@ -226,6 +228,7 @@ TimePicker.propTypes = {
   maxDetail: PropTypes.oneOf(allViews),
   maxTime: isTime,
   minTime: isTime,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.oneOfType([
