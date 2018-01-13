@@ -26,7 +26,7 @@
         padding: 1px 0;
       }
 
-      input {
+      &__input {
         min-width: calc(~"4px + " @digit-width);
         height: 100%;
         position: relative;
@@ -44,12 +44,12 @@
         &:invalid {
           background: fade(red, 10%);
         }
-      }
 
-      input&__input--hasLeadingZero {
-        min-width: calc(~"4px + " 2 * @digit-width);
-        margin-left: -@digit-width;
-        padding-left: calc(~"1px + " @digit-width);
+        &--hasLeadingZero {
+          min-width: calc(~"4px + " 2 * @digit-width);
+          margin-left: -@digit-width;
+          padding-left: calc(~"1px + " @digit-width);
+        }
       }
     }
 

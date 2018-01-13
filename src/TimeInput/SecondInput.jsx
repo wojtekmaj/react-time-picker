@@ -38,8 +38,8 @@ export default class SecondInput extends PureComponent {
     const {
       itemRef, onChange, onKeyDown, required, value,
     } = this.props;
-    const hasLeadingZero = value !== null && value < 10;
 
+    const hasLeadingZero = value !== null && value < 10;
     const className = 'react-time-picker__button__input';
 
     return [
