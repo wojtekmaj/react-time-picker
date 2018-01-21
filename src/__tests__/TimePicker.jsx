@@ -5,6 +5,22 @@ import TimePicker from '../TimePicker';
 
 /* eslint-disable comma-dangle */
 
+const mockDocumentListeners = () => {
+  const eventMap = {};
+  document.addEventListener = jest.fn((method, cb) => {
+    if (!eventMap[method]) {
+      eventMap[method] = [];
+    }
+    eventMap[method].push(cb);
+  });
+
+  return {
+    simulate: (method, args) => {
+      eventMap[method].forEach(cb => cb(args));
+    },
+  };
+};
+
 describe('TimePicker', () => {
   it('applies className to its wrapper when given a string', () => {
     const className = 'testClassName';
@@ -127,5 +143,35 @@ describe('TimePicker', () => {
     const clock2 = component.find('Clock');
 
     expect(clock2).toHaveLength(1);
+  });
+
+  it('closes Calendar component when clicked outside', () => {
+    const { simulate } = mockDocumentListeners();
+
+    const component = mount(
+      <TimePicker isOpen />
+    );
+
+    simulate('mousedown', {
+      target: document,
+    });
+    component.update();
+
+    expect(component.state('isOpen')).toBe(false);
+  });
+
+  it('does not close Calendar component when clicked inside', () => {
+    const { simulate } = mockDocumentListeners();
+
+    const component = mount(
+      <TimePicker isOpen />
+    );
+
+    simulate('mousedown', {
+      target: component.getDOMNode(),
+    });
+    component.update();
+
+    expect(component.state('isOpen')).toBe(true);
   });
 });
