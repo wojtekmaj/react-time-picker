@@ -8,7 +8,7 @@ export const isTime = (props, propName, componentName) => {
 
   if (time) {
     if (!hourOptionalSecondsRegExp.test(time)) {
-      return new Error(`Warning: Failed prop type: Invalid prop \`${propName}\` of type \`${typeof minDate}\` supplied to \`${componentName}\`, expected time in HH:mm(:ss) format.`);
+      return new Error(`Invalid prop \`${propName}\` of type \`${typeof minDate}\` supplied to \`${componentName}\`, expected time in HH:mm(:ss) format.`);
     }
   }
 
