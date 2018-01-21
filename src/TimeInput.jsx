@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Divider from './Divider';
 import HourInput from './TimeInput/HourInput';
 import MinuteInput from './TimeInput/MinuteInput';
 import SecondInput from './TimeInput/SecondInput';
@@ -125,14 +126,6 @@ export default class TimeInput extends Component {
     return (
       removeUnwantedCharacters(formatTime(date))
         .match(/[^0-9]/)[0]
-    );
-  }
-
-  get dividerElement() {
-    return (
-      <span className="react-time-picker__button__input__divider">
-        {this.divider}
-      </span>
     );
   }
 
@@ -292,7 +285,7 @@ export default class TimeInput extends Component {
   }
 
   renderCustomInputs() {
-    const { divider, dividerElement, placeholder } = this;
+    const { divider, placeholder } = this;
 
     return (
       placeholder
@@ -312,8 +305,12 @@ export default class TimeInput extends Component {
           result.push(element);
 
           if (index + 1 < array.length) {
-            // eslint-disable-next-line react/no-array-index-key
-            result.push(React.cloneElement(dividerElement, { key: `separator_${index}` }));
+            result.push(
+              // eslint-disable-next-line react/no-array-index-key
+              <Divider key={`separator_${index}`}>
+                {divider}
+              </Divider>,
+            );
           }
 
           return result;
