@@ -92,7 +92,7 @@ Displays an input field complete with custom inputs, native input and a clock.
 |className|Defines class name(s) that will be added along with "react-time-picker" to the main React-Time-Picker `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
 |clearIcon|Defines the content of the clear button.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
-|locale|Defines which locale should be used by the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
+|locale|Defines which locale should be used by the time picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
 |maxDetail|Defines how detailed time picking shall be. Can be "hour", "minute" or "second". Defaults to "minute".|`"second"`|
 |maxTime|Defines maximum time that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 |minTime|Defines minimum date that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
@@ -100,6 +100,10 @@ Displays an input field complete with custom inputs, native input and a clock.
 |onChange|Function called when the user picks a valid time.|`(value) => alert('New time is: ', value)`|
 |required|Defines whether date input should be required. Defaults to false.|`true`|
 |value|Defines the value of the input.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
+
+### Clock
+
+TimePicker component passes all props to React-Clock, with the exception of `className` (you can use `clockClassName` for that instead). There are tons of customizations you can do! For more information, see [Clock component props](https://github.com/wojtekmaj/react-clock#props).
 
 ## License
 
