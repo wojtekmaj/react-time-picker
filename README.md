@@ -3,7 +3,11 @@
 ) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
 # React-Time-Picker
-An input component for picking time for your React application.
+
+A time picker for your React app.
+
+* Supports virtually any language
+* No moment.js needed
 
 ## tl;dr
 * Install by executing `npm install react-time-picker` or `yarn add react-time-picker`.
