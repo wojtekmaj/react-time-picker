@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 import detectElementOverflow from 'detect-element-overflow';
@@ -11,7 +11,7 @@ import { isTime } from './shared/propTypes';
 
 const allViews = ['hour', 'minute', 'second'];
 
-export default class TimePicker extends Component {
+export default class TimePicker extends PureComponent {
   state = {
     isOpen: this.props.isOpen,
   }
