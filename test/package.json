@@ -1,6 +1,6 @@
 {
   "name": "react-time-picker-test-page",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "description": "A test page for React-Time-Picker.",
   "private": true,
   "scripts": {
