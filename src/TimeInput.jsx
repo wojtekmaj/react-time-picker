@@ -18,6 +18,7 @@ import {
 import { isTime } from './shared/propTypes';
 
 const allViews = ['hour', 'minute', 'second'];
+const className = 'react-time-picker__button__input';
 
 const hoursAreDifferent = (date1, date2) => (
   (date1 && !date2) ||
@@ -237,6 +238,7 @@ export default class TimeInput extends Component {
     return (
       <HourInput
         key="hour"
+        className={className}
         value={this.state.hour}
         {...this.commonInputProps}
       />
@@ -254,6 +256,7 @@ export default class TimeInput extends Component {
     return (
       <MinuteInput
         key="minute"
+        className={className}
         maxDetail={this.props.maxDetail}
         value={this.state.minute}
         {...this.commonInputProps}
@@ -272,6 +275,7 @@ export default class TimeInput extends Component {
     return (
       <SecondInput
         key="second"
+        className={className}
         maxDetail={this.props.maxDetail}
         value={this.state.second}
         {...this.commonInputProps}
@@ -330,7 +334,7 @@ export default class TimeInput extends Component {
 
   render() {
     return (
-      <div className="react-time-picker__button__input">
+      <div className={className}>
         {this.renderNativeInput()}
         {this.renderCustomInputs()}
       </div>

@@ -28,10 +28,8 @@ export default class HourInput extends PureComponent {
   render() {
     const { maxHour, minHour } = this;
     const {
-      itemRef, onChange, onKeyDown, required, value,
+      className, itemRef, onChange, onKeyDown, required, value,
     } = this.props;
-
-    const className = 'react-time-picker__button__input';
 
     return (
       <input
@@ -63,6 +61,7 @@ export default class HourInput extends PureComponent {
 }
 
 HourInput.propTypes = {
+  className: PropTypes.string.isRequired,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,

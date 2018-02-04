@@ -36,11 +36,10 @@ export default class SecondInput extends PureComponent {
   render() {
     const { maxSecond, minSecond } = this;
     const {
-      itemRef, onChange, onKeyDown, required, value,
+      className, itemRef, onChange, onKeyDown, required, value,
     } = this.props;
 
     const hasLeadingZero = value !== null && value < 10;
-    const className = 'react-time-picker__button__input';
 
     return [
       (hasLeadingZero ? '0' : null),
@@ -75,6 +74,7 @@ export default class SecondInput extends PureComponent {
 }
 
 SecondInput.propTypes = {
+  className: PropTypes.string.isRequired,
   hour: PropTypes.number,
   itemRef: PropTypes.func,
   maxTime: isTime,
