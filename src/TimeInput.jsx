@@ -15,7 +15,6 @@ import {
   getHoursMinutes,
   getHoursMinutesSeconds,
 } from './shared/dates';
-import { setLocale } from './shared/locales';
 import { isTime } from './shared/propTypes';
 
 const allViews = ['hour', 'minute', 'second'];
@@ -68,22 +67,16 @@ export default class TimeInput extends Component {
   }
 
   componentWillMount() {
-    setLocale(this.props.locale);
     this.updateValues();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { props } = this;
     const { value: nextValue } = nextProps;
     const { value } = this.props;
 
-    if (nextProps.locale !== props.locale) {
-      setLocale(nextProps.locale);
-    }
-
     if (
       // Toggling clock visibility resets values
-      (nextProps.isClockOpen !== props.isClockOpen) ||
+      (nextProps.isClockOpen !== this.props.isClockOpen) ||
       hoursAreDifferent(nextValue, value)
     ) {
       this.updateValues(nextProps);
@@ -121,20 +114,22 @@ export default class TimeInput extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   get divider() {
+    const { locale } = this.props;
     const date = new Date(2017, 0, 1, 21, 12, 13);
 
     return (
-      removeUnwantedCharacters(formatTime(date))
+      removeUnwantedCharacters(formatTime(date, locale))
         .match(/[^0-9]/)[0]
     );
   }
 
   // eslint-disable-next-line class-methods-use-this
   get placeholder() {
+    const { locale } = this.props;
     const date = new Date(2017, 0, 1, 21, 13, 14);
 
     return (
-      removeUnwantedCharacters(formatTime(date))
+      removeUnwantedCharacters(formatTime(date, locale))
         .replace('21', 'hour-24')
         .replace('9', 'hour-12')
         .replace('13', 'minute')
