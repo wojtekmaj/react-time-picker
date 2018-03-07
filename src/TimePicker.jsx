@@ -70,49 +70,41 @@ export default class TimePicker extends PureComponent {
   clear = () => this.onChange(null);
 
   renderInputs() {
-    const {
-      clearIcon,
-      clockIcon,
-      locale,
-      maxDetail,
-      maxTime,
-      minTime,
-      name,
-      required,
-      value,
-    } = this.props;
-    const { isOpen } = this.state;
+    const { disabled } = this.props;
 
     return (
       <div className="react-time-picker__button">
         <TimeInput
-          locale={locale}
-          isClockOpen={isOpen}
-          maxDetail={maxDetail}
-          maxTime={maxTime}
-          minTime={minTime}
-          name={name}
+          disabled={disabled}
+          locale={this.props.locale}
+          isClockOpen={this.state.isOpen}
+          maxDetail={this.props.maxDetail}
+          maxTime={this.props.maxTime}
+          minTime={this.props.minTime}
+          name={this.props.name}
           onChange={this.onChange}
           placeholder={this.placeholder}
-          required={required}
-          value={value}
+          required={this.props.required}
+          value={this.props.value}
         />
         <button
           className="react-time-picker__clear-button react-time-picker__button__icon"
+          disabled={disabled}
           onClick={this.clear}
           onFocus={this.stopPropagation}
           type="button"
         >
-          {clearIcon}
+          {this.props.clearIcon}
         </button>
         <button
           className="react-time-picker__clock-button react-time-picker__button__icon"
+          disabled={disabled}
           onClick={this.toggleClock}
           onFocus={this.stopPropagation}
           onBlur={this.resetValue}
           type="button"
         >
-          {clockIcon}
+          {this.props.clockIcon}
         </button>
       </div>
     );
@@ -175,6 +167,7 @@ export default class TimePicker extends PureComponent {
         className={mergeClassNames(
           className,
           `${className}--${this.state.isOpen ? 'open' : 'closed'}`,
+          `${className}--${this.props.disabled ? 'disabled' : 'enabled'}`,
           this.props.className,
         )}
         onFocus={this.onFocus}
@@ -223,6 +216,7 @@ TimePicker.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
   ]),
   clearIcon: PropTypes.node,
+  disabled: PropTypes.bool,
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),

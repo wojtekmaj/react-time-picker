@@ -36,7 +36,7 @@ export default class SecondInput extends PureComponent {
   render() {
     const { maxSecond, minSecond } = this;
     const {
-      className, itemRef, onChange, onKeyDown, required, value,
+      className, disabled, itemRef, onChange, onKeyDown, required, value,
     } = this.props;
 
     const hasLeadingZero = value !== null && value < 10;
@@ -50,6 +50,7 @@ export default class SecondInput extends PureComponent {
           `${className}__second`,
           hasLeadingZero && `${className}__input--hasLeadingZero`,
         )}
+        disabled={disabled}
         name="second"
         max={maxSecond}
         min={minSecond}
@@ -75,6 +76,7 @@ export default class SecondInput extends PureComponent {
 
 SecondInput.propTypes = {
   className: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   hour: PropTypes.number,
   itemRef: PropTypes.func,
   maxTime: isTime,

@@ -26,12 +26,13 @@ export default class NativeInput extends PureComponent {
     const { nativeValueParser } = this;
 
     const {
-      maxTime, minTime, name, onChange, required, value, valueType,
+      disabled, maxTime, minTime, name, onChange, required, value, valueType,
     } = this.props;
 
     return (
       <input
         type="time"
+        disabled={disabled}
         max={maxTime ? nativeValueParser(maxTime) : null}
         min={minTime ? nativeValueParser(minTime) : null}
         name={name}
@@ -52,6 +53,7 @@ export default class NativeInput extends PureComponent {
 }
 
 NativeInput.propTypes = {
+  disabled: PropTypes.bool,
   maxTime: isTime,
   minTime: isTime,
   name: PropTypes.string,

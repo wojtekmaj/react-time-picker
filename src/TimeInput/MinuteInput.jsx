@@ -29,7 +29,7 @@ export default class MinuteInput extends PureComponent {
   render() {
     const { maxMinute, minMinute } = this;
     const {
-      className, itemRef, onChange, onKeyDown, required, value,
+      className, disabled, itemRef, onChange, onKeyDown, required, value,
     } = this.props;
 
     const hasLeadingZero = value !== null && value < 10;
@@ -43,6 +43,7 @@ export default class MinuteInput extends PureComponent {
           `${className}__minute`,
           hasLeadingZero && `${className}__input--hasLeadingZero`,
         )}
+        disabled={disabled}
         name="minute"
         max={maxMinute}
         min={minMinute}
@@ -68,6 +69,7 @@ export default class MinuteInput extends PureComponent {
 
 MinuteInput.propTypes = {
   className: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   hour: PropTypes.number,
   itemRef: PropTypes.func,
   maxTime: isTime,

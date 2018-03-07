@@ -2,9 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 
-import {
-  getHours,
-} from '../shared/dates';
+import { getHours } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
 import { min, max, updateInputWidth } from '../shared/utils';
 
@@ -28,7 +26,7 @@ export default class HourInput extends PureComponent {
   render() {
     const { maxHour, minHour } = this;
     const {
-      className, itemRef, onChange, onKeyDown, required, value,
+      className, disabled, itemRef, onChange, onKeyDown, required, value,
     } = this.props;
 
     return (
@@ -37,6 +35,7 @@ export default class HourInput extends PureComponent {
           `${className}__input`,
           `${className}__hour`,
         )}
+        disabled={disabled}
         name="hour"
         max={maxHour}
         min={minHour}
@@ -62,6 +61,7 @@ export default class HourInput extends PureComponent {
 
 HourInput.propTypes = {
   className: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,

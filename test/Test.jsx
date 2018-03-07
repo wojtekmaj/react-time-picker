@@ -75,6 +75,7 @@ export default class Test extends Component {
               <TimePicker
                 className="myCustomTimePickerClassName"
                 clockClassName="myCustomClockClassName"
+                disabled={false}
                 locale={locale}
                 maxDetail={maxDetail}
                 maxTime={maxTime}

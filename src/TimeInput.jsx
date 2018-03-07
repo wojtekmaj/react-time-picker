@@ -141,6 +141,7 @@ export default class TimeInput extends Component {
 
   get commonInputProps() {
     return {
+      disabled: this.props.disabled,
       maxTime: this.props.maxTime,
       minTime: this.props.minTime,
       onChange: this.onChange,
@@ -321,6 +322,7 @@ export default class TimeInput extends Component {
     return (
       <NativeInput
         key="time"
+        disabled={this.props.disabled}
         maxTime={this.props.maxTime}
         minTime={this.props.minTime}
         name={this.props.name}
@@ -348,6 +350,7 @@ TimeInput.defaultProps = {
 };
 
 TimeInput.propTypes = {
+  disabled: PropTypes.bool,
   isClockOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),
