@@ -91,6 +91,7 @@ Displays an input field complete with custom inputs, native input and a clock.
 |clockIcon|Defines the content of the clock button.|<ul><li>String: `"Clock"`</li><li>React element: `<ClockIcon />`</li></ul>|
 |className|Defines class name(s) that will be added along with "react-time-picker" to the main React-Time-Picker `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
 |clearIcon|Defines the content of the clear button.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
+|disabled|Defines whether the time picker should be disabled. Defaults to false.|`true`|
 |isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
 |locale|Defines which locale should be used by the time picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
 |maxDetail|Defines how detailed time picking shall be. Can be "hour", "minute" or "second". Defaults to "minute".|`"second"`|
