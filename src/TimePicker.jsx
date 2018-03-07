@@ -206,6 +206,7 @@ TimePicker.defaultProps = {
 };
 
 TimePicker.propTypes = {
+  ...Clock.propTypes,
   clockClassName: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
