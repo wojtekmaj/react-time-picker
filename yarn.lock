@@ -3683,16 +3683,14 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-clock@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/react-clock/-/react-clock-2.2.0.tgz#3c2950e7505a0aefef0bee2f92971dd411ca7fda"
+react-clock@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-clock/-/react-clock-2.2.1.tgz#7dbc6289d39be0806c3f2cbd3adb5e3d66527b60"
   dependencies:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
-    react ">=15.5"
-    react-dom ">=15.5"
 
-react-dom@>=15.5, react-dom@^16.2.0:
+react-dom@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
   dependencies:
@@ -3718,7 +3716,7 @@ react-test-renderer@^16.0.0-0, react-test-renderer@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react@>=15.5, react@^16.2.0:
+react@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
