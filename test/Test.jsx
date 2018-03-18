@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import TimePicker from 'react-time-picker/src/entry';
+import TimePicker from 'react-time-picker/src/entry.nostyle';
+import 'react-time-picker/src/TimePicker.less';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'react-clock/dist/Clock.css';
 
 import ValidityOptions from './ValidityOptions';
 import MaxDetailOptions from './MaxDetailOptions';
