@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Divider from './Divider';
-import HourInput from './TimeInput/HourInput';
+import Hour12Input from './TimeInput/Hour12Input';
+import Hour24Input from './TimeInput/Hour24Input';
 import MinuteInput from './TimeInput/MinuteInput';
 import SecondInput from './TimeInput/SecondInput';
 import NativeInput from './TimeInput/NativeInput';
+import AmPm from './TimeInput/AmPm';
 
 import { formatTime } from './shared/dateFormatter';
 import {
@@ -141,6 +143,7 @@ export default class TimeInput extends Component {
 
   get commonInputProps() {
     return {
+      className,
       disabled: this.props.disabled,
       maxTime: this.props.maxTime,
       minTime: this.props.minTime,
@@ -149,11 +152,9 @@ export default class TimeInput extends Component {
       placeholder: '--',
       // This is only for showing validity when editing
       required: this.props.required || this.props.isClockOpen,
-      itemRef: (ref) => {
-        if (!ref) return;
-
+      itemRef: (ref, name) => {
         // Save a reference to each input field
-        this[`${ref.name}Input`] = ref;
+        this[`${name}Input`] = ref;
       },
     };
   }
@@ -214,13 +215,26 @@ export default class TimeInput extends Component {
     }
   }
 
+  onChangeAmPm = (event) => {
+    const { value } = event.target;
+
+    this.setState(
+      prevState => ({
+        hour: (value === 'am' ? -12 : 12) + prevState.hour,
+      }),
+      this.onChangeExternal,
+    );
+  }
+
   /**
    * Called after internal onChange. Checks input validity. If all fields are valid,
    * calls props.onChange.
    */
   onChangeExternal = () => {
     if (this.props.onChange) {
-      const formElements = [this.hourInput, this.minuteInput, this.secondInput].filter(Boolean);
+      const formElements = [
+        this.hour12Input, this.hour24Input, this.minuteInput, this.secondInput, this.amPmInput,
+      ].filter(Boolean);
 
       const values = {};
       formElements.forEach((formElement) => {
@@ -228,18 +242,40 @@ export default class TimeInput extends Component {
       });
 
       if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
-        const timeString = `${`0${values.hour}`.slice(-2)}:${`0${values.minute || 0}`.slice(-2)}:${`0${values.second || 0}`.slice(-2)}`;
+        const getHour12 = () => {
+          const { hour12 } = values;
+          if (hour12 === 12) {
+            return 0;
+          }
+          if (values.amPm === 'pm') {
+            return parseInt(hour12, 10) + 12;
+          }
+          return hour12;
+        };
+        const hour = `0${values.hour24 || getHour12()}`.slice(-2);
+        const minute = `0${values.minute || 0}`.slice(-2);
+        const second = `0${values.second || 0}`.slice(-2);
+        const timeString = `${hour}:${minute}:${second}`;
         const processedValue = this.getProcessedValue(timeString);
         this.props.onChange(processedValue, false);
       }
     }
   }
 
-  renderHour() {
+  renderHour12() {
     return (
-      <HourInput
-        key="hour"
-        className={className}
+      <Hour12Input
+        key="hour12"
+        value={this.state.hour % 12}
+        {...this.commonInputProps}
+      />
+    );
+  }
+
+  renderHour24() {
+    return (
+      <Hour24Input
+        key="hour24"
         value={this.state.hour}
         {...this.commonInputProps}
       />
@@ -257,7 +293,6 @@ export default class TimeInput extends Component {
     return (
       <MinuteInput
         key="minute"
-        className={className}
         maxDetail={this.props.maxDetail}
         value={this.state.minute}
         {...this.commonInputProps}
@@ -276,10 +311,33 @@ export default class TimeInput extends Component {
     return (
       <SecondInput
         key="second"
-        className={className}
         maxDetail={this.props.maxDetail}
         value={this.state.second}
         {...this.commonInputProps}
+      />
+    );
+  }
+
+  renderAmPm() {
+    const { hour } = this.state;
+    const morning = hour / 12 < 1;
+    const reverse = hour % 12 === 0;
+
+    const values = ['am', 'pm'];
+    const value = (reverse ? values.reverse() : values)[morning ? 0 : 1];
+
+    return (
+      <AmPm
+        key="ampm"
+        className={className}
+        disabled={this.props.disabled}
+        onChange={this.onChangeAmPm}
+        itemRef={(ref) => {
+          if (!ref) return;
+
+          this.amPmInput = ref;
+        }}
+        value={value}
       />
     );
   }
@@ -292,19 +350,17 @@ export default class TimeInput extends Component {
         .split(divider)
         .map((part) => {
           switch (part) {
-            case 'hour-24': return this.renderHour();
-            case 'hour-12': return this.renderHour();
+            case 'hour-12': return this.renderHour12();
+            case 'hour-24': return this.renderHour24();
             case 'minute': return this.renderMinute();
             case 'second': return this.renderSecond();
-            case 'ampm': return null; // TODO
+            case 'ampm': return this.renderAmPm();
             default: return null;
           }
         })
         .filter(Boolean)
-        .reduce((result, element, index, array) => {
-          result.push(element);
-
-          if (index + 1 < array.length) {
+        .reduce((result, element, index) => {
+          if (index && element.key !== 'ampm') {
             result.push(
               // eslint-disable-next-line react/no-array-index-key
               <Divider key={`separator_${index}`}>
@@ -312,6 +368,8 @@ export default class TimeInput extends Component {
               </Divider>,
             );
           }
+
+          result.push(element);
 
           return result;
         }, [])

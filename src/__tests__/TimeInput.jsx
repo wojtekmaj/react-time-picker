@@ -42,7 +42,7 @@ describe('TimeInput', () => {
     const customInputs = component.find('input[type="number"]');
     const secondInput = customInputs.find('input[name="second"]');
     const minuteInput = customInputs.find('input[name="minute"]');
-    const hourInput = customInputs.find('input[name="hour"]');
+    const hourInput = customInputs.find('input[name^="hour"]');
 
     expect(customInputs).toHaveLength(2);
     expect(secondInput).toHaveLength(0);
@@ -58,7 +58,7 @@ describe('TimeInput', () => {
     const customInputs = component.find('input[type="number"]');
     const secondInput = customInputs.find('input[name="second"]');
     const minuteInput = customInputs.find('input[name="minute"]');
-    const hourInput = customInputs.find('input[name="hour"]');
+    const hourInput = customInputs.find('input[name^="hour"]');
 
     expect(customInputs).toHaveLength(1);
     expect(secondInput).toHaveLength(0);
@@ -66,11 +66,31 @@ describe('TimeInput', () => {
     expect(hourInput).toHaveLength(1);
   });
 
-  it('shows a given time in all inputs correctly', () => {
+  it('shows a given time in all inputs correctly (12-hour format)', () => {
     const date = '22:17:00';
 
     const component = mount(
       <TimeInput
+        maxDetail="second"
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="time"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.getDOMNode().value).toBe(date);
+    expect(customInputs.at(0).getDOMNode().value).toBe('10');
+    expect(customInputs.at(1).getDOMNode().value).toBe('17');
+    expect(customInputs.at(2).getDOMNode().value).toBe('0');
+  });
+
+  it('shows a given time in all inputs correctly (24-hour format)', () => {
+    const date = '22:17:00';
+
+    const component = mount(
+      <TimeInput
+        locale="de-DE"
         maxDetail="second"
         value={date}
       />
@@ -85,14 +105,29 @@ describe('TimeInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('0');
   });
 
-  it('renders custom inputs in a proper order', () => {
+  it('renders custom inputs in a proper order (12-hour format)', () => {
     const component = mount(
       <TimeInput maxDetail="second" />
     );
 
     const customInputs = component.find('input[type="number"]');
 
-    expect(customInputs.at(0).prop('name')).toBe('hour');
+    expect(customInputs.at(0).prop('name')).toBe('hour12');
+    expect(customInputs.at(1).prop('name')).toBe('minute');
+    expect(customInputs.at(2).prop('name')).toBe('second');
+  });
+
+  it('renders custom inputs in a proper order (24-hour format)', () => {
+    const component = mount(
+      <TimeInput
+        locale="de-DE"
+        maxDetail="second"
+      />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+
+    expect(customInputs.at(0).prop('name')).toBe('hour24');
     expect(customInputs.at(1).prop('name')).toBe('minute');
     expect(customInputs.at(2).prop('name')).toBe('second');
   });
