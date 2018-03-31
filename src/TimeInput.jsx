@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import Divider from './Divider';
@@ -60,29 +60,45 @@ const removeUnwantedCharacters = str => str
   ))
   .join('');
 
-export default class TimeInput extends Component {
-  state = {
-    hour: null,
-    minute: null,
-    second: null,
-  }
+export default class TimeInput extends PureComponent {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const nextState = {};
 
-  componentWillMount() {
-    this.updateValues();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { value: nextValue } = nextProps;
-    const { value } = this.props;
-
-    if (
-      // Toggling clock visibility resets values
-      (nextProps.isClockOpen !== this.props.isClockOpen) ||
-      hoursAreDifferent(nextValue, value)
-    ) {
-      this.updateValues(nextProps);
+    /**
+     * If isClockOpen flag has changed, we have to update it.
+     * It's saved in state purely for use in getDerivedStateFromProps.
+     */
+    if (nextProps.isClockOpen !== prevState.isClockOpen) {
+      nextState.isClockOpen = nextProps.isClockOpen;
     }
+
+    /**
+     * If the next value is different from the current one  (with an exception of situation in
+     * which values provided are limited by minDate and maxDate so that the dates are the same),
+     * get a new one.
+     */
+    const nextValue = nextProps.value;
+    if (
+      // Toggling calendar visibility resets values
+      nextState.isClockOpen || // Flag was toggled
+      hoursAreDifferent(nextValue, prevState.value)
+    ) {
+      if (nextValue) {
+        nextState.hour = getHours(nextValue);
+        nextState.minute = getMinutes(nextValue);
+        nextState.second = getSeconds(nextValue);
+      } else {
+        nextState.hour = null;
+        nextState.minute = null;
+        nextState.second = null;
+      }
+      nextState.value = nextValue;
+    }
+
+    return nextState;
   }
+
+  state = {};
 
   /**
    * Gets current value in a desired format.
@@ -97,8 +113,7 @@ export default class TimeInput extends Component {
    * Returns value type that can be returned with currently applied settings.
    */
   get valueType() {
-    const { maxDetail } = this.props;
-    return maxDetail;
+    return this.props.maxDetail;
   }
 
   get nativeValueParser() {
@@ -156,16 +171,6 @@ export default class TimeInput extends Component {
         this[`${ref.name}Input`] = ref;
       },
     };
-  }
-
-  updateValues(props = this.props) {
-    const { value } = props;
-
-    this.setState({
-      hour: value ? getHours(value) : null,
-      minute: value ? getMinutes(value) : null,
-      second: value ? getSeconds(value) : null,
-    });
   }
 
   onKeyDown = (event) => {
