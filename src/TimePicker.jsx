@@ -66,7 +66,7 @@ export default class TimePicker extends PureComponent {
     this.openClock();
   }
 
-  stopPropagation = event => event.stopPropagation()
+  stopPropagation = event => event.stopPropagation();
 
   clear = () => this.onChange(null);
 
