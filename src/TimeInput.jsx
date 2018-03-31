@@ -113,8 +113,7 @@ export default class TimeInput extends Component {
    * Returns value type that can be returned with currently applied settings.
    */
   get valueType() {
-    const { maxDetail } = this.props;
-    return maxDetail;
+    return this.props.maxDetail;
   }
 
   get nativeValueParser() {
