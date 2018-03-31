@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import TimePicker from 'react-time-picker/src/entry.nostyle';
 import 'react-time-picker/src/TimePicker.less';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -15,7 +15,7 @@ import { getHoursMinutesSeconds } from '../src/shared/dates';
 
 const now = new Date();
 
-export default class Test extends Component {
+export default class Test extends PureComponent {
   state = {
     locale: null,
     maxTime: null,
