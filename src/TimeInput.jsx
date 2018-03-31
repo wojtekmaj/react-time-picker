@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import Divider from './Divider';
@@ -60,7 +60,7 @@ const removeUnwantedCharacters = str => str
   ))
   .join('');
 
-export default class TimeInput extends Component {
+export default class TimeInput extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     const nextState = {};
 
