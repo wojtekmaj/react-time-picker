@@ -98,7 +98,11 @@ export default class TimeInput extends PureComponent {
     return nextState;
   }
 
-  state = {};
+  state = {
+    hour: null,
+    minute: null,
+    second: null,
+  };
 
   /**
    * Gets current value in a desired format.
