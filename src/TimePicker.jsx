@@ -12,9 +12,18 @@ import { isTime } from './shared/propTypes';
 const allViews = ['hour', 'minute', 'second'];
 
 export default class TimePicker extends PureComponent {
-  state = {
-    isOpen: this.props.isOpen,
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.isOpen !== prevState.propsIsOpen) {
+      return {
+        isOpen: nextProps.isOpen,
+        propsIsOpen: nextProps.isOpen,
+      };
+    }
+
+    return null;
   }
+
+  state = {};
 
   componentDidMount() {
     document.addEventListener('mousedown', this.onClick);
@@ -22,14 +31,6 @@ export default class TimePicker extends PureComponent {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.onClick);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { props } = this;
-
-    if (nextProps.isOpen !== props.isOpen) {
-      this.setState({ isOpen: nextProps.isOpen });
-    }
   }
 
   onClick = (event) => {
