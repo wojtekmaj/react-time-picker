@@ -85,6 +85,27 @@ describe('TimeInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('0');
   });
 
+  it('clears the value correctly', () => {
+    const date = '22:17:00';
+
+    const component = mount(
+      <TimeInput
+        maxDetail="second"
+        value={date}
+      />
+    );
+
+    component.setProps({ value: null });
+
+    const nativeInput = component.find('input[type="time"]');
+    const customInputs = component.find('input[type="number"]');
+
+    expect(nativeInput.getDOMNode().value).toBe('');
+    expect(customInputs.at(0).getDOMNode().value).toBe('');
+    expect(customInputs.at(1).getDOMNode().value).toBe('');
+    expect(customInputs.at(2).getDOMNode().value).toBe('');
+  });
+
   it('renders custom inputs in a proper order', () => {
     const component = mount(
       <TimeInput maxDetail="second" />
