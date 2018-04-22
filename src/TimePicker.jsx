@@ -103,16 +103,18 @@ export default class TimePicker extends PureComponent {
             {this.props.clearIcon}
           </button>
         )}
-        <button
-          className="react-time-picker__clock-button react-time-picker__button__icon"
-          disabled={disabled}
-          onClick={this.toggleClock}
-          onFocus={this.stopPropagation}
-          onBlur={this.resetValue}
-          type="button"
-        >
-          {this.props.clockIcon}
-        </button>
+        {this.props.clockIcon !== null && (
+          <button
+            className="react-time-picker__clock-button react-time-picker__button__icon"
+            disabled={disabled}
+            onClick={this.toggleClock}
+            onFocus={this.stopPropagation}
+            onBlur={this.resetValue}
+            type="button"
+          >
+            {this.props.clockIcon}
+          </button>
+        )}
       </div>
     );
   }
