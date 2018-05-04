@@ -12,9 +12,18 @@ import { isTime } from './shared/propTypes';
 const allViews = ['hour', 'minute', 'second'];
 
 export default class TimePicker extends PureComponent {
-  state = {
-    isOpen: this.props.isOpen,
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.isOpen !== prevState.propsIsOpen) {
+      return {
+        isOpen: nextProps.isOpen,
+        propsIsOpen: nextProps.isOpen,
+      };
+    }
+
+    return null;
   }
+
+  state = {};
 
   componentDidMount() {
     document.addEventListener('mousedown', this.onClick);
@@ -22,14 +31,6 @@ export default class TimePicker extends PureComponent {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.onClick);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { props } = this;
-
-    if (nextProps.isOpen !== props.isOpen) {
-      this.setState({ isOpen: nextProps.isOpen });
-    }
   }
 
   onClick = (event) => {
@@ -62,10 +63,14 @@ export default class TimePicker extends PureComponent {
   }
 
   onFocus = () => {
+    // Internet Explorer still fires onFocus on disabled elements
+    if (this.props.disabled) {
+      return;
+    }
     this.openClock();
   }
 
-  stopPropagation = event => event.stopPropagation()
+  stopPropagation = event => event.stopPropagation();
 
   clear = () => this.onChange(null);
 
@@ -87,25 +92,29 @@ export default class TimePicker extends PureComponent {
           required={this.props.required}
           value={this.props.value}
         />
-        <button
-          className="react-time-picker__clear-button react-time-picker__button__icon"
-          disabled={disabled}
-          onClick={this.clear}
-          onFocus={this.stopPropagation}
-          type="button"
-        >
-          {this.props.clearIcon}
-        </button>
-        <button
-          className="react-time-picker__clock-button react-time-picker__button__icon"
-          disabled={disabled}
-          onClick={this.toggleClock}
-          onFocus={this.stopPropagation}
-          onBlur={this.resetValue}
-          type="button"
-        >
-          {this.props.clockIcon}
-        </button>
+        {this.props.clearIcon !== null && (
+          <button
+            className="react-time-picker__clear-button react-time-picker__button__icon"
+            disabled={disabled}
+            onClick={this.clear}
+            onFocus={this.stopPropagation}
+            type="button"
+          >
+            {this.props.clearIcon}
+          </button>
+        )}
+        {this.props.clockIcon !== null && (
+          <button
+            className="react-time-picker__clock-button react-time-picker__button__icon"
+            disabled={disabled}
+            onClick={this.toggleClock}
+            onFocus={this.stopPropagation}
+            onBlur={this.resetValue}
+            type="button"
+          >
+            {this.props.clockIcon}
+          </button>
+        )}
       </div>
     );
   }

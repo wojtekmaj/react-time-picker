@@ -1,6 +1,6 @@
 {
   "name": "react-time-picker-sample-page",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "A sample page for React-Time-Picker.",
   "private": true,
   "scripts": {
@@ -14,9 +14,9 @@
   "license": "MIT",
   "dependencies": {
     "prop-types": "^15.6.0",
-    "react": "^16.2.0",
+    "react": "^16.3.0",
     "react-time-picker": "latest",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -31,6 +31,6 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.0",
-    "parcel-bundler": "1.5.0"
+    "parcel-bundler": "1.5.1"
   }
 }

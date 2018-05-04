@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export default class ValueOptions extends Component {
+export default class ValueOptions extends PureComponent {
   setValue = value => this.props.setState({ value });
 
   onChange = (event) => {
