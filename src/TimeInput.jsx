@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { polyfill } from 'react-lifecycles-compat';
 
 import Divider from './Divider';
 import HourInput from './TimeInput/HourInput';
@@ -373,3 +374,5 @@ TimeInput.propTypes = {
     PropTypes.instanceOf(Date),
   ]),
 };
+
+polyfill(TimeInput);
