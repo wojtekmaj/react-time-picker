@@ -276,7 +276,7 @@ export default class TimeInput extends PureComponent {
     return (
       <Hour12Input
         key="hour12"
-        value={this.state.hour % 12}
+        value={this.state.hour !== null ? this.state.hour % 12 : null}
         {...this.commonInputProps}
       />
     );
