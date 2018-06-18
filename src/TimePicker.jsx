@@ -13,10 +13,10 @@ const allViews = ['hour', 'minute', 'second'];
 
 export default class TimePicker extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.isOpen !== prevState.propsIsOpen) {
+    if (nextProps.isOpen !== prevState.isOpenProps) {
       return {
         isOpen: nextProps.isOpen,
-        propsIsOpen: nextProps.isOpen,
+        isOpenProps: nextProps.isOpen,
       };
     }
 

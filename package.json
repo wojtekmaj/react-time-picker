@@ -1,12 +1,12 @@
 {
   "name": "react-time-picker",
-  "version": "2.3.2",
+  "version": "2.4.2",
   "description": "A time picker for your React app.",
   "main": "dist/entry.js",
   "es6": "src/entry.js",
   "scripts": {
     "build": "npm run build-js && npm run copy-styles && npm run build-styles",
-    "build-js": "babel src -d dist --ignore **/__tests__",
+    "build-js": "babel src -d dist --ignore __tests__",
     "build-styles": "lessc ./dist/TimePicker.less ./dist/TimePicker.css",
     "copy-styles": "node ./copy-styles.js",
     "prepublishOnly": "npm run build",
@@ -41,7 +41,7 @@
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
     "react-clock": "^2.2.1",
-    "react-lifecycles-compat": "^1.1.0"
+    "react-lifecycles-compat": "^3.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -64,8 +64,8 @@
     "jest": "^22.1.4",
     "jest-cli": "^22.1.4",
     "less": "^2.7.3",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0"
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
   },
   "peerDependencies": {
     "react": ">=15.5",
