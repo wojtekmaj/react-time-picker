@@ -5,6 +5,18 @@ import TimeInput from '../TimeInput';
 
 /* eslint-disable comma-dangle */
 
+const hasFullICU = (() => {
+  try {
+    const date = new Date(2018, 0, 1, 21);
+    const formatter = new Intl.DateTimeFormat('de-DE', { hour: 'numeric' });
+    return formatter.format(date) === '21';
+  } catch (err) {
+    return false;
+  }
+})();
+
+const itIfFullICU = hasFullICU ? it : it.skip;
+
 const keyCodes = {
   ArrowLeft: 37,
   ArrowUp: 38,
@@ -85,7 +97,7 @@ describe('TimeInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('0');
   });
 
-  it('shows a given time in all inputs correctly (24-hour format)', () => {
+  itIfFullICU('shows a given time in all inputs correctly (24-hour format)', () => {
     const date = '22:17:00';
 
     const component = mount(
@@ -138,7 +150,7 @@ describe('TimeInput', () => {
     expect(customInputs.at(2).prop('name')).toBe('second');
   });
 
-  it('renders custom inputs in a proper order (24-hour format)', () => {
+  itIfFullICU('renders custom inputs in a proper order (24-hour format)', () => {
     const component = mount(
       <TimeInput
         locale="de-DE"
