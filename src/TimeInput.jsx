@@ -17,6 +17,8 @@ import {
   getSeconds,
   getHoursMinutes,
   getHoursMinutesSeconds,
+  convert12to24,
+  convert24to12,
 } from './shared/dates';
 import { isTime } from './shared/propTypes';
 
@@ -87,10 +89,12 @@ export default class TimeInput extends PureComponent {
       hoursAreDifferent(nextValue, prevState.value)
     ) {
       if (nextValue) {
+        [, nextState.amPm] = convert24to12(getHours(nextValue));
         nextState.hour = getHours(nextValue);
         nextState.minute = getMinutes(nextValue);
         nextState.second = getSeconds(nextValue);
       } else {
+        nextState.amPm = null;
         nextState.hour = null;
         nextState.minute = null;
         nextState.second = null;
@@ -102,6 +106,7 @@ export default class TimeInput extends PureComponent {
   }
 
   state = {
+    amPm: null,
     hour: null,
     minute: null,
     second: null,
@@ -208,10 +213,29 @@ export default class TimeInput extends PureComponent {
   onChange = (event) => {
     const { name, value } = event.target;
 
-    this.setState(
-      { [name]: value ? parseInt(value, 10) : null },
-      this.onChangeExternal,
-    );
+    switch (name) {
+      case 'hour12': {
+        this.setState(
+          prevState =>
+            ({ hour: value ? convert12to24(parseInt(value, 10), prevState.amPm) : null }),
+          this.onChangeExternal,
+        );
+        break;
+      }
+      case 'hour24': {
+        this.setState(
+          { hour: value ? parseInt(value, 10) : null },
+          this.onChangeExternal,
+        );
+        break;
+      }
+      default: {
+        this.setState(
+          { [name]: value ? parseInt(value, 10) : null },
+          this.onChangeExternal,
+        );
+      }
+    }
   }
 
   /**
@@ -229,9 +253,7 @@ export default class TimeInput extends PureComponent {
     const { value } = event.target;
 
     this.setState(
-      prevState => ({
-        hour: (value === 'am' ? -12 : 12) + prevState.hour,
-      }),
+      ({ amPm: value }),
       this.onChangeExternal,
     );
   }
@@ -252,17 +274,7 @@ export default class TimeInput extends PureComponent {
       });
 
       if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
-        const getHour12 = () => {
-          const { hour12 } = values;
-          if (hour12 === 12) {
-            return 0;
-          }
-          if (values.amPm === 'pm') {
-            return parseInt(hour12, 10) + 12;
-          }
-          return hour12;
-        };
-        const hour = `0${values.hour24 || getHour12()}`.slice(-2);
+        const hour = `0${values.hour24 || convert12to24(values.hour12, values.amPm)}`.slice(-2);
         const minute = `0${values.minute || 0}`.slice(-2);
         const second = `0${values.second || 0}`.slice(-2);
         const timeString = `${hour}:${minute}:${second}`;
@@ -276,8 +288,8 @@ export default class TimeInput extends PureComponent {
     return (
       <Hour12Input
         key="hour12"
-        value={this.state.hour !== null ? this.state.hour % 12 : null}
         {...this.commonInputProps}
+        value={this.state.hour}
       />
     );
   }
@@ -286,8 +298,8 @@ export default class TimeInput extends PureComponent {
     return (
       <Hour24Input
         key="hour24"
-        value={this.state.hour}
         {...this.commonInputProps}
+        value={this.state.hour}
       />
     );
   }
@@ -303,9 +315,9 @@ export default class TimeInput extends PureComponent {
     return (
       <MinuteInput
         key="minute"
+        {...this.commonInputProps}
         maxDetail={this.props.maxDetail}
         value={this.state.minute}
-        {...this.commonInputProps}
       />
     );
   }
@@ -321,33 +333,20 @@ export default class TimeInput extends PureComponent {
     return (
       <SecondInput
         key="second"
+        {...this.commonInputProps}
         maxDetail={this.props.maxDetail}
         value={this.state.second}
-        {...this.commonInputProps}
       />
     );
   }
 
   renderAmPm() {
-    const { hour } = this.state;
-    const morning = hour / 12 < 1;
-    const reverse = hour % 12 === 0;
-
-    const values = ['am', 'pm'];
-    const value = (reverse ? values.reverse() : values)[morning ? 0 : 1];
-
     return (
       <AmPm
         key="ampm"
-        className={className}
-        disabled={this.props.disabled}
+        {...this.commonInputProps}
+        value={this.state.amPm}
         onChange={this.onChangeAmPm}
-        itemRef={(ref) => {
-          if (!ref) return;
-
-          this.amPmInput = ref;
-        }}
-        value={value}
       />
     );
   }

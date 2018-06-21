@@ -2,25 +2,28 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 
-import { getHours } from '../shared/dates';
+import {
+  getHours,
+  convert24to12,
+} from '../shared/dates';
 import { isTime } from '../shared/propTypes';
 import { min, max, updateInputWidth } from '../shared/utils';
 
 export default class Hour12Input extends PureComponent {
   get maxHour() {
     const { maxTime } = this.props;
-    return min(
-      11,
+    return convert24to12(min(
+      23,
       maxTime && getHours(maxTime),
-    );
+    ))[0];
   }
 
   get minHour() {
     const { minTime } = this.props;
-    return max(
-      0,
+    return convert24to12(max(
+      1,
       minTime && getHours(minTime),
-    );
+    ))[0];
   }
 
   render() {
@@ -30,7 +33,8 @@ export default class Hour12Input extends PureComponent {
     } = this.props;
 
     const name = 'hour12';
-    const hasLeadingZero = value !== null && value < 10;
+    const value12 = value && convert24to12(value)[0];
+    const hasLeadingZero = value12 !== null && value12 < 10;
 
     return [
       (hasLeadingZero ? '0' : null),
@@ -58,7 +62,7 @@ export default class Hour12Input extends PureComponent {
         }}
         required={required}
         type="number"
-        value={value !== null ? value : ''}
+        value={value12 !== null ? value12 : ''}
       />,
     ];
   }
