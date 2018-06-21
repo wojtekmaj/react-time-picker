@@ -30,9 +30,12 @@ export default class Hour12Input extends PureComponent {
     } = this.props;
 
     const name = 'hour12';
+    const hasLeadingZero = value !== null && value < 10;
 
-    return (
+    return [
+      (hasLeadingZero ? '0' : null),
       <input
+        key="hour12"
         className={mergeClassNames(
           `${className}__input`,
           `${className}__hour`,
@@ -56,8 +59,8 @@ export default class Hour12Input extends PureComponent {
         required={required}
         type="number"
         value={value !== null ? value : ''}
-      />
-    );
+      />,
+    ];
   }
 }
 
