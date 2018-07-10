@@ -42,7 +42,7 @@ export default class ValidityOptions extends PureComponent {
         </div>
 
         <div>
-          <label htmlFor="maxTime">Maximum date</label>
+          <label htmlFor="maxTime">Maximum time</label>
           <input
             id="maxTime"
             onChange={this.onMaxChange}
