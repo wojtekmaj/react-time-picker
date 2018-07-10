@@ -37,7 +37,6 @@ class AmPm extends PureComponent {
         disabled={disabled}
         name={name}
         onChange={onChange}
-        pattern="am"
         ref={(ref) => {
           if (itemRef) {
             itemRef(ref, name);
@@ -47,8 +46,8 @@ class AmPm extends PureComponent {
         value={value !== null ? value : ''}
       >
         {!value && <option value="">--</option>}
-        <option disabled={this.amDisabled}>am</option>
-        <option disabled={this.pmDisabled}>pm</option>
+        <option disabled={this.amDisabled} value="am">am</option>
+        <option disabled={this.pmDisabled} value="pm">pm</option>
       </select>
     );
   }
