@@ -12,18 +12,18 @@ import { min, max, updateInputWidth } from '../shared/utils';
 export default class Hour12Input extends PureComponent {
   get maxHour() {
     const { maxTime } = this.props;
-    return convert24to12(min(
-      23,
-      maxTime && getHours(maxTime),
-    ))[0];
+    return min(
+      12,
+      maxTime && convert24to12(getHours(maxTime))[0],
+    );
   }
 
   get minHour() {
     const { minTime } = this.props;
-    return convert24to12(max(
+    return max(
       1,
-      minTime && getHours(minTime),
-    ))[0];
+      minTime && convert24to12(getHours(minTime))[0],
+    );
   }
 
   render() {
