@@ -4,7 +4,7 @@ const allViews = ['hour', 'minute', 'second'];
 const hourOptionalSecondsRegExp = /^(([0-1])?[0-9]|2[0-3]):[0-5][0-9](:([0-5][0-9]))?$/;
 
 export const isTime = (props, propName, componentName) => {
-  const time = props[propName];
+  const { [propName]: time } = props;
 
   if (time) {
     if (!hourOptionalSecondsRegExp.test(time)) {
