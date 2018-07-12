@@ -47,8 +47,8 @@ describe('AmPm', () => {
     const optionAm = select.find('option[value="am"]');
     const optionPm = select.find('option[value="pm"]');
 
-    expect(optionAm.prop('disabled')).toBe(false);
-    expect(optionPm.prop('disabled')).toBe(false);
+    expect(optionAm.prop('disabled')).toBeFalsy();
+    expect(optionPm.prop('disabled')).toBeFalsy();
   });
 
   it('should disable "pm" given maxTime before 12:00 pm', () => {
@@ -62,7 +62,7 @@ describe('AmPm', () => {
     const select = component.find('select');
     const optionPm = select.find('option[value="pm"]');
 
-    expect(optionPm.prop('disabled')).toBe(true);
+    expect(optionPm.prop('disabled')).toBeTruthy();
   });
 
   it('should not disable "pm" given maxTime after or equal to 12:00 pm', () => {
@@ -76,7 +76,7 @@ describe('AmPm', () => {
     const select = component.find('select');
     const optionPm = select.find('option[value="pm"]');
 
-    expect(optionPm.prop('disabled')).toBe(false);
+    expect(optionPm.prop('disabled')).toBeFalsy();
   });
 
   it('should disable "am" given minTime after or equal to 12:00 pm', () => {
@@ -88,9 +88,9 @@ describe('AmPm', () => {
     );
 
     const select = component.find('select');
-    const optionAm = select.find('option[value="pm"]');
+    const optionAm = select.find('option[value="am"]');
 
-    expect(optionAm.prop('disabled')).toBe(true);
+    expect(optionAm.prop('disabled')).toBeTruthy();
   });
 
   it('should not disable "am" given minTime before 12:00 pm', () => {
@@ -104,6 +104,6 @@ describe('AmPm', () => {
     const select = component.find('select');
     const optionAm = select.find('option[value="pm"]');
 
-    expect(optionAm.prop('disabled')).toBe(false);
+    expect(optionAm.prop('disabled')).toBeFalsy();
   });
 });
