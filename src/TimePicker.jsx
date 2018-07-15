@@ -63,8 +63,10 @@ export default class TimePicker extends PureComponent {
   }
 
   onFocus = () => {
+    const { disabled } = this.props;
+
     // Internet Explorer still fires onFocus on disabled elements
-    if (this.props.disabled) {
+    if (disabled) {
       return;
     }
     this.openClock();
@@ -75,24 +77,36 @@ export default class TimePicker extends PureComponent {
   clear = () => this.onChange(null);
 
   renderInputs() {
-    const { disabled } = this.props;
+    const {
+      clearIcon,
+      clockIcon,
+      disabled,
+      locale,
+      isOpen,
+      maxDetail,
+      maxTime,
+      minTime,
+      name,
+      required,
+      value,
+    } = this.props;
 
     return (
       <div className="react-time-picker__button">
         <TimeInput
           disabled={disabled}
-          locale={this.props.locale}
-          isClockOpen={this.state.isOpen}
-          maxDetail={this.props.maxDetail}
-          maxTime={this.props.maxTime}
-          minTime={this.props.minTime}
-          name={this.props.name}
+          locale={locale}
+          isClockOpen={isOpen}
+          maxDetail={maxDetail}
+          maxTime={maxTime}
+          minTime={minTime}
+          name={name}
           onChange={this.onChange}
           placeholder={this.placeholder}
-          required={this.props.required}
-          value={this.props.value}
+          required={required}
+          value={value}
         />
-        {this.props.clearIcon !== null && (
+        {clearIcon !== null && (
           <button
             className="react-time-picker__clear-button react-time-picker__button__icon"
             disabled={disabled}
@@ -100,10 +114,10 @@ export default class TimePicker extends PureComponent {
             onFocus={this.stopPropagation}
             type="button"
           >
-            {this.props.clearIcon}
+            {clearIcon}
           </button>
         )}
-        {this.props.clockIcon !== null && (
+        {clockIcon !== null && (
           <button
             className="react-time-picker__clock-button react-time-picker__button__icon"
             disabled={disabled}
@@ -112,7 +126,7 @@ export default class TimePicker extends PureComponent {
             onBlur={this.resetValue}
             type="button"
           >
-            {this.props.clockIcon}
+            {clockIcon}
           </button>
         )}
       </div>
@@ -169,15 +183,18 @@ export default class TimePicker extends PureComponent {
   }
 
   render() {
-    const className = 'react-time-picker';
+    const { className, disabled } = this.props;
+    const { isOpen } = this.state;
+
+    const baseClassName = 'react-time-picker';
 
     return (
       <div
         className={mergeClassNames(
+          baseClassName,
+          `${baseClassName}--${isOpen ? 'open' : 'closed'}`,
+          `${baseClassName}--${disabled ? 'disabled' : 'enabled'}`,
           className,
-          `${className}--${this.state.isOpen ? 'open' : 'closed'}`,
-          `${className}--${this.props.disabled ? 'disabled' : 'enabled'}`,
-          this.props.className,
         )}
         onFocus={this.onFocus}
         ref={(ref) => { this.wrapper = ref; }}
@@ -191,7 +208,7 @@ export default class TimePicker extends PureComponent {
 
 const ClockIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
-    <g stroke="black" strokeWidth="2" fill="none" >
+    <g stroke="black" strokeWidth="2" fill="none">
       <circle cx="9.5" cy="9.5" r="7.5" />
       <path d="M9.5 4.5 v5 h4" />
     </g>
