@@ -39,6 +39,7 @@ export default class SecondInput extends PureComponent {
       className, disabled, itemRef, onChange, onKeyDown, required, value,
     } = this.props;
 
+    const name = 'second';
     const hasLeadingZero = value !== null && value < 10;
 
     return [
@@ -51,19 +52,19 @@ export default class SecondInput extends PureComponent {
           hasLeadingZero && `${className}__input--hasLeadingZero`,
         )}
         disabled={disabled}
-        name="second"
+        name={name}
         max={maxSecond}
         min={minSecond}
         onChange={onChange}
         onKeyDown={onKeyDown}
         placeholder="--"
         ref={(ref) => {
-          if (!ref) return;
-
-          updateInputWidth(ref);
+          if (ref) {
+            updateInputWidth(ref);
+          }
 
           if (itemRef) {
-            itemRef(ref);
+            itemRef(ref, name);
           }
         }}
         required={required}

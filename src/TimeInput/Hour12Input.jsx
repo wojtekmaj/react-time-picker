@@ -2,24 +2,27 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 
-import { getHours } from '../shared/dates';
+import {
+  getHours,
+  convert24to12,
+} from '../shared/dates';
 import { isTime } from '../shared/propTypes';
 import { min, max, updateInputWidth } from '../shared/utils';
 
-export default class HourInput extends PureComponent {
+export default class Hour12Input extends PureComponent {
   get maxHour() {
     const { maxTime } = this.props;
     return min(
-      23,
-      maxTime && getHours(maxTime),
+      12,
+      maxTime && convert24to12(getHours(maxTime))[0],
     );
   }
 
   get minHour() {
     const { minTime } = this.props;
     return max(
-      0,
-      minTime && getHours(minTime),
+      1,
+      minTime && convert24to12(getHours(minTime))[0],
     );
   }
 
@@ -29,6 +32,9 @@ export default class HourInput extends PureComponent {
       className, disabled, itemRef, onChange, onKeyDown, required, value,
     } = this.props;
 
+    const name = 'hour12';
+    const value12 = value && convert24to12(value)[0];
+
     return (
       <input
         className={mergeClassNames(
@@ -36,30 +42,30 @@ export default class HourInput extends PureComponent {
           `${className}__hour`,
         )}
         disabled={disabled}
-        name="hour"
+        name={name}
         max={maxHour}
         min={minHour}
         onChange={onChange}
         onKeyDown={onKeyDown}
         placeholder="--"
         ref={(ref) => {
-          if (!ref) return;
-
-          updateInputWidth(ref);
+          if (ref) {
+            updateInputWidth(ref);
+          }
 
           if (itemRef) {
-            itemRef(ref);
+            itemRef(ref, name);
           }
         }}
         required={required}
         type="number"
-        value={value !== null ? value : ''}
+        value={value12 !== null ? value12 : ''}
       />
     );
   }
 }
 
-HourInput.propTypes = {
+Hour12Input.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,

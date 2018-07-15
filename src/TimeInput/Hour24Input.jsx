@@ -2,52 +2,45 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 
-import {
-  getHours,
-  getMinutes,
-} from '../shared/dates';
+import { getHours } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
 import { min, max, updateInputWidth } from '../shared/utils';
 
-export default class MinuteInput extends PureComponent {
-  get maxMinute() {
-    const { hour, maxTime } = this.props;
+export default class Hour24Input extends PureComponent {
+  get maxHour() {
+    const { maxTime } = this.props;
     return min(
-      59,
-      maxTime && hour === getHours(maxTime) && getMinutes(maxTime),
+      23,
+      maxTime && getHours(maxTime),
     );
   }
 
-  get minMinute() {
-    const { hour, minTime } = this.props;
+  get minHour() {
+    const { minTime } = this.props;
     return max(
       0,
-      minTime && hour === getHours(minTime) && getMinutes(minTime),
+      minTime && getHours(minTime),
     );
   }
 
   render() {
-    const { maxMinute, minMinute } = this;
+    const { maxHour, minHour } = this;
     const {
       className, disabled, itemRef, onChange, onKeyDown, required, value,
     } = this.props;
 
-    const name = 'minute';
-    const hasLeadingZero = value !== null && value < 10;
+    const name = 'hour24';
 
-    return [
-      (hasLeadingZero ? '0' : null),
+    return (
       <input
-        key="minute"
         className={mergeClassNames(
           `${className}__input`,
-          `${className}__minute`,
-          hasLeadingZero && `${className}__input--hasLeadingZero`,
+          `${className}__hour`,
         )}
         disabled={disabled}
         name={name}
-        max={maxMinute}
-        min={minMinute}
+        max={maxHour}
+        min={minHour}
         onChange={onChange}
         onKeyDown={onKeyDown}
         placeholder="--"
@@ -63,15 +56,14 @@ export default class MinuteInput extends PureComponent {
         required={required}
         type="number"
         value={value !== null ? value : ''}
-      />,
-    ];
+      />
+    );
   }
 }
 
-MinuteInput.propTypes = {
+Hour24Input.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  hour: PropTypes.number,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,

@@ -60,8 +60,8 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.0",
     "eslint-plugin-react": "^7.9.1",
-    "jest": "^22.1.4",
-    "jest-cli": "^22.1.4",
+    "jest": "^23.3.0",
+    "jest-cli": "^23.3.0",
     "less": "^2.7.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0"
