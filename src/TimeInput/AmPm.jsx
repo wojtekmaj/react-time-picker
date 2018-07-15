@@ -45,9 +45,17 @@ class AmPm extends PureComponent {
         required={required}
         value={value !== null ? value : ''}
       >
-        {!value && <option value="">--</option>}
-        <option disabled={this.amDisabled} value="am">am</option>
-        <option disabled={this.pmDisabled} value="pm">pm</option>
+        {!value && (
+          <option value="">
+            --
+          </option>
+        )}
+        <option disabled={this.amDisabled} value="am">
+          am
+        </option>
+        <option disabled={this.pmDisabled} value="pm">
+          pm
+        </option>
       </select>
     );
   }

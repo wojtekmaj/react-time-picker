@@ -26,9 +26,9 @@ const allViews = ['hour', 'minute', 'second'];
 const className = 'react-time-picker__button__input';
 
 const hoursAreDifferent = (date1, date2) => (
-  (date1 && !date2) ||
-  (!date1 && date2) ||
-  (date1 && date2 && date1 !== date2) // TODO: Compare 11:22:00 and 11:22 properly
+  (date1 && !date2)
+  || (!date1 && date2)
+  || (date1 && date2 && date1 !== date2) // TODO: Compare 11:22:00 and 11:22 properly
 );
 
 const findPreviousInput = (element) => {
@@ -59,9 +59,9 @@ const removeUnwantedCharacters = str => str
   .split('')
   .filter(a => (
     // We don't want spaces in dates
-    a.charCodeAt(0) !== 32 &&
+    a.charCodeAt(0) !== 32
     // Internet Explorer specific
-    a.charCodeAt(0) !== 8206
+    && a.charCodeAt(0) !== 8206
   ))
   .join('');
 
@@ -85,8 +85,8 @@ export default class TimeInput extends PureComponent {
     const nextValue = nextProps.value;
     if (
       // Toggling calendar visibility resets values
-      nextState.isClockOpen || // Flag was toggled
-      hoursAreDifferent(nextValue, prevState.value)
+      nextState.isClockOpen // Flag was toggled
+      || hoursAreDifferent(nextValue, prevState.value)
     ) {
       if (nextValue) {
         [, nextState.amPm] = convert24to12(getHours(nextValue));
@@ -125,7 +125,9 @@ export default class TimeInput extends PureComponent {
    * Returns value type that can be returned with currently applied settings.
    */
   get valueType() {
-    return this.props.maxDetail;
+    const { maxDetail } = this.props;
+
+    return maxDetail;
   }
 
   get nativeValueParser() {
@@ -167,16 +169,24 @@ export default class TimeInput extends PureComponent {
   }
 
   get commonInputProps() {
+    const {
+      disabled,
+      isClockOpen,
+      maxTime,
+      minTime,
+      required,
+    } = this.props;
+
     return {
       className,
-      disabled: this.props.disabled,
-      maxTime: this.props.maxTime,
-      minTime: this.props.minTime,
+      disabled,
+      maxTime,
+      minTime,
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
       placeholder: '--',
       // This is only for showing validity when editing
-      required: this.props.required || this.props.isClockOpen,
+      required: required || isClockOpen,
       itemRef: (ref, name) => {
         // Save a reference to each input field
         this[`${name}Input`] = ref;
@@ -216,8 +226,9 @@ export default class TimeInput extends PureComponent {
     switch (name) {
       case 'hour12': {
         this.setState(
-          prevState =>
-            ({ hour: value ? convert12to24(parseInt(value, 10), prevState.amPm) : null }),
+          prevState => ({
+            hour: value ? convert12to24(parseInt(value, 10), prevState.amPm) : null,
+          }),
           this.onChangeExternal,
         );
         break;
@@ -242,10 +253,11 @@ export default class TimeInput extends PureComponent {
    * Called when native date input is changed.
    */
   onChangeNative = (event) => {
+    const { onChange } = this.props;
     const { value } = event.target;
 
-    if (this.props.onChange) {
-      this.props.onChange(value);
+    if (onChange) {
+      onChange(value);
     }
   }
 
@@ -263,7 +275,9 @@ export default class TimeInput extends PureComponent {
    * calls props.onChange.
    */
   onChangeExternal = () => {
-    if (this.props.onChange) {
+    const { onChange } = this.props;
+
+    if (onChange) {
       const formElements = [
         this.hour12Input, this.hour24Input, this.minuteInput, this.secondInput, this.amPmInput,
       ].filter(Boolean);
@@ -279,27 +293,31 @@ export default class TimeInput extends PureComponent {
         const second = `0${values.second || 0}`.slice(-2);
         const timeString = `${hour}:${minute}:${second}`;
         const processedValue = this.getProcessedValue(timeString);
-        this.props.onChange(processedValue, false);
+        onChange(processedValue, false);
       }
     }
   }
 
   renderHour12() {
+    const { hour } = this.state;
+
     return (
       <Hour12Input
         key="hour12"
         {...this.commonInputProps}
-        value={this.state.hour}
+        value={hour}
       />
     );
   }
 
   renderHour24() {
+    const { hour } = this.state;
+
     return (
       <Hour24Input
         key="hour24"
         {...this.commonInputProps}
-        value={this.state.hour}
+        value={hour}
       />
     );
   }
@@ -312,12 +330,14 @@ export default class TimeInput extends PureComponent {
       return null;
     }
 
+    const { minute } = this.state;
+
     return (
       <MinuteInput
         key="minute"
         {...this.commonInputProps}
-        maxDetail={this.props.maxDetail}
-        value={this.state.minute}
+        maxDetail={maxDetail}
+        value={minute}
       />
     );
   }
@@ -330,22 +350,26 @@ export default class TimeInput extends PureComponent {
       return null;
     }
 
+    const { second } = this.state;
+
     return (
       <SecondInput
         key="second"
         {...this.commonInputProps}
-        maxDetail={this.props.maxDetail}
-        value={this.state.second}
+        maxDetail={maxDetail}
+        value={second}
       />
     );
   }
 
   renderAmPm() {
+    const { amPm } = this.state;
+
     return (
       <AmPm
         key="ampm"
         {...this.commonInputProps}
-        value={this.state.amPm}
+        value={amPm}
         onChange={this.onChangeAmPm}
       />
     );
@@ -386,16 +410,25 @@ export default class TimeInput extends PureComponent {
   }
 
   renderNativeInput() {
+    const {
+      disabled,
+      maxTime,
+      minTime,
+      name,
+      required,
+      value,
+    } = this.props;
+
     return (
       <NativeInput
         key="time"
-        disabled={this.props.disabled}
-        maxTime={this.props.maxTime}
-        minTime={this.props.minTime}
-        name={this.props.name}
+        disabled={disabled}
+        maxTime={maxTime}
+        minTime={minTime}
+        name={name}
         onChange={this.onChangeNative}
-        required={this.props.required}
-        value={this.props.value}
+        required={required}
+        value={value}
         valueType={this.valueType}
       />
     );
