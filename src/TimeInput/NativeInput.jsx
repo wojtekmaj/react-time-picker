@@ -9,7 +9,9 @@ import { isTime, isValueType } from '../shared/propTypes';
 
 export default class NativeInput extends PureComponent {
   get nativeValueParser() {
-    switch (this.props.valueType) {
+    const { valueType } = this.props;
+
+    switch (valueType) {
       case 'hour':
       case 'minute':
         return getHoursMinutes;

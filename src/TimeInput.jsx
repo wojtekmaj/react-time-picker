@@ -281,7 +281,11 @@ export default class TimeInput extends PureComponent {
 
     if (onChange) {
       const formElements = [
-        this.hour12Input, this.hour24Input, this.minuteInput, this.secondInput, this.amPmInput,
+        this.hour12Input,
+        this.hour24Input,
+        this.minuteInput,
+        this.secondInput,
+        this.amPmInput,
       ].filter(Boolean);
 
       const values = {};
