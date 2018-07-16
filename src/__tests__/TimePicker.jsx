@@ -22,6 +22,18 @@ const mockDocumentListeners = () => {
 };
 
 describe('TimePicker', () => {
+  it('passes name to TimeInput', () => {
+    const name = 'testName';
+
+    const component = mount(
+      <TimePicker name={name} />
+    );
+
+    const timeInput = component.find('TimeInput');
+
+    expect(timeInput.prop('name')).toBe(name);
+  });
+
   it('applies className to its wrapper when given a string', () => {
     const className = 'testClassName';
 
