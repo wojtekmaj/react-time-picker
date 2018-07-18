@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import Hour12Input from '../Hour12Input';
 
@@ -16,9 +16,19 @@ describe('Hour12Input', () => {
       <Hour12Input {...defaultProps} />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select).toHaveLength(1);
+    expect(input).toHaveLength(1);
+  });
+
+  it('has proper name defined', () => {
+    const component = shallow(
+      <Hour12Input {...defaultProps} />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('name')).toBe('hour12');
   });
 
   it('displays given value properly (am)', () => {
@@ -49,6 +59,66 @@ describe('Hour12Input', () => {
     const input = component.find('input');
 
     expect(input.prop('value')).toBe(value - 12);
+  });
+
+  it('does not disable input by default', () => {
+    const component = shallow(
+      <Hour12Input {...defaultProps} />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('disabled')).toBeFalsy();
+  });
+
+  it('disables input given disabled flag', () => {
+    const component = shallow(
+      <Hour12Input
+        {...defaultProps}
+        disabled
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('disabled')).toBeTruthy();
+  });
+
+  it('is not required input by default', () => {
+    const component = shallow(
+      <Hour12Input {...defaultProps} />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('required')).toBeFalsy();
+  });
+
+  it('required input given required flag', () => {
+    const component = shallow(
+      <Hour12Input
+        {...defaultProps}
+        required
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('required')).toBeTruthy();
+  });
+
+  it('calls itemRef properly', () => {
+    const itemRef = jest.fn();
+
+    mount(
+      <Hour12Input
+        {...defaultProps}
+        itemRef={itemRef}
+      />
+    );
+
+    expect(itemRef).toHaveBeenCalled();
+    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'hour12');
   });
 
   it('allows values between 1 and 12 by default', () => {
