@@ -1,7 +1,77 @@
 import {
+  getHoursMinutes,
+  getHoursMinutesSeconds,
   convert12to24,
   convert24to12,
 } from '../dates';
+
+describe('getHoursMinutes', () => {
+  it('returns proper hour and minute for a given date', () => {
+    const date = new Date(2017, 0, 1, 16, 4);
+
+    const hoursMinutes = getHoursMinutes(date);
+
+    expect(hoursMinutes).toBe('16:04');
+  });
+
+  it('returns proper hour and minute for a given string of hour and minute', () => {
+    const date = '16:04';
+
+    const hoursMinutes = getHoursMinutes(date);
+
+    expect(hoursMinutes).toBe('16:04');
+  });
+
+  it('returns proper hour and minute for a given string of hour, minute and second', () => {
+    const date = '16:04:08';
+
+    const hoursMinutes = getHoursMinutes(date);
+
+    expect(hoursMinutes).toBe('16:04');
+  });
+
+  it('throws an error when given nonsense data', () => {
+    const text = 'wololo';
+    const flag = true;
+
+    expect(() => getHoursMinutes(text)).toThrow();
+    expect(() => getHoursMinutes(flag)).toThrow();
+  });
+});
+
+describe('getHoursMinutesSeconds', () => {
+  it('returns proper hour, minute and second for a given date', () => {
+    const date = new Date(2017, 0, 1, 16, 4, 41);
+
+    const hoursMinutesSeconds = getHoursMinutesSeconds(date);
+
+    expect(hoursMinutesSeconds).toBe('16:04:41');
+  });
+
+  it('returns proper hour, minute and second for a given string of hour and minute', () => {
+    const date = '16:04';
+
+    const hoursMinutesSeconds = getHoursMinutesSeconds(date);
+
+    expect(hoursMinutesSeconds).toBe('16:04:00');
+  });
+
+  it('returns proper hour, minute and second for a given string of hour, minute and second', () => {
+    const date = '16:04:08';
+
+    const hoursMinutesSeconds = getHoursMinutesSeconds(date);
+
+    expect(hoursMinutesSeconds).toBe('16:04:08');
+  });
+
+  it('throws an error when given nonsense data', () => {
+    const text = 'wololo';
+    const flag = true;
+
+    expect(() => getHoursMinutesSeconds(text)).toThrow();
+    expect(() => getHoursMinutesSeconds(flag)).toThrow();
+  });
+});
 
 describe('convert12to24', () => {
   it.each`
