@@ -22,13 +22,28 @@ export default class NativeInput extends PureComponent {
     }
   }
 
+  get step() {
+    const { valueType } = this.props;
+
+    switch (valueType) {
+      case 'hour':
+        return 3600;
+      case 'minute':
+        return 60;
+      case 'second':
+        return 1;
+      default:
+        throw new Error('Invalid valueType.');
+    }
+  }
+
   stopPropagation = event => event.stopPropagation();
 
   render() {
     const { nativeValueParser } = this;
 
     const {
-      disabled, maxTime, minTime, name, onChange, required, value, valueType,
+      disabled, maxTime, minTime, name, onChange, required, value,
     } = this.props;
 
     return (
@@ -41,7 +56,7 @@ export default class NativeInput extends PureComponent {
         onChange={onChange}
         onFocus={this.stopPropagation}
         required={required}
-        step={valueType === 'second' ? 1 : null}
+        step={this.step}
         style={{
           visibility: 'hidden',
           position: 'absolute',
