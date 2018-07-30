@@ -293,4 +293,92 @@ describe('TimeInput', () => {
 
     expect(document.activeElement).toBe(hourInput.getDOMNode());
   });
+
+  it('triggers onChange correctly when changed custom input', () => {
+    const onChange = jest.fn();
+    const date = '22:17:00';
+
+    const component = mount(
+      <TimeInput
+        maxDetail="second"
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+
+    customInputs.at(0).getDOMNode().value = '20';
+    customInputs.at(0).simulate('change');
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith('20:17:00');
+  });
+
+  it('triggers onChange correctly when cleared custom inputs', () => {
+    const onChange = jest.fn();
+    const date = '22:17:00';
+
+    const component = mount(
+      <TimeInput
+        maxDetail="second"
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+
+    customInputs.at(0).getDOMNode().value = '';
+    customInputs.at(0).simulate('change');
+    customInputs.at(1).getDOMNode().value = '';
+    customInputs.at(1).simulate('change');
+    customInputs.at(2).getDOMNode().value = '';
+    customInputs.at(2).simulate('change');
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(null);
+  });
+
+  it('triggers onChange correctly when changed native input', () => {
+    const onChange = jest.fn();
+    const date = '22:17:00';
+
+    const component = mount(
+      <TimeInput
+        maxDetail="second"
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="time"]');
+
+    nativeInput.getDOMNode().value = '20:17:00';
+    nativeInput.simulate('change');
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith('20:17:00');
+  });
+
+  it('triggers onChange correctly when cleared native input', () => {
+    const onChange = jest.fn();
+    const date = '22:17:00';
+
+    const component = mount(
+      <TimeInput
+        maxDetail="second"
+        onChange={onChange}
+        value={date}
+      />
+    );
+
+    const nativeInput = component.find('input[type="time"]');
+
+    nativeInput.getDOMNode().value = '';
+    nativeInput.simulate('change');
+
+    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith(null);
+  });
 });
