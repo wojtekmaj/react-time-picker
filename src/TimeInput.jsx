@@ -258,9 +258,11 @@ export default class TimeInput extends PureComponent {
     const { onChange } = this.props;
     const { value } = event.target;
 
-    if (onChange) {
-      onChange(value);
+    if (!onChange) {
+      return;
     }
+
+    onChange(value);
   }
 
   onChangeAmPm = (event) => {
@@ -279,28 +281,32 @@ export default class TimeInput extends PureComponent {
   onChangeExternal = () => {
     const { onChange } = this.props;
 
-    if (onChange) {
-      const formElements = [
-        this.hour12Input,
-        this.hour24Input,
-        this.minuteInput,
-        this.secondInput,
-        this.amPmInput,
-      ].filter(Boolean);
+    if (!onChange) {
+      return;
+    }
 
-      const values = {};
-      formElements.forEach((formElement) => {
-        values[formElement.name] = formElement.value;
-      });
+    const formElements = [
+      this.hour12Input,
+      this.hour24Input,
+      this.minuteInput,
+      this.secondInput,
+      this.amPmInput,
+    ].filter(Boolean);
 
-      if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
-        const hour = `0${values.hour24 || convert12to24(values.hour12, values.amPm)}`.slice(-2);
-        const minute = `0${values.minute || 0}`.slice(-2);
-        const second = `0${values.second || 0}`.slice(-2);
-        const timeString = `${hour}:${minute}:${second}`;
-        const processedValue = this.getProcessedValue(timeString);
-        onChange(processedValue, false);
-      }
+    const values = {};
+    formElements.forEach((formElement) => {
+      values[formElement.name] = formElement.value;
+    });
+
+    if (formElements.every(formElement => !formElement.value)) {
+      onChange(null);
+    } else if (formElements.every(formElement => formElement.value && formElement.checkValidity())) {
+      const hour = `0${values.hour24 || convert12to24(values.hour12, values.amPm)}`.slice(-2);
+      const minute = `0${values.minute || 0}`.slice(-2);
+      const second = `0${values.second || 0}`.slice(-2);
+      const timeString = `${hour}:${minute}:${second}`;
+      const processedValue = this.getProcessedValue(timeString);
+      onChange(processedValue, false);
     }
   }
 
