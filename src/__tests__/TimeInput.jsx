@@ -329,12 +329,10 @@ describe('TimeInput', () => {
 
     const customInputs = component.find('input[type="number"]');
 
-    customInputs.at(0).getDOMNode().value = '';
-    customInputs.at(0).simulate('change');
-    customInputs.at(1).getDOMNode().value = '';
-    customInputs.at(1).simulate('change');
-    customInputs.at(2).getDOMNode().value = '';
-    customInputs.at(2).simulate('change');
+    customInputs.forEach((customInput) => {
+      customInput.getDOMNode().value = ''; // eslint-disable-line no-param-reassign
+      customInput.simulate('change');
+    });
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith(null);
