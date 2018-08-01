@@ -40,8 +40,7 @@ export default class NativeInput extends PureComponent {
   stopPropagation = event => event.stopPropagation();
 
   render() {
-    const { nativeValueParser } = this;
-
+    const { nativeValueParser, step } = this;
     const {
       disabled, maxTime, minTime, name, onChange, required, value,
     } = this.props;
@@ -56,7 +55,7 @@ export default class NativeInput extends PureComponent {
         onChange={onChange}
         onFocus={this.stopPropagation}
         required={required}
-        step={this.step}
+        step={step}
         style={{
           visibility: 'hidden',
           position: 'absolute',
