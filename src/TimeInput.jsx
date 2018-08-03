@@ -166,7 +166,7 @@ export default class TimeInput extends PureComponent {
         .replace('9', 'hour-12')
         .replace('13', 'minute')
         .replace('14', 'second')
-        .replace(/AM|PM/, `${this.divider}ampm`)
+        .replace(/AM|PM/i, `${this.divider}ampm`)
     );
   }
 
