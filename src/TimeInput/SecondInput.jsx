@@ -15,10 +15,10 @@ export default class SecondInput extends PureComponent {
     const { hour, minute, maxTime } = this.props;
     return min(
       59,
-      maxTime &&
-      hour === getHours(maxTime) &&
-      minute === getMinutes(maxTime) &&
-        getSeconds(maxTime),
+      maxTime
+      && hour === getHours(maxTime)
+      && minute === getMinutes(maxTime)
+      && getSeconds(maxTime),
     );
   }
 
@@ -26,10 +26,10 @@ export default class SecondInput extends PureComponent {
     const { hour, minute, minTime } = this.props;
     return max(
       0,
-      minTime &&
-      hour === getHours(minTime) &&
-      minute === getMinutes(minTime) &&
-        getSeconds(minTime),
+      minTime
+      && hour === getHours(minTime)
+      && minute === getMinutes(minTime)
+      && getSeconds(minTime),
     );
   }
 
