@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
+// eslint-disable-next-line import/no-unresolved
 import TimePicker from 'react-time-picker/src/entry.nostyle';
+// eslint-disable-next-line import/no-unresolved
 import 'react-time-picker/src/TimePicker.less';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-clock/dist/Clock.css';
