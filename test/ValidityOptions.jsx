@@ -5,15 +5,19 @@ import { isTime } from '../src/shared/propTypes';
 
 export default class ValidityOptions extends PureComponent {
   onMinChange = (event) => {
+    const { setState } = this.props;
+
     const { value } = event.target;
 
-    this.props.setState({ minTime: value || null });
+    setState({ minTime: value || null });
   }
 
   onMaxChange = (event) => {
+    const { setState } = this.props;
+
     const { value } = event.target;
 
-    this.props.setState({ maxTime: value || null });
+    setState({ maxTime: value || null });
   }
 
   render() {
@@ -23,16 +27,21 @@ export default class ValidityOptions extends PureComponent {
 
     return (
       <fieldset id="ValidityOptions">
-        <legend htmlFor="ValidityOptions">Minimum and maximum time</legend>
+        <legend htmlFor="ValidityOptions">
+          Minimum and maximum time
+        </legend>
 
         <div>
-          <label htmlFor="minTime">Minimum time</label>
+          <label htmlFor="minTime">
+            Minimum time
+          </label>
           <input
             id="minTime"
             onChange={this.onMinChange}
             type="time"
             value={minTime || ''}
-          />&nbsp;
+          />
+          &nbsp;
           <button
             onClick={() => setState({ minTime: null })}
             type="button"
@@ -42,13 +51,16 @@ export default class ValidityOptions extends PureComponent {
         </div>
 
         <div>
-          <label htmlFor="maxTime">Maximum time</label>
+          <label htmlFor="maxTime">
+            Maximum time
+          </label>
           <input
             id="maxTime"
             onChange={this.onMaxChange}
             type="time"
             value={maxTime || ''}
-          />&nbsp;
+          />
+          &nbsp;
           <button
             onClick={() => setState({ maxTime: null })}
             type="button"
@@ -64,7 +76,9 @@ export default class ValidityOptions extends PureComponent {
             checked={required}
             onChange={event => setState({ required: event.target.checked })}
           />
-          <label htmlFor="required">Required</label>
+          <label htmlFor="required">
+            Required
+          </label>
         </div>
       </fieldset>
     );

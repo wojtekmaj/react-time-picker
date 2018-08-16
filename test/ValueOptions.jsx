@@ -2,7 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 export default class ValueOptions extends PureComponent {
-  setValue = value => this.props.setState({ value });
+  setValue = (value) => {
+    const { setState } = this.props;
+
+    setState({ value });
+  }
 
   onChange = (event) => {
     const { value } = event.target;
@@ -15,18 +19,33 @@ export default class ValueOptions extends PureComponent {
 
     return (
       <fieldset id="valueOptions">
-        <legend htmlFor="valueOptions">Set time externally</legend>
+        <legend htmlFor="valueOptions">
+          Set time externally
+        </legend>
 
         <div>
-          <label htmlFor="time">Time</label>
+          <label htmlFor="time">
+            Time
+          </label>
           <input
             id="time"
             onChange={this.onChange}
             type="time"
             value={value || ''}
-          />&nbsp;
-          <button onClick={() => this.setValue(null)}>Clear to null</button>
-          <button onClick={() => this.setValue('')}>Clear to empty string</button>
+          />
+          &nbsp;
+          <button
+            type="button"
+            onClick={() => this.setValue(null)}
+          >
+            Clear to null
+          </button>
+          <button
+            type="button"
+            onClick={() => this.setValue('')}
+          >
+            Clear to empty string
+          </button>
         </div>
       </fieldset>
     );
