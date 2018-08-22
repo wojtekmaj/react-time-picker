@@ -95,6 +95,7 @@ Displays an input field complete with custom inputs, native input and a clock.
 |isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
 |locale|Defines which locale should be used by the time picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
 |maxDetail|Defines how detailed time picking shall be. Can be "hour", "minute" or "second". Defaults to "minute".|`"second"`|
+|disableClock|Defines whether the clock should be disabled. Defaults to false.|`true`|
 |maxTime|Defines maximum time that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 |minTime|Defines minimum date that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 |name|Defines input name. Defaults to "time".|`"myCustomName"`|
