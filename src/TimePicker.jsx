@@ -136,17 +136,18 @@ export default class TimePicker extends PureComponent {
   renderClock() {
     const { isOpen } = this.state;
 
-    if (isOpen === null) {
-      return null;
-    }
-
     const {
       clockClassName,
       className: timePickerClassName, // Unused, here to exclude it from clockProps
       maxDetail,
       onChange,
+      disableClock,
       ...clockProps
     } = this.props;
+
+    if (isOpen === null || disableClock) {
+      return null;
+    }
 
     const className = 'react-time-picker__clock';
 
@@ -247,6 +248,7 @@ TimePicker.propTypes = {
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),
+  disableClock: PropTypes.bool,
   maxTime: isTime,
   minTime: isTime,
   name: PropTypes.string,
