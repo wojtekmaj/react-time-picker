@@ -134,9 +134,10 @@ export default class TimePicker extends PureComponent {
   }
 
   renderClock() {
+    const { disableClock } = this.props;
     const { isOpen } = this.state;
 
-    if (isOpen === null) {
+    if (isOpen === null || disableClock) {
       return null;
     }
 
@@ -244,6 +245,7 @@ TimePicker.propTypes = {
   ]),
   clearIcon: PropTypes.node,
   disabled: PropTypes.bool,
+  disableClock: PropTypes.bool,
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),

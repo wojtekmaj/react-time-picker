@@ -104,6 +104,18 @@ describe('TimePicker', () => {
     expect(clock).toHaveLength(1);
   });
 
+  it('does not render Clock component when given disableClock & isOpen flags', () => {
+    const component = mount(
+      <TimePicker disableClock isOpen />
+    );
+
+    const timeInput = component.find('TimeInput');
+    const clock = component.find('Clock');
+
+    expect(timeInput).toHaveLength(1);
+    expect(clock).toHaveLength(0);
+  });
+
   it('opens Clock component when given isOpen flag by changing props', () => {
     const component = mount(
       <TimePicker />
