@@ -73,8 +73,9 @@ export default class Test extends PureComponent {
             <form
               onSubmit={(event) => {
                 event.preventDefault();
+
                 /* eslint-disable no-console */
-                console.error('TimePicker triggered submitting the form.');
+                console.warn('TimePicker triggered submitting the form.');
                 console.log(event);
                 /* eslint-enable no-console */
               }}
