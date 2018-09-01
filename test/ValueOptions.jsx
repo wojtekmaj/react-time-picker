@@ -32,6 +32,7 @@ export default class ValueOptions extends PureComponent {
             onChange={this.onChange}
             type="time"
             value={value || ''}
+            step="1"
           />
           &nbsp;
           <button

@@ -40,6 +40,7 @@ export default class ValidityOptions extends PureComponent {
             onChange={this.onMinChange}
             type="time"
             value={minTime || ''}
+            step="1"
           />
           &nbsp;
           <button
@@ -59,6 +60,7 @@ export default class ValidityOptions extends PureComponent {
             onChange={this.onMaxChange}
             type="time"
             value={maxTime || ''}
+            step="1"
           />
           &nbsp;
           <button
