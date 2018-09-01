@@ -21,7 +21,7 @@ describe('MinuteInput', () => {
     expect(input).toHaveLength(1);
   });
 
-  it('renders "0" id minute is <10', () => {
+  it('renders "0" if minute is <10', () => {
     const component = mount(
       <MinuteInput
         {...defaultProps}
