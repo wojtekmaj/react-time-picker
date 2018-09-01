@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import {
+  getHours,
   getHoursMinutes,
   getHoursMinutesSeconds,
 } from '../shared/dates';
@@ -13,6 +14,7 @@ export default class NativeInput extends PureComponent {
 
     switch (valueType) {
       case 'hour':
+        return value => `${getHours(value)}:00`;
       case 'minute':
         return getHoursMinutes;
       case 'second':
