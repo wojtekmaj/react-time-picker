@@ -80,9 +80,10 @@ export default class TimePicker extends PureComponent {
     const {
       clearIcon,
       clockIcon,
+      disableClock,
       disabled,
-      locale,
       isOpen,
+      locale,
       maxDetail,
       maxTime,
       minTime,
@@ -117,7 +118,7 @@ export default class TimePicker extends PureComponent {
             {clearIcon}
           </button>
         )}
-        {clockIcon !== null && (
+        {clockIcon !== null && !disableClock && (
           <button
             className="react-time-picker__clock-button react-time-picker__button__icon"
             disabled={disabled}
