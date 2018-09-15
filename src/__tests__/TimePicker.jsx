@@ -22,7 +22,17 @@ const mockDocumentListeners = () => {
 };
 
 describe('TimePicker', () => {
-  it('passes name to TimeInput', () => {
+  it('passes default name to TimeInput', () => {
+    const component = mount(
+      <TimePicker />
+    );
+
+    const timeInput = component.find('TimeInput');
+
+    expect(timeInput.prop('name')).toBe('time');
+  });
+
+  it('passes custom name to TimeInput', () => {
     const name = 'testName';
 
     const component = mount(
