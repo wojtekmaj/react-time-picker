@@ -88,9 +88,9 @@ Displays an input field complete with custom inputs, native input and a clock.
 |Prop name|Description|Example values|
 |----|----|----|
 |clockClassName|Defines class name(s) that will be added along with "react-clock" to the main React-Clock `<time>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
-|clockIcon|Defines the content of the clock button.|<ul><li>String: `"Clock"`</li><li>React element: `<ClockIcon />`</li></ul>|
+|clockIcon|Defines the content of the clock button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clock"`</li><li>React element: `<ClockIcon />`</li></ul>|
 |className|Defines class name(s) that will be added along with "react-time-picker" to the main React-Time-Picker `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
-|clearIcon|Defines the content of the clear button.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
+|clearIcon|Defines the content of the clear button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |disabled|Defines whether the time picker should be disabled. Defaults to false.|`true`|
 |disableClock|Defines whether the clock should be disabled. Defaults to false.|`true`|
 |isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
