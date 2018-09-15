@@ -91,8 +91,8 @@ Displays an input field complete with custom inputs, native input and a clock.
 |clearIcon|Defines the content of the clear button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |disabled|Defines whether the time picker should be disabled. Defaults to false.|`true`|
 |disableClock|Defines whether the clock should be disabled. Defaults to false.|`true`|
-|isOpen|Defines whether the calendar should be opened. Defaults to false.|`true`|
-|locale|Defines which locale should be used by the time picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
+|isOpen|Defines whether the clock should be opened. Defaults to false.|`true`|
+|locale|Defines which locale should be used by the time picker and the clock. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
 |maxDetail|Defines how detailed time picking shall be. Can be "hour", "minute" or "second". Defaults to "minute".|`"second"`|
 |maxTime|Defines maximum time that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 |minTime|Defines minimum date that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
