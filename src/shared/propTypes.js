@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 
 const allViews = ['hour', 'minute', 'second'];
+const allValueTypes = [...allViews];
+
 const hourOptionalSecondsRegExp = /^(([0-1])?[0-9]|2[0-3]):[0-5][0-9](:([0-5][0-9]))?$/;
 
 export const isTime = (props, propName, componentName) => {
@@ -16,6 +18,4 @@ export const isTime = (props, propName, componentName) => {
   return null;
 };
 
-export const isDetail = PropTypes.oneOf(allViews);
-
-export const isValueType = isDetail;
+export const isValueType = PropTypes.oneOf(allValueTypes);
