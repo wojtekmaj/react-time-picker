@@ -27,9 +27,9 @@
     ]
   },
   "keywords": [
+    "react",
     "time",
-    "time-picker",
-    "react"
+    "time-picker"
   ],
   "author": {
     "name": "Wojciech Maj",
