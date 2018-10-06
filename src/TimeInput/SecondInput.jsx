@@ -57,6 +57,7 @@ export default class SecondInput extends PureComponent {
         min={minSecond}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        onKeyUp={event => updateInputWidth(event.target)}
         placeholder="--"
         ref={(ref) => {
           if (ref) {

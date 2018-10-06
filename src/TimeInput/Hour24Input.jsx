@@ -43,6 +43,7 @@ export default class Hour24Input extends PureComponent {
         min={minHour}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        onKeyUp={event => updateInputWidth(event.target)}
         placeholder="--"
         ref={(ref) => {
           if (ref) {

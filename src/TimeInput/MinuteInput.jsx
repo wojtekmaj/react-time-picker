@@ -54,6 +54,7 @@ export default class MinuteInput extends PureComponent {
         min={minMinute}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        onKeyUp={event => updateInputWidth(event.target)}
         placeholder="--"
         ref={(ref) => {
           if (ref) {
