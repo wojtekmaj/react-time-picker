@@ -50,7 +50,13 @@ export default class TimePicker extends PureComponent {
   }
 
   closeClock = () => {
-    this.setState({ isOpen: false });
+    this.setState((prevState) => {
+      if (!prevState.isOpen) {
+        return null;
+      }
+
+      return { isOpen: false };
+    });
   }
 
   toggleClock = () => {
