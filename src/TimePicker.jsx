@@ -12,6 +12,7 @@ import TimeInput from './TimeInput';
 import { isTime } from './shared/propTypes';
 
 const allViews = ['hour', 'minute', 'second'];
+const baseClassName = 'react-time-picker';
 
 export default class TimePicker extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -110,8 +111,9 @@ export default class TimePicker extends PureComponent {
     } = this.props;
 
     return (
-      <div className="react-time-picker__button">
+      <div className={`${baseClassName}__button`}>
         <TimeInput
+          className={`${baseClassName}__button__input`}
           disabled={disabled}
           locale={locale}
           isClockOpen={isOpen}
@@ -126,7 +128,7 @@ export default class TimePicker extends PureComponent {
         />
         {clearIcon !== null && (
           <button
-            className="react-time-picker__clear-button react-time-picker__button__icon"
+            className={`${baseClassName}__clear-button ${baseClassName}__button__icon`}
             disabled={disabled}
             onClick={this.clear}
             onFocus={this.stopPropagation}
@@ -137,7 +139,7 @@ export default class TimePicker extends PureComponent {
         )}
         {clockIcon !== null && !disableClock && (
           <button
-            className="react-time-picker__clock-button react-time-picker__button__icon"
+            className={`${baseClassName}__clock-button ${baseClassName}__button__icon`}
             disabled={disabled}
             onClick={this.toggleClock}
             onFocus={this.stopPropagation}
@@ -167,7 +169,7 @@ export default class TimePicker extends PureComponent {
       ...clockProps
     } = this.props;
 
-    const className = 'react-time-picker__clock';
+    const className = `${baseClassName}__clock`;
 
     const maxDetailIndex = allViews.indexOf(maxDetail);
 
@@ -204,8 +206,6 @@ export default class TimePicker extends PureComponent {
   render() {
     const { className, disabled } = this.props;
     const { isOpen } = this.state;
-
-    const baseClassName = 'react-time-picker';
 
     return (
       <div
