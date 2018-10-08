@@ -9,6 +9,8 @@ import {
 import { isTime } from '../shared/propTypes';
 import { min, max, updateInputWidth } from '../shared/utils';
 
+const select = element => element && element.select();
+
 export default class Hour12Input extends PureComponent {
   get maxHour() {
     const { maxTime } = this.props;
@@ -46,6 +48,7 @@ export default class Hour12Input extends PureComponent {
         max={maxHour}
         min={minHour}
         onChange={onChange}
+        onFocus={event => select(event.target)}
         onKeyDown={onKeyDown}
         onKeyUp={event => updateInputWidth(event.target)}
         placeholder="--"

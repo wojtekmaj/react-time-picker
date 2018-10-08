@@ -46,13 +46,7 @@ const findNextInput = (element) => {
   return nextElement.nextElementSibling; // Actual input
 };
 
-const selectIfPossible = (element) => {
-  if (!element) {
-    return;
-  }
-  element.focus();
-  element.select();
-};
+const focus = element => element && element.focus();
 
 const removeUnwantedCharacters = str => str
   .split('')
@@ -203,7 +197,7 @@ export default class TimeInput extends PureComponent {
 
         const input = event.target;
         const previousInput = findPreviousInput(input);
-        selectIfPossible(previousInput);
+        focus(previousInput);
         break;
       }
       case 'ArrowRight':
@@ -212,7 +206,7 @@ export default class TimeInput extends PureComponent {
 
         const input = event.target;
         const nextInput = findNextInput(input);
-        selectIfPossible(nextInput);
+        focus(nextInput);
         break;
       }
       default:
