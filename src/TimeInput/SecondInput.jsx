@@ -45,7 +45,7 @@ export default class SecondInput extends PureComponent {
     const hasLeadingZero = value !== null && value < 10;
 
     return [
-      (hasLeadingZero ? '0' : null),
+      (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
       <input
         key="second"
         className={mergeClassNames(
