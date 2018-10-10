@@ -35,7 +35,7 @@ const getKey = key => ({
 
 describe('TimeInput', () => {
   const defaultProps = {
-    className: 'react-time-picker__button__input',
+    className: 'react-time-picker__inputGroup',
   };
 
   it('renders a native input and custom inputs', () => {
@@ -208,7 +208,7 @@ describe('TimeInput', () => {
       />
     );
 
-    const separators = component.find('.react-time-picker__button__input__divider');
+    const separators = component.find('.react-time-picker__inputGroup__divider');
 
     expect(separators).toHaveLength(2);
     expect(separators.at(0).text()).toBe(':');
@@ -219,7 +219,7 @@ describe('TimeInput', () => {
       <TimeInput {...defaultProps} />
     );
 
-    const separators = component.find('.react-time-picker__button__input__divider');
+    const separators = component.find('.react-time-picker__inputGroup__divider');
     const customInputs = component.find('input[type="number"]');
 
     expect(separators).toHaveLength(customInputs.length - 1);
@@ -262,7 +262,7 @@ describe('TimeInput', () => {
 
     expect(document.activeElement).toBe(hourInput.getDOMNode());
 
-    const separators = component.find('.react-time-picker__button__input__divider');
+    const separators = component.find('.react-time-picker__inputGroup__divider');
     const separatorKey = separators.at(0).text();
     hourInput.simulate('keydown', getKey(separatorKey));
 

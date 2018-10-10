@@ -111,9 +111,9 @@ export default class TimePicker extends PureComponent {
     } = this.props;
 
     return (
-      <div className={`${baseClassName}__button`}>
+      <div className={`${baseClassName}__wrapper`}>
         <TimeInput
-          className={`${baseClassName}__button__input`}
+          className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           locale={locale}
           isClockOpen={isOpen}
@@ -128,7 +128,7 @@ export default class TimePicker extends PureComponent {
         />
         {clearIcon !== null && (
           <button
-            className={`${baseClassName}__clear-button ${baseClassName}__button__icon`}
+            className={`${baseClassName}__clear-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.clear}
             onFocus={this.stopPropagation}
@@ -139,7 +139,7 @@ export default class TimePicker extends PureComponent {
         )}
         {clockIcon !== null && !disableClock && (
           <button
-            className={`${baseClassName}__clock-button ${baseClassName}__button__icon`}
+            className={`${baseClassName}__clock-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.toggleClock}
             onFocus={this.stopPropagation}
