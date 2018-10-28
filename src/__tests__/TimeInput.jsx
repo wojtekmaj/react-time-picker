@@ -349,7 +349,7 @@ describe('TimeInput', () => {
     customInputs.at(0).simulate('change');
 
     expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledWith('20:17:00');
+    expect(onChange).toHaveBeenCalledWith('20:17:00', false);
   });
 
   it('triggers onChange correctly when cleared custom inputs', () => {
@@ -373,7 +373,7 @@ describe('TimeInput', () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenCalledWith(null);
+    expect(onChange).toHaveBeenCalledWith(null, false);
   });
 
   it('triggers onChange correctly when changed native input', () => {
@@ -395,7 +395,7 @@ describe('TimeInput', () => {
     nativeInput.simulate('change');
 
     expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledWith('20:17:00');
+    expect(onChange).toHaveBeenCalledWith('20:17:00', false);
   });
 
   it('triggers onChange correctly when cleared native input', () => {
@@ -417,6 +417,6 @@ describe('TimeInput', () => {
     nativeInput.simulate('change');
 
     expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledWith(null);
+    expect(onChange).toHaveBeenCalledWith(null, false);
   });
 });

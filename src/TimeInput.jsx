@@ -264,7 +264,7 @@ export default class TimeInput extends PureComponent {
       return value;
     })();
 
-    onChange(processedValue);
+    onChange(processedValue, false);
   }
 
   onChangeAmPm = (event) => {
@@ -303,7 +303,7 @@ export default class TimeInput extends PureComponent {
     });
 
     if (formElementsWithoutSelect.every(formElement => !formElement.value)) {
-      onChange(null);
+      onChange(null, false);
     } else if (
       formElements.every(formElement => formElement.value && formElement.checkValidity())
     ) {
@@ -312,7 +312,7 @@ export default class TimeInput extends PureComponent {
       const second = `0${values.second || 0}`.slice(-2);
       const timeString = `${hour}:${minute}:${second}`;
       const processedValue = this.getProcessedValue(timeString);
-      onChange(processedValue);
+      onChange(processedValue, false);
     }
   }
 
