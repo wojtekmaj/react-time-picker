@@ -470,6 +470,7 @@ export default class TimeInput extends PureComponent {
       <div
         className={className}
         onClick={this.onClick}
+        role="presentation"
       >
         {this.renderNativeInput()}
         {this.renderCustomInputs()}
