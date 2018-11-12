@@ -10,6 +10,7 @@ import ValidityOptions from './ValidityOptions';
 import MaxDetailOptions from './MaxDetailOptions';
 import LocaleOptions from './LocaleOptions';
 import ValueOptions from './ValueOptions';
+import ViewOptions from './ViewOptions';
 
 import './Test.less';
 
@@ -19,6 +20,7 @@ const now = new Date();
 
 export default class Test extends PureComponent {
   state = {
+    disabled: false,
     locale: null,
     maxTime: null,
     maxDetail: 'minute',
@@ -31,6 +33,7 @@ export default class Test extends PureComponent {
 
   render() {
     const {
+      disabled,
       locale,
       maxTime,
       maxDetail,
@@ -68,6 +71,10 @@ export default class Test extends PureComponent {
               setState={setState}
               value={value}
             />
+            <ViewOptions
+              disabled={disabled}
+              setState={setState}
+            />
           </aside>
           <main className="Test__container__content">
             <form
@@ -83,7 +90,7 @@ export default class Test extends PureComponent {
               <TimePicker
                 className="myCustomTimePickerClassName"
                 clockClassName="myCustomClockClassName"
-                disabled={false}
+                disabled={disabled}
                 locale={locale}
                 maxDetail={maxDetail}
                 maxTime={maxTime}
