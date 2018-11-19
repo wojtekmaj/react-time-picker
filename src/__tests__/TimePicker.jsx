@@ -5,22 +5,6 @@ import TimePicker from '../TimePicker';
 
 /* eslint-disable comma-dangle */
 
-const mockDocumentListeners = () => {
-  const eventMap = {};
-  document.addEventListener = jest.fn((method, cb) => {
-    if (!eventMap[method]) {
-      eventMap[method] = [];
-    }
-    eventMap[method].push(cb);
-  });
-
-  return {
-    simulate: (method, args) => {
-      eventMap[method].forEach(cb => cb(args));
-    },
-  };
-};
-
 describe('TimePicker', () => {
   it('passes default name to TimeInput', () => {
     const component = mount(
@@ -179,31 +163,31 @@ describe('TimePicker', () => {
     expect(clock2).toHaveLength(1);
   });
 
-  it('closes Calendar component when clicked outside', () => {
-    const { simulate } = mockDocumentListeners();
-
+  it('closes Calendar component when focused outside', () => {
     const component = mount(
       <TimePicker isOpen />
     );
 
-    simulate('mousedown', {
-      target: document,
-    });
+    const customInputs = component.find('input[type="number"]');
+    const hourInput = customInputs.at(0);
+
+    hourInput.simulate('blur');
     component.update();
 
     expect(component.state('isOpen')).toBe(false);
   });
 
-  it('does not close Calendar component when clicked inside', () => {
-    const { simulate } = mockDocumentListeners();
-
+  it('does not close Calendar component when focused inside', () => {
     const component = mount(
       <TimePicker isOpen />
     );
 
-    simulate('mousedown', {
-      target: component.getDOMNode(),
-    });
+    const customInputs = component.find('input[type="number"]');
+    const hourInput = customInputs.at(0);
+    const minuteInput = customInputs.at(1);
+
+    hourInput.simulate('blur');
+    minuteInput.simulate('focus');
     component.update();
 
     expect(component.state('isOpen')).toBe(true);
