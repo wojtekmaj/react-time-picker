@@ -28,11 +28,11 @@ export const getAmPmLabels = (locale) => {
   const [pm1, pm2] = pmString.split('9');
 
   if (am1 !== pm1) {
-    return [am1, pm1];
+    return [am1, pm1].map(el => el.trim());
   }
 
   if (am2 !== pm2) {
-    return [am2, pm2];
+    return [am2, pm2].map(el => el.trim());
   }
 
   // Fallback
