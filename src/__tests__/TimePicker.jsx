@@ -163,21 +163,41 @@ describe('TimePicker', () => {
     expect(clock2).toHaveLength(1);
   });
 
-  it('closes Calendar component when focused outside', () => {
+  it('closes Clock component when clicked outside', () => {
+    const root = document.createElement('div');
+    document.body.appendChild(root);
+
     const component = mount(
-      <TimePicker isOpen />
+      <TimePicker isOpen />,
+      { attachTo: root }
     );
 
-    const customInputs = component.find('input[type="number"]');
-    const hourInput = customInputs.at(0);
-
-    hourInput.simulate('blur');
+    const event = document.createEvent('MouseEvent');
+    event.initEvent('mousedown', true, true);
+    document.body.dispatchEvent(event);
     component.update();
 
     expect(component.state('isOpen')).toBe(false);
   });
 
-  it('does not close Calendar component when focused inside', () => {
+  it('closes Clock component when focused outside', () => {
+    const root = document.createElement('div');
+    document.body.appendChild(root);
+
+    const component = mount(
+      <TimePicker isOpen />,
+      { attachTo: root }
+    );
+
+    const event = document.createEvent('FocusEvent');
+    event.initEvent('focusin', true, true);
+    document.body.dispatchEvent(event);
+    component.update();
+
+    expect(component.state('isOpen')).toBe(false);
+  });
+
+  it('does not close Clock component when focused inside', () => {
     const component = mount(
       <TimePicker isOpen />
     );
