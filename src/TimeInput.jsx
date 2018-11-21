@@ -137,7 +137,6 @@ export default class TimeInput extends PureComponent {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   get divider() {
     const { locale } = this.props;
     const date = new Date(2017, 0, 1, 21, 12, 13);
@@ -148,7 +147,6 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   get placeholder() {
     const { locale } = this.props;
     const date = new Date(2017, 0, 1, 21, 13, 14);
