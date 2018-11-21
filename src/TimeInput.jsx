@@ -396,13 +396,15 @@ export default class TimeInput extends PureComponent {
 
   renderAmPm = () => {
     const { amPm } = this.state;
+    const { locale } = this.props;
 
     return (
       <AmPm
         key="ampm"
         {...this.commonInputProps}
-        value={amPm}
+        locale={locale}
         onChange={this.onChangeAmPm}
+        value={amPm}
       />
     );
   }

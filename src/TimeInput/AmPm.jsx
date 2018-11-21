@@ -6,7 +6,28 @@ import {
   getHours,
   convert24to12,
 } from '../shared/dates';
+import { getFormatter } from '../shared/dateFormatter';
 import { isTime } from '../shared/propTypes';
+
+const getAmPmLabels = (locale) => {
+  const amPmFormatter = getFormatter({ hour: 'numeric' }, locale);
+  const amString = amPmFormatter(new Date(2017, 0, 1, 9));
+  const pmString = amPmFormatter(new Date(2017, 0, 1, 21));
+
+  const [am1, am2] = amString.split('9');
+  const [pm1, pm2] = pmString.split('9');
+
+  if (am1 !== pm1) {
+    return [am1, pm1];
+  }
+
+  if (am2 !== pm2) {
+    return [am2, pm2];
+  }
+
+  // Fallback
+  return ['am', 'pm'];
+};
 
 class AmPm extends PureComponent {
   get amDisabled() {
@@ -23,10 +44,11 @@ class AmPm extends PureComponent {
 
   render() {
     const {
-      className, disabled, itemRef, onChange, required, value,
+      className, disabled, itemRef, locale, onChange, required, value,
     } = this.props;
 
     const name = 'amPm';
+    const [amLabel, pmLabel] = getAmPmLabels(locale);
 
     return (
       <select
@@ -51,10 +73,10 @@ class AmPm extends PureComponent {
           </option>
         )}
         <option disabled={this.amDisabled} value="am">
-          am
+          {amLabel}
         </option>
         <option disabled={this.pmDisabled} value="pm">
-          pm
+          {pmLabel}
         </option>
       </select>
     );
@@ -65,6 +87,7 @@ AmPm.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
+  locale: PropTypes.string,
   maxTime: isTime,
   minTime: isTime,
   onChange: PropTypes.func,
