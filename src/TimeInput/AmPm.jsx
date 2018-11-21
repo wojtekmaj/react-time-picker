@@ -6,28 +6,8 @@ import {
   getHours,
   convert24to12,
 } from '../shared/dates';
-import { getFormatter } from '../shared/dateFormatter';
 import { isTime } from '../shared/propTypes';
-
-const getAmPmLabels = (locale) => {
-  const amPmFormatter = getFormatter({ hour: 'numeric' }, locale);
-  const amString = amPmFormatter(new Date(2017, 0, 1, 9));
-  const pmString = amPmFormatter(new Date(2017, 0, 1, 21));
-
-  const [am1, am2] = amString.split('9');
-  const [pm1, pm2] = pmString.split('9');
-
-  if (am1 !== pm1) {
-    return [am1, pm1];
-  }
-
-  if (am2 !== pm2) {
-    return [am2, pm2];
-  }
-
-  // Fallback
-  return ['am', 'pm'];
-};
+import { getAmPmLabels } from '../shared/utils';
 
 class AmPm extends PureComponent {
   get amDisabled() {

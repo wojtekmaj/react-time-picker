@@ -21,6 +21,7 @@ import {
   convert24to12,
 } from './shared/dates';
 import { isTime } from './shared/propTypes';
+import { getAmPmLabels } from './shared/utils';
 
 const allViews = ['hour', 'minute', 'second'];
 
@@ -166,6 +167,7 @@ export default class TimeInput extends PureComponent {
   }
 
   get placeholder() {
+    const { locale } = this.props;
     const date = new Date(2017, 0, 1, 21, 13, 14);
 
     return (
@@ -174,7 +176,7 @@ export default class TimeInput extends PureComponent {
         .replace('9', 'hour-12')
         .replace('13', 'minute')
         .replace('14', 'second')
-        .replace(/AM|PM|上午|下午/i, 'ampm')
+        .replace(new RegExp(getAmPmLabels(locale).join('|')), 'ampm')
     );
   }
 
