@@ -10,7 +10,7 @@ import SecondInput from './TimeInput/SecondInput';
 import NativeInput from './TimeInput/NativeInput';
 import AmPm from './TimeInput/AmPm';
 
-import { formatTime } from './shared/dateFormatter';
+import { getFormatter } from './shared/dateFormatter';
 import {
   getHours,
   getMinutes,
@@ -48,17 +48,24 @@ const findNextInput = (element) => {
 
 const focus = element => element && element.focus();
 
-const removeUnwantedCharacters = str => str
-  .split('')
-  .filter(a => (
-    // We don't want spaces in dates
-    a.charCodeAt(0) !== 32
-    // Internet Explorer specific
-    && a.charCodeAt(0) !== 8206
-    // Remove non-ASCII characters
-    && /^[\x20-\x7F]*$/.test(a)
-  ))
-  .join('');
+const renderCustomInputs = (placeholder, elementFunctions) => {
+  const pattern = new RegExp(Object.keys(elementFunctions).join('|'), 'gi');
+  const matches = placeholder.match(pattern);
+  return placeholder.split(pattern)
+    .reduce((arr, element, index) => {
+      const divider = element && (
+        // eslint-disable-next-line react/no-array-index-key
+        <Divider key={`separator_${index}`}>
+          {element}
+        </Divider>
+      );
+      const res = [...arr, divider];
+      if (matches[index]) {
+        res.push(elementFunctions[matches[index]]());
+      }
+      return res;
+    }, []);
+};
 
 export default class TimeInput extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -107,6 +114,21 @@ export default class TimeInput extends PureComponent {
     second: null,
   };
 
+  get formatTime() {
+    const { locale, maxDetail } = this.props;
+
+    const options = { hour: 'numeric' };
+    const level = allViews.indexOf(maxDetail);
+    if (level >= 1) {
+      options.minute = 'numeric';
+    }
+    if (level >= 2) {
+      options.second = 'numeric';
+    }
+
+    return getFormatter(options, locale);
+  }
+
   /**
    * Gets current value in a desired format.
    */
@@ -138,26 +160,21 @@ export default class TimeInput extends PureComponent {
   }
 
   get divider() {
-    const { locale } = this.props;
     const date = new Date(2017, 0, 1, 21, 12, 13);
 
-    return (
-      removeUnwantedCharacters(formatTime(date, locale))
-        .match(/[^0-9]/)[0]
-    );
+    return this.formatTime(date).match(/[^0-9a-z]/i)[0];
   }
 
   get placeholder() {
-    const { locale } = this.props;
     const date = new Date(2017, 0, 1, 21, 13, 14);
 
     return (
-      removeUnwantedCharacters(formatTime(date, locale))
+      this.formatTime(date)
         .replace('21', 'hour-24')
         .replace('9', 'hour-12')
         .replace('13', 'minute')
         .replace('14', 'second')
-        .replace(/AM|PM/i, `${this.divider}ampm`)
+        .replace(/AM|PM|上午|下午/i, 'ampm')
     );
   }
 
@@ -322,7 +339,7 @@ export default class TimeInput extends PureComponent {
     }
   }
 
-  renderHour12() {
+  renderHour12 = () => {
     const { hour } = this.state;
 
     return (
@@ -334,7 +351,7 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderHour24() {
+  renderHour24 = () => {
     const { hour } = this.state;
 
     return (
@@ -346,14 +363,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderMinute() {
+  renderMinute = () => {
     const { maxDetail } = this.props;
-
-    // Do not display if maxDetail is "hour" or less
-    if (allViews.indexOf(maxDetail) < 1) {
-      return null;
-    }
-
     const { hour, minute } = this.state;
 
     return (
@@ -367,14 +378,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderSecond() {
+  renderSecond = () => {
     const { maxDetail } = this.props;
-
-    // Do not display if maxDetail is "minute" or less
-    if (allViews.indexOf(maxDetail) < 2) {
-      return null;
-    }
-
     const { hour, minute, second } = this.state;
 
     return (
@@ -389,7 +394,7 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderAmPm() {
+  renderAmPm = () => {
     const { amPm } = this.state;
 
     return (
@@ -403,37 +408,16 @@ export default class TimeInput extends PureComponent {
   }
 
   renderCustomInputs() {
-    const { divider, placeholder } = this;
+    const { placeholder } = this;
+    const elementFunctions = {
+      'hour-12': this.renderHour12,
+      'hour-24': this.renderHour24,
+      minute: this.renderMinute,
+      second: this.renderSecond,
+      ampm: this.renderAmPm,
+    };
 
-    return (
-      placeholder
-        .split(divider)
-        .map((part) => {
-          switch (part) {
-            case 'hour-12': return this.renderHour12();
-            case 'hour-24': return this.renderHour24();
-            case 'minute': return this.renderMinute();
-            case 'second': return this.renderSecond();
-            case 'ampm': return this.renderAmPm();
-            default: return null;
-          }
-        })
-        .filter(Boolean)
-        .reduce((result, element, index) => {
-          if (index && element.key !== 'ampm') {
-            result.push(
-              // eslint-disable-next-line react/no-array-index-key
-              <Divider key={`separator_${index}`}>
-                {divider}
-              </Divider>,
-            );
-          }
-
-          result.push(element);
-
-          return result;
-        }, [])
-    );
+    return renderCustomInputs(placeholder, elementFunctions);
   }
 
   renderNativeInput() {

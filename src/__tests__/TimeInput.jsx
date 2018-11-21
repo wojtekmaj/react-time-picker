@@ -210,8 +210,10 @@ describe('TimeInput', () => {
 
     const separators = component.find('.react-time-picker__inputGroup__divider');
 
-    expect(separators).toHaveLength(2);
+    expect(separators).toHaveLength(3);
     expect(separators.at(0).text()).toBe(':');
+    expect(separators.at(1).text()).toBe(':');
+    expect(separators.at(2).text()).toBe(' ');
   });
 
   it('renders proper amount of separators', () => {
@@ -221,8 +223,9 @@ describe('TimeInput', () => {
 
     const separators = component.find('.react-time-picker__inputGroup__divider');
     const customInputs = component.find('input[type="number"]');
+    const ampm = component.find('select');
 
-    expect(separators).toHaveLength(customInputs.length - 1);
+    expect(separators).toHaveLength(customInputs.length + ampm.length - 1);
   });
 
   it('jumps to the next field when right arrow is pressed', () => {
@@ -277,16 +280,15 @@ describe('TimeInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
-    const secondInput = customInputs.at(2);
+    const select = component.find('select');
 
-    secondInput.getDOMNode().focus();
+    select.getDOMNode().focus();
 
-    expect(document.activeElement).toBe(secondInput.getDOMNode());
+    expect(document.activeElement).toBe(select.getDOMNode());
 
-    secondInput.simulate('keydown', getKey('ArrowRight'));
+    select.simulate('keydown', getKey('ArrowRight'));
 
-    expect(document.activeElement).toBe(secondInput.getDOMNode());
+    expect(document.activeElement).toBe(select.getDOMNode());
   });
 
   it('jumps to the previous field when left arrow is pressed', () => {
