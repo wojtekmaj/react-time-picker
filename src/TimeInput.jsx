@@ -127,7 +127,15 @@ export default class TimeInput extends PureComponent {
       options.second = 'numeric';
     }
 
-    return getFormatter(options, locale);
+    return getFormatter(locale, options);
+  }
+
+  get formatNumber() {
+    const { locale } = this.props;
+
+    const options = { useGrouping: false };
+
+    return getFormatter(locale, options);
   }
 
   /**
@@ -168,14 +176,19 @@ export default class TimeInput extends PureComponent {
 
   get placeholder() {
     const { locale } = this.props;
-    const date = new Date(2017, 0, 1, 21, 13, 14);
+
+    const hour24 = 21;
+    const hour12 = 9;
+    const minute = 13;
+    const second = 14;
+    const date = new Date(2017, 0, 1, hour24, minute, second);
 
     return (
       this.formatTime(date)
-        .replace('21', 'hour-24')
-        .replace('9', 'hour-12')
-        .replace('13', 'minute')
-        .replace('14', 'second')
+        .replace(this.formatNumber(hour24), 'hour-24')
+        .replace(this.formatNumber(hour12), 'hour-12')
+        .replace(this.formatNumber(minute), 'minute')
+        .replace(this.formatNumber(second), 'second')
         .replace(new RegExp(getAmPmLabels(locale).join('|')), 'ampm')
     );
   }
