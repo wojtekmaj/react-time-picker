@@ -45,6 +45,7 @@ export default class MinuteInput extends PureComponent {
       (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
       <input
         key="minute"
+        autoComplete="off"
         className={mergeClassNames(
           `${className}__input`,
           `${className}__minute`,

@@ -48,6 +48,7 @@ export default class SecondInput extends PureComponent {
       (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
       <input
         key="second"
+        autoComplete="off"
         className={mergeClassNames(
           `${className}__input`,
           `${className}__second`,

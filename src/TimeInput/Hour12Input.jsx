@@ -39,6 +39,7 @@ export default class Hour12Input extends PureComponent {
 
     return (
       <input
+        autoComplete="off"
         className={mergeClassNames(
           `${className}__input`,
           `${className}__hour`,
