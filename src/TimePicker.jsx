@@ -274,6 +274,8 @@ TimePicker.propTypes = {
   minTime: isTime,
   name: PropTypes.string,
   onChange: PropTypes.func,
+  onClockClose: PropTypes.func,
+  onClockOpen: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.oneOfType([
     isTime,
