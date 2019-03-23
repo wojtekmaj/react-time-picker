@@ -255,18 +255,18 @@ TimePicker.defaultProps = {
 
 TimePicker.propTypes = {
   ...Clock.propTypes,
-  clockClassName: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-  clockIcon: PropTypes.node,
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
   clearIcon: PropTypes.node,
-  disabled: PropTypes.bool,
+  clockClassName: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
+  clockIcon: PropTypes.node,
   disableClock: PropTypes.bool,
+  disabled: PropTypes.bool,
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),
