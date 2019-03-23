@@ -16,6 +16,8 @@ import { getHoursMinutesSeconds } from '../src/shared/dates';
 
 const now = new Date();
 
+/* eslint-disable no-console */
+
 export default class Test extends PureComponent {
   state = {
     disabled: false,
@@ -79,10 +81,8 @@ export default class Test extends PureComponent {
               onSubmit={(event) => {
                 event.preventDefault();
 
-                /* eslint-disable no-console */
                 console.warn('TimePicker triggered submitting the form.');
                 console.log(event);
-                /* eslint-enable no-console */
               }}
             >
               <TimePicker
@@ -95,6 +95,8 @@ export default class Test extends PureComponent {
                 minTime={minTime}
                 name="myCustomName"
                 onChange={this.onChange}
+                onClockOpen={() => console.log('Clock opened')}
+                onClockClose={() => console.log('Clock closed')}
                 required={required}
                 value={value}
               />

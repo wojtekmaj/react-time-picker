@@ -98,6 +98,8 @@ Displays an input field complete with custom inputs, native input and a clock.
 |minTime|Defines minimum date that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 |name|Defines input name. Defaults to "time".|`"myCustomName"`|
 |onChange|Function called when the user picks a valid time.|`(value) => alert('New time is: ', value)`|
+|onClockClose|Function called when the clock closes.|`() => alert('Clock closed')`|
+|onClockOpen|Function called when the clock opens.|`() => alert('Clock opened')`|
 |required|Defines whether date input should be required. Defaults to false.|`true`|
 |value|Defines the value of the input.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 
