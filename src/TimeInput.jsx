@@ -379,7 +379,6 @@ export default class TimeInput extends PureComponent {
   }
 
   renderMinute = () => {
-    const { maxDetail } = this.props;
     const { hour, minute } = this.state;
 
     return (
@@ -387,14 +386,12 @@ export default class TimeInput extends PureComponent {
         key="minute"
         {...this.commonInputProps}
         hour={hour}
-        maxDetail={maxDetail}
         value={minute}
       />
     );
   }
 
   renderSecond = () => {
-    const { maxDetail } = this.props;
     const { hour, minute, second } = this.state;
 
     return (
@@ -402,7 +399,6 @@ export default class TimeInput extends PureComponent {
         key="second"
         {...this.commonInputProps}
         hour={hour}
-        maxDetail={maxDetail}
         minute={minute}
         value={second}
       />
