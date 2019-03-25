@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import mergeClassNames from 'merge-class-names';
+
+import Input from './Input';
 
 import {
   getHours,
@@ -8,9 +9,7 @@ import {
   getSeconds,
 } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
-import { min, max, updateInputWidth } from '../shared/utils';
-
-const select = element => element && element.select();
+import { min, max } from '../shared/utils';
 
 export default class SecondInput extends PureComponent {
   get maxSecond() {
@@ -38,45 +37,22 @@ export default class SecondInput extends PureComponent {
   render() {
     const { maxSecond, minSecond } = this;
     const {
-      className, disabled, itemRef, onChange, onKeyDown, required, value,
+      hour,
+      maxTime,
+      minTime,
+      minute,
+      ...otherProps
     } = this.props;
 
-    const name = 'second';
-    const hasLeadingZero = value !== null && value < 10;
-
-    return [
-      (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
-      <input
-        key="second"
-        autoComplete="off"
-        className={mergeClassNames(
-          `${className}__input`,
-          `${className}__second`,
-          hasLeadingZero && `${className}__input--hasLeadingZero`,
-        )}
-        disabled={disabled}
-        name={name}
+    return (
+      <Input
+        name="second"
         max={maxSecond}
         min={minSecond}
-        onChange={onChange}
-        onFocus={event => select(event.target)}
-        onKeyDown={onKeyDown}
-        onKeyUp={event => updateInputWidth(event.target)}
-        placeholder="--"
-        ref={(ref) => {
-          if (ref) {
-            updateInputWidth(ref);
-          }
-
-          if (itemRef) {
-            itemRef(ref, name);
-          }
-        }}
-        required={required}
-        type="number"
-        value={value !== null ? value : ''}
-      />,
-    ];
+        showLeadingZeros
+        {...otherProps}
+      />
+    );
   }
 }
 

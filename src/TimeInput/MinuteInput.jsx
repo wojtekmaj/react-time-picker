@@ -1,15 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import mergeClassNames from 'merge-class-names';
 
-import {
-  getHours,
-  getMinutes,
-} from '../shared/dates';
+import Input from './Input';
+
+import { getHours, getMinutes } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
-import { min, max, updateInputWidth } from '../shared/utils';
-
-const select = element => element && element.select();
+import { min, max } from '../shared/utils';
 
 export default class MinuteInput extends PureComponent {
   get maxMinute() {
@@ -35,45 +31,21 @@ export default class MinuteInput extends PureComponent {
   render() {
     const { maxMinute, minMinute } = this;
     const {
-      className, disabled, itemRef, onChange, onKeyDown, required, value,
+      hour,
+      maxTime,
+      minTime,
+      ...otherProps
     } = this.props;
 
-    const name = 'minute';
-    const hasLeadingZero = value !== null && value < 10;
-
-    return [
-      (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
-      <input
-        key="minute"
-        autoComplete="off"
-        className={mergeClassNames(
-          `${className}__input`,
-          `${className}__minute`,
-          hasLeadingZero && `${className}__input--hasLeadingZero`,
-        )}
-        disabled={disabled}
-        name={name}
+    return (
+      <Input
+        name="minute"
         max={maxMinute}
         min={minMinute}
-        onChange={onChange}
-        onFocus={event => select(event.target)}
-        onKeyDown={onKeyDown}
-        onKeyUp={event => updateInputWidth(event.target)}
-        placeholder="--"
-        ref={(ref) => {
-          if (ref) {
-            updateInputWidth(ref);
-          }
-
-          if (itemRef) {
-            itemRef(ref, name);
-          }
-        }}
-        required={required}
-        type="number"
-        value={value !== null ? value : ''}
-      />,
-    ];
+        showLeadingZeros
+        {...otherProps}
+      />
+    );
   }
 }
 
