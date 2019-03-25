@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Hour12Input from '../Hour12Input';
 
@@ -12,7 +12,7 @@ describe('Hour12Input', () => {
   };
 
   it('renders an input', () => {
-    const component = shallow(
+    const component = mount(
       <Hour12Input {...defaultProps} />
     );
 
@@ -22,7 +22,7 @@ describe('Hour12Input', () => {
   });
 
   it('has proper name defined', () => {
-    const component = shallow(
+    const component = mount(
       <Hour12Input {...defaultProps} />
     );
 
@@ -34,7 +34,7 @@ describe('Hour12Input', () => {
   it('displays given value properly (am)', () => {
     const value = 11;
 
-    const component = shallow(
+    const component = mount(
       <Hour12Input
         {...defaultProps}
         value={value}
@@ -49,7 +49,7 @@ describe('Hour12Input', () => {
   it('displays given value properly (pm)', () => {
     const value = 22;
 
-    const component = shallow(
+    const component = mount(
       <Hour12Input
         {...defaultProps}
         value={value}
@@ -62,7 +62,7 @@ describe('Hour12Input', () => {
   });
 
   it('does not disable input by default', () => {
-    const component = shallow(
+    const component = mount(
       <Hour12Input {...defaultProps} />
     );
 
@@ -72,7 +72,7 @@ describe('Hour12Input', () => {
   });
 
   it('disables input given disabled flag', () => {
-    const component = shallow(
+    const component = mount(
       <Hour12Input
         {...defaultProps}
         disabled
@@ -85,7 +85,7 @@ describe('Hour12Input', () => {
   });
 
   it('is not required input by default', () => {
-    const component = shallow(
+    const component = mount(
       <Hour12Input {...defaultProps} />
     );
 
@@ -95,7 +95,7 @@ describe('Hour12Input', () => {
   });
 
   it('required input given required flag', () => {
-    const component = shallow(
+    const component = mount(
       <Hour12Input
         {...defaultProps}
         required
@@ -122,7 +122,7 @@ describe('Hour12Input', () => {
   });
 
   it('allows values between 1 and 12 by default', () => {
-    const component = shallow(
+    const component = mount(
       <Hour12Input {...defaultProps} />
     );
 

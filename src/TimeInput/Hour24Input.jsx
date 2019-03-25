@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import mergeClassNames from 'merge-class-names';
+
+import Input from './Input';
 
 import { getHours } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
-import { min, max, updateInputWidth } from '../shared/utils';
-
-const select = element => element && element.select();
+import { min, max } from '../shared/utils';
 
 export default class Hour24Input extends PureComponent {
   get maxHour() {
@@ -28,39 +27,19 @@ export default class Hour24Input extends PureComponent {
   render() {
     const { maxHour, minHour } = this;
     const {
-      className, disabled, itemRef, onChange, onKeyDown, required, value,
+      hour,
+      maxTime,
+      minTime,
+      ...otherProps
     } = this.props;
 
-    const name = 'hour24';
-
     return (
-      <input
-        autoComplete="off"
-        className={mergeClassNames(
-          `${className}__input`,
-          `${className}__hour`,
-        )}
-        disabled={disabled}
-        name={name}
+      <Input
+        name="hour24"
+        nameForClass="hour"
         max={maxHour}
         min={minHour}
-        onChange={onChange}
-        onFocus={event => select(event.target)}
-        onKeyDown={onKeyDown}
-        onKeyUp={event => updateInputWidth(event.target)}
-        placeholder="--"
-        ref={(ref) => {
-          if (ref) {
-            updateInputWidth(ref);
-          }
-
-          if (itemRef) {
-            itemRef(ref, name);
-          }
-        }}
-        required={required}
-        type="number"
-        value={value !== null ? value : ''}
+        {...otherProps}
       />
     );
   }

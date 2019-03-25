@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Hour24Input from '../Hour24Input';
 
@@ -12,7 +12,7 @@ describe('Hour24Input', () => {
   };
 
   it('renders an input', () => {
-    const component = shallow(
+    const component = mount(
       <Hour24Input {...defaultProps} />
     );
 
@@ -22,7 +22,7 @@ describe('Hour24Input', () => {
   });
 
   it('has proper name defined', () => {
-    const component = shallow(
+    const component = mount(
       <Hour24Input {...defaultProps} />
     );
 
@@ -34,7 +34,7 @@ describe('Hour24Input', () => {
   it('displays given value properly', () => {
     const value = 11;
 
-    const component = shallow(
+    const component = mount(
       <Hour24Input
         {...defaultProps}
         value={value}
@@ -47,7 +47,7 @@ describe('Hour24Input', () => {
   });
 
   it('does not disable input by default', () => {
-    const component = shallow(
+    const component = mount(
       <Hour24Input {...defaultProps} />
     );
 
@@ -57,7 +57,7 @@ describe('Hour24Input', () => {
   });
 
   it('disables input given disabled flag', () => {
-    const component = shallow(
+    const component = mount(
       <Hour24Input
         {...defaultProps}
         disabled
@@ -70,7 +70,7 @@ describe('Hour24Input', () => {
   });
 
   it('is not required input by default', () => {
-    const component = shallow(
+    const component = mount(
       <Hour24Input {...defaultProps} />
     );
 
@@ -80,7 +80,7 @@ describe('Hour24Input', () => {
   });
 
   it('required input given required flag', () => {
-    const component = shallow(
+    const component = mount(
       <Hour24Input
         {...defaultProps}
         required
@@ -107,7 +107,7 @@ describe('Hour24Input', () => {
   });
 
   it('allows values between 0 and 23 by default', () => {
-    const component = shallow(
+    const component = mount(
       <Hour24Input {...defaultProps} />
     );
 
