@@ -37,7 +37,7 @@ export default class Hour12Input extends PureComponent {
       ...otherProps
     } = this.props;
 
-    const value12 = value !== null && convert24to12(value)[0];
+    const value12 = value !== null ? convert24to12(value)[0] : null;
 
     return (
       <Input
