@@ -3,6 +3,8 @@ import { mount } from 'enzyme';
 
 import TimeInput from '../TimeInput';
 
+import { muteConsole, restoreConsole } from './utils';
+
 /* eslint-disable comma-dangle */
 
 const hasFullICU = (() => {
@@ -198,6 +200,207 @@ describe('TimeInput', () => {
     expect(customInputs.at(0).prop('name')).toBe('hour24');
     expect(customInputs.at(1).prop('name')).toBe('minute');
     expect(customInputs.at(2).prop('name')).toBe('second');
+  });
+
+  describe('renders custom input in a proper order given format', () => {
+    it('renders "h" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="h"
+        />
+      );
+
+      const componentInput = component.find('Hour12Input');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+    });
+
+    it('renders "hh" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="hh"
+        />
+      );
+
+      const componentInput = component.find('Hour12Input');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
+    });
+
+    it('throws error for "hhh"', () => {
+      muteConsole();
+
+      const renderComponent = () => mount(
+        <TimeInput
+          {...defaultProps}
+          format="hhh"
+        />
+      );
+
+      expect(renderComponent).toThrow('Unsupported token: hhh');
+
+      restoreConsole();
+    });
+
+    it('renders "H" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="H"
+        />
+      );
+
+      const componentInput = component.find('Hour24Input');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+    });
+
+    it('renders "HH" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="HH"
+        />
+      );
+
+      const componentInput = component.find('Hour24Input');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
+    });
+
+    it('throws error for "HHH"', () => {
+      muteConsole();
+
+      const renderComponent = () => mount(
+        <TimeInput
+          {...defaultProps}
+          format="HHH"
+        />
+      );
+
+      expect(renderComponent).toThrow('Unsupported token: HHH');
+
+      restoreConsole();
+    });
+
+    it('renders "m" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="m"
+        />
+      );
+
+      const componentInput = component.find('MinuteInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+    });
+
+    it('renders "mm" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="mm"
+        />
+      );
+
+      const componentInput = component.find('MinuteInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
+    });
+
+    it('throws error for "mmm"', () => {
+      muteConsole();
+
+      const renderComponent = () => mount(
+        <TimeInput
+          {...defaultProps}
+          format="mmm"
+        />
+      );
+
+      expect(renderComponent).toThrow('Unsupported token: mmm');
+
+      restoreConsole();
+    });
+
+    it('renders "s" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="s"
+        />
+      );
+
+      const componentInput = component.find('SecondInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+    });
+
+    it('renders "ss" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="ss"
+        />
+      );
+
+      const componentInput = component.find('SecondInput');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
+    });
+
+    it('throws error for "sss"', () => {
+      muteConsole();
+
+      const renderComponent = () => mount(
+        <TimeInput
+          {...defaultProps}
+          format="sss"
+        />
+      );
+
+      expect(renderComponent).toThrow('Unsupported token: sss');
+
+      restoreConsole();
+    });
+
+    it('renders "a" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="a"
+        />
+      );
+
+      const componentInput = component.find('AmPm');
+      const customInputs = component.find('input[type="number"]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(0);
+    });
   });
 
   it('renders proper input separators', () => {
