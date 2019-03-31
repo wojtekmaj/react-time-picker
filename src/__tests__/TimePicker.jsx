@@ -212,4 +212,43 @@ describe('TimePicker', () => {
 
     expect(component.state('isOpen')).toBe(true);
   });
+
+  it('closes Clock when calling internal onChange', () => {
+    const component = mount(
+      <TimePicker isOpen />
+    );
+
+    const { onChange } = component.instance();
+
+    onChange(new Date());
+
+    expect(component.state('isOpen')).toBe(false);
+  });
+
+  it('does not close Clock when calling internal onChange with closeClock = false', () => {
+    const component = mount(
+      <TimePicker isOpen />
+    );
+
+    const { onChange } = component.instance();
+
+    onChange(new Date(), false);
+
+    expect(component.state('isOpen')).toBe(true);
+  });
+
+  it('calls onChange callback when calling internal onChange', () => {
+    const nextValue = '22:41:28';
+    const onChange = jest.fn();
+
+    const component = mount(
+      <TimePicker onChange={onChange} />
+    );
+
+    const { onChange: onChangeInternal } = component.instance();
+
+    onChangeInternal(nextValue);
+
+    expect(onChange).toHaveBeenCalledWith(nextValue);
+  });
 });
