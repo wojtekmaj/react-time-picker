@@ -42,7 +42,6 @@ export default class MinuteInput extends PureComponent {
         name="minute"
         max={maxMinute}
         min={minMinute}
-        showLeadingZeros
         {...otherProps}
       />
     );
@@ -59,5 +58,10 @@ MinuteInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   required: PropTypes.bool,
+  showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
+};
+
+MinuteInput.defaultProps = {
+  showLeadingZeros: true,
 };

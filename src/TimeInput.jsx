@@ -52,8 +52,11 @@ const findNextInput = (element) => {
 const focus = element => element && element.focus();
 
 const renderCustomInputs = (placeholder, elementFunctions) => {
-  const pattern = new RegExp(Object.keys(elementFunctions).join('|'), 'gi');
+  const pattern = new RegExp(
+    Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
+  );
   const matches = placeholder.match(pattern);
+
   return placeholder.split(pattern)
     .reduce((arr, element, index) => {
       const divider = element && (
@@ -63,8 +66,16 @@ const renderCustomInputs = (placeholder, elementFunctions) => {
         </Divider>
       );
       const res = [...arr, divider];
-      if (matches && matches[index]) {
-        res.push(elementFunctions[matches[index]]());
+      const currentMatch = matches && matches[index];
+      if (currentMatch) {
+        const renderFunction = (
+          elementFunctions[currentMatch]
+          || elementFunctions[
+            Object.keys(elementFunctions)
+              .find(elementFunction => currentMatch.match(elementFunction))
+          ]
+        );
+        res.push(renderFunction(currentMatch));
       }
       return res;
     }, []);
@@ -171,13 +182,15 @@ export default class TimeInput extends PureComponent {
   }
 
   get divider() {
-    const date = new Date(2017, 0, 1, 21, 12, 13);
-
-    return this.formatTime(date).match(/[^0-9a-z]/i)[0];
+    return this.placeholder.match(/[^0-9a-z]/i)[0];
   }
 
   get placeholder() {
-    const { locale } = this.props;
+    const { format, locale } = this.props;
+
+    if (format) {
+      return format;
+    }
 
     const hour24 = 21;
     const hour12 = 9;
@@ -187,11 +200,11 @@ export default class TimeInput extends PureComponent {
 
     return (
       this.formatTime(date)
-        .replace(this.formatNumber(hour24), 'hour-24')
-        .replace(this.formatNumber(hour12), 'hour-12')
-        .replace(this.formatNumber(minute), 'minute')
-        .replace(this.formatNumber(second), 'second')
-        .replace(new RegExp(getAmPmLabels(locale).join('|')), 'ampm')
+        .replace(this.formatNumber(hour12), 'h')
+        .replace(this.formatNumber(hour24), 'H')
+        .replace(this.formatNumber(minute), 'm')
+        .replace(this.formatNumber(second), 's')
+        .replace(new RegExp(getAmPmLabels(locale).join('|')), 'a')
     );
   }
 
@@ -356,45 +369,72 @@ export default class TimeInput extends PureComponent {
     }
   }
 
-  renderHour12 = () => {
+  renderHour12 = (currentMatch) => {
     const { hour } = this.state;
+
+    if (currentMatch && currentMatch.length > 2) {
+      throw new Error(`Unsupported token: ${currentMatch}`);
+    }
+
+    const showLeadingZeros = currentMatch && currentMatch.length === 2;
 
     return (
       <Hour12Input
         key="hour12"
         {...this.commonInputProps}
+        showLeadingZeros={showLeadingZeros}
         value={hour}
       />
     );
   }
 
-  renderHour24 = () => {
+  renderHour24 = (currentMatch) => {
     const { hour } = this.state;
+
+    if (currentMatch && currentMatch.length > 2) {
+      throw new Error(`Unsupported token: ${currentMatch}`);
+    }
+
+    const showLeadingZeros = currentMatch ? currentMatch.length === 2 : true;
 
     return (
       <Hour24Input
         key="hour24"
         {...this.commonInputProps}
+        showLeadingZeros={showLeadingZeros}
         value={hour}
       />
     );
   }
 
-  renderMinute = () => {
+  renderMinute = (currentMatch) => {
     const { hour, minute } = this.state;
+
+    if (currentMatch && currentMatch.length > 2) {
+      throw new Error(`Unsupported token: ${currentMatch}`);
+    }
+
+    const showLeadingZeros = currentMatch ? currentMatch.length === 2 : true;
 
     return (
       <MinuteInput
         key="minute"
         {...this.commonInputProps}
         hour={hour}
+        showLeadingZeros={showLeadingZeros}
         value={minute}
       />
     );
   }
 
-  renderSecond = () => {
+  renderSecond = (currentMatch) => {
     const { hour, minute, second } = this.state;
+
+    if (currentMatch && currentMatch.length > 2) {
+      throw new Error(`Unsupported token: ${currentMatch}`);
+    }
+
+    const showLeadingZeros = currentMatch ? currentMatch.length === 2 : true;
 
     return (
       <SecondInput
@@ -402,6 +442,7 @@ export default class TimeInput extends PureComponent {
         {...this.commonInputProps}
         hour={hour}
         minute={minute}
+        showLeadingZeros={showLeadingZeros}
         value={second}
       />
     );
@@ -425,11 +466,11 @@ export default class TimeInput extends PureComponent {
   renderCustomInputs() {
     const { placeholder } = this;
     const elementFunctions = {
-      'hour-12': this.renderHour12,
-      'hour-24': this.renderHour24,
-      minute: this.renderMinute,
-      second: this.renderSecond,
-      ampm: this.renderAmPm,
+      h: this.renderHour12,
+      H: this.renderHour24,
+      m: this.renderMinute,
+      s: this.renderSecond,
+      a: this.renderAmPm,
     };
 
     return renderCustomInputs(placeholder, elementFunctions);
