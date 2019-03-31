@@ -61,3 +61,7 @@ MinuteInput.propTypes = {
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
 };
+
+MinuteInput.defaultProps = {
+  showLeadingZeros: true,
+};

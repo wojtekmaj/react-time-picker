@@ -69,3 +69,7 @@ SecondInput.propTypes = {
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
 };
+
+SecondInput.defaultProps = {
+  showLeadingZeros: true,
+};
