@@ -91,6 +91,7 @@ Displays an input field complete with custom inputs, native input and a clock.
 |clearIcon|Defines the content of the clear button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
 |disabled|Defines whether the time picker should be disabled. Defaults to false.|`true`|
 |disableClock|Defines whether the clock should be disabled. Defaults to false.|`true`|
+|format|Defines input format based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table). Supported values are: `H`, `HH`, `h`, `hh`, `m`, `mm`, `s`, `ss`, `a`.|`"h:m:s a"`|
 |isOpen|Defines whether the clock should be opened. Defaults to false.|`true`|
 |locale|Defines which locale should be used by the time picker and the clock. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
 |maxDetail|Defines how detailed time picking shall be. Can be "hour", "minute" or "second". Defaults to "minute".|`"second"`|

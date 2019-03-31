@@ -49,7 +49,6 @@ export default class SecondInput extends PureComponent {
         name="second"
         max={maxSecond}
         min={minSecond}
-        showLeadingZeros
         {...otherProps}
       />
     );
@@ -67,5 +66,6 @@ SecondInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   required: PropTypes.bool,
+  showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
 };

@@ -61,5 +61,6 @@ Hour12Input.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   required: PropTypes.bool,
+  showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
 };

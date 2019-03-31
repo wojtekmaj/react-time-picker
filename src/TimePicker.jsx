@@ -112,6 +112,7 @@ export default class TimePicker extends PureComponent {
       clockIcon,
       disableClock,
       disabled,
+      format,
       isOpen,
       locale,
       maxDetail,
@@ -127,6 +128,7 @@ export default class TimePicker extends PureComponent {
         <TimeInput
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
+          format={format}
           locale={locale}
           isClockOpen={isOpen}
           maxDetail={maxDetail}
