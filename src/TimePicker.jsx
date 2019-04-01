@@ -269,6 +269,7 @@ TimePicker.propTypes = {
   clockIcon: PropTypes.node,
   disableClock: PropTypes.bool,
   disabled: PropTypes.bool,
+  format: PropTypes.string,
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),

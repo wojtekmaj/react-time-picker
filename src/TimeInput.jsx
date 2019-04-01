@@ -525,6 +525,7 @@ TimeInput.defaultProps = {
 TimeInput.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  format: PropTypes.string,
   isClockOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),
