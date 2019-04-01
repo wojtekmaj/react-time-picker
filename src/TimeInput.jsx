@@ -202,8 +202,8 @@ export default class TimeInput extends PureComponent {
       this.formatTime(date)
         .replace(this.formatNumber(hour12), 'h')
         .replace(this.formatNumber(hour24), 'H')
-        .replace(this.formatNumber(minute), 'm')
-        .replace(this.formatNumber(second), 's')
+        .replace(this.formatNumber(minute), 'mm')
+        .replace(this.formatNumber(second), 'ss')
         .replace(new RegExp(getAmPmLabels(locale).join('|')), 'a')
     );
   }
@@ -395,7 +395,7 @@ export default class TimeInput extends PureComponent {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
 
-    const showLeadingZeros = currentMatch ? currentMatch.length === 2 : true;
+    const showLeadingZeros = currentMatch && currentMatch.length === 2;
 
     return (
       <Hour24Input
@@ -414,7 +414,7 @@ export default class TimeInput extends PureComponent {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
 
-    const showLeadingZeros = currentMatch ? currentMatch.length === 2 : true;
+    const showLeadingZeros = currentMatch && currentMatch.length === 2;
 
     return (
       <MinuteInput

@@ -202,6 +202,45 @@ describe('TimeInput', () => {
     expect(customInputs.at(2).prop('name')).toBe('second');
   });
 
+  it('renders hour input without leading zero by default', () => {
+    const component = mount(
+      <TimeInput
+        {...defaultProps}
+        maxDetail="second"
+      />
+    );
+
+    const hourInput = component.find('Hour12Input');
+
+    expect(hourInput.prop('showLeadingZeros')).toBeFalsy();
+  });
+
+  it('renders minute input with leading zero by default', () => {
+    const component = mount(
+      <TimeInput
+        {...defaultProps}
+        maxDetail="second"
+      />
+    );
+
+    const minuteInput = component.find('MinuteInput');
+
+    expect(minuteInput.prop('showLeadingZeros')).toBeTruthy();
+  });
+
+  it('renders second input with leading zero by default', () => {
+    const component = mount(
+      <TimeInput
+        {...defaultProps}
+        maxDetail="second"
+      />
+    );
+
+    const secondInput = component.find('SecondInput');
+
+    expect(secondInput.prop('showLeadingZeros')).toBeTruthy();
+  });
+
   describe('renders custom input in a proper order given format', () => {
     it('renders "h" properly', () => {
       const component = mount(
