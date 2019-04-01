@@ -263,4 +263,22 @@ describe('TimePicker', () => {
 
     expect(onChange).toHaveBeenCalledWith(nextValue);
   });
+
+  it('clears the value when clicking on a button', () => {
+    const onChange = jest.fn();
+
+    const component = mount(
+      <TimePicker onChange={onChange} />
+    );
+
+    const calendar = component.find('Calendar');
+    const button = component.find('button.react-time-picker__clear-button');
+
+    expect(calendar).toHaveLength(0);
+
+    button.simulate('click');
+    component.update();
+
+    expect(onChange).toHaveBeenCalledWith(null);
+  });
 });
