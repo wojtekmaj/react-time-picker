@@ -28,6 +28,18 @@ describe('TimePicker', () => {
     expect(timeInput.prop('name')).toBe(name);
   });
 
+  it('passes format to DateInput', () => {
+    const format = 'H:mm:ss';
+
+    const component = mount(
+      <TimePicker format={format} />
+    );
+
+    const dateInput = component.find('TimeInput');
+
+    expect(dateInput.prop('format')).toBe(format);
+  });
+
   it('applies className to its wrapper when given a string', () => {
     const className = 'testClassName';
 
