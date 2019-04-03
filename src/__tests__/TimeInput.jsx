@@ -131,7 +131,7 @@ describe('TimeInput', () => {
     expect(customInputs.at(2).getDOMNode().value).toBe('0');
   });
 
-  it('shows empty value in all inputs correctly', () => {
+  it('shows empty value in all inputs correctly given null', () => {
     const component = mount(
       <TimeInput
         {...defaultProps}
