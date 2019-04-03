@@ -33,21 +33,17 @@ const hoursAreDifferent = (date1, date2) => (
 
 const isValidInput = element => element.tagName === 'INPUT' && element.type === 'number';
 
-const findPreviousInput = (element) => {
-  let previousElement = element;
-  do {
-    previousElement = previousElement.previousElementSibling;
-  } while (previousElement && !isValidInput(previousElement));
-  return previousElement;
-};
-
-const findNextInput = (element) => {
+const findInput = (element, property) => {
   let nextElement = element;
   do {
-    nextElement = nextElement.nextElementSibling;
+    nextElement = nextElement[property];
   } while (nextElement && !isValidInput(nextElement));
   return nextElement;
 };
+
+const findPreviousInput = element => findInput(element, 'previousElementSibling');
+
+const findNextInput = element => findInput(element, 'nextElementSibling');
 
 const focus = element => element && element.focus();
 
