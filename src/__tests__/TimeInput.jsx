@@ -104,10 +104,10 @@ describe('TimeInput', () => {
     const nativeInput = component.find('input[type="time"]');
     const customInputs = component.find('input[type="number"]');
 
-    expect(nativeInput.getDOMNode().value).toBe(date);
-    expect(customInputs.at(0).getDOMNode().value).toBe('10');
-    expect(customInputs.at(1).getDOMNode().value).toBe('17');
-    expect(customInputs.at(2).getDOMNode().value).toBe('0');
+    expect(nativeInput.prop('value')).toBe(date);
+    expect(customInputs.at(0).prop('value')).toBe(10);
+    expect(customInputs.at(1).prop('value')).toBe(17);
+    expect(customInputs.at(2).prop('value')).toBe(0);
   });
 
   itIfFullICU('shows a given time in all inputs correctly (24-hour format)', () => {
@@ -125,10 +125,10 @@ describe('TimeInput', () => {
     const nativeInput = component.find('input[type="time"]');
     const customInputs = component.find('input[type="number"]');
 
-    expect(nativeInput.getDOMNode().value).toBe(date);
-    expect(customInputs.at(0).getDOMNode().value).toBe('22');
-    expect(customInputs.at(1).getDOMNode().value).toBe('17');
-    expect(customInputs.at(2).getDOMNode().value).toBe('0');
+    expect(nativeInput.prop('value')).toBe(date);
+    expect(customInputs.at(0).prop('value')).toBe(22);
+    expect(customInputs.at(1).prop('value')).toBe(17);
+    expect(customInputs.at(2).prop('value')).toBe(0);
   });
 
   it('shows empty value in all inputs correctly given null', () => {
@@ -143,10 +143,10 @@ describe('TimeInput', () => {
     const nativeInput = component.find('input[type="time"]');
     const customInputs = component.find('input[type="number"]');
 
-    expect(nativeInput.getDOMNode().value).toBe('');
-    expect(customInputs.at(0).getDOMNode().value).toBe('');
-    expect(customInputs.at(1).getDOMNode().value).toBe('');
-    expect(customInputs.at(2).getDOMNode().value).toBe('');
+    expect(nativeInput.prop('value')).toBeFalsy();
+    expect(customInputs.at(0).prop('value')).toBeFalsy();
+    expect(customInputs.at(1).prop('value')).toBeFalsy();
+    expect(customInputs.at(2).prop('value')).toBeFalsy();
   });
 
   it('clears the value correctly', () => {
@@ -165,10 +165,10 @@ describe('TimeInput', () => {
     const nativeInput = component.find('input[type="time"]');
     const customInputs = component.find('input[type="number"]');
 
-    expect(nativeInput.getDOMNode().value).toBe('');
-    expect(customInputs.at(0).getDOMNode().value).toBe('');
-    expect(customInputs.at(1).getDOMNode().value).toBe('');
-    expect(customInputs.at(2).getDOMNode().value).toBe('');
+    expect(nativeInput.prop('value')).toBeFalsy();
+    expect(customInputs.at(0).prop('value')).toBeFalsy();
+    expect(customInputs.at(1).prop('value')).toBeFalsy();
+    expect(customInputs.at(2).prop('value')).toBeFalsy();
   });
 
   it('renders custom inputs in a proper order (12-hour format)', () => {
