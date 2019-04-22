@@ -121,7 +121,7 @@ export default class TimeInput extends PureComponent {
   };
 
   get formatTime() {
-    const { locale, maxDetail } = this.props;
+    const { maxDetail } = this.props;
 
     const options = { hour: 'numeric' };
     const level = allViews.indexOf(maxDetail);
@@ -132,15 +132,14 @@ export default class TimeInput extends PureComponent {
       options.second = 'numeric';
     }
 
-    return getFormatter(locale, options);
+    return getFormatter(options);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get formatNumber() {
-    const { locale } = this.props;
-
     const options = { useGrouping: false };
 
-    return getFormatter(locale, options);
+    return getFormatter(options);
   }
 
   /**
@@ -191,11 +190,11 @@ export default class TimeInput extends PureComponent {
     const date = new Date(2017, 0, 1, hour24, minute, second);
 
     return (
-      this.formatTime(date)
-        .replace(this.formatNumber(hour12), 'h')
-        .replace(this.formatNumber(hour24), 'H')
-        .replace(this.formatNumber(minute), 'mm')
-        .replace(this.formatNumber(second), 'ss')
+      this.formatTime(locale, date)
+        .replace(this.formatNumber(locale, hour12), 'h')
+        .replace(this.formatNumber(locale, hour24), 'H')
+        .replace(this.formatNumber(locale, minute), 'mm')
+        .replace(this.formatNumber(locale, second), 'ss')
         .replace(new RegExp(getAmPmLabels(locale).join('|')), 'a')
     );
   }
