@@ -20,9 +20,9 @@ export const updateInputWidth = (element) => {
 };
 
 export const getAmPmLabels = (locale) => {
-  const amPmFormatter = getFormatter(locale, { hour: 'numeric' });
-  const amString = amPmFormatter(new Date(2017, 0, 1, 9));
-  const pmString = amPmFormatter(new Date(2017, 0, 1, 21));
+  const amPmFormatter = getFormatter({ hour: 'numeric' });
+  const amString = amPmFormatter(locale, new Date(2017, 0, 1, 9));
+  const pmString = amPmFormatter(locale, new Date(2017, 0, 1, 21));
 
   const [am1, am2] = amString.split('9');
   const [pm1, pm2] = pmString.split('9');
