@@ -21,6 +21,7 @@ export default class Hour12Input extends PureComponent {
     const [maxHour, maxAmPm] = convert24to12(getHours(maxTime));
 
     if (maxAmPm !== amPm) {
+      // pm is always after am, so we should ignore validation
       return 12;
     }
 
@@ -37,6 +38,12 @@ export default class Hour12Input extends PureComponent {
     const [minHour, minAmPm] = convert24to12(getHours(minTime));
 
     if (minAmPm !== amPm) {
+      // pm is always after am, so we should ignore validation
+      return 1;
+    }
+
+    if (minHour === 12) {
+      // If minHour is 12 am/pm, user should be able to enter 12, 1, ..., 11.
       return 1;
     }
 

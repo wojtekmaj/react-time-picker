@@ -144,7 +144,7 @@ describe('MinuteInput', () => {
     expect(input.prop('min')).toBe(0);
   });
 
-  it('has min = 0 given minDate in a past hour', () => {
+  it('has min = 0 given minTime in a past hour', () => {
     const component = mount(
       <MinuteInput
         {...defaultProps}

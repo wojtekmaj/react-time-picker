@@ -188,6 +188,34 @@ describe('Hour12Input', () => {
     expect(input.prop('min')).toBe(1);
   });
 
+  it('has min = 1 given 12 am minTime when amPm is am', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        minTime="00:35"
+        amPm="am"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('min')).toBe(1);
+  });
+
+  it('has min = 1 given 12 pm minTime when amPm is pm', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        minTime="12:35"
+        amPm="pm"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('min')).toBe(1);
+  });
+
   it('has max = 12 by default', () => {
     const component = mount(
       <Hour12Input {...defaultProps} />
@@ -246,6 +274,20 @@ describe('Hour12Input', () => {
         {...defaultProps}
         maxTime="17:35"
         amPm="am"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('max')).toBe(12);
+  });
+
+  it('has max = 12 given 12 pm minTime when amPm is pm', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        maxTime="12:35"
+        amPm="pm"
       />
     );
 
