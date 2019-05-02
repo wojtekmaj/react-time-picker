@@ -7,6 +7,7 @@ import Hour12Input from '../Hour12Input';
 
 describe('Hour12Input', () => {
   const defaultProps = {
+    amPm: 'am',
     className: '',
     onChange: () => {},
   };
@@ -131,17 +132,60 @@ describe('Hour12Input', () => {
     expect(input.prop('min')).toBe(1);
   });
 
-  it('has min = (hour in minTime) given minTime', () => {
+  it('has min = (hour in minTime) given am minTime when amPm is am', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        minTime="17:35"
+        minTime="5:35"
+        amPm="am"
       />
     );
 
     const input = component.find('input');
 
     expect(input.prop('min')).toBe(5);
+  });
+
+  it('has min = (hour in minTime) given pm minTime when amPm is pm', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        minTime="17:35"
+        amPm="pm"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('min')).toBe(5);
+  });
+
+  it('has min = 1 given am minTime when amPm is pm', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        minTime="5:35"
+        amPm="pm"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('min')).toBe(1);
+  });
+
+  it('has min = 1 given pm minTime when amPm is am', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        minTime="17:35"
+        amPm="am"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('min')).toBe(1);
   });
 
   it('has max = 12 by default', () => {
@@ -154,16 +198,59 @@ describe('Hour12Input', () => {
     expect(input.prop('max')).toBe(12);
   });
 
-  it('has max = (hour in maxTime) given maxTime', () => {
+  it('has max = (hour in maxTime) given am maxTime when amPm is am', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        maxTime="17:35"
+        maxTime="5:35"
+        amPm="am"
       />
     );
 
     const input = component.find('input');
 
     expect(input.prop('max')).toBe(5);
+  });
+
+  it('has max = (hour in maxTime) given pm maxTime when amPm is pm', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        maxTime="17:35"
+        amPm="pm"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('max')).toBe(5);
+  });
+
+  it('has max = 12 given am maxTime when amPm is pm', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        maxTime="5:35"
+        amPm="pm"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('max')).toBe(12);
+  });
+
+  it('has max = 12 given pm maxTime when amPm is am', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        maxTime="17:35"
+        amPm="am"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('max')).toBe(12);
   });
 });

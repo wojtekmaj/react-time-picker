@@ -12,19 +12,35 @@ import { min, max } from '../shared/utils';
 
 export default class Hour12Input extends PureComponent {
   get maxHour() {
-    const { maxTime } = this.props;
-    return min(
-      12,
-      maxTime && convert24to12(getHours(maxTime))[0],
-    );
+    const { amPm, maxTime } = this.props;
+
+    if (!maxTime) {
+      return 12;
+    }
+
+    const [maxHour, maxAmPm] = convert24to12(getHours(maxTime));
+
+    if (maxAmPm !== amPm) {
+      return 12;
+    }
+
+    return min(12, maxHour);
   }
 
   get minHour() {
-    const { minTime } = this.props;
-    return max(
-      1,
-      minTime && convert24to12(getHours(minTime))[0],
-    );
+    const { amPm, minTime } = this.props;
+
+    if (!minTime) {
+      return 1;
+    }
+
+    const [minHour, minAmPm] = convert24to12(getHours(minTime));
+
+    if (minAmPm !== amPm) {
+      return 1;
+    }
+
+    return max(1, minHour);
   }
 
   render() {
@@ -53,6 +69,7 @@ export default class Hour12Input extends PureComponent {
 }
 
 Hour12Input.propTypes = {
+  amPm: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,

@@ -355,7 +355,7 @@ export default class TimeInput extends PureComponent {
   }
 
   renderHour12 = (currentMatch) => {
-    const { hour } = this.state;
+    const { amPm, hour } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
@@ -367,6 +367,7 @@ export default class TimeInput extends PureComponent {
       <Hour12Input
         key="hour12"
         {...this.commonInputProps}
+        amPm={amPm}
         showLeadingZeros={showLeadingZeros}
         value={hour}
       />
