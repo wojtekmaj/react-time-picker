@@ -121,7 +121,7 @@ describe('Hour12Input', () => {
     expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'hour12');
   });
 
-  it('allows values between 1 and 12 by default', () => {
+  it('has min = 1 by default', () => {
     const component = mount(
       <Hour12Input {...defaultProps} />
     );
@@ -129,6 +129,41 @@ describe('Hour12Input', () => {
     const input = component.find('input');
 
     expect(input.prop('min')).toBe(1);
+  });
+
+  it('has min = (hour in minTime) given minTime', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        minTime="17:35"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('min')).toBe(5);
+  });
+
+  it('has max = 12 by default', () => {
+    const component = mount(
+      <Hour12Input {...defaultProps} />
+    );
+
+    const input = component.find('input');
+
     expect(input.prop('max')).toBe(12);
+  });
+
+  it('has max = (hour in maxTime) given maxTime', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        maxTime="17:35"
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('max')).toBe(5);
   });
 });
