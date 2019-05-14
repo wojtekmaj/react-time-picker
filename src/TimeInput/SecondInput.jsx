@@ -47,6 +47,7 @@ export default class SecondInput extends PureComponent {
     return (
       <Input
         name="second"
+        ariaLabel="Denotes the second's value"
         max={maxSecond}
         min={minSecond}
         {...otherProps}

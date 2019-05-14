@@ -9,6 +9,7 @@ const Input = ({
   className,
   disabled,
   itemRef,
+  ariaLabel,
   max,
   min,
   name,
@@ -33,6 +34,7 @@ const Input = ({
         `${className}__${nameForClass || name}`,
         hasLeadingZero && `${className}__input--hasLeadingZero`,
       )}
+      aria-label={ariaLabel}
       disabled={disabled}
       name={name}
       max={max}
@@ -63,6 +65,7 @@ Input.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,
+  ariaLabel: PropTypes.string,
   max: PropTypes.number,
   min: PropTypes.number,
   onChange: PropTypes.func,

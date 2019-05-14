@@ -38,6 +38,7 @@ class AmPm extends PureComponent {
         )}
         disabled={disabled}
         name={name}
+        aria-label="Designate as AM or PM"
         onChange={onChange}
         ref={(ref) => {
           if (itemRef) {

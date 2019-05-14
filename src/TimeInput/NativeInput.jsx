@@ -50,6 +50,7 @@ export default class NativeInput extends PureComponent {
     return (
       <input
         type="time"
+        aria-label="Time input"
         disabled={disabled}
         max={maxTime ? nativeValueParser(maxTime) : null}
         min={minTime ? nativeValueParser(minTime) : null}

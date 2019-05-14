@@ -66,6 +66,7 @@ export default class Hour12Input extends PureComponent {
       <Input
         name="hour12"
         nameForClass="hour"
+        ariaLabel="Time picker for 12-hour format"
         max={maxHour}
         min={minHour}
         value={value12}

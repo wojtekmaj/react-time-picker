@@ -143,6 +143,7 @@ export default class TimePicker extends PureComponent {
         {clearIcon !== null && (
           <button
             className={`${baseClassName}__clear-button ${baseClassName}__button`}
+            aria-label="Clear"
             disabled={disabled}
             onClick={this.clear}
             onFocus={this.stopPropagation}
@@ -154,6 +155,7 @@ export default class TimePicker extends PureComponent {
         {clockIcon !== null && !disableClock && (
           <button
             className={`${baseClassName}__clock-button ${baseClassName}__button`}
+            aria-label="Show clock"
             disabled={disabled}
             onClick={this.toggleClock}
             onFocus={this.stopPropagation}

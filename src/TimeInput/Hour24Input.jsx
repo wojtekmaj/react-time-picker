@@ -37,6 +37,7 @@ export default class Hour24Input extends PureComponent {
       <Input
         name="hour24"
         nameForClass="hour"
+        ariaLabel="Time picker for 24-hour format"
         max={maxHour}
         min={minHour}
         {...otherProps}

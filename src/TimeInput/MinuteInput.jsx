@@ -40,6 +40,7 @@ export default class MinuteInput extends PureComponent {
     return (
       <Input
         name="minute"
+        ariaLabel="Denotes the minute's value"
         max={maxMinute}
         min={minMinute}
         {...otherProps}
