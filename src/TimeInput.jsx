@@ -201,28 +201,36 @@ export default class TimeInput extends PureComponent {
 
   get commonInputProps() {
     const {
+      amPmAriaLabel,
       className,
       disabled,
+      hourAriaLabel,
       isClockOpen,
       maxTime,
       minTime,
+      minuteAriaLabel,
       required,
+      secondAriaLabel,
     } = this.props;
 
     return {
+      amPmAriaLabel,
       className,
       disabled,
+      hourAriaLabel,
+      itemRef: (ref, name) => {
+        // Save a reference to each input field
+        this[`${name}Input`] = ref;
+      },
       maxTime,
       minTime,
+      minuteAriaLabel,
       onChange: this.onChange,
       onKeyDown: this.onKeyDown,
       placeholder: '--',
       // This is only for showing validity when editing
       required: required || isClockOpen,
-      itemRef: (ref, name) => {
-        // Save a reference to each input field
-        this[`${name}Input`] = ref;
-      },
+      secondAriaLabel,
     };
   }
 
@@ -468,6 +476,7 @@ export default class TimeInput extends PureComponent {
       maxTime,
       minTime,
       name,
+      nativeInputAriaLabel,
       required,
       value,
     } = this.props;
@@ -479,6 +488,7 @@ export default class TimeInput extends PureComponent {
         maxTime={maxTime}
         minTime={minTime}
         name={name}
+        nativeInputAriaLabel={nativeInputAriaLabel}
         onChange={this.onChangeNative}
         required={required}
         value={value}
@@ -509,17 +519,22 @@ TimeInput.defaultProps = {
 };
 
 TimeInput.propTypes = {
+  amPmAriaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   format: PropTypes.string,
+  hourAriaLabel: PropTypes.string,
   isClockOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),
   maxTime: isTime,
   minTime: isTime,
+  minuteAriaLabel: PropTypes.string,
   name: PropTypes.string,
+  nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
+  secondAriaLabel: PropTypes.string,
   value: PropTypes.oneOfType([
     isTime,
     PropTypes.instanceOf(Date),

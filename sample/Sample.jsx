@@ -22,7 +22,15 @@ export default class Sample extends Component {
         <div className="Sample__container">
           <main className="Sample__container__content">
             <TimePicker
+              amPmAriaLabel="Select AM/PM"
+              clearAriaLabel="Clear value"
+              clockAriaLabel="Toggle clock"
+              hourAriaLabel="Hour"
+              maxDetail="second"
+              minuteAriaLabel="Minute"
+              nativeInputAriaLabel="Enter Time"
               onChange={this.onChange}
+              secondAriaLabel="Second"
               value={value}
             />
           </main>

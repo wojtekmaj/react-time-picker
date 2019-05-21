@@ -54,6 +54,7 @@ export default class Hour12Input extends PureComponent {
     const { maxHour, minHour } = this;
     const {
       hour,
+      hourAriaLabel,
       maxTime,
       minTime,
       value,
@@ -66,6 +67,7 @@ export default class Hour12Input extends PureComponent {
       <Input
         name="hour12"
         nameForClass="hour"
+        ariaLabel={hourAriaLabel}
         max={maxHour}
         min={minHour}
         value={value12}
@@ -79,6 +81,7 @@ Hour12Input.propTypes = {
   amPm: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  hourAriaLabel: PropTypes.string,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,

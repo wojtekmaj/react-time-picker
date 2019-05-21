@@ -6,6 +6,7 @@ import updateInputWidth from 'update-input-width';
 const select = element => element && element.select();
 
 const Input = ({
+  ariaLabel,
   className,
   disabled,
   itemRef,
@@ -33,6 +34,7 @@ const Input = ({
         `${className}__${nameForClass || name}`,
         hasLeadingZero && `${className}__input--hasLeadingZero`,
       )}
+      aria-label={ariaLabel}
       disabled={disabled}
       name={name}
       max={max}
@@ -60,6 +62,7 @@ const Input = ({
 };
 
 Input.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,

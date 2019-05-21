@@ -44,11 +44,12 @@ export default class NativeInput extends PureComponent {
   render() {
     const { nativeValueParser, step } = this;
     const {
-      disabled, maxTime, minTime, name, onChange, required, value,
+      nativeInputAriaLabel, disabled, maxTime, minTime, name, onChange, required, value,
     } = this.props;
 
     return (
       <input
+        aria-label={nativeInputAriaLabel}
         type="time"
         disabled={disabled}
         max={maxTime ? nativeValueParser(maxTime) : null}
@@ -75,6 +76,7 @@ NativeInput.propTypes = {
   maxTime: isTime,
   minTime: isTime,
   name: PropTypes.string,
+  nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.oneOfType([

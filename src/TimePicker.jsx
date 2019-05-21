@@ -108,40 +108,53 @@ export default class TimePicker extends PureComponent {
 
   renderInputs() {
     const {
+      amPmAriaLabel,
       clearIcon,
+      clearAriaLabel,
       clockIcon,
+      clockAriaLabel,
       disableClock,
       disabled,
       format,
+      hourAriaLabel,
       isOpen,
       locale,
       maxDetail,
       maxTime,
+      minuteAriaLabel,
       minTime,
       name,
+      nativeInputAriaLabel,
       required,
+      secondAriaLabel,
       value,
     } = this.props;
 
     return (
       <div className={`${baseClassName}__wrapper`}>
         <TimeInput
+          amPmAriaLabel={amPmAriaLabel}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           format={format}
           locale={locale}
+          hourAriaLabel={hourAriaLabel}
           isClockOpen={isOpen}
           maxDetail={maxDetail}
           maxTime={maxTime}
+          minuteAriaLabel={minuteAriaLabel}
           minTime={minTime}
           name={name}
+          nativeInputAriaLabel={nativeInputAriaLabel}
           onChange={this.onChange}
           placeholder={this.placeholder}
           required={required}
+          secondAriaLabel={secondAriaLabel}
           value={value}
         />
         {clearIcon !== null && (
           <button
+            aria-label={clearAriaLabel}
             className={`${baseClassName}__clear-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.clear}
@@ -153,6 +166,7 @@ export default class TimePicker extends PureComponent {
         )}
         {clockIcon !== null && !disableClock && (
           <button
+            aria-label={clockAriaLabel}
             className={`${baseClassName}__clock-button ${baseClassName}__button`}
             disabled={disabled}
             onClick={this.toggleClock}
@@ -257,11 +271,14 @@ TimePicker.defaultProps = {
 
 TimePicker.propTypes = {
   ...Clock.propTypes,
+  amPmAriaLabel: PropTypes.string,
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
   ]),
+  clearAriaLabel: PropTypes.string,
   clearIcon: PropTypes.node,
+  clockAriaLabel: PropTypes.string,
   clockClassName: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
@@ -270,16 +287,20 @@ TimePicker.propTypes = {
   disableClock: PropTypes.bool,
   disabled: PropTypes.bool,
   format: PropTypes.string,
+  hourAriaLabel: PropTypes.string,
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),
   maxTime: isTime,
   minTime: isTime,
+  minuteAriaLabel: PropTypes.string,
   name: PropTypes.string,
+  nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   onClockClose: PropTypes.func,
   onClockOpen: PropTypes.func,
   required: PropTypes.bool,
+  secondAriaLabel: PropTypes.string,
   value: PropTypes.oneOfType([
     isTime,
     PropTypes.instanceOf(Date),

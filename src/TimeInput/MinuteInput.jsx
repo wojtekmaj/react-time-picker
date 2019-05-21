@@ -33,6 +33,7 @@ export default class MinuteInput extends PureComponent {
     const {
       hour,
       maxTime,
+      minuteAriaLabel,
       minTime,
       ...otherProps
     } = this.props;
@@ -40,6 +41,7 @@ export default class MinuteInput extends PureComponent {
     return (
       <Input
         name="minute"
+        ariaLabel={minuteAriaLabel}
         max={maxMinute}
         min={minMinute}
         {...otherProps}
@@ -55,6 +57,7 @@ MinuteInput.propTypes = {
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,
+  minuteAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   required: PropTypes.bool,

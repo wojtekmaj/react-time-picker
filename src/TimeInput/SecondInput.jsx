@@ -41,11 +41,13 @@ export default class SecondInput extends PureComponent {
       maxTime,
       minTime,
       minute,
+      secondAriaLabel,
       ...otherProps
     } = this.props;
 
     return (
       <Input
+        ariaLabel={secondAriaLabel}
         name="second"
         max={maxSecond}
         min={minSecond}
