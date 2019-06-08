@@ -21,6 +21,21 @@ describe('SecondInput', () => {
     expect(input).toHaveLength(1);
   });
 
+  it('applies given aria-label properly', () => {
+    const secondAriaLabel = 'Hour';
+
+    const component = mount(
+      <SecondInput
+        {...defaultProps}
+        secondAriaLabel={secondAriaLabel}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('aria-label')).toBe(secondAriaLabel);
+  });
+
   it('renders "0" if second is <10', () => {
     const component = mount(
       <SecondInput
