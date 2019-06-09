@@ -15,6 +15,7 @@ const Input = ({
   nameForClass,
   onChange,
   onKeyDown,
+  onKeyUp,
   placeholder,
   required,
   showLeadingZeros,
@@ -40,7 +41,13 @@ const Input = ({
       onChange={onChange}
       onFocus={event => select(event.target)}
       onKeyDown={onKeyDown}
-      onKeyUp={event => updateInputWidth(event.target)}
+      onKeyUp={(event) => {
+        updateInputWidth(event.target);
+
+        if (onKeyUp) {
+          onKeyUp(event);
+        }
+      }}
       placeholder={placeholder}
       ref={(ref) => {
         if (ref) {

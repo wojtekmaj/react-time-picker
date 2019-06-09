@@ -574,6 +574,39 @@ describe('TimeInput', () => {
     expect(document.activeElement).toBe(hourInput.getDOMNode());
   });
 
+  it('jumps to the next field when a value which can\'t be extended to another valid value is entered ', () => {
+    const component = mount(
+      <TimeInput {...defaultProps} />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const hourInput = customInputs.at(0);
+    const minuteInput = customInputs.at(1);
+
+    hourInput.getDOMNode().focus();
+    hourInput.getDOMNode().value = '4';
+
+    hourInput.simulate('keyup', { target: hourInput.getDOMNode(), key: '4' });
+
+    expect(document.activeElement).toBe(minuteInput.getDOMNode());
+  });
+
+  it('does not jump the next field when a value which can be extended to another valid value is entered ', () => {
+    const component = mount(
+      <TimeInput {...defaultProps} />
+    );
+
+    const customInputs = component.find('input[type="number"]');
+    const hourInput = customInputs.at(0);
+
+    hourInput.getDOMNode().focus();
+    hourInput.getDOMNode().value = '1';
+
+    hourInput.simulate('keyup', { target: hourInput.getDOMNode(), key: '1' });
+
+    expect(document.activeElement).toBe(hourInput.getDOMNode());
+  });
+
   it('triggers onChange correctly when changed custom input', () => {
     const onChange = jest.fn();
     const date = '22:17:00';
