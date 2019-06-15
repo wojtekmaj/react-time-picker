@@ -44,6 +44,7 @@ const findInput = (element, property) => {
 const focus = element => element && element.focus();
 
 const renderCustomInputs = (placeholder, elementFunctions) => {
+  const usedFunctions = [];
   const pattern = new RegExp(
     Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
   );
@@ -59,6 +60,7 @@ const renderCustomInputs = (placeholder, elementFunctions) => {
       );
       const res = [...arr, divider];
       const currentMatch = matches && matches[index];
+
       if (currentMatch) {
         const renderFunction = (
           elementFunctions[currentMatch]
@@ -67,7 +69,13 @@ const renderCustomInputs = (placeholder, elementFunctions) => {
               .find(elementFunction => currentMatch.match(elementFunction))
           ]
         );
-        res.push(renderFunction(currentMatch));
+
+        if (usedFunctions.includes(renderFunction)) {
+          res.push(currentMatch);
+        } else {
+          res.push(renderFunction(currentMatch));
+          usedFunctions.push(renderFunction);
+        }
       }
       return res;
     }, []);
@@ -382,6 +390,14 @@ export default class TimeInput extends PureComponent {
     }
   }
 
+  renderHour = (currentMatch) => {
+    if (/h/.test(currentMatch)) {
+      return this.renderHour12(currentMatch);
+    }
+
+    return this.renderHour24(currentMatch);
+  };
+
   renderHour12 = (currentMatch) => {
     const { hourAriaLabel } = this.props;
     const { amPm, hour } = this.state;
@@ -489,8 +505,8 @@ export default class TimeInput extends PureComponent {
   renderCustomInputs() {
     const { placeholder } = this;
     const elementFunctions = {
-      h: this.renderHour12,
-      H: this.renderHour24,
+      h: this.renderHour,
+      H: this.renderHour,
       m: this.renderMinute,
       s: this.renderSecond,
       a: this.renderAmPm,
