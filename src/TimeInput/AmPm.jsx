@@ -24,7 +24,7 @@ class AmPm extends PureComponent {
 
   render() {
     const {
-      className, disabled, itemRef, locale, onChange, required, value,
+      amPmAriaLabel, className, disabled, itemRef, locale, onChange, required, value,
     } = this.props;
 
     const name = 'amPm';
@@ -32,6 +32,7 @@ class AmPm extends PureComponent {
 
     return (
       <select
+        aria-label={amPmAriaLabel}
         className={mergeClassNames(
           `${className}__input`,
           `${className}__amPm`,
@@ -64,6 +65,7 @@ class AmPm extends PureComponent {
 }
 
 AmPm.propTypes = {
+  amPmAriaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,

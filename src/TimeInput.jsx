@@ -212,6 +212,10 @@ export default class TimeInput extends PureComponent {
     return {
       className,
       disabled,
+      itemRef: (ref, name) => {
+        // Save a reference to each input field
+        this[`${name}Input`] = ref;
+      },
       maxTime,
       minTime,
       onChange: this.onChange,
@@ -220,10 +224,6 @@ export default class TimeInput extends PureComponent {
       placeholder: '--',
       // This is only for showing validity when editing
       required: required || isClockOpen,
-      itemRef: (ref, name) => {
-        // Save a reference to each input field
-        this[`${name}Input`] = ref;
-      },
     };
   }
 
@@ -381,6 +381,7 @@ export default class TimeInput extends PureComponent {
   }
 
   renderHour12 = (currentMatch) => {
+    const { hourAriaLabel } = this.props;
     const { amPm, hour } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -394,6 +395,7 @@ export default class TimeInput extends PureComponent {
         key="hour12"
         {...this.commonInputProps}
         amPm={amPm}
+        hourAriaLabel={hourAriaLabel}
         showLeadingZeros={showLeadingZeros}
         value={hour}
       />
@@ -401,6 +403,7 @@ export default class TimeInput extends PureComponent {
   }
 
   renderHour24 = (currentMatch) => {
+    const { hourAriaLabel } = this.props;
     const { hour } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -413,6 +416,7 @@ export default class TimeInput extends PureComponent {
       <Hour24Input
         key="hour24"
         {...this.commonInputProps}
+        hourAriaLabel={hourAriaLabel}
         showLeadingZeros={showLeadingZeros}
         value={hour}
       />
@@ -420,6 +424,7 @@ export default class TimeInput extends PureComponent {
   }
 
   renderMinute = (currentMatch) => {
+    const { minuteAriaLabel } = this.props;
     const { hour, minute } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -433,6 +438,7 @@ export default class TimeInput extends PureComponent {
         key="minute"
         {...this.commonInputProps}
         hour={hour}
+        minuteAriaLabel={minuteAriaLabel}
         showLeadingZeros={showLeadingZeros}
         value={minute}
       />
@@ -440,6 +446,7 @@ export default class TimeInput extends PureComponent {
   }
 
   renderSecond = (currentMatch) => {
+    const { secondAriaLabel } = this.props;
     const { hour, minute, second } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -454,6 +461,7 @@ export default class TimeInput extends PureComponent {
         {...this.commonInputProps}
         hour={hour}
         minute={minute}
+        secondAriaLabel={secondAriaLabel}
         showLeadingZeros={showLeadingZeros}
         value={second}
       />
@@ -461,13 +469,14 @@ export default class TimeInput extends PureComponent {
   }
 
   renderAmPm = () => {
+    const { amPmAriaLabel, locale } = this.props;
     const { amPm } = this.state;
-    const { locale } = this.props;
 
     return (
       <AmPm
         key="ampm"
         {...this.commonInputProps}
+        amPmAriaLabel={amPmAriaLabel}
         locale={locale}
         onChange={this.onChangeAmPm}
         value={amPm}
@@ -494,6 +503,7 @@ export default class TimeInput extends PureComponent {
       maxTime,
       minTime,
       name,
+      nativeInputAriaLabel,
       required,
       value,
     } = this.props;
@@ -505,6 +515,7 @@ export default class TimeInput extends PureComponent {
         maxTime={maxTime}
         minTime={minTime}
         name={name}
+        nativeInputAriaLabel={nativeInputAriaLabel}
         onChange={this.onChangeNative}
         required={required}
         value={value}
@@ -535,17 +546,22 @@ TimeInput.defaultProps = {
 };
 
 TimeInput.propTypes = {
+  amPmAriaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   format: PropTypes.string,
+  hourAriaLabel: PropTypes.string,
   isClockOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),
   maxTime: isTime,
   minTime: isTime,
+  minuteAriaLabel: PropTypes.string,
   name: PropTypes.string,
+  nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
+  secondAriaLabel: PropTypes.string,
   value: PropTypes.oneOfType([
     isTime,
     PropTypes.instanceOf(Date),

@@ -21,6 +21,21 @@ describe('NativeInput', () => {
     expect(input).toHaveLength(1);
   });
 
+  it('applies given aria-label properly', () => {
+    const nativeInputAriaLabel = 'Time';
+
+    const component = shallow(
+      <NativeInput
+        {...defaultProps}
+        nativeInputAriaLabel={nativeInputAriaLabel}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('aria-label')).toBe(nativeInputAriaLabel);
+  });
+
   it('has proper name defined', () => {
     const name = 'testName';
 
@@ -56,7 +71,7 @@ describe('NativeInput', () => {
 
     const input = component.find('input');
 
-    expect(input.prop('value')).toBe(parsedValue);
+    expect(input.prop('value').toString()).toBe(parsedValue);
   });
   /* eslint-enable indent */
 
@@ -133,7 +148,7 @@ describe('NativeInput', () => {
 
     const input = component.find('input');
 
-    expect(input.prop('min')).toBe(parsedMin);
+    expect(input.prop('min').toString()).toBe(parsedMin);
   });
 
   it.each`
@@ -153,7 +168,7 @@ describe('NativeInput', () => {
 
     const input = component.find('input');
 
-    expect(input.prop('min')).toBe(parsedMin);
+    expect(input.prop('min').toString()).toBe(parsedMin);
   });
 
   it('has no max by default', () => {
@@ -183,7 +198,7 @@ describe('NativeInput', () => {
 
     const input = component.find('input');
 
-    expect(input.prop('max')).toBe(parsedMax);
+    expect(input.prop('max').toString()).toBe(parsedMax);
   });
 
   it.each`
@@ -203,6 +218,6 @@ describe('NativeInput', () => {
 
     const input = component.find('input');
 
-    expect(input.prop('max')).toBe(parsedMax);
+    expect(input.prop('max').toString()).toBe(parsedMax);
   });
 });

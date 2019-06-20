@@ -40,6 +40,32 @@ describe('TimePicker', () => {
     expect(dateInput.prop('format')).toBe(format);
   });
 
+  it('passes aria-label props to DateInput', () => {
+    const ariaLabelProps = {
+      amPmAriaLabel: 'Select AM/PM',
+      clearAriaLabel: 'Clear value',
+      clockAriaLabel: 'Toggle clock',
+      hourAriaLabel: 'Hour',
+      minuteAriaLabel: 'Minute',
+      secondAriaLabel: 'Second'
+    };
+
+    const component = mount(
+      <TimePicker {...ariaLabelProps} />
+    );
+
+    const clockButton = component.find('button.react-time-picker__clock-button');
+    const clearButton = component.find('button.react-time-picker__clear-button');
+    const timeInput = component.find('TimeInput');
+
+    expect(clockButton.prop('aria-label')).toBe(ariaLabelProps.clockAriaLabel);
+    expect(clearButton.prop('aria-label')).toBe(ariaLabelProps.clearAriaLabel);
+    expect(timeInput.prop('amPmAriaLabel')).toBe(ariaLabelProps.amPmAriaLabel);
+    expect(timeInput.prop('hourAriaLabel')).toBe(ariaLabelProps.hourAriaLabel);
+    expect(timeInput.prop('minuteAriaLabel')).toBe(ariaLabelProps.minuteAriaLabel);
+    expect(timeInput.prop('secondAriaLabel')).toBe(ariaLabelProps.secondAriaLabel);
+  });
+
   it('applies className to its wrapper when given a string', () => {
     const className = 'testClassName';
 

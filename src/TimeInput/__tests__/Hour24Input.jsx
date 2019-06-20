@@ -21,6 +21,21 @@ describe('Hour24Input', () => {
     expect(input).toHaveLength(1);
   });
 
+  it('applies given aria-label properly', () => {
+    const hourAriaLabel = 'Hour';
+
+    const component = mount(
+      <Hour24Input
+        {...defaultProps}
+        hourAriaLabel={hourAriaLabel}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('aria-label')).toBe(hourAriaLabel);
+  });
+
   it('has proper name defined', () => {
     const component = mount(
       <Hour24Input {...defaultProps} />

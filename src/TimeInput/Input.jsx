@@ -6,6 +6,7 @@ import updateInputWidth from 'update-input-width';
 const select = element => element && element.select();
 
 const Input = ({
+  ariaLabel,
   className,
   disabled,
   itemRef,
@@ -28,6 +29,7 @@ const Input = ({
     (hasLeadingZero && <span key="leadingZero" className={`${className}__leadingZero`}>0</span>),
     <input
       key="input"
+      aria-label={ariaLabel}
       autoComplete="off"
       className={mergeClassNames(
         `${className}__input`,
@@ -67,6 +69,7 @@ const Input = ({
 };
 
 Input.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,

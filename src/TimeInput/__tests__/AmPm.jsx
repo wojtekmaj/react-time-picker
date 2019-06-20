@@ -38,6 +38,21 @@ describe('AmPm', () => {
     expect(select.prop('value')).toBe(value);
   });
 
+  it('applies given aria-label properly', () => {
+    const amPmAriaLabel = 'Select AM/PM';
+
+    const component = shallow(
+      <AmPm
+        {...defaultProps}
+        amPmAriaLabel={amPmAriaLabel}
+      />
+    );
+
+    const select = component.find('select');
+
+    expect(select.prop('aria-label')).toBe(amPmAriaLabel);
+  });
+
   it('should not disable anything by default', () => {
     const component = shallow(
       <AmPm {...defaultProps} />

@@ -85,23 +85,30 @@ Displays an input field complete with custom inputs, native input and a clock.
 
 |Prop name|Description|Example values|
 |----|----|----|
+|amPmAriaLabel|Defines the `aria-label` for the AM/PM select input.|`"Select AM/PM"`|
 |className|Defines class name(s) that will be added along with "react-time-picker" to the main React-Time-Picker `<div>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
+|clearAriaLabel|Defines the `aria-label` for the clear button.|`"Clear value"`|
 |clearIcon|Defines the content of the clear button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|
+|clockAriaLabel|Defines the `aria-label` for the clock button.|`"Toggle clock"`|
 |clockClassName|Defines class name(s) that will be added along with "react-clock" to the main React-Clock `<time>` element.|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
 |clockIcon|Defines the content of the clock button. Setting the value explicitly to `null` will hide the icon.|<ul><li>String: `"Clock"`</li><li>React element: `<ClockIcon />`</li></ul>|
 |disabled|Defines whether the time picker should be disabled. Defaults to false.|`true`|
 |disableClock|Defines whether the clock should be disabled. Defaults to false.|`true`|
 |format|Defines input format based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table). Supported values are: `H`, `HH`, `h`, `hh`, `m`, `mm`, `s`, `ss`, `a`.|`"h:m:s a"`|
+|hourAriaLabel|Defines the `aria-label` for the hour input.|`"Hour"`|
 |isOpen|Defines whether the clock should be opened. Defaults to false.|`true`|
 |locale|Defines which locale should be used by the time picker and the clock. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag). Defaults to user's browser settings.|`"hu-HU"`|
 |maxDetail|Defines how detailed time picking shall be. Can be "hour", "minute" or "second". Defaults to "minute".|`"second"`|
 |maxTime|Defines maximum time that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 |minTime|Defines minimum date that the user can select.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
+|minuteAriaLabel|Defines the `aria-label` for the minute input.|`"Minute"`|
 |name|Defines input name. Defaults to "time".|`"myCustomName"`|
+|nativeInputAriaLabel|Defines the `aria-label` for the native time input.|`"Time"`|
 |onChange|Function called when the user picks a valid time.|`(value) => alert('New time is: ', value)`|
 |onClockClose|Function called when the clock closes.|`() => alert('Clock closed')`|
 |onClockOpen|Function called when the clock opens.|`() => alert('Clock opened')`|
 |required|Defines whether date input should be required. Defaults to false.|`true`|
+|secondAriaLabel|Defines the `aria-label` for the second input.|`"Second"`|
 |value|Defines the value of the input.|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 
 ### Clock
