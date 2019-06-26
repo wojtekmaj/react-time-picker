@@ -50,6 +50,7 @@ export default class Hour24Input extends PureComponent {
 Hour24Input.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  hour: PropTypes.number,
   hourAriaLabel: PropTypes.string,
   itemRef: PropTypes.func,
   maxTime: isTime,

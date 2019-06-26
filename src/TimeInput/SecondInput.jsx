@@ -69,6 +69,7 @@ SecondInput.propTypes = {
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
   required: PropTypes.bool,
+  secondAriaLabel: PropTypes.string,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
 };

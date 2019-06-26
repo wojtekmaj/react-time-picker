@@ -81,6 +81,7 @@ Hour12Input.propTypes = {
   amPm: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  hour: PropTypes.number,
   hourAriaLabel: PropTypes.string,
   itemRef: PropTypes.func,
   maxTime: isTime,
