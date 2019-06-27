@@ -70,7 +70,7 @@ export default function Hour12Input({
 }
 
 Hour12Input.propTypes = {
-  amPm: PropTypes.string.isRequired,
+  amPm: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   hour: PropTypes.number,
