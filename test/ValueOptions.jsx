@@ -1,56 +1,53 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class ValueOptions extends PureComponent {
-  setValue = (value) => {
-    const { setState } = this.props;
-
-    setState({ value });
+export default function ValueOptions({
+  setState,
+  value,
+}) {
+  function setValue(nextValue) {
+    setState({ value: nextValue });
   }
 
-  onChange = (event) => {
-    const { value } = event.target;
+  function onChange(event) {
+    const { value: nextValue } = event.target;
 
-    this.setValue(value);
+    setValue(nextValue);
   }
 
-  render() {
-    const { value } = this.props;
+  return (
+    <fieldset id="valueOptions">
+      <legend htmlFor="valueOptions">
+        Set time externally
+      </legend>
 
-    return (
-      <fieldset id="valueOptions">
-        <legend htmlFor="valueOptions">
-          Set time externally
-        </legend>
-
-        <div>
-          <label htmlFor="time">
-            Time
-          </label>
-          <input
-            id="time"
-            onChange={this.onChange}
-            type="time"
-            value={value || ''}
-            step="1"
-          />
-          &nbsp;
-          <button
-            type="button"
-            onClick={() => this.setValue(null)}
-          >
-            Clear to null
-          </button>
-          <button
-            type="button"
-            onClick={() => this.setValue('')}
-          >
-            Clear to empty string
-          </button>
-        </div>
-      </fieldset>
-    );
-  }
+      <div>
+        <label htmlFor="time">
+          Time
+        </label>
+        <input
+          id="time"
+          onChange={onChange}
+          type="time"
+          value={value || ''}
+          step="1"
+        />
+        &nbsp;
+        <button
+          type="button"
+          onClick={() => setValue(null)}
+        >
+          Clear to null
+        </button>
+        <button
+          type="button"
+          onClick={() => setValue('')}
+        >
+          Clear to empty string
+        </button>
+      </div>
+    </fieldset>
+  );
 }
 
 ValueOptions.propTypes = {
