@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
 
@@ -9,59 +9,55 @@ import {
 import { isTime } from '../shared/propTypes';
 import { getAmPmLabels } from '../shared/utils';
 
-class AmPm extends PureComponent {
-  get amDisabled() {
-    const { minTime } = this.props;
+export default function AmPm({
+  amPmAriaLabel,
+  className,
+  disabled,
+  itemRef,
+  locale,
+  maxTime,
+  minTime,
+  onChange,
+  required,
+  value,
+}) {
+  const amDisabled = minTime && convert24to12(getHours(minTime))[1] === 'pm';
+  const pmDisabled = maxTime && convert24to12(getHours(maxTime))[1] === 'am';
 
-    return minTime && convert24to12(getHours(minTime))[1] === 'pm';
-  }
+  const name = 'amPm';
+  const [amLabel, pmLabel] = getAmPmLabels(locale);
 
-  get pmDisabled() {
-    const { maxTime } = this.props;
-
-    return maxTime && convert24to12(getHours(maxTime))[1] === 'am';
-  }
-
-  render() {
-    const {
-      amPmAriaLabel, className, disabled, itemRef, locale, onChange, required, value,
-    } = this.props;
-
-    const name = 'amPm';
-    const [amLabel, pmLabel] = getAmPmLabels(locale);
-
-    return (
-      <select
-        aria-label={amPmAriaLabel}
-        className={mergeClassNames(
-          `${className}__input`,
-          `${className}__amPm`,
-        )}
-        disabled={disabled}
-        name={name}
-        onChange={onChange}
-        ref={(ref) => {
-          if (itemRef) {
-            itemRef(ref, name);
-          }
-        }}
-        required={required}
-        value={value !== null ? value : ''}
-      >
-        {!value && (
-          <option value="">
-            --
-          </option>
-        )}
-        <option disabled={this.amDisabled} value="am">
-          {amLabel}
+  return (
+    <select
+      aria-label={amPmAriaLabel}
+      className={mergeClassNames(
+        `${className}__input`,
+        `${className}__amPm`,
+      )}
+      disabled={disabled}
+      name={name}
+      onChange={onChange}
+      ref={(ref) => {
+        if (itemRef) {
+          itemRef(ref, name);
+        }
+      }}
+      required={required}
+      value={value !== null ? value : ''}
+    >
+      {!value && (
+        <option value="">
+          --
         </option>
-        <option disabled={this.pmDisabled} value="pm">
-          {pmLabel}
-        </option>
-      </select>
-    );
-  }
+      )}
+      <option disabled={amDisabled} value="am">
+        {amLabel}
+      </option>
+      <option disabled={pmDisabled} value="pm">
+        {pmLabel}
+      </option>
+    </select>
+  );
 }
 
 AmPm.propTypes = {
@@ -76,5 +72,3 @@ AmPm.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.oneOf(['am', 'pm']),
 };
-
-export default AmPm;

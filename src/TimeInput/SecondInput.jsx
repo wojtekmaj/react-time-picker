@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Input from './Input';
@@ -11,50 +11,39 @@ import {
 import { isTime } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
-export default class SecondInput extends PureComponent {
-  get maxSecond() {
-    const { hour, minute, maxTime } = this.props;
-    return min(
-      59,
-      maxTime
-      && hour === getHours(maxTime)
-      && minute === getMinutes(maxTime)
-      && getSeconds(maxTime),
-    );
-  }
+export default function SecondInput({
+  hour,
+  maxTime,
+  minTime,
+  minute,
+  secondAriaLabel,
+  ...otherProps
+}) {
+  const maxSecond = min(
+    59,
+    maxTime
+    && hour === getHours(maxTime)
+    && minute === getMinutes(maxTime)
+    && getSeconds(maxTime),
+  );
 
-  get minSecond() {
-    const { hour, minute, minTime } = this.props;
-    return max(
-      0,
-      minTime
-      && hour === getHours(minTime)
-      && minute === getMinutes(minTime)
-      && getSeconds(minTime),
-    );
-  }
+  const minSecond = max(
+    0,
+    minTime
+    && hour === getHours(minTime)
+    && minute === getMinutes(minTime)
+    && getSeconds(minTime),
+  );
 
-  render() {
-    const { maxSecond, minSecond } = this;
-    const {
-      hour,
-      maxTime,
-      minTime,
-      minute,
-      secondAriaLabel,
-      ...otherProps
-    } = this.props;
-
-    return (
-      <Input
-        ariaLabel={secondAriaLabel}
-        name="second"
-        max={maxSecond}
-        min={minSecond}
-        {...otherProps}
-      />
-    );
-  }
+  return (
+    <Input
+      ariaLabel={secondAriaLabel}
+      name="second"
+      max={maxSecond}
+      min={minSecond}
+      {...otherProps}
+    />
+  );
 }
 
 SecondInput.propTypes = {

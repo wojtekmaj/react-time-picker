@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -8,13 +8,21 @@ import {
 } from '../shared/dates';
 import { isTime, isValueType } from '../shared/propTypes';
 
-export default class NativeInput extends PureComponent {
-  get nativeValueParser() {
-    const { valueType } = this.props;
-
+export default function NativeInput({
+  disabled,
+  maxTime,
+  minTime,
+  name,
+  nativeInputAriaLabel,
+  onChange,
+  required,
+  value,
+  valueType,
+}) {
+  const nativeValueParser = (() => {
     switch (valueType) {
       case 'hour':
-        return value => `${getHours(value)}:00`;
+        return receivedValue => `${getHours(receivedValue)}:00`;
       case 'minute':
         return getHoursMinutes;
       case 'second':
@@ -22,11 +30,9 @@ export default class NativeInput extends PureComponent {
       default:
         throw new Error('Invalid valueType.');
     }
-  }
+  })();
 
-  get step() {
-    const { valueType } = this.props;
-
+  const step = (() => {
     switch (valueType) {
       case 'hour':
         return 3600;
@@ -37,45 +43,33 @@ export default class NativeInput extends PureComponent {
       default:
         throw new Error('Invalid valueType.');
     }
+  })();
+
+  function stopPropagation(event) {
+    event.stopPropagation();
   }
 
-  stopPropagation = event => event.stopPropagation();
-
-  render() {
-    const { nativeValueParser, step } = this;
-    const {
-      disabled,
-      maxTime,
-      minTime,
-      name,
-      nativeInputAriaLabel,
-      onChange,
-      required,
-      value,
-    } = this.props;
-
-    return (
-      <input
-        type="time"
-        aria-label={nativeInputAriaLabel}
-        disabled={disabled}
-        max={maxTime ? nativeValueParser(maxTime) : null}
-        min={minTime ? nativeValueParser(minTime) : null}
-        name={name}
-        onChange={onChange}
-        onFocus={this.stopPropagation}
-        required={required}
-        step={step}
-        style={{
-          visibility: 'hidden',
-          position: 'absolute',
-          top: '-9999px',
-          left: '-9999px',
-        }}
-        value={value ? nativeValueParser(value) : ''}
-      />
-    );
-  }
+  return (
+    <input
+      type="time"
+      aria-label={nativeInputAriaLabel}
+      disabled={disabled}
+      max={maxTime ? nativeValueParser(maxTime) : null}
+      min={minTime ? nativeValueParser(minTime) : null}
+      name={name}
+      onChange={onChange}
+      onFocus={stopPropagation}
+      required={required}
+      step={step}
+      style={{
+        visibility: 'hidden',
+        position: 'absolute',
+        top: '-9999px',
+        left: '-9999px',
+      }}
+      value={value ? nativeValueParser(value) : ''}
+    />
+  );
 }
 
 NativeInput.propTypes = {

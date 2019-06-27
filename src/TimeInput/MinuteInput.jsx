@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Input from './Input';
@@ -7,47 +7,36 @@ import { getHours, getMinutes } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
-export default class MinuteInput extends PureComponent {
-  get maxMinute() {
-    const { hour, maxTime } = this.props;
-    return min(
-      59,
-      maxTime
-      && hour === getHours(maxTime)
-      && getMinutes(maxTime),
-    );
-  }
+export default function MinuteInput({
+  hour,
+  maxTime,
+  minuteAriaLabel,
+  minTime,
+  ...otherProps
+}) {
+  const maxMinute = min(
+    59,
+    maxTime
+    && hour === getHours(maxTime)
+    && getMinutes(maxTime),
+  );
 
-  get minMinute() {
-    const { hour, minTime } = this.props;
-    return max(
-      0,
-      minTime
-      && hour === getHours(minTime)
-      && getMinutes(minTime),
-    );
-  }
+  const minMinute = max(
+    0,
+    minTime
+    && hour === getHours(minTime)
+    && getMinutes(minTime),
+  );
 
-  render() {
-    const { maxMinute, minMinute } = this;
-    const {
-      hour,
-      maxTime,
-      minuteAriaLabel,
-      minTime,
-      ...otherProps
-    } = this.props;
-
-    return (
-      <Input
-        name="minute"
-        ariaLabel={minuteAriaLabel}
-        max={maxMinute}
-        min={minMinute}
-        {...otherProps}
-      />
-    );
-  }
+  return (
+    <Input
+      name="minute"
+      ariaLabel={minuteAriaLabel}
+      max={maxMinute}
+      min={minMinute}
+      {...otherProps}
+    />
+  );
 }
 
 MinuteInput.propTypes = {
