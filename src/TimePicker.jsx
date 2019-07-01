@@ -35,9 +35,7 @@ export default class TimePicker extends PureComponent {
   }
 
   componentDidMount() {
-    outsideActionEvents.forEach(
-      eventName => document.addEventListener(eventName, this.onOutsideAction),
-    );
+    this.handleOutsideActionListeners();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -45,14 +43,21 @@ export default class TimePicker extends PureComponent {
     const { onClockClose, onClockOpen } = this.props;
 
     if (isOpen !== prevState.isOpen) {
+      this.handleOutsideActionListeners();
       callIfDefined(isOpen ? onClockOpen : onClockClose);
     }
   }
 
   componentWillUnmount() {
-    outsideActionEvents.forEach(
-      eventName => document.removeEventListener(eventName, this.onOutsideAction),
-    );
+    this.handleOutsideActionListeners(false);
+  }
+
+  handleOutsideActionListeners(shouldListen) {
+    const { isOpen } = this.state;
+
+    const shouldListenWithFallback = typeof shouldListen !== 'undefined' ? shouldListen : isOpen;
+    const fnName = shouldListenWithFallback ? 'addEventListener' : 'removeEventListener';
+    outsideActionEvents.forEach(eventName => document[fnName](eventName, this.onOutsideAction));
   }
 
   onOutsideAction = (event) => {
