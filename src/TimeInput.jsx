@@ -345,9 +345,9 @@ export default class TimeInput extends PureComponent {
     } else if (
       formElements.every(formElement => formElement.value && formElement.checkValidity())
     ) {
-      const hour = `0${values.hour24 || convert12to24(values.hour12, values.amPm)}`.slice(-2);
-      const minute = `0${values.minute || 0}`.slice(-2);
-      const second = `0${values.second || 0}`.slice(-2);
+      const hour = `0${values.hour24.replace('.', '') || convert12to24(values.hour12, values.amPm)}`.slice(-2);
+      const minute = `0${values.minute.replace('.', '') || 0}`.slice(-2);
+      const second = `0${values.second.replace('.', '') || 0}`.slice(-2);
       const timeString = `${hour}:${minute}:${second}`;
       const processedValue = this.getProcessedValue(timeString);
       onChange(processedValue, false);
