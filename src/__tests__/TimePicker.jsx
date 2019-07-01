@@ -235,6 +235,23 @@ describe('TimePicker', () => {
     expect(component.state('isOpen')).toBe(false);
   });
 
+  it('closes Clock component when tapped outside', () => {
+    const root = document.createElement('div');
+    document.body.appendChild(root);
+
+    const component = mount(
+      <TimePicker isOpen />,
+      { attachTo: root }
+    );
+
+    const event = document.createEvent('TouchEvent');
+    event.initEvent('touchstart', true, true);
+    document.body.dispatchEvent(event);
+    component.update();
+
+    expect(component.state('isOpen')).toBe(false);
+  });
+
   it('does not close Clock component when focused inside', () => {
     const component = mount(
       <TimePicker isOpen />
