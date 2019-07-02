@@ -7,14 +7,12 @@ function upperCaseFirstLetter(str) {
   return str.slice(0, 1).toUpperCase() + str.slice(1);
 }
 
-export default function MaxDetailOptions({ maxDetail, minDetail, setState }) {
+export default function MaxDetailOptions({ maxDetail, setState }) {
   function onChange(event) {
     const { value } = event.target;
 
     setState({ maxDetail: value });
   }
-
-  const minDetailIndex = allViews.indexOf(minDetail);
 
   return (
     <fieldset id="detailoptions">
@@ -22,11 +20,10 @@ export default function MaxDetailOptions({ maxDetail, minDetail, setState }) {
         Maximum detail
       </legend>
 
-      {allViews.map((view, index) => (
+      {allViews.map(view => (
         <div key={view}>
           <input
             checked={maxDetail === view}
-            disabled={minDetailIndex > index}
             id={view}
             name="maxDetail"
             onChange={onChange}
@@ -44,6 +41,5 @@ export default function MaxDetailOptions({ maxDetail, minDetail, setState }) {
 
 MaxDetailOptions.propTypes = {
   maxDetail: PropTypes.oneOf(allViews).isRequired,
-  minDetail: PropTypes.oneOf(allViews).isRequired,
   setState: PropTypes.func.isRequired,
 };
