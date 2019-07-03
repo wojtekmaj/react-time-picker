@@ -252,21 +252,33 @@ export default class TimePicker extends PureComponent {
   }
 }
 
+const iconProps = {
+  xmlns: 'http://www.w3.org/2000/svg',
+  width: 19,
+  height: 19,
+  viewBox: '0 0 19 19',
+  stroke: 'black',
+  strokeWidth: 2,
+};
+
 const ClockIcon = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
-    <g stroke="black" strokeWidth="2" fill="none">
-      <circle cx="9.5" cy="9.5" r="7.5" />
-      <path d="M9.5 4.5 v5 h4" />
-    </g>
+  <svg
+    {...iconProps}
+    className={`${baseClassName}__clock-button__icon ${baseClassName}__button__icon`}
+    fill="none"
+  >
+    <circle cx="9.5" cy="9.5" r="7.5" />
+    <path d="M9.5 4.5 v5 h4" />
   </svg>
 );
 
 const ClearIcon = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19">
-    <g stroke="black" strokeWidth="2">
-      <line x1="4" y1="4" x2="15" y2="15" />
-      <line x1="15" y1="4" x2="4" y2="15" />
-    </g>
+  <svg
+    {...iconProps}
+    className={`${baseClassName}__clear-button__icon ${baseClassName}__button__icon`}
+  >
+    <line x1="4" y1="4" x2="15" y2="15" />
+    <line x1="15" y1="4" x2="4" y2="15" />
   </svg>
 );
 
