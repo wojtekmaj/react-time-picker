@@ -23,21 +23,6 @@ describe('AmPm', () => {
     expect(options).toHaveLength(3);
   });
 
-  it('displays given value properly', () => {
-    const value = 'pm';
-
-    const component = shallow(
-      <AmPm
-        {...defaultProps}
-        value={value}
-      />
-    );
-
-    const select = component.find('select');
-
-    expect(select.prop('value')).toBe(value);
-  });
-
   it('applies given aria-label properly', () => {
     const amPmAriaLabel = 'Select AM/PM';
 
@@ -51,6 +36,47 @@ describe('AmPm', () => {
     const select = component.find('select');
 
     expect(select.prop('aria-label')).toBe(amPmAriaLabel);
+  });
+
+  it('has proper name defined', () => {
+    const component = shallow(
+      <AmPm {...defaultProps} />
+    );
+
+    const select = component.find('select');
+
+    expect(select.prop('name')).toBe('amPm');
+  });
+
+  it('has proper className defined', () => {
+    const className = 'react-time-picker';
+
+    const component = shallow(
+      <AmPm
+        {...defaultProps}
+        className={className}
+      />
+    );
+
+    const select = component.find('select');
+
+    expect(select.hasClass('react-time-picker__input')).toBe(true);
+    expect(select.hasClass('react-time-picker__amPm')).toBe(true);
+  });
+
+  it('displays given value properly', () => {
+    const value = 'pm';
+
+    const component = shallow(
+      <AmPm
+        {...defaultProps}
+        value={value}
+      />
+    );
+
+    const select = component.find('select');
+
+    expect(select.prop('value')).toBe(value);
   });
 
   it('should not disable anything by default', () => {

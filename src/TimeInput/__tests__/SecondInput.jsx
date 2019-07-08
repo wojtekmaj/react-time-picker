@@ -74,6 +74,22 @@ describe('SecondInput', () => {
     expect(input.prop('name')).toBe('second');
   });
 
+  it('has proper className defined', () => {
+    const className = 'react-time-picker';
+
+    const component = mount(
+      <SecondInput
+        {...defaultProps}
+        className={className}
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.hasClass('react-time-picker__input')).toBe(true);
+    expect(input.hasClass('react-time-picker__second')).toBe(true);
+  });
+
   it('displays given value properly', () => {
     const value = 11;
 

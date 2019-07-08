@@ -74,6 +74,22 @@ describe('MinuteInput', () => {
     expect(input.prop('name')).toBe('minute');
   });
 
+  it('has proper className defined', () => {
+    const className = 'react-time-picker';
+
+    const component = mount(
+      <MinuteInput
+        {...defaultProps}
+        className={className}
+      />
+    );
+
+    const input = component.find('input');
+
+    expect(input.hasClass('react-time-picker__input')).toBe(true);
+    expect(input.hasClass('react-time-picker__minute')).toBe(true);
+  });
+
   it('displays given value properly', () => {
     const value = 11;
 
