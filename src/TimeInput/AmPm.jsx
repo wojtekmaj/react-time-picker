@@ -32,7 +32,7 @@ export default function AmPm({
       aria-label={amPmAriaLabel}
       className={mergeClassNames(
         `${className}__input`,
-        `${className}__amPm`,
+        `${className}__${name}`,
       )}
       disabled={disabled}
       name={name}
