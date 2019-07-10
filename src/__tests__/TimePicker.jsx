@@ -47,7 +47,7 @@ describe('TimePicker', () => {
       clockAriaLabel: 'Toggle clock',
       hourAriaLabel: 'Hour',
       minuteAriaLabel: 'Minute',
-      secondAriaLabel: 'Second'
+      secondAriaLabel: 'Second',
     };
 
     const component = mount(

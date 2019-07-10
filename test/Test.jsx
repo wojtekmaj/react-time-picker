@@ -16,6 +16,16 @@ import { getHoursMinutesSeconds } from '../src/shared/dates';
 
 const now = new Date();
 
+const ariaLabelProps = {
+  amPmAriaLabel: 'Select AM/PM',
+  clearAriaLabel: 'Clear value',
+  clockAriaLabel: 'Toggle clock',
+  hourAriaLabel: 'Hour',
+  minuteAriaLabel: 'Minute',
+  nativeInputAriaLabel: 'Time',
+  secondAriaLabel: 'Second',
+};
+
 /* eslint-disable no-console */
 
 export default class Test extends PureComponent {
@@ -86,6 +96,7 @@ export default class Test extends PureComponent {
               }}
             >
               <TimePicker
+                {...ariaLabelProps}
                 className="myCustomTimePickerClassName"
                 clockClassName="myCustomClockClassName"
                 disabled={disabled}
