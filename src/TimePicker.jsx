@@ -294,7 +294,6 @@ TimePicker.defaultProps = {
 };
 
 TimePicker.propTypes = {
-  ...Clock.propTypes,
   amPmAriaLabel: PropTypes.string,
   className: PropTypes.oneOfType([
     PropTypes.string,
@@ -323,6 +322,7 @@ TimePicker.propTypes = {
   onChange: PropTypes.func,
   onClockClose: PropTypes.func,
   onClockOpen: PropTypes.func,
+  onFocus: PropTypes.func,
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   value: PropTypes.oneOfType([
