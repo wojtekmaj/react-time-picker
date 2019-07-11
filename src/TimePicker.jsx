@@ -138,6 +138,8 @@ export default class TimePicker extends PureComponent {
       value,
     } = this.props;
 
+    const [valueFrom] = [].concat(value);
+
     const ariaLabelProps = {
       amPmAriaLabel,
       hourAriaLabel,
@@ -162,7 +164,7 @@ export default class TimePicker extends PureComponent {
           onChange={this.onChange}
           placeholder={this.placeholder}
           required={required}
-          value={value}
+          value={valueFrom}
         />
         {clearIcon !== null && (
           <button
@@ -206,10 +208,12 @@ export default class TimePicker extends PureComponent {
       className: timePickerClassName, // Unused, here to exclude it from clockProps
       maxDetail,
       onChange,
+      value,
       ...clockProps
     } = this.props;
 
     const className = `${baseClassName}__clock`;
+    const [valueFrom] = [].concat(value);
 
     const maxDetailIndex = allViews.indexOf(maxDetail);
 
@@ -220,6 +224,7 @@ export default class TimePicker extends PureComponent {
             className={clockClassName}
             renderMinuteHand={maxDetailIndex > 0}
             renderSecondHand={maxDetailIndex > 1}
+            value={valueFrom}
             {...clockProps}
           />
         </div>
@@ -293,6 +298,11 @@ TimePicker.defaultProps = {
   maxDetail: 'minute',
 };
 
+const isValue = PropTypes.oneOfType([
+  isTime,
+  PropTypes.instanceOf(Date),
+]);
+
 TimePicker.propTypes = {
   amPmAriaLabel: PropTypes.string,
   className: PropTypes.oneOfType([
@@ -326,8 +336,8 @@ TimePicker.propTypes = {
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   value: PropTypes.oneOfType([
-    isTime,
-    PropTypes.instanceOf(Date),
+    isValue,
+    PropTypes.arrayOf(isValue),
   ]),
 };
 
