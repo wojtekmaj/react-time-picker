@@ -35,9 +35,9 @@ describe('TimePicker', () => {
       <TimePicker format={format} />
     );
 
-    const dateInput = component.find('TimeInput');
+    const timeInput = component.find('TimeInput');
 
-    expect(dateInput.prop('format')).toBe(format);
+    expect(timeInput.prop('format')).toBe(format);
   });
 
   it('passes aria-label props to TimeInput', () => {
@@ -66,6 +66,33 @@ describe('TimePicker', () => {
     expect(timeInput.prop('minuteAriaLabel')).toBe(ariaLabelProps.minuteAriaLabel);
     expect(timeInput.prop('nativeInputAriaLabel')).toBe(ariaLabelProps.nativeInputAriaLabel);
     expect(timeInput.prop('secondAriaLabel')).toBe(ariaLabelProps.secondAriaLabel);
+  });
+
+  describe('passes value to TimeInput', () => {
+    it('passes single value to TimeInput', () => {
+      const value = new Date(2019, 0, 1);
+
+      const component = mount(
+        <TimePicker value={value} />
+      );
+
+      const timeInput = component.find('TimeInput');
+
+      expect(timeInput.prop('value')).toBe(value);
+    });
+
+    it('passes the first item of an array of values to TimeInput', () => {
+      const value1 = new Date(2019, 0, 1);
+      const value2 = new Date(2019, 6, 1);
+
+      const component = mount(
+        <TimePicker value={[value1, value2]} />
+      );
+
+      const timeInput = component.find('TimeInput');
+
+      expect(timeInput.prop('value')).toBe(value1);
+    });
   });
 
   it('applies className to its wrapper when given a string', () => {
