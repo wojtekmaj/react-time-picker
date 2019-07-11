@@ -138,26 +138,30 @@ export default class TimePicker extends PureComponent {
       value,
     } = this.props;
 
+    const ariaLabelProps = {
+      amPmAriaLabel,
+      hourAriaLabel,
+      minuteAriaLabel,
+      nativeInputAriaLabel,
+      secondAriaLabel,
+    };
+
     return (
       <div className={`${baseClassName}__wrapper`}>
         <TimeInput
-          amPmAriaLabel={amPmAriaLabel}
+          {...ariaLabelProps}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           format={format}
-          hourAriaLabel={hourAriaLabel}
           isClockOpen={isOpen}
           locale={locale}
           maxDetail={maxDetail}
           maxTime={maxTime}
           minTime={minTime}
-          minuteAriaLabel={minuteAriaLabel}
           name={name}
-          nativeInputAriaLabel={nativeInputAriaLabel}
           onChange={this.onChange}
           placeholder={this.placeholder}
           required={required}
-          secondAriaLabel={secondAriaLabel}
           value={value}
         />
         {clearIcon !== null && (
