@@ -43,7 +43,7 @@ const findInput = (element, property) => {
 
 const focus = element => element && element.focus();
 
-const renderCustomInputs = (placeholder, elementFunctions) => {
+const renderCustomInputs = (placeholder, elementFunctions, allowMultipleInstances) => {
   const usedFunctions = [];
   const pattern = new RegExp(
     Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
@@ -70,7 +70,7 @@ const renderCustomInputs = (placeholder, elementFunctions) => {
           ]
         );
 
-        if (usedFunctions.includes(renderFunction)) {
+        if (!allowMultipleInstances && usedFunctions.includes(renderFunction)) {
           res.push(currentMatch);
         } else {
           res.push(renderFunction(currentMatch));
@@ -504,6 +504,8 @@ export default class TimeInput extends PureComponent {
 
   renderCustomInputs() {
     const { placeholder } = this;
+    const { format } = this.props;
+
     const elementFunctions = {
       h: this.renderHour,
       H: this.renderHour,
@@ -512,7 +514,8 @@ export default class TimeInput extends PureComponent {
       a: this.renderAmPm,
     };
 
-    return renderCustomInputs(placeholder, elementFunctions);
+    const allowMultipleInstances = typeof format !== 'undefined';
+    return renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances);
   }
 
   renderNativeInput() {
