@@ -47,6 +47,7 @@ describe('TimePicker', () => {
       clockAriaLabel: 'Toggle clock',
       hourAriaLabel: 'Hour',
       minuteAriaLabel: 'Minute',
+      nativeInputAriaLabel: 'Time',
       secondAriaLabel: 'Second',
     };
 
@@ -63,6 +64,7 @@ describe('TimePicker', () => {
     expect(timeInput.prop('amPmAriaLabel')).toBe(ariaLabelProps.amPmAriaLabel);
     expect(timeInput.prop('hourAriaLabel')).toBe(ariaLabelProps.hourAriaLabel);
     expect(timeInput.prop('minuteAriaLabel')).toBe(ariaLabelProps.minuteAriaLabel);
+    expect(timeInput.prop('nativeInputAriaLabel')).toBe(ariaLabelProps.nativeInputAriaLabel);
     expect(timeInput.prop('secondAriaLabel')).toBe(ariaLabelProps.secondAriaLabel);
   });
 
