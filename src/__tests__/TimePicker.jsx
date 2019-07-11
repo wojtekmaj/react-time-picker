@@ -28,7 +28,7 @@ describe('TimePicker', () => {
     expect(timeInput.prop('name')).toBe(name);
   });
 
-  it('passes format to DateInput', () => {
+  it('passes format to TimeInput', () => {
     const format = 'H:mm:ss';
 
     const component = mount(
@@ -40,7 +40,7 @@ describe('TimePicker', () => {
     expect(dateInput.prop('format')).toBe(format);
   });
 
-  it('passes aria-label props to DateInput', () => {
+  it('passes aria-label props to TimeInput', () => {
     const ariaLabelProps = {
       amPmAriaLabel: 'Select AM/PM',
       clearAriaLabel: 'Clear value',
