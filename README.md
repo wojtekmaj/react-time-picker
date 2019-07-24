@@ -96,12 +96,14 @@ Displays an input field complete with custom inputs, native input and a clock.
 |disableClock|When set to `true`, will remove the clock and the button toggling its visibility.|`false`|`true`|
 |format|Input format based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table). Supported values are: `H`, `HH`, `h`, `hh`, `m`, `mm`, `s`, `ss`, `a`.|n/a|`"h:m:s a"`|
 |hourAriaLabel|`aria-label` for the hour input.|n/a|`"Hour"`|
+|hourPlaceholder|`placeholder` for the hour input.|`"--"`|`"hh"`|
 |isOpen|Whether the clock should be opened.|`false`|`true`|
 |locale|Locale that should be used by the time picker and the clock. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag).|User's browser settings|`"hu-HU"`|
 |maxDetail|How detailed time picking shall be. Can be `"hour"`, `"minute"` or `"second"`.|`"minute"`|`"second"`|
 |maxTime|Maximum time that the user can select.|n/a|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 |minTime|Minimum date that the user can select.|n/a|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 |minuteAriaLabel|`aria-label` for the minute input.|n/a|`"Minute"`|
+|minutePlaceholder|`placeholder` for the minute input.|`"--"`|`"mm"`|
 |name|Input name.|`"time"`|`"myCustomName"`|
 |nativeInputAriaLabel|`aria-label` for the native time input.|n/a|`"Time"`|
 |onChange|Function called when the user picks a valid time.|n/a|`(value) => alert('New time is: ', value)`|
@@ -109,6 +111,7 @@ Displays an input field complete with custom inputs, native input and a clock.
 |onClockOpen|Function called when the clock opens.|n/a|`() => alert('Clock opened')`|
 |required|Whether date input should be required.|`false`|`true`|
 |secondAriaLabel|`aria-label` for the second input.|n/a|`"Second"`|
+|secondPlaceholder|`placeholder` for the second input.|`"--"`|`"ss"`|
 |value|Input value.|n/a|<ul><li>Date: `new Date()`</li><li>String: `"22:15:00"`</li></ul>|
 
 ### Clock

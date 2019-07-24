@@ -399,7 +399,7 @@ export default class TimeInput extends PureComponent {
   };
 
   renderHour12 = (currentMatch) => {
-    const { hourAriaLabel } = this.props;
+    const { hourAriaLabel, hourPlaceholder } = this.props;
     const { amPm, hour } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -414,6 +414,7 @@ export default class TimeInput extends PureComponent {
         {...this.commonInputProps}
         amPm={amPm}
         hourAriaLabel={hourAriaLabel}
+        placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
       />
@@ -421,7 +422,7 @@ export default class TimeInput extends PureComponent {
   }
 
   renderHour24 = (currentMatch) => {
-    const { hourAriaLabel } = this.props;
+    const { hourAriaLabel, hourPlaceholder } = this.props;
     const { hour } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -435,6 +436,7 @@ export default class TimeInput extends PureComponent {
         key="hour24"
         {...this.commonInputProps}
         hourAriaLabel={hourAriaLabel}
+        placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
       />
@@ -442,7 +444,7 @@ export default class TimeInput extends PureComponent {
   }
 
   renderMinute = (currentMatch) => {
-    const { minuteAriaLabel } = this.props;
+    const { minuteAriaLabel, minutePlaceholder } = this.props;
     const { hour, minute } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -457,6 +459,7 @@ export default class TimeInput extends PureComponent {
         {...this.commonInputProps}
         hour={hour}
         minuteAriaLabel={minuteAriaLabel}
+        placeholder={minutePlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={minute}
       />
@@ -464,7 +467,7 @@ export default class TimeInput extends PureComponent {
   }
 
   renderSecond = (currentMatch) => {
-    const { secondAriaLabel } = this.props;
+    const { secondAriaLabel, secondPlaceholder } = this.props;
     const { hour, minute, second } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -479,6 +482,7 @@ export default class TimeInput extends PureComponent {
         {...this.commonInputProps}
         hour={hour}
         minute={minute}
+        placeholder={secondPlaceholder}
         secondAriaLabel={secondAriaLabel}
         showLeadingZeros={showLeadingZeros}
         value={second}
@@ -572,17 +576,20 @@ TimeInput.propTypes = {
   disabled: PropTypes.bool,
   format: PropTypes.string,
   hourAriaLabel: PropTypes.string,
+  hourPlaceholder: PropTypes.string,
   isClockOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),
   maxTime: isTime,
   minTime: isTime,
   minuteAriaLabel: PropTypes.string,
+  minutePlaceholder: PropTypes.string,
   name: PropTypes.string,
   nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
+  secondPlaceholder: PropTypes.string,
   value: PropTypes.oneOfType([
     isTime,
     PropTypes.instanceOf(Date),

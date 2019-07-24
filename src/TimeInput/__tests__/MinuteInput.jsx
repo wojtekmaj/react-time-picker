@@ -22,7 +22,7 @@ describe('MinuteInput', () => {
   });
 
   it('applies given aria-label properly', () => {
-    const minuteAriaLabel = 'Hour';
+    const minuteAriaLabel = 'Minute';
 
     const component = mount(
       <MinuteInput
@@ -34,6 +34,21 @@ describe('MinuteInput', () => {
     const select = component.find('input');
 
     expect(select.prop('aria-label')).toBe(minuteAriaLabel);
+  });
+
+  it('applies given placeholder properly', () => {
+    const minutePlaceholder = 'mm';
+
+    const component = mount(
+      <MinuteInput
+        {...defaultProps}
+        placeholder={minutePlaceholder}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('placeholder')).toBe(minutePlaceholder);
   });
 
   it('renders "0" if minute is <10', () => {

@@ -22,7 +22,7 @@ describe('SecondInput', () => {
   });
 
   it('applies given aria-label properly', () => {
-    const secondAriaLabel = 'Hour';
+    const secondAriaLabel = 'Second';
 
     const component = mount(
       <SecondInput
@@ -34,6 +34,21 @@ describe('SecondInput', () => {
     const select = component.find('input');
 
     expect(select.prop('aria-label')).toBe(secondAriaLabel);
+  });
+
+  it('applies given placeholder properly', () => {
+    const secondPlaceholder = 'ss';
+
+    const component = mount(
+      <SecondInput
+        {...defaultProps}
+        placeholder={secondPlaceholder}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('placeholder')).toBe(secondPlaceholder);
   });
 
   it('renders "0" if second is <10', () => {

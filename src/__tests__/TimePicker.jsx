@@ -68,6 +68,24 @@ describe('TimePicker', () => {
     expect(timeInput.prop('secondAriaLabel')).toBe(ariaLabelProps.secondAriaLabel);
   });
 
+  it('passes placeholder props to TimeInput', () => {
+    const placeholderProps = {
+      hourPlaceholder: 'hh',
+      minutePlaceholder: 'mm',
+      secondPlaceholder: 'ss',
+    };
+
+    const component = mount(
+      <TimePicker {...placeholderProps} />
+    );
+
+    const timeInput = component.find('TimeInput');
+
+    expect(timeInput.prop('hourPlaceholder')).toBe(placeholderProps.hourPlaceholder);
+    expect(timeInput.prop('minutePlaceholder')).toBe(placeholderProps.minutePlaceholder);
+    expect(timeInput.prop('secondPlaceholder')).toBe(placeholderProps.secondPlaceholder);
+  });
+
   describe('passes value to TimeInput', () => {
     it('passes single value to TimeInput', () => {
       const value = new Date(2019, 0, 1);

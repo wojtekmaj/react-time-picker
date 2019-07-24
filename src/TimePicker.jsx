@@ -125,16 +125,19 @@ export default class TimePicker extends PureComponent {
       disabled,
       format,
       hourAriaLabel,
+      hourPlaceholder,
       isOpen,
       locale,
       maxDetail,
       maxTime,
       minTime,
       minuteAriaLabel,
+      minutePlaceholder,
       name,
       nativeInputAriaLabel,
       required,
       secondAriaLabel,
+      secondPlaceholder,
       value,
     } = this.props;
 
@@ -148,10 +151,17 @@ export default class TimePicker extends PureComponent {
       secondAriaLabel,
     };
 
+    const placeholderProps = {
+      hourPlaceholder,
+      minutePlaceholder,
+      secondPlaceholder,
+    };
+
     return (
       <div className={`${baseClassName}__wrapper`}>
         <TimeInput
           {...ariaLabelProps}
+          {...placeholderProps}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           format={format}
@@ -321,12 +331,14 @@ TimePicker.propTypes = {
   disabled: PropTypes.bool,
   format: PropTypes.string,
   hourAriaLabel: PropTypes.string,
+  hourPlaceholder: PropTypes.string,
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
   maxDetail: PropTypes.oneOf(allViews),
   maxTime: isTime,
   minTime: isTime,
   minuteAriaLabel: PropTypes.string,
+  minutePlaceholder: PropTypes.string,
   name: PropTypes.string,
   nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
@@ -335,6 +347,7 @@ TimePicker.propTypes = {
   onFocus: PropTypes.func,
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
+  secondPlaceholder: PropTypes.string,
   value: PropTypes.oneOfType([
     isValue,
     PropTypes.arrayOf(isValue),

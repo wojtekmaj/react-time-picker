@@ -37,6 +37,21 @@ describe('Hour12Input', () => {
     expect(select.prop('aria-label')).toBe(hourAriaLabel);
   });
 
+  it('applies given placeholder properly', () => {
+    const hourPlaceholder = 'hh';
+
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        placeholder={hourPlaceholder}
+      />
+    );
+
+    const select = component.find('input');
+
+    expect(select.prop('placeholder')).toBe(hourPlaceholder);
+  });
+
   it('has proper name defined', () => {
     const component = mount(
       <Hour12Input {...defaultProps} />

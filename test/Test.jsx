@@ -26,6 +26,12 @@ const ariaLabelProps = {
   secondAriaLabel: 'Second',
 };
 
+const placeholderProps = {
+  hourPlaceholder: 'hh',
+  minutePlaceholder: 'mm',
+  secondPlaceholder: 'ss',
+};
+
 /* eslint-disable no-console */
 
 export default class Test extends PureComponent {
@@ -97,6 +103,7 @@ export default class Test extends PureComponent {
             >
               <TimePicker
                 {...ariaLabelProps}
+                {...placeholderProps}
                 className="myCustomTimePickerClassName"
                 clockClassName="myCustomClockClassName"
                 disabled={disabled}
