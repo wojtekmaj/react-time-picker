@@ -57,10 +57,10 @@ export default function Hour12Input({
 
   return (
     <Input
-      name="hour12"
-      nameForClass="hour"
       max={maxHour}
       min={minHour}
+      name="hour12"
+      nameForClass="hour"
       value={value12}
       {...otherProps}
     />

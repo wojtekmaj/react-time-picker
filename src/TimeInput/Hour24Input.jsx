@@ -25,10 +25,10 @@ export default function Hour24Input({
 
   return (
     <Input
-      name="hour24"
-      nameForClass="hour"
       max={maxHour}
       min={minHour}
+      name="hour24"
+      nameForClass="hour"
       {...otherProps}
     />
   );

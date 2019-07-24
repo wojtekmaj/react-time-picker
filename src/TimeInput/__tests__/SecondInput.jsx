@@ -195,8 +195,8 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         hour={22}
-        minute={40}
         minTime="21:40:15"
+        minute={40}
       />
     );
 
@@ -210,8 +210,8 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         hour={22}
-        minute={40}
         minTime="22:40:15"
+        minute={40}
       />
     );
 
@@ -235,8 +235,8 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         hour={22}
-        minute={40}
         maxTime="23:40:15"
+        minute={40}
       />
     );
 
@@ -250,8 +250,8 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         hour={22}
-        minute={40}
         maxTime="22:40:15"
+        minute={40}
       />
     );
 

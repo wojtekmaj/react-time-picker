@@ -457,8 +457,8 @@ export default class TimeInput extends PureComponent {
       <MinuteInput
         key="minute"
         {...this.commonInputProps}
-        hour={hour}
         ariaLabel={minuteAriaLabel}
+        hour={hour}
         placeholder={minutePlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={minute}
@@ -480,10 +480,10 @@ export default class TimeInput extends PureComponent {
       <SecondInput
         key="second"
         {...this.commonInputProps}
+        ariaLabel={secondAriaLabel}
         hour={hour}
         minute={minute}
         placeholder={secondPlaceholder}
-        ariaLabel={secondAriaLabel}
         showLeadingZeros={showLeadingZeros}
         value={second}
       />

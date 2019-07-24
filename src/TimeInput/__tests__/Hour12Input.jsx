@@ -182,8 +182,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        minTime="5:35"
         amPm="am"
+        minTime="5:35"
       />
     );
 
@@ -196,8 +196,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        minTime="17:35"
         amPm="pm"
+        minTime="17:35"
       />
     );
 
@@ -210,8 +210,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        minTime="5:35"
         amPm="pm"
+        minTime="5:35"
       />
     );
 
@@ -224,8 +224,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        minTime="17:35"
         amPm="am"
+        minTime="17:35"
       />
     );
 
@@ -238,8 +238,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        minTime="00:35"
         amPm="am"
+        minTime="00:35"
       />
     );
 
@@ -252,8 +252,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        minTime="12:35"
         amPm="pm"
+        minTime="12:35"
       />
     );
 
@@ -276,8 +276,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        maxTime="5:35"
         amPm="am"
+        maxTime="5:35"
       />
     );
 
@@ -290,8 +290,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        maxTime="17:35"
         amPm="pm"
+        maxTime="17:35"
       />
     );
 
@@ -304,8 +304,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        maxTime="5:35"
         amPm="pm"
+        maxTime="5:35"
       />
     );
 
@@ -318,8 +318,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        maxTime="17:35"
         amPm="am"
+        maxTime="17:35"
       />
     );
 
@@ -332,8 +332,8 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        maxTime="12:35"
         amPm="pm"
+        maxTime="12:35"
       />
     );
 

@@ -29,9 +29,9 @@ export default function MinuteInput({
 
   return (
     <Input
-      name="minute"
       max={maxMinute}
       min={minMinute}
+      name="minute"
       {...otherProps}
     />
   );

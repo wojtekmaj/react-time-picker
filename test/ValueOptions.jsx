@@ -28,20 +28,20 @@ export default function ValueOptions({
         <input
           id="time"
           onChange={onChange}
+          step="1"
           type="time"
           value={value || ''}
-          step="1"
         />
         &nbsp;
         <button
-          type="button"
           onClick={() => setValue(null)}
+          type="button"
         >
           Clear to null
         </button>
         <button
-          type="button"
           onClick={() => setValue('')}
+          type="button"
         >
           Clear to empty string
         </button>

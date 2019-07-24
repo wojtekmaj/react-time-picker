@@ -19,10 +19,10 @@ export default function ViewOptions({
 
       <div>
         <input
-          id="disabled"
-          type="checkbox"
           checked={disabled}
+          id="disabled"
           onChange={onDisabledChange}
+          type="checkbox"
         />
         <label htmlFor="disabled">
           Disabled

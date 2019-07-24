@@ -34,9 +34,9 @@ export default function ValidityOptions({
         <input
           id="minTime"
           onChange={onMinChange}
+          step="1"
           type="time"
           value={minTime || ''}
-          step="1"
         />
         &nbsp;
         <button
@@ -54,9 +54,9 @@ export default function ValidityOptions({
         <input
           id="maxTime"
           onChange={onMaxChange}
+          step="1"
           type="time"
           value={maxTime || ''}
-          step="1"
         />
         &nbsp;
         <button
@@ -69,10 +69,10 @@ export default function ValidityOptions({
 
       <div>
         <input
-          id="required"
-          type="checkbox"
           checked={required}
+          id="required"
           onChange={event => setState({ required: event.target.checked })}
+          type="checkbox"
         />
         <label htmlFor="required">
           Required

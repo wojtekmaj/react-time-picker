@@ -36,9 +36,9 @@ export default function SecondInput({
 
   return (
     <Input
-      name="second"
       max={maxSecond}
       min={minSecond}
+      name="second"
       {...otherProps}
     />
   );

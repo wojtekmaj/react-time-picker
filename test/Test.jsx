@@ -80,8 +80,8 @@ export default class Test extends PureComponent {
               setState={setState}
             />
             <LocaleOptions
-              setState={setState}
               locale={locale}
+              setState={setState}
             />
             <ValueOptions
               setState={setState}
@@ -113,16 +113,16 @@ export default class Test extends PureComponent {
                 minTime={minTime}
                 name="myCustomName"
                 onChange={this.onChange}
-                onClockOpen={() => console.log('Clock opened')}
                 onClockClose={() => console.log('Clock closed')}
+                onClockOpen={() => console.log('Clock opened')}
                 required={required}
                 value={value}
               />
               <br />
               <br />
               <button
-                type="submit"
                 id="submit"
+                type="submit"
               >
                 Submit
               </button>
