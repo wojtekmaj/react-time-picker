@@ -413,7 +413,7 @@ export default class TimeInput extends PureComponent {
         key="hour12"
         {...this.commonInputProps}
         amPm={amPm}
-        hourAriaLabel={hourAriaLabel}
+        ariaLabel={hourAriaLabel}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
@@ -435,7 +435,7 @@ export default class TimeInput extends PureComponent {
       <Hour24Input
         key="hour24"
         {...this.commonInputProps}
-        hourAriaLabel={hourAriaLabel}
+        ariaLabel={hourAriaLabel}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
@@ -458,7 +458,7 @@ export default class TimeInput extends PureComponent {
         key="minute"
         {...this.commonInputProps}
         hour={hour}
-        minuteAriaLabel={minuteAriaLabel}
+        ariaLabel={minuteAriaLabel}
         placeholder={minutePlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={minute}
@@ -483,7 +483,7 @@ export default class TimeInput extends PureComponent {
         hour={hour}
         minute={minute}
         placeholder={secondPlaceholder}
-        secondAriaLabel={secondAriaLabel}
+        ariaLabel={secondAriaLabel}
         showLeadingZeros={showLeadingZeros}
         value={second}
       />
@@ -498,7 +498,7 @@ export default class TimeInput extends PureComponent {
       <AmPm
         key="ampm"
         {...this.commonInputProps}
-        amPmAriaLabel={amPmAriaLabel}
+        ariaLabel={amPmAriaLabel}
         locale={locale}
         onChange={this.onChangeAmPm}
         value={amPm}
@@ -536,11 +536,11 @@ export default class TimeInput extends PureComponent {
     return (
       <NativeInput
         key="time"
+        ariaLabel={nativeInputAriaLabel}
         disabled={disabled}
         maxTime={maxTime}
         minTime={minTime}
         name={name}
-        nativeInputAriaLabel={nativeInputAriaLabel}
         onChange={this.onChangeNative}
         required={required}
         value={value}

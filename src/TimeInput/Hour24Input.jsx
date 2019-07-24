@@ -9,7 +9,6 @@ import { min, max } from '../shared/utils';
 
 export default function Hour24Input({
   hour,
-  hourAriaLabel,
   maxTime,
   minTime,
   ...otherProps
@@ -28,7 +27,6 @@ export default function Hour24Input({
     <Input
       name="hour24"
       nameForClass="hour"
-      ariaLabel={hourAriaLabel}
       max={maxHour}
       min={minHour}
       {...otherProps}
@@ -37,16 +35,17 @@ export default function Hour24Input({
 }
 
 Hour24Input.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   hour: PropTypes.number,
-  hourAriaLabel: PropTypes.string,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,

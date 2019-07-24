@@ -10,7 +10,6 @@ import { min, max } from '../shared/utils';
 export default function MinuteInput({
   hour,
   maxTime,
-  minuteAriaLabel,
   minTime,
   ...otherProps
 }) {
@@ -31,7 +30,6 @@ export default function MinuteInput({
   return (
     <Input
       name="minute"
-      ariaLabel={minuteAriaLabel}
       max={maxMinute}
       min={minMinute}
       {...otherProps}
@@ -40,16 +38,17 @@ export default function MinuteInput({
 }
 
 MinuteInput.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   hour: PropTypes.number,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,
-  minuteAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,

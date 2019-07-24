@@ -29,7 +29,7 @@ describe('AmPm', () => {
     const component = shallow(
       <AmPm
         {...defaultProps}
-        amPmAriaLabel={amPmAriaLabel}
+        ariaLabel={amPmAriaLabel}
       />
     );
 

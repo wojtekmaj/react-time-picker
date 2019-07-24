@@ -27,7 +27,7 @@ describe('MinuteInput', () => {
     const component = mount(
       <MinuteInput
         {...defaultProps}
-        minuteAriaLabel={minuteAriaLabel}
+        ariaLabel={minuteAriaLabel}
       />
     );
 

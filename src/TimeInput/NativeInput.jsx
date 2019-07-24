@@ -9,11 +9,11 @@ import {
 import { isTime, isValueType } from '../shared/propTypes';
 
 export default function NativeInput({
+  ariaLabel,
   disabled,
   maxTime,
   minTime,
   name,
-  nativeInputAriaLabel,
   onChange,
   required,
   value,
@@ -52,7 +52,7 @@ export default function NativeInput({
   return (
     <input
       type="time"
-      aria-label={nativeInputAriaLabel}
+      aria-label={ariaLabel}
       disabled={disabled}
       max={maxTime ? nativeValueParser(maxTime) : null}
       min={minTime ? nativeValueParser(minTime) : null}
@@ -73,11 +73,11 @@ export default function NativeInput({
 }
 
 NativeInput.propTypes = {
+  ariaLabel: PropTypes.string,
   disabled: PropTypes.bool,
   maxTime: isTime,
   minTime: isTime,
   name: PropTypes.string,
-  nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.oneOfType([

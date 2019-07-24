@@ -28,7 +28,7 @@ describe('Hour12Input', () => {
     const component = mount(
       <Hour12Input
         {...defaultProps}
-        hourAriaLabel={hourAriaLabel}
+        ariaLabel={hourAriaLabel}
       />
     );
 

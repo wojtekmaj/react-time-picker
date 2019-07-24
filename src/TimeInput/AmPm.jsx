@@ -10,7 +10,7 @@ import { isTime } from '../shared/propTypes';
 import { getAmPmLabels } from '../shared/utils';
 
 export default function AmPm({
-  amPmAriaLabel,
+  ariaLabel,
   className,
   disabled,
   itemRef,
@@ -29,7 +29,7 @@ export default function AmPm({
 
   return (
     <select
-      aria-label={amPmAriaLabel}
+      aria-label={ariaLabel}
       className={mergeClassNames(
         `${className}__input`,
         `${className}__${name}`,
@@ -61,7 +61,7 @@ export default function AmPm({
 }
 
 AmPm.propTypes = {
-  amPmAriaLabel: PropTypes.string,
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   itemRef: PropTypes.func,

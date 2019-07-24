@@ -13,7 +13,6 @@ import { min, max } from '../shared/utils';
 export default function Hour12Input({
   amPm,
   hour,
-  hourAriaLabel,
   maxTime,
   minTime,
   value,
@@ -60,7 +59,6 @@ export default function Hour12Input({
     <Input
       name="hour12"
       nameForClass="hour"
-      ariaLabel={hourAriaLabel}
       max={maxHour}
       min={minHour}
       value={value12}
@@ -71,16 +69,17 @@ export default function Hour12Input({
 
 Hour12Input.propTypes = {
   amPm: PropTypes.string,
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   hour: PropTypes.number,
-  hourAriaLabel: PropTypes.string,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,

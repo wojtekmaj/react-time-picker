@@ -27,7 +27,7 @@ describe('SecondInput', () => {
     const component = mount(
       <SecondInput
         {...defaultProps}
-        secondAriaLabel={secondAriaLabel}
+        ariaLabel={secondAriaLabel}
       />
     );
 

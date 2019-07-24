@@ -16,7 +16,6 @@ export default function SecondInput({
   maxTime,
   minTime,
   minute,
-  secondAriaLabel,
   ...otherProps
 }) {
   const maxSecond = min(
@@ -37,7 +36,6 @@ export default function SecondInput({
 
   return (
     <Input
-      ariaLabel={secondAriaLabel}
       name="second"
       max={maxSecond}
       min={minSecond}
@@ -47,6 +45,7 @@ export default function SecondInput({
 }
 
 SecondInput.propTypes = {
+  ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   hour: PropTypes.number,
@@ -57,8 +56,8 @@ SecondInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
-  secondAriaLabel: PropTypes.string,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
 };
