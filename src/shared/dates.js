@@ -10,7 +10,7 @@ export {
   getSeconds,
 };
 
-export const getHoursMinutes = (date) => {
+export function getHoursMinutes(date) {
   if (!date) {
     return date;
   }
@@ -19,9 +19,9 @@ export const getHoursMinutes = (date) => {
   const minutes = `0${getMinutes(date)}`.slice(-2);
 
   return `${hours}:${minutes}`;
-};
+}
 
-export const getHoursMinutesSeconds = (date) => {
+export function getHoursMinutesSeconds(date) {
   if (!date) {
     return date;
   }
@@ -31,9 +31,9 @@ export const getHoursMinutesSeconds = (date) => {
   const seconds = `0${getSeconds(date)}`.slice(-2);
 
   return `${hours}:${minutes}:${seconds}`;
-};
+}
 
-export const convert12to24 = (hour12, amPm) => {
+export function convert12to24(hour12, amPm) {
   let hour24 = parseInt(hour12, 10);
 
   if (amPm === 'am' && hour24 === 12) {
@@ -43,10 +43,10 @@ export const convert12to24 = (hour12, amPm) => {
   }
 
   return hour24;
-};
+}
 
-export const convert24to12 = (hour24) => {
+export function convert24to12(hour24) {
   const hour12 = hour24 % 12 || 12;
 
   return [hour12, hour24 < 12 ? 'am' : 'pm'];
-};
+}
