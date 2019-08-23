@@ -32,9 +32,9 @@ describe('Hour12Input', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('aria-label')).toBe(hourAriaLabel);
+    expect(input.prop('aria-label')).toBe(hourAriaLabel);
   });
 
   it('applies given placeholder properly', () => {
@@ -47,9 +47,9 @@ describe('Hour12Input', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('placeholder')).toBe(hourPlaceholder);
+    expect(input.prop('placeholder')).toBe(hourPlaceholder);
   });
 
   it('has proper name defined', () => {

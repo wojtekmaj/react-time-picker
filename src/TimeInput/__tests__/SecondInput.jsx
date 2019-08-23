@@ -31,9 +31,9 @@ describe('SecondInput', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('aria-label')).toBe(secondAriaLabel);
+    expect(input.prop('aria-label')).toBe(secondAriaLabel);
   });
 
   it('applies given placeholder properly', () => {
@@ -46,9 +46,9 @@ describe('SecondInput', () => {
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('placeholder')).toBe(secondPlaceholder);
+    expect(input.prop('placeholder')).toBe(secondPlaceholder);
   });
 
   it('renders "0" if second is <10', () => {
