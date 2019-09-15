@@ -79,6 +79,29 @@ describe('AmPm', () => {
     expect(select.prop('value')).toBe(value);
   });
 
+  it('does not disable select by default', () => {
+    const component = shallow(
+      <AmPm {...defaultProps} />
+    );
+
+    const select = component.find('select');
+
+    expect(select.prop('disabled')).toBeFalsy();
+  });
+
+  it('disables input given disabled flag', () => {
+    const component = shallow(
+      <AmPm
+        {...defaultProps}
+        disabled
+      />
+    );
+
+    const select = component.find('select');
+
+    expect(select.prop('disabled')).toBeTruthy();
+  });
+
   it('should not disable anything by default', () => {
     const component = shallow(
       <AmPm {...defaultProps} />
