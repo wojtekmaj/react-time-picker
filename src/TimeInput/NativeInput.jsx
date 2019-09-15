@@ -15,6 +15,7 @@ export default function NativeInput({
   minTime,
   name,
   onChange,
+  readOnly,
   required,
   value,
   valueType,
@@ -58,6 +59,7 @@ export default function NativeInput({
       name={name}
       onChange={onChange}
       onFocus={stopPropagation}
+      readOnly={readOnly}
       required={required}
       step={step}
       style={{
@@ -79,6 +81,7 @@ NativeInput.propTypes = {
   minTime: isTime,
   name: PropTypes.string,
   onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
   required: PropTypes.bool,
   value: PropTypes.oneOfType([
     PropTypes.string,

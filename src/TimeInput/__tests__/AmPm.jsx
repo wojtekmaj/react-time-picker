@@ -102,6 +102,19 @@ describe('AmPm', () => {
     expect(select.prop('disabled')).toBeTruthy();
   });
 
+  it('disables input given readOnly flag', () => {
+    const component = shallow(
+      <AmPm
+        {...defaultProps}
+        readOnly
+      />
+    );
+
+    const select = component.find('select');
+
+    expect(select.prop('disabled')).toBeTruthy();
+  });
+
   it('should not disable anything by default', () => {
     const component = shallow(
       <AmPm {...defaultProps} />

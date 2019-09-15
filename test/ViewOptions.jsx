@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 
 export default function ViewOptions({
   disabled,
+  readOnly,
   setState,
 }) {
   function onDisabledChange(event) {
     const { checked } = event.target;
 
     setState({ disabled: checked });
+  }
+
+  function onReadOnlyChange(event) {
+    const { checked } = event.target;
+
+    setState({ readOnly: checked });
   }
 
   return (
@@ -28,11 +35,24 @@ export default function ViewOptions({
           Disabled
         </label>
       </div>
+
+      <div>
+        <input
+          checked={readOnly}
+          id="readOnly"
+          onChange={onReadOnlyChange}
+          type="checkbox"
+        />
+        <label htmlFor="readOnly">
+          Read only
+        </label>
+      </div>
     </fieldset>
   );
 }
 
 ViewOptions.propTypes = {
   disabled: PropTypes.bool.isRequired,
+  readOnly: PropTypes.bool.isRequired,
   setState: PropTypes.func.isRequired,
 };

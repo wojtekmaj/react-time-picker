@@ -41,6 +41,7 @@ export default class Test extends PureComponent {
     maxTime: null,
     maxDetail: 'minute',
     minTime: null,
+    readOnly: false,
     required: true,
     value: getHoursMinutesSeconds(now),
   }
@@ -54,6 +55,7 @@ export default class Test extends PureComponent {
       maxTime,
       maxDetail,
       minTime,
+      readOnly,
       required,
       value,
     } = this.state;
@@ -89,6 +91,7 @@ export default class Test extends PureComponent {
             />
             <ViewOptions
               disabled={disabled}
+              readOnly={readOnly}
               setState={setState}
             />
           </aside>
@@ -115,6 +118,7 @@ export default class Test extends PureComponent {
                 onChange={this.onChange}
                 onClockClose={() => console.log('Clock closed')}
                 onClockOpen={() => console.log('Clock opened')}
+                readOnly={readOnly}
                 required={required}
                 value={value}
               />

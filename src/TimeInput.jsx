@@ -214,6 +214,7 @@ export default class TimeInput extends PureComponent {
       isClockOpen,
       maxTime,
       minTime,
+      readOnly,
       required,
     } = this.props;
 
@@ -230,6 +231,7 @@ export default class TimeInput extends PureComponent {
       onKeyDown: this.onKeyDown,
       onKeyUp: this.onKeyUp,
       placeholder: '--',
+      readOnly,
       // This is only for showing validity when editing
       required: required || isClockOpen,
     };
@@ -529,6 +531,7 @@ export default class TimeInput extends PureComponent {
       minTime,
       name,
       nativeInputAriaLabel,
+      readOnly,
       required,
       value,
     } = this.props;
@@ -542,6 +545,7 @@ export default class TimeInput extends PureComponent {
         minTime={minTime}
         name={name}
         onChange={this.onChangeNative}
+        readOnly={readOnly}
         required={required}
         value={value}
         valueType={this.valueType}
@@ -587,6 +591,7 @@ TimeInput.propTypes = {
   name: PropTypes.string,
   nativeInputAriaLabel: PropTypes.string,
   onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   secondPlaceholder: PropTypes.string,

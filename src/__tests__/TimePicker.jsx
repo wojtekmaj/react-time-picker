@@ -38,6 +38,16 @@ describe('TimePicker', () => {
     expect(timeInput.prop('disabled')).toBeTruthy();
   });
 
+  it('passes readOnly flag to TimeInput', () => {
+    const component = mount(
+      <TimePicker readOnly />
+    );
+
+    const timeInput = component.find('TimeInput');
+
+    expect(timeInput.prop('readOnly')).toBeTruthy();
+  });
+
   it('passes format to TimeInput', () => {
     const format = 'H:mm:ss';
 

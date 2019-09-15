@@ -64,13 +64,18 @@ export default class TimePicker extends PureComponent {
     });
 
     const { onChange } = this.props;
+
     if (onChange) {
       onChange(value);
     }
   }
 
   onFocus = (event) => {
-    const { disabled, onFocus } = this.props;
+    const { disabled, onFocus, readOnly } = this.props;
+
+    if (readOnly) {
+      return;
+    }
 
     if (onFocus) {
       onFocus(event);
@@ -135,6 +140,7 @@ export default class TimePicker extends PureComponent {
       minutePlaceholder,
       name,
       nativeInputAriaLabel,
+      readOnly,
       required,
       secondAriaLabel,
       secondPlaceholder,
@@ -173,6 +179,7 @@ export default class TimePicker extends PureComponent {
           name={name}
           onChange={this.onChange}
           placeholder={this.placeholder}
+          readOnly={readOnly}
           required={required}
           value={valueFrom}
         />
@@ -180,7 +187,7 @@ export default class TimePicker extends PureComponent {
           <button
             aria-label={clearAriaLabel}
             className={`${baseClassName}__clear-button ${baseClassName}__button`}
-            disabled={disabled}
+            disabled={disabled || readOnly}
             onClick={this.clear}
             onFocus={this.stopPropagation}
             type="button"
@@ -192,7 +199,7 @@ export default class TimePicker extends PureComponent {
           <button
             aria-label={clockAriaLabel}
             className={`${baseClassName}__clock-button ${baseClassName}__button`}
-            disabled={disabled}
+            disabled={disabled || readOnly}
             onBlur={this.resetValue}
             onClick={this.toggleClock}
             onFocus={this.stopPropagation}
@@ -345,6 +352,7 @@ TimePicker.propTypes = {
   onClockClose: PropTypes.func,
   onClockOpen: PropTypes.func,
   onFocus: PropTypes.func,
+  readOnly: PropTypes.bool,
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   secondPlaceholder: PropTypes.string,

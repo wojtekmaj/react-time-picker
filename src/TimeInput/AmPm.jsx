@@ -18,6 +18,7 @@ export default function AmPm({
   maxTime,
   minTime,
   onChange,
+  readOnly,
   required,
   value,
 }) {
@@ -34,7 +35,7 @@ export default function AmPm({
         `${className}__input`,
         `${className}__${name}`,
       )}
-      disabled={disabled}
+      disabled={disabled || readOnly}
       name={name}
       onChange={onChange}
       ref={(ref) => {
@@ -69,6 +70,7 @@ AmPm.propTypes = {
   maxTime: isTime,
   minTime: isTime,
   onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
   required: PropTypes.bool,
   value: PropTypes.oneOf(['am', 'pm']),
 };
