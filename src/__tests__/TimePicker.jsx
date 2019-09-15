@@ -28,6 +28,16 @@ describe('TimePicker', () => {
     expect(timeInput.prop('name')).toBe(name);
   });
 
+  it('passes disabled flag to TimeInput', () => {
+    const component = mount(
+      <TimePicker disabled />
+    );
+
+    const timeInput = component.find('TimeInput');
+
+    expect(timeInput.prop('disabled')).toBeTruthy();
+  });
+
   it('passes format to TimeInput', () => {
     const format = 'H:mm:ss';
 
