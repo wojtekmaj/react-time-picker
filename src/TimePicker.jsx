@@ -8,6 +8,7 @@ import Fit from 'react-fit';
 import Clock from 'react-clock/dist/entry.nostyle';
 
 import TimeInput from './TimeInput';
+import Button from './Button';
 
 import { isTime } from './shared/propTypes';
 import { callIfDefined } from './shared/utils';
@@ -176,30 +177,24 @@ export default class TimePicker extends PureComponent {
           required={required}
           value={valueFrom}
         />
-        {clearIcon !== null && (
-          <button
-            aria-label={clearAriaLabel}
-            className={`${baseClassName}__clear-button ${baseClassName}__button`}
-            disabled={disabled}
-            onClick={this.clear}
-            onFocus={this.stopPropagation}
-            type="button"
-          >
-            {clearIcon}
-          </button>
-        )}
-        {clockIcon !== null && !disableClock && (
-          <button
+        <Button
+          aria-label={clearAriaLabel}
+          className={`${baseClassName}__clear-button ${baseClassName}__button`}
+          disabled={disabled}
+          onClick={this.clear}
+        >
+          {clearIcon}
+        </Button>
+        {!disableClock && (
+          <Button
             aria-label={clockAriaLabel}
             className={`${baseClassName}__clock-button ${baseClassName}__button`}
             disabled={disabled}
             onBlur={this.resetValue}
             onClick={this.toggleClock}
-            onFocus={this.stopPropagation}
-            type="button"
           >
             {clockIcon}
-          </button>
+          </Button>
         )}
       </div>
     );
