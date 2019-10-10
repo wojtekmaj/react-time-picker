@@ -4,8 +4,11 @@ import TimePicker from 'react-time-picker';
 import './Sample.less';
 
 export default class Sample extends Component {
-  state = {
-    value: new Date(),
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: new Date(),
+    };
   }
 
   onChange = value => this.setState({ value })

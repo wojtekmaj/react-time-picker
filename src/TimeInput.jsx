@@ -121,12 +121,15 @@ export default class TimeInput extends PureComponent {
     return nextState;
   }
 
-  state = {
-    amPm: null,
-    hour: null,
-    minute: null,
-    second: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      amPm: null,
+      hour: null,
+      minute: null,
+      second: null,
+    };
+  }
 
   get formatTime() {
     const { maxDetail } = this.props;
@@ -555,7 +558,8 @@ export default class TimeInput extends PureComponent {
     return (
       <div
         className={className}
-        onClick={this.onClick}        
+        onClick={this.onClick}
+        role="group"
       >
         {this.renderNativeInput()}
         {this.renderCustomInputs()}

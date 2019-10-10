@@ -28,7 +28,10 @@ export default class TimePicker extends PureComponent {
     return null;
   }
 
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
   componentDidMount() {
     this.handleOutsideActionListeners();
