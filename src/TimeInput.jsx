@@ -542,7 +542,6 @@ export default class TimeInput extends PureComponent {
         minTime={minTime}
         name={name}
         onChange={this.onChangeNative}
-        onClick={this.onClick}
         required={required}
         value={value}
         valueType={this.valueType}
@@ -553,9 +552,12 @@ export default class TimeInput extends PureComponent {
   render() {
     const { className } = this.props;
 
+    /* eslint-disable jsx-a11y/click-events-have-key-events */
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
       <div
         className={className}
+        onClick={this.onClick}
       >
         {this.renderNativeInput()}
         {this.renderCustomInputs()}
