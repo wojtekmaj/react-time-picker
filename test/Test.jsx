@@ -45,7 +45,6 @@ export default class Test extends PureComponent {
     value: getHoursMinutesSeconds(now),
   }
 
-
   onChange = value => this.setState({ value })
 
   render() {
