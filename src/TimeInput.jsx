@@ -543,7 +543,6 @@ export default class TimeInput extends PureComponent {
         name={name}
         onChange={this.onChangeNative}
         onClick={this.onClick}
-        onKeyDown={this.onClick}
         required={required}
         value={value}
         valueType={this.valueType}
@@ -557,7 +556,6 @@ export default class TimeInput extends PureComponent {
     return (
       <div
         className={className}
-        role="group"
       >
         {this.renderNativeInput()}
         {this.renderCustomInputs()}
