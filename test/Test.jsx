@@ -35,18 +35,14 @@ const placeholderProps = {
 /* eslint-disable no-console */
 
 export default class Test extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      disabled: false,
-      locale: null,
-      maxTime: null,
-      maxDetail: 'minute',
-      minTime: null,
-      required: true,
-      value: getHoursMinutesSeconds(now),
-    };
+  state = {
+    disabled: false,
+    locale: null,
+    maxTime: null,
+    maxDetail: 'minute',
+    minTime: null,
+    required: true,
+    value: getHoursMinutesSeconds(now),
   }
 
 

@@ -121,15 +121,12 @@ export default class TimeInput extends PureComponent {
     return nextState;
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      amPm: null,
-      hour: null,
-      minute: null,
-      second: null,
-    };
-  }
+  state = {
+    amPm: null,
+    hour: null,
+    minute: null,
+    second: null,
+  };
 
   get formatTime() {
     const { maxDetail } = this.props;
