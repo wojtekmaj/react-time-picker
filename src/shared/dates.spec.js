@@ -3,7 +3,7 @@ import {
   getHoursMinutesSeconds,
   convert12to24,
   convert24to12,
-} from '../dates';
+} from './dates';
 
 describe('getHoursMinutes', () => {
   it('returns proper hour and minute for a given date', () => {

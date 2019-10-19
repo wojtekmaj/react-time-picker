@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import AmPm from '../AmPm';
+import AmPm from './AmPm';
 
 /* eslint-disable comma-dangle */
 

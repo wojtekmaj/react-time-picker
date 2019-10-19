@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import SecondInput from '../SecondInput';
+import SecondInput from './SecondInput';
 
 /* eslint-disable comma-dangle */
 

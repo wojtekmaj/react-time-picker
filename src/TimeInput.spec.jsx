@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import TimeInput from '../TimeInput';
+import TimeInput from './TimeInput';
 
-import { muteConsole, restoreConsole } from './utils';
+import { muteConsole, restoreConsole } from '../test-utils';
 
 /* eslint-disable comma-dangle */
 
