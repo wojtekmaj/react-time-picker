@@ -25,25 +25,33 @@ import { getAmPmLabels } from './shared/utils';
 
 const allViews = ['hour', 'minute', 'second'];
 
-const hoursAreDifferent = (date1, date2) => (
-  (date1 && !date2)
-  || (!date1 && date2)
-  || (date1 && date2 && date1 !== date2) // TODO: Compare 11:22:00 and 11:22 properly
-);
+function hoursAreDifferent(date1, date2) {
+  return (
+    (date1 && !date2)
+    || (!date1 && date2)
+    || (date1 && date2 && date1 !== date2) // TODO: Compare 11:22:00 and 11:22 properly
+  );
+}
 
-const isValidInput = element => element.tagName === 'INPUT' && element.type === 'number';
+function isValidInput(element) {
+  return element.tagName === 'INPUT' && element.type === 'number';
+}
 
-const findInput = (element, property) => {
+function findInput(element, property) {
   let nextElement = element;
   do {
     nextElement = nextElement[property];
   } while (nextElement && !isValidInput(nextElement));
   return nextElement;
-};
+}
 
-const focus = element => element && element.focus();
+function focus(element) {
+  if (element) {
+    element.focus();
+  }
+}
 
-const renderCustomInputs = (placeholder, elementFunctions, allowMultipleInstances) => {
+function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances) {
   const usedFunctions = [];
   const pattern = new RegExp(
     Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
@@ -79,7 +87,7 @@ const renderCustomInputs = (placeholder, elementFunctions, allowMultipleInstance
       }
       return res;
     }, []);
-};
+}
 
 export default class TimeInput extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
