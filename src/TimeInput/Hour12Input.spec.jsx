@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Hour12Input from '../Hour12Input';
+import Hour12Input from './Hour12Input';
 
 /* eslint-disable comma-dangle */
 
