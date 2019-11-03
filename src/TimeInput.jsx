@@ -1,6 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
+import {
+  getHours,
+  getMinutes,
+  getSeconds,
+  getHoursMinutes,
+  getHoursMinutesSeconds,
+} from '@wojtekmaj/date-utils';
 
 import Divider from './Divider';
 import Hour12Input from './TimeInput/Hour12Input';
@@ -11,15 +18,7 @@ import NativeInput from './TimeInput/NativeInput';
 import AmPm from './TimeInput/AmPm';
 
 import { getFormatter } from './shared/dateFormatter';
-import {
-  getHours,
-  getMinutes,
-  getSeconds,
-  getHoursMinutes,
-  getHoursMinutesSeconds,
-  convert12to24,
-  convert24to12,
-} from './shared/dates';
+import { convert12to24, convert24to12 } from './shared/dates';
 import { isTime } from './shared/propTypes';
 import { getAmPmLabels } from './shared/utils';
 

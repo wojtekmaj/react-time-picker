@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getHours, getMinutes, getSeconds } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import {
-  getHours,
-  getMinutes,
-  getSeconds,
-} from '../shared/dates';
 import { isTime } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
