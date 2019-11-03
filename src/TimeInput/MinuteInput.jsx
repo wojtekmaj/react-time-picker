@@ -11,6 +11,7 @@ export default function MinuteInput({
   hour,
   maxTime,
   minTime,
+  showLeadingZeros = true,
   ...otherProps
 }) {
   const maxMinute = min(
@@ -32,6 +33,7 @@ export default function MinuteInput({
       max={maxMinute}
       min={minMinute}
       name="minute"
+      showLeadingZeros={showLeadingZeros}
       {...otherProps}
     />
   );
@@ -52,8 +54,4 @@ MinuteInput.propTypes = {
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
-};
-
-MinuteInput.defaultProps = {
-  showLeadingZeros: true,
 };

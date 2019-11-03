@@ -16,6 +16,7 @@ export default function SecondInput({
   maxTime,
   minTime,
   minute,
+  showLeadingZeros = true,
   ...otherProps
 }) {
   const maxSecond = min(
@@ -39,6 +40,7 @@ export default function SecondInput({
       max={maxSecond}
       min={minSecond}
       name="second"
+      showLeadingZeros={showLeadingZeros}
       {...otherProps}
     />
   );
@@ -60,8 +62,4 @@ SecondInput.propTypes = {
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   value: PropTypes.number,
-};
-
-SecondInput.defaultProps = {
-  showLeadingZeros: true,
 };
