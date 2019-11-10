@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   getHours,
   getHoursMinutes,
   getHoursMinutesSeconds,
-} from '../shared/dates';
+} from '@wojtekmaj/date-utils';
+
 import { isTime, isValueType } from '../shared/propTypes';
 
 export default function NativeInput({

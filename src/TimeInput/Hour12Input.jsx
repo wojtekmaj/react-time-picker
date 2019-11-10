@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getHours } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
 import {
-  getHours,
   convert24to12,
 } from '../shared/dates';
 import { isTime } from '../shared/propTypes';

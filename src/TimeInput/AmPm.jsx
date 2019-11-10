@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import mergeClassNames from 'merge-class-names';
+import { getHours } from '@wojtekmaj/date-utils';
 
-import {
-  getHours,
-  convert24to12,
-} from '../shared/dates';
+import { convert24to12 } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
 import { getAmPmLabels } from '../shared/utils';
 
