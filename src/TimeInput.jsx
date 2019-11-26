@@ -80,7 +80,7 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
         if (!allowMultipleInstances && usedFunctions.includes(renderFunction)) {
           res.push(currentMatch);
         } else {
-          res.push(renderFunction(currentMatch));
+          res.push(renderFunction(currentMatch, index));
           usedFunctions.push(renderFunction);
         }
       }
@@ -397,16 +397,16 @@ export default class TimeInput extends PureComponent {
     }
   }
 
-  renderHour = (currentMatch) => {
+  renderHour = (currentMatch, index) => {
     if (/h/.test(currentMatch)) {
-      return this.renderHour12(currentMatch);
+      return this.renderHour12(currentMatch, index);
     }
 
-    return this.renderHour24(currentMatch);
+    return this.renderHour24(currentMatch, index);
   };
 
-  renderHour12 = (currentMatch) => {
-    const { hourAriaLabel, hourPlaceholder } = this.props;
+  renderHour12 = (currentMatch, index) => {
+    const { autoFocus, hourAriaLabel, hourPlaceholder } = this.props;
     const { amPm, hour } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -421,6 +421,7 @@ export default class TimeInput extends PureComponent {
         {...this.commonInputProps}
         amPm={amPm}
         ariaLabel={hourAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
@@ -428,8 +429,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderHour24 = (currentMatch) => {
-    const { hourAriaLabel, hourPlaceholder } = this.props;
+  renderHour24 = (currentMatch, index) => {
+    const { autoFocus, hourAriaLabel, hourPlaceholder } = this.props;
     const { hour } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -443,6 +444,7 @@ export default class TimeInput extends PureComponent {
         key="hour24"
         {...this.commonInputProps}
         ariaLabel={hourAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
@@ -450,8 +452,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderMinute = (currentMatch) => {
-    const { minuteAriaLabel, minutePlaceholder } = this.props;
+  renderMinute = (currentMatch, index) => {
+    const { autoFocus, minuteAriaLabel, minutePlaceholder } = this.props;
     const { hour, minute } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -465,6 +467,7 @@ export default class TimeInput extends PureComponent {
         key="minute"
         {...this.commonInputProps}
         ariaLabel={minuteAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         hour={hour}
         placeholder={minutePlaceholder}
         showLeadingZeros={showLeadingZeros}
@@ -473,8 +476,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderSecond = (currentMatch) => {
-    const { secondAriaLabel, secondPlaceholder } = this.props;
+  renderSecond = (currentMatch, index) => {
+    const { autoFocus, secondAriaLabel, secondPlaceholder } = this.props;
     const { hour, minute, second } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -488,6 +491,7 @@ export default class TimeInput extends PureComponent {
         key="second"
         {...this.commonInputProps}
         ariaLabel={secondAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         hour={hour}
         minute={minute}
         placeholder={secondPlaceholder}
@@ -497,8 +501,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderAmPm = () => {
-    const { amPmAriaLabel, locale } = this.props;
+  renderAmPm = (currentMatch, index) => {
+    const { amPmAriaLabel, autoFocus, locale } = this.props;
     const { amPm } = this.state;
 
     return (
@@ -506,6 +510,7 @@ export default class TimeInput extends PureComponent {
         key="ampm"
         {...this.commonInputProps}
         ariaLabel={amPmAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         locale={locale}
         onChange={this.onChangeAmPm}
         value={amPm}
@@ -580,6 +585,7 @@ TimeInput.defaultProps = {
 
 TimeInput.propTypes = {
   amPmAriaLabel: PropTypes.string,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   format: PropTypes.string,
