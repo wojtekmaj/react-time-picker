@@ -80,7 +80,6 @@
   "files": [
     "LICENSE",
     "README.md",
-    "index.d.ts",
     "dist/",
     "src/"
   ],
