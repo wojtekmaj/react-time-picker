@@ -117,6 +117,7 @@ export default class TimePicker extends PureComponent {
   renderInputs() {
     const {
       amPmAriaLabel,
+      autoFocus,
       clearAriaLabel,
       clearIcon,
       clockAriaLabel,
@@ -162,6 +163,7 @@ export default class TimePicker extends PureComponent {
         <TimeInput
           {...ariaLabelProps}
           {...placeholderProps}
+          autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           format={format}
@@ -315,6 +317,7 @@ const isValue = PropTypes.oneOfType([
 
 TimePicker.propTypes = {
   amPmAriaLabel: PropTypes.string,
+  autoFocus: PropTypes.bool,
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
