@@ -28,6 +28,16 @@ describe('TimePicker', () => {
     expect(timeInput.prop('name')).toBe(name);
   });
 
+  it('passes autoFocus flag to TimeInput', () => {
+    const component = mount(
+      <TimePicker autoFocus />
+    );
+
+    const timeInput = component.find('TimeInput');
+
+    expect(timeInput.prop('autoFocus')).toBeTruthy();
+  });
+
   it('passes disabled flag to TimeInput', () => {
     const component = mount(
       <TimePicker disabled />
