@@ -14,19 +14,12 @@ export default function MinuteInput({
   showLeadingZeros = true,
   ...otherProps
 }) {
-  const maxMinute = min(
-    59,
-    maxTime
-    && hour === getHours(maxTime)
-    && getMinutes(maxTime),
-  );
+  function isSameHour(date) {
+    return date && hour === getHours(date);
+  }
 
-  const minMinute = max(
-    0,
-    minTime
-    && hour === getHours(minTime)
-    && getMinutes(minTime),
-  );
+  const maxMinute = min(59, isSameHour(maxTime) && getMinutes(maxTime));
+  const minMinute = max(0, isSameHour(minTime) && getMinutes(minTime));
 
   return (
     <Input
