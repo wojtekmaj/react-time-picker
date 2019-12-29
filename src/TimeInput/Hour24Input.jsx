@@ -13,15 +13,8 @@ export default function Hour24Input({
   minTime,
   ...otherProps
 }) {
-  const maxHour = min(
-    23,
-    maxTime && getHours(maxTime),
-  );
-
-  const minHour = max(
-    0,
-    minTime && getHours(minTime),
-  );
+  const maxHour = min(23, maxTime && getHours(maxTime));
+  const minHour = max(0, minTime && getHours(minTime));
 
   return (
     <Input
