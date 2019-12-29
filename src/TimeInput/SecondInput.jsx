@@ -15,21 +15,12 @@ export default function SecondInput({
   showLeadingZeros = true,
   ...otherProps
 }) {
-  const maxSecond = min(
-    59,
-    maxTime
-    && hour === getHours(maxTime)
-    && minute === getMinutes(maxTime)
-    && getSeconds(maxTime),
-  );
+  function isSameMinute(date) {
+    return date && hour === getHours(date) && minute === getMinutes(date);
+  }
 
-  const minSecond = max(
-    0,
-    minTime
-    && hour === getHours(minTime)
-    && minute === getMinutes(minTime)
-    && getSeconds(minTime),
-  );
+  const maxSecond = min(59, isSameMinute(maxTime) && getSeconds(maxTime));
+  const minSecond = max(0, isSameMinute(minTime) && getSeconds(minTime));
 
   return (
     <Input
