@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { polyfill } from 'react-lifecycles-compat';
 import {
   getHours,
   getMinutes,
@@ -609,5 +608,3 @@ TimeInput.propTypes = {
     PropTypes.instanceOf(Date),
   ]),
 };
-
-polyfill(TimeInput);
