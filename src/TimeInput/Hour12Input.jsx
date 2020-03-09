@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getHours } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
 import {
-  getHours,
   convert24to12,
 } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
@@ -18,40 +18,31 @@ export default function Hour12Input({
   value,
   ...otherProps
 }) {
-  const maxHour = (() => {
-    if (!maxTime) {
-      return 12;
-    }
-
+  const maxHour = min(12, maxTime && (() => {
     const [maxHourResult, maxAmPm] = convert24to12(getHours(maxTime));
 
     if (maxAmPm !== amPm) {
       // pm is always after am, so we should ignore validation
-      return 12;
+      return null;
     }
 
-    return min(12, maxHourResult);
-  })();
+    return maxHourResult;
+  })());
 
-  const minHour = (() => {
-    if (!minTime) {
-      return 1;
-    }
-
+  const minHour = max(1, minTime && (() => {
     const [minHourResult, minAmPm] = convert24to12(getHours(minTime));
 
-    if (minAmPm !== amPm) {
+    if (
       // pm is always after am, so we should ignore validation
-      return 1;
-    }
-
-    if (minHourResult === 12) {
+      minAmPm !== amPm
       // If minHour is 12 am/pm, user should be able to enter 12, 1, ..., 11.
-      return 1;
+      || minHourResult === 12
+    ) {
+      return null;
     }
 
-    return max(1, minHourResult);
-  })();
+    return minHourResult;
+  })());
 
   const value12 = value !== null ? convert24to12(value)[0] : null;
 

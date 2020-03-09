@@ -29,10 +29,6 @@ export default class TimePicker extends PureComponent {
 
   state = {};
 
-  get eventProps() {
-    return makeEventProps(this.props);
-  }
-
   componentDidMount() {
     this.handleOutsideActionListeners();
   }
@@ -51,36 +47,14 @@ export default class TimePicker extends PureComponent {
     this.handleOutsideActionListeners(false);
   }
 
-  handleOutsideActionListeners(shouldListen) {
-    const { isOpen } = this.state;
-
-    const shouldListenWithFallback = typeof shouldListen !== 'undefined' ? shouldListen : isOpen;
-    const fnName = shouldListenWithFallback ? 'addEventListener' : 'removeEventListener';
-    outsideActionEvents.forEach(eventName => document[fnName](eventName, this.onOutsideAction));
+  get eventProps() {
+    return makeEventProps(this.props);
   }
 
   onOutsideAction = (event) => {
     if (this.wrapper && !this.wrapper.contains(event.target)) {
       this.closeClock();
     }
-  }
-
-  openClock = () => {
-    this.setState({ isOpen: true });
-  }
-
-  closeClock = () => {
-    this.setState((prevState) => {
-      if (!prevState.isOpen) {
-        return null;
-      }
-
-      return { isOpen: false };
-    });
-  }
-
-  toggleClock = () => {
-    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   }
 
   onChange = (value, closeClock = true) => {
@@ -109,13 +83,40 @@ export default class TimePicker extends PureComponent {
     this.openClock();
   }
 
+  openClock = () => {
+    this.setState({ isOpen: true });
+  }
+
+  closeClock = () => {
+    this.setState((prevState) => {
+      if (!prevState.isOpen) {
+        return null;
+      }
+
+      return { isOpen: false };
+    });
+  }
+
+  toggleClock = () => {
+    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+  }
+
   stopPropagation = event => event.stopPropagation();
 
   clear = () => this.onChange(null);
 
+  handleOutsideActionListeners(shouldListen) {
+    const { isOpen } = this.state;
+
+    const shouldListenWithFallback = typeof shouldListen !== 'undefined' ? shouldListen : isOpen;
+    const fnName = shouldListenWithFallback ? 'addEventListener' : 'removeEventListener';
+    outsideActionEvents.forEach(eventName => document[fnName](eventName, this.onOutsideAction));
+  }
+
   renderInputs() {
     const {
       amPmAriaLabel,
+      autoFocus,
       clearAriaLabel,
       clearIcon,
       clockAriaLabel,
@@ -161,6 +162,7 @@ export default class TimePicker extends PureComponent {
         <TimeInput
           {...ariaLabelProps}
           {...placeholderProps}
+          autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
           format={format}
@@ -314,6 +316,7 @@ const isValue = PropTypes.oneOfType([
 
 TimePicker.propTypes = {
   amPmAriaLabel: PropTypes.string,
+  autoFocus: PropTypes.bool,
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),

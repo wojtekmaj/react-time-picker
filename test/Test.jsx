@@ -3,6 +3,7 @@ import TimePicker from 'react-time-picker/src/entry.nostyle';
 import 'react-time-picker/src/TimePicker.less';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-clock/dist/Clock.css';
+import { getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
 
 import ValidityOptions from './ValidityOptions';
 import MaxDetailOptions from './MaxDetailOptions';
@@ -11,8 +12,6 @@ import ValueOptions from './ValueOptions';
 import ViewOptions from './ViewOptions';
 
 import './Test.less';
-
-import { getHoursMinutesSeconds } from '../src/shared/dates';
 
 const now = new Date();
 

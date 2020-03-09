@@ -1,5 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import {
+  getHours,
+  getMinutes,
+  getSeconds,
+  getHoursMinutes,
+  getHoursMinutesSeconds,
+} from '@wojtekmaj/date-utils';
 
 import Divider from './Divider';
 import Hour12Input from './TimeInput/Hour12Input';
@@ -10,39 +17,39 @@ import NativeInput from './TimeInput/NativeInput';
 import AmPm from './TimeInput/AmPm';
 
 import { getFormatter } from './shared/dateFormatter';
-import {
-  getHours,
-  getMinutes,
-  getSeconds,
-  getHoursMinutes,
-  getHoursMinutesSeconds,
-  convert12to24,
-  convert24to12,
-} from './shared/dates';
+import { convert12to24, convert24to12 } from './shared/dates';
 import { isTime } from './shared/propTypes';
 import { getAmPmLabels } from './shared/utils';
 
 const allViews = ['hour', 'minute', 'second'];
 
-const hoursAreDifferent = (date1, date2) => (
-  (date1 && !date2)
-  || (!date1 && date2)
-  || (date1 && date2 && date1 !== date2) // TODO: Compare 11:22:00 and 11:22 properly
-);
+function hoursAreDifferent(date1, date2) {
+  return (
+    (date1 && !date2)
+    || (!date1 && date2)
+    || (date1 && date2 && date1 !== date2) // TODO: Compare 11:22:00 and 11:22 properly
+  );
+}
 
-const isValidInput = element => element.tagName === 'INPUT' && element.type === 'number';
+function isValidInput(element) {
+  return element.tagName === 'INPUT' && element.type === 'number';
+}
 
-const findInput = (element, property) => {
+function findInput(element, property) {
   let nextElement = element;
   do {
     nextElement = nextElement[property];
   } while (nextElement && !isValidInput(nextElement));
   return nextElement;
-};
+}
 
-const focus = element => element && element.focus();
+function focus(element) {
+  if (element) {
+    element.focus();
+  }
+}
 
-const renderCustomInputs = (placeholder, elementFunctions, allowMultipleInstances) => {
+function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances) {
   const usedFunctions = [];
   const pattern = new RegExp(
     Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
@@ -72,13 +79,13 @@ const renderCustomInputs = (placeholder, elementFunctions, allowMultipleInstance
         if (!allowMultipleInstances && usedFunctions.includes(renderFunction)) {
           res.push(currentMatch);
         } else {
-          res.push(renderFunction(currentMatch));
+          res.push(renderFunction(currentMatch, index));
           usedFunctions.push(renderFunction);
         }
       }
       return res;
     }, []);
-};
+}
 
 export default class TimeInput extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -269,7 +276,7 @@ export default class TimeInput extends PureComponent {
     }
 
     const { value } = input;
-    const max = parseInt(input.getAttribute('max'), 10);
+    const max = input.getAttribute('max');
 
     /**
      * Given 1, the smallest possible number the user could type by adding another digit is 10.
@@ -277,7 +284,7 @@ export default class TimeInput extends PureComponent {
      * However, given 2, smallers possible number would be 20, and thus keeping the focus in
      * this field doesn't make sense.
      */
-    if (value * 10 > max) {
+    if ((value * 10 > max) || (value.length >= max.length)) {
       const property = 'nextElementSibling';
       const nextInput = findInput(input, property);
       focus(nextInput);
@@ -389,16 +396,16 @@ export default class TimeInput extends PureComponent {
     }
   }
 
-  renderHour = (currentMatch) => {
+  renderHour = (currentMatch, index) => {
     if (/h/.test(currentMatch)) {
-      return this.renderHour12(currentMatch);
+      return this.renderHour12(currentMatch, index);
     }
 
-    return this.renderHour24(currentMatch);
+    return this.renderHour24(currentMatch, index);
   };
 
-  renderHour12 = (currentMatch) => {
-    const { hourAriaLabel, hourPlaceholder } = this.props;
+  renderHour12 = (currentMatch, index) => {
+    const { autoFocus, hourAriaLabel, hourPlaceholder } = this.props;
     const { amPm, hour } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -413,6 +420,7 @@ export default class TimeInput extends PureComponent {
         {...this.commonInputProps}
         amPm={amPm}
         ariaLabel={hourAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
@@ -420,8 +428,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderHour24 = (currentMatch) => {
-    const { hourAriaLabel, hourPlaceholder } = this.props;
+  renderHour24 = (currentMatch, index) => {
+    const { autoFocus, hourAriaLabel, hourPlaceholder } = this.props;
     const { hour } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -435,6 +443,7 @@ export default class TimeInput extends PureComponent {
         key="hour24"
         {...this.commonInputProps}
         ariaLabel={hourAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
@@ -442,8 +451,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderMinute = (currentMatch) => {
-    const { minuteAriaLabel, minutePlaceholder } = this.props;
+  renderMinute = (currentMatch, index) => {
+    const { autoFocus, minuteAriaLabel, minutePlaceholder } = this.props;
     const { hour, minute } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -457,6 +466,7 @@ export default class TimeInput extends PureComponent {
         key="minute"
         {...this.commonInputProps}
         ariaLabel={minuteAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         hour={hour}
         placeholder={minutePlaceholder}
         showLeadingZeros={showLeadingZeros}
@@ -465,8 +475,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderSecond = (currentMatch) => {
-    const { secondAriaLabel, secondPlaceholder } = this.props;
+  renderSecond = (currentMatch, index) => {
+    const { autoFocus, secondAriaLabel, secondPlaceholder } = this.props;
     const { hour, minute, second } = this.state;
 
     if (currentMatch && currentMatch.length > 2) {
@@ -480,6 +490,7 @@ export default class TimeInput extends PureComponent {
         key="second"
         {...this.commonInputProps}
         ariaLabel={secondAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         hour={hour}
         minute={minute}
         placeholder={secondPlaceholder}
@@ -489,8 +500,8 @@ export default class TimeInput extends PureComponent {
     );
   }
 
-  renderAmPm = () => {
-    const { amPmAriaLabel, locale } = this.props;
+  renderAmPm = (currentMatch, index) => {
+    const { amPmAriaLabel, autoFocus, locale } = this.props;
     const { amPm } = this.state;
 
     return (
@@ -498,6 +509,7 @@ export default class TimeInput extends PureComponent {
         key="ampm"
         {...this.commonInputProps}
         ariaLabel={amPmAriaLabel}
+        autoFocus={index === 0 && autoFocus}
         locale={locale}
         onChange={this.onChangeAmPm}
         value={amPm}
@@ -551,11 +563,12 @@ export default class TimeInput extends PureComponent {
   render() {
     const { className } = this.props;
 
+    /* eslint-disable jsx-a11y/click-events-have-key-events */
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
       <div
         className={className}
         onClick={this.onClick}
-        role="presentation"
       >
         {this.renderNativeInput()}
         {this.renderCustomInputs()}
@@ -571,6 +584,7 @@ TimeInput.defaultProps = {
 
 TimeInput.propTypes = {
   amPmAriaLabel: PropTypes.string,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   format: PropTypes.string,

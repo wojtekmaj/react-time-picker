@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getHours } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { getHours } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
 import { min, max } from '../shared/utils';
 
@@ -13,15 +13,8 @@ export default function Hour24Input({
   minTime,
   ...otherProps
 }) {
-  const maxHour = min(
-    23,
-    maxTime && getHours(maxTime),
-  );
-
-  const minHour = max(
-    0,
-    minTime && getHours(minTime),
-  );
+  const maxHour = min(23, maxTime && getHours(maxTime));
+  const minHour = max(0, minTime && getHours(minTime));
 
   return (
     <Input

@@ -30,7 +30,7 @@ React-Time-Picker will play nicely with [React-Date-Picker](https://github.com/w
 
 Your project needs to use React 16 or later. If you use older version of React, please refer to the table below to find suitable React-Time-Picker version.
 
-|React version|Newest supported React-Time-Picker|
+|React version|Newest available React-Time-Picker|
 |----|----|
 |>16.0|latest|
 |>15.0|2.1.1|
@@ -86,6 +86,7 @@ Displays an input field complete with custom inputs, native input and a clock.
 |Prop name|Description|Default value|Example values|
 |----|----|----|----|
 |amPmAriaLabel|`aria-label` for the AM/PM select input.|n/a|`"Select AM/PM"`|
+|autoFocus|Automatically focuses the input on mount.|n/a|`true`|
 |className|Class name(s) that will be added along with `"react-time-picker"` to the main React-Time-Picker `<div>` element.|n/a|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|
 |clearAriaLabel|`aria-label` for the clear button.|n/a|`"Clear value"`|
 |clearIcon|Content of the clear button. Setting the value explicitly to `null` will hide the icon.|(default icon)|<ul><li>String: `"Clear"`</li><li>React element: `<ClearIcon />`</li></ul>|

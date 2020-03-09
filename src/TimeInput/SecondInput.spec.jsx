@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import MinuteInput from '../MinuteInput';
+import SecondInput from './SecondInput';
 
 /* eslint-disable comma-dangle */
 
-describe('MinuteInput', () => {
+describe('SecondInput', () => {
   const defaultProps = {
     className: 'className',
     onChange: () => {},
@@ -13,7 +13,7 @@ describe('MinuteInput', () => {
 
   it('renders an input', () => {
     const component = mount(
-      <MinuteInput {...defaultProps} />
+      <SecondInput {...defaultProps} />
     );
 
     const input = component.find('input');
@@ -22,38 +22,38 @@ describe('MinuteInput', () => {
   });
 
   it('applies given aria-label properly', () => {
-    const minuteAriaLabel = 'Minute';
+    const secondAriaLabel = 'Second';
 
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
-        ariaLabel={minuteAriaLabel}
+        ariaLabel={secondAriaLabel}
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('aria-label')).toBe(minuteAriaLabel);
+    expect(input.prop('aria-label')).toBe(secondAriaLabel);
   });
 
   it('applies given placeholder properly', () => {
-    const minutePlaceholder = 'mm';
+    const secondPlaceholder = 'ss';
 
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
-        placeholder={minutePlaceholder}
+        placeholder={secondPlaceholder}
       />
     );
 
-    const select = component.find('input');
+    const input = component.find('input');
 
-    expect(select.prop('placeholder')).toBe(minutePlaceholder);
+    expect(input.prop('placeholder')).toBe(secondPlaceholder);
   });
 
-  it('renders "0" if minute is <10', () => {
+  it('renders "0" if second is <10', () => {
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         value={9}
       />
@@ -65,9 +65,9 @@ describe('MinuteInput', () => {
     expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
-  it('does not render "0" if minute is >=10', () => {
+  it('does not render "0" if second is >=10', () => {
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         value={10}
       />
@@ -81,19 +81,19 @@ describe('MinuteInput', () => {
 
   it('has proper name defined', () => {
     const component = mount(
-      <MinuteInput {...defaultProps} />
+      <SecondInput {...defaultProps} />
     );
 
     const input = component.find('input');
 
-    expect(input.prop('name')).toBe('minute');
+    expect(input.prop('name')).toBe('second');
   });
 
   it('has proper className defined', () => {
     const className = 'react-time-picker';
 
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         className={className}
       />
@@ -102,14 +102,14 @@ describe('MinuteInput', () => {
     const input = component.find('input');
 
     expect(input.hasClass('react-time-picker__input')).toBe(true);
-    expect(input.hasClass('react-time-picker__minute')).toBe(true);
+    expect(input.hasClass('react-time-picker__second')).toBe(true);
   });
 
   it('displays given value properly', () => {
     const value = 11;
 
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         value={value}
       />
@@ -122,7 +122,7 @@ describe('MinuteInput', () => {
 
   it('does not disable input by default', () => {
     const component = mount(
-      <MinuteInput {...defaultProps} />
+      <SecondInput {...defaultProps} />
     );
 
     const input = component.find('input');
@@ -132,7 +132,7 @@ describe('MinuteInput', () => {
 
   it('disables input given disabled flag', () => {
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         disabled
       />
@@ -145,7 +145,7 @@ describe('MinuteInput', () => {
 
   it('is not required input by default', () => {
     const component = mount(
-      <MinuteInput {...defaultProps} />
+      <SecondInput {...defaultProps} />
     );
 
     const input = component.find('input');
@@ -155,7 +155,7 @@ describe('MinuteInput', () => {
 
   it('required input given required flag', () => {
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         required
       />
@@ -170,19 +170,19 @@ describe('MinuteInput', () => {
     const itemRef = jest.fn();
 
     mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         itemRef={itemRef}
       />
     );
 
     expect(itemRef).toHaveBeenCalled();
-    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'minute');
+    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'second');
   });
 
   it('has min = 0 by default', () => {
     const component = mount(
-      <MinuteInput {...defaultProps} />
+      <SecondInput {...defaultProps} />
     );
 
     const input = component.find('input');
@@ -190,12 +190,13 @@ describe('MinuteInput', () => {
     expect(input.prop('min')).toBe(0);
   });
 
-  it('has min = 0 given minTime in a past hour', () => {
+  it('has min = 0 given minDate in a past minute', () => {
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         hour={22}
-        minTime="21:40"
+        minTime="21:40:15"
+        minute={40}
       />
     );
 
@@ -204,23 +205,24 @@ describe('MinuteInput', () => {
     expect(input.prop('min')).toBe(0);
   });
 
-  it('has min = (minute in minTime) given minTime in a current hour', () => {
+  it('has min = (second in minTime) given minTime in a current minute', () => {
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         hour={22}
-        minTime="22:40"
+        minTime="22:40:15"
+        minute={40}
       />
     );
 
     const input = component.find('input');
 
-    expect(input.prop('min')).toBe(40);
+    expect(input.prop('min')).toBe(15);
   });
 
   it('has max = 59 by default', () => {
     const component = mount(
-      <MinuteInput {...defaultProps} />
+      <SecondInput {...defaultProps} />
     );
 
     const input = component.find('input');
@@ -228,12 +230,13 @@ describe('MinuteInput', () => {
     expect(input.prop('max')).toBe(59);
   });
 
-  it('has max = 59 given maxTime in a future hour', () => {
+  it('has max = 59 given maxTime in a future minute', () => {
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         hour={22}
-        maxTime="23:40"
+        maxTime="23:40:15"
+        minute={40}
       />
     );
 
@@ -242,17 +245,18 @@ describe('MinuteInput', () => {
     expect(input.prop('max')).toBe(59);
   });
 
-  it('has max = (minute in maxHour) given maxTime in a current hour', () => {
+  it('has max = (second in maxHour) given maxTime in a current minute', () => {
     const component = mount(
-      <MinuteInput
+      <SecondInput
         {...defaultProps}
         hour={22}
-        maxTime="22:40"
+        maxTime="22:40:15"
+        minute={40}
       />
     );
 
     const input = component.find('input');
 
-    expect(input.prop('max')).toBe(40);
+    expect(input.prop('max')).toBe(15);
   });
 });

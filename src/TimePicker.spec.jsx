@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import TimePicker from '../TimePicker';
+import TimePicker from './TimePicker';
 
 /* eslint-disable comma-dangle */
 
@@ -26,6 +26,26 @@ describe('TimePicker', () => {
     const timeInput = component.find('TimeInput');
 
     expect(timeInput.prop('name')).toBe(name);
+  });
+
+  it('passes autoFocus flag to TimeInput', () => {
+    const component = mount(
+      <TimePicker autoFocus />
+    );
+
+    const timeInput = component.find('TimeInput');
+
+    expect(timeInput.prop('autoFocus')).toBeTruthy();
+  });
+
+  it('passes disabled flag to TimeInput', () => {
+    const component = mount(
+      <TimePicker disabled />
+    );
+
+    const timeInput = component.find('TimeInput');
+
+    expect(timeInput.prop('disabled')).toBeTruthy();
   });
 
   it('passes format to TimeInput', () => {
