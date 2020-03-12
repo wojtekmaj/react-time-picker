@@ -8,7 +8,7 @@ import {
   convert24to12,
 } from '../shared/dates';
 import { isTime } from '../shared/propTypes';
-import { min, max } from '../shared/utils';
+import { safeMin, safeMax } from '../shared/utils';
 
 export default function Hour12Input({
   amPm,
@@ -18,7 +18,7 @@ export default function Hour12Input({
   value,
   ...otherProps
 }) {
-  const maxHour = min(12, maxTime && (() => {
+  const maxHour = safeMin(12, maxTime && (() => {
     const [maxHourResult, maxAmPm] = convert24to12(getHours(maxTime));
 
     if (maxAmPm !== amPm) {
@@ -29,7 +29,7 @@ export default function Hour12Input({
     return maxHourResult;
   })());
 
-  const minHour = max(1, minTime && (() => {
+  const minHour = safeMax(1, minTime && (() => {
     const [minHourResult, minAmPm] = convert24to12(getHours(minTime));
 
     if (

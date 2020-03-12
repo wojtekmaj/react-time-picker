@@ -1,9 +1,16 @@
 import { getFormatter } from './dateFormatter';
 
-const isValidNumber = a => typeof a === 'number' && !isNaN(a);
+function isValidNumber(a) {
+  return typeof a === 'number' && !isNaN(a);
+}
 
-export const min = (...args) => Math.min(...args.filter(isValidNumber));
-export const max = (...args) => Math.max(...args.filter(isValidNumber));
+export function safeMin(...args) {
+  return Math.min(...args.filter(isValidNumber));
+}
+
+export function safeMax(...args) {
+  return Math.max(...args.filter(isValidNumber));
+}
 
 const nines = ['9', '٩'];
 const ninesRegExp = new RegExp(`[${nines.join('')}]`);

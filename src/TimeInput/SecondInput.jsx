@@ -5,7 +5,7 @@ import { getHours, getMinutes, getSeconds } from '@wojtekmaj/date-utils';
 import Input from './Input';
 
 import { isTime } from '../shared/propTypes';
-import { min, max } from '../shared/utils';
+import { safeMin, safeMax } from '../shared/utils';
 
 export default function SecondInput({
   hour,
@@ -19,8 +19,8 @@ export default function SecondInput({
     return date && hour === getHours(date) && minute === getMinutes(date);
   }
 
-  const maxSecond = min(59, isSameMinute(maxTime) && getSeconds(maxTime));
-  const minSecond = max(0, isSameMinute(minTime) && getSeconds(minTime));
+  const maxSecond = safeMin(59, isSameMinute(maxTime) && getSeconds(maxTime));
+  const minSecond = safeMax(0, isSameMinute(minTime) && getSeconds(minTime));
 
   return (
     <Input
