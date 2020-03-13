@@ -1,22 +1,21 @@
 import { getFormatter } from './dateFormatter';
 
-function isValidNumber(a) {
-  return typeof a === 'number' && !isNaN(a);
-}
-
-export function safeMin(...args) {
-  return Math.min(...args.filter(isValidNumber));
-}
-
-export function safeMax(...args) {
-  return Math.max(...args.filter(isValidNumber));
-}
+/**
+ * Calls a function, if it's defined, with specified arguments
+ * @param {Function} fn
+ * @param {Object} args
+ */
+export const callIfDefined = (fn, ...args) => {
+  if (fn && typeof fn === 'function') {
+    fn(...args);
+  }
+};
 
 const nines = ['9', '٩'];
 const ninesRegExp = new RegExp(`[${nines.join('')}]`);
 const amPmFormatter = getFormatter({ hour: 'numeric' });
 
-export const getAmPmLabels = (locale) => {
+export function getAmPmLabels(locale) {
   const amString = amPmFormatter(locale, new Date(2017, 0, 1, 9));
   const pmString = amPmFormatter(locale, new Date(2017, 0, 1, 21));
 
@@ -36,15 +35,16 @@ export const getAmPmLabels = (locale) => {
 
   // Fallback
   return ['AM', 'PM'];
-};
+}
 
-/**
- * Calls a function, if it's defined, with specified arguments
- * @param {Function} fn
- * @param {Object} args
- */
-export const callIfDefined = (fn, ...args) => {
-  if (fn && typeof fn === 'function') {
-    fn(...args);
-  }
-};
+function isValidNumber(num) {
+  return num !== null && num !== false && !Number.isNaN(Number(num));
+}
+
+export function safeMin(...args) {
+  return Math.min(...args.filter(isValidNumber));
+}
+
+export function safeMax(...args) {
+  return Math.max(...args.filter(isValidNumber));
+}
