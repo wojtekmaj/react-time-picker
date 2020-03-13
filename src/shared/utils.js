@@ -37,8 +37,8 @@ export function getAmPmLabels(locale) {
   return ['AM', 'PM'];
 }
 
-function isValidNumber(a) {
-  return typeof a === 'number' && !isNaN(a);
+function isValidNumber(num) {
+  return num !== null && num !== false && !Number.isNaN(Number(num));
 }
 
 export function safeMin(...args) {
