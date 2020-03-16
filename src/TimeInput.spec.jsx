@@ -40,6 +40,19 @@ describe('TimeInput', () => {
     className: 'react-time-picker__inputGroup',
   };
 
+  let container;
+
+  beforeEach(() => {
+    container = document.createElement('div');
+    container.id = 'container';
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    document.body.removeChild(container);
+    container = null;
+  });
+
   it('renders a native input and custom inputs', () => {
     const component = mount(
       <TimeInput {...defaultProps} />
@@ -475,7 +488,8 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -496,7 +510,8 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -519,7 +534,8 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
+      { attachTo: container }
     );
 
     const select = component.find('select');
@@ -538,7 +554,8 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -559,7 +576,8 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -576,7 +594,8 @@ describe('TimeInput', () => {
 
   it('jumps to the next field when a value which can\'t be extended to another valid value is entered', () => {
     const component = mount(
-      <TimeInput {...defaultProps} />
+      <TimeInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -593,7 +612,8 @@ describe('TimeInput', () => {
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', () => {
     const component = mount(
-      <TimeInput {...defaultProps} />
+      <TimeInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
@@ -610,7 +630,8 @@ describe('TimeInput', () => {
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', () => {
     const component = mount(
-      <TimeInput {...defaultProps} />
+      <TimeInput {...defaultProps} />,
+      { attachTo: container }
     );
 
     const customInputs = component.find('input[type="number"]');
