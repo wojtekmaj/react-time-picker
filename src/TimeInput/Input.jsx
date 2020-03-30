@@ -124,6 +124,8 @@ export default function Input({
   ];
 }
 
+const isNumberOrString = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+
 Input.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
@@ -136,5 +138,5 @@ Input.propTypes = {
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
   step: PropTypes.number,
-  value: PropTypes.number,
+  value: isNumberOrString,
 };

@@ -27,6 +27,8 @@ export default function Hour24Input({
   );
 }
 
+const isNumberOrString = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+
 Hour24Input.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
@@ -41,5 +43,5 @@ Hour24Input.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
+  value: isNumberOrString,
 };
