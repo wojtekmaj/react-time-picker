@@ -160,9 +160,16 @@ export default class TimeInput extends PureComponent {
    * Gets current value in a desired format.
    */
   getProcessedValue(value) {
-    const { nativeValueParser } = this;
+    const processFunction = (() => {
+      switch (this.valueType) {
+        case 'hour':
+        case 'minute': return getHoursMinutes;
+        case 'second': return getHoursMinutesSeconds;
+        default: throw new Error('Invalid valueType.');
+      }
+    })();
 
-    return nativeValueParser(value);
+    return processFunction(value);
   }
 
   /**
@@ -172,18 +179,6 @@ export default class TimeInput extends PureComponent {
     const { maxDetail } = this.props;
 
     return maxDetail;
-  }
-
-  get nativeValueParser() {
-    switch (this.valueType) {
-      case 'hour':
-      case 'minute':
-        return getHoursMinutes;
-      case 'second':
-        return getHoursMinutesSeconds;
-      default:
-        throw new Error('Invalid valueType.');
-    }
   }
 
   get divider() {
