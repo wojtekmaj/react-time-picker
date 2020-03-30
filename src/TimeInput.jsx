@@ -378,7 +378,7 @@ export default class TimeInput extends PureComponent {
     if (formElementsWithoutSelect.every(formElement => !formElement.value)) {
       onChange(null, false);
     } else if (
-      formElements.every(formElement => formElement.value && formElement.checkValidity())
+      formElements.every(formElement => formElement.value && formElement.validity.valid)
     ) {
       const hour = parseInt(values.hour24 || convert12to24(values.hour12, values.amPm) || 0, 10);
       const minute = parseInt(values.minute || 0, 10);
