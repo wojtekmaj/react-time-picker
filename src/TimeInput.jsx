@@ -370,27 +370,33 @@ export default class TimeInput extends PureComponent {
 
     const formElementsWithoutSelect = formElements.slice(0, -1);
 
+    // If date is incomplete, don't trigger onChange…
+    if (formElementsWithoutSelect.some(formElement => !formElement.value)) {
+      // …unless all form elements are empty.
+      if (formElementsWithoutSelect.every(formElement => !formElement.value)) {
+        onChange(null, false);
+      }
+      return;
+    }
+
+    if (!allowInvalidValues && formElements.some(formElement => !formElement.checkValidity())) {
+      return;
+    }
+
     const values = {};
     formElements.forEach((formElement) => {
       // eslint-disable-next-line react/destructuring-assignment
       values[formElement.name] = this.state[formElement.name];
     });
 
-    if (formElementsWithoutSelect.every(formElement => !formElement.value)) {
-      onChange(null, false);
-    } else if (
-      allowInvalidValues
-      || formElements.every(formElement => formElement.value && formElement.checkValidity())
-    ) {
-      const hour = parseInt(values.hour24 || convert12to24(values.hour12, values.amPm) || 0, 10);
-      const minute = parseInt(values.minute || 0, 10);
-      const second = parseInt(values.second || 0, 10);
+    const hour = parseInt(values.hour24 || convert12to24(values.hour12, values.amPm) || 0, 10);
+    const minute = parseInt(values.minute || 0, 10);
+    const second = parseInt(values.second || 0, 10);
 
-      const padStart = num => `0${num}`.slice(-2);
-      const proposedValue = `${padStart(hour)}:${padStart(minute)}:${padStart(second)}`;
-      const processedValue = this.getProcessedValue(proposedValue);
-      onChange(processedValue, false);
-    }
+    const padStart = num => `0${num}`.slice(-2);
+    const proposedValue = `${padStart(hour)}:${padStart(minute)}:${padStart(second)}`;
+    const processedValue = this.getProcessedValue(proposedValue);
+    onChange(processedValue, false);
   }
 
   renderHour = (currentMatch, index) => {
