@@ -57,12 +57,14 @@ export default class TimePicker extends PureComponent {
     }
   }
 
-  onChange = (value, closeClock = true) => {
-    this.setState({
-      isOpen: !closeClock,
-    });
-
+  // eslint-disable-next-line react/destructuring-assignment
+  onChange = (value, closeClock = this.props.closeClock) => {
     const { onChange } = this.props;
+
+    if (closeClock) {
+      this.closeClock();
+    }
+
     if (onChange) {
       onChange(value);
     }
@@ -305,6 +307,7 @@ const ClearIcon = (
 TimePicker.defaultProps = {
   clearIcon: ClearIcon,
   clockIcon: ClockIcon,
+  closeClock: true,
   isOpen: null,
   maxDetail: 'minute',
 };
@@ -329,6 +332,7 @@ TimePicker.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
   ]),
   clockIcon: PropTypes.node,
+  closeClock: PropTypes.bool,
   disableClock: PropTypes.bool,
   disabled: PropTypes.bool,
   format: PropTypes.string,

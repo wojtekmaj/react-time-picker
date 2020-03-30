@@ -335,7 +335,7 @@ describe('TimePicker', () => {
     expect(component.state('isOpen')).toBe(true);
   });
 
-  it('closes Clock when calling internal onChange', () => {
+  it('closes Clock when calling internal onChange by default', () => {
     const component = mount(
       <TimePicker isOpen />
     );
@@ -345,6 +345,21 @@ describe('TimePicker', () => {
     onChange(new Date());
 
     expect(component.state('isOpen')).toBe(false);
+  });
+
+  it('does not close Clock when calling internal onChange with prop closeClock = false', () => {
+    const component = mount(
+      <TimePicker
+        closeClock={false}
+        isOpen
+      />
+    );
+
+    const { onChange } = component.instance();
+
+    onChange(new Date());
+
+    expect(component.state('isOpen')).toBe(true);
   });
 
   it('does not close Clock when calling internal onChange with closeClock = false', () => {
