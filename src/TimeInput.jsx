@@ -372,7 +372,8 @@ export default class TimeInput extends PureComponent {
 
     const values = {};
     formElements.forEach((formElement) => {
-      values[formElement.name] = formElement.value;
+      // eslint-disable-next-line react/destructuring-assignment
+      values[formElement.name] = this.state[formElement.name];
     });
 
     if (formElementsWithoutSelect.every(formElement => !formElement.value)) {
