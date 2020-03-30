@@ -85,6 +85,7 @@ Displays an input field complete with custom inputs, native input and a clock.
 
 |Prop name|Description|Default value|Example values|
 |----|----|----|----|
+|allowInvalidValues|Whether entering an invalid value (eg. time outside of a given range) should trigger onChange function.|`false`|`true`|
 |amPmAriaLabel|`aria-label` for the AM/PM select input.|n/a|`"Select AM/PM"`|
 |autoFocus|Automatically focuses the input on mount.|n/a|`true`|
 |className|Class name(s) that will be added along with `"react-time-picker"` to the main React-Time-Picker `<div>` element.|n/a|<ul><li>String: `"class1 class2"`</li><li>Array of strings: `["class1", "class2 class3"]`</li></ul>|

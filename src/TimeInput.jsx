@@ -354,7 +354,7 @@ export default class TimeInput extends PureComponent {
    * calls props.onChange.
    */
   onChangeExternal = () => {
-    const { onChange } = this.props;
+    const { allowInvalidValues, onChange } = this.props;
 
     if (!onChange) {
       return;
@@ -378,7 +378,8 @@ export default class TimeInput extends PureComponent {
     if (formElementsWithoutSelect.every(formElement => !formElement.value)) {
       onChange(null, false);
     } else if (
-      formElements.every(formElement => formElement.value && formElement.checkValidity())
+      allowInvalidValues
+      || formElements.every(formElement => formElement.value && formElement.checkValidity())
     ) {
       const hour = parseInt(values.hour24 || convert12to24(values.hour12, values.amPm) || 0, 10);
       const minute = parseInt(values.minute || 0, 10);
@@ -578,6 +579,7 @@ TimeInput.defaultProps = {
 };
 
 TimeInput.propTypes = {
+  allowInvalidValues: PropTypes.bool,
   amPmAriaLabel: PropTypes.string,
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
