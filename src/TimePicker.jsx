@@ -115,6 +115,7 @@ export default class TimePicker extends PureComponent {
 
   renderInputs() {
     const {
+      allowInvalidValues,
       amPmAriaLabel,
       autoFocus,
       clearAriaLabel,
@@ -162,6 +163,7 @@ export default class TimePicker extends PureComponent {
         <TimeInput
           {...ariaLabelProps}
           {...placeholderProps}
+          allowInvalidValues={allowInvalidValues}
           autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
@@ -315,6 +317,7 @@ const isValue = PropTypes.oneOfType([
 ]);
 
 TimePicker.propTypes = {
+  allowInvalidValues: PropTypes.bool,
   amPmAriaLabel: PropTypes.string,
   autoFocus: PropTypes.bool,
   className: PropTypes.oneOfType([

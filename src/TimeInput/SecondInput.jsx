@@ -33,20 +33,22 @@ export default function SecondInput({
   );
 }
 
+const isNumberOrString = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+
 SecondInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  hour: PropTypes.number,
+  hour: isNumberOrString,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,
-  minute: PropTypes.number,
+  minute: isNumberOrString,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
+  value: isNumberOrString,
 };

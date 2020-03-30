@@ -58,6 +58,8 @@ export default function Hour12Input({
   );
 }
 
+const isNumberOrString = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+
 Hour12Input.propTypes = {
   amPm: PropTypes.string,
   ariaLabel: PropTypes.string,
@@ -73,5 +75,5 @@ Hour12Input.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
+  value: isNumberOrString,
 };

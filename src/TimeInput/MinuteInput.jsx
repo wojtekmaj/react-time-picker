@@ -32,11 +32,13 @@ export default function MinuteInput({
   );
 }
 
+const isNumberOrString = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+
 MinuteInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  hour: PropTypes.number,
+  hour: isNumberOrString,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,
@@ -46,5 +48,5 @@ MinuteInput.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
+  value: isNumberOrString,
 };

@@ -304,14 +304,14 @@ export default class TimeInput extends PureComponent {
       }
       case 'hour24': {
         this.setState(
-          { hour: value ? parseInt(value, 10) : null },
+          { hour: value },
           this.onChangeExternal,
         );
         break;
       }
       default: {
         this.setState(
-          { [name]: value ? parseInt(value, 10) : null },
+          { [name]: value },
           this.onChangeExternal,
         );
       }
@@ -354,7 +354,7 @@ export default class TimeInput extends PureComponent {
    * calls props.onChange.
    */
   onChangeExternal = () => {
-    const { onChange } = this.props;
+    const { allowInvalidValues, onChange } = this.props;
 
     if (!onChange) {
       return;
@@ -370,25 +370,35 @@ export default class TimeInput extends PureComponent {
 
     const formElementsWithoutSelect = formElements.slice(0, -1);
 
+    // If date is incomplete, don't trigger onChange…
+    if (formElementsWithoutSelect.some(formElement => !formElement.value)) {
+      // …unless all form elements are empty.
+      if (formElementsWithoutSelect.every(formElement => !formElement.value)) {
+        onChange(null, false);
+      }
+      return;
+    }
+
+    if (!allowInvalidValues && formElements.some(formElement => !formElement.checkValidity())) {
+      return;
+    }
+
     const values = {};
     formElements.forEach((formElement) => {
-      values[formElement.name] = formElement.value;
+      // eslint-disable-next-line react/destructuring-assignment
+      values[formElement.name] = this.state[formElement.name];
     });
+    // eslint-disable-next-line react/destructuring-assignment
+    values.hour = this.state.hour;
 
-    if (formElementsWithoutSelect.every(formElement => !formElement.value)) {
-      onChange(null, false);
-    } else if (
-      formElements.every(formElement => formElement.value && formElement.checkValidity())
-    ) {
-      const hour = parseInt(values.hour24 || convert12to24(values.hour12, values.amPm) || 0, 10);
-      const minute = parseInt(values.minute || 0, 10);
-      const second = parseInt(values.second || 0, 10);
+    const hour = parseInt(values.hour || 0, 10);
+    const minute = parseInt(values.minute || 0, 10);
+    const second = parseInt(values.second || 0, 10);
 
-      const padStart = num => `0${num}`.slice(-2);
-      const proposedValue = `${padStart(hour)}:${padStart(minute)}:${padStart(second)}`;
-      const processedValue = this.getProcessedValue(proposedValue);
-      onChange(processedValue, false);
-    }
+    const padStart = num => `0${num}`.slice(-2);
+    const proposedValue = `${padStart(hour)}:${padStart(minute)}:${padStart(second)}`;
+    const processedValue = this.getProcessedValue(proposedValue);
+    onChange(processedValue, false);
   }
 
   renderHour = (currentMatch, index) => {
@@ -578,6 +588,7 @@ TimeInput.defaultProps = {
 };
 
 TimeInput.propTypes = {
+  allowInvalidValues: PropTypes.bool,
   amPmAriaLabel: PropTypes.string,
   autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
