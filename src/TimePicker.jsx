@@ -9,7 +9,6 @@ import Clock from 'react-clock/dist/entry.nostyle';
 import TimeInput from './TimeInput';
 
 import { isTime } from './shared/propTypes';
-import { callIfDefined } from './shared/utils';
 
 const allViews = ['hour', 'minute', 'second'];
 const baseClassName = 'react-time-picker';
@@ -39,7 +38,8 @@ export default class TimePicker extends PureComponent {
 
     if (isOpen !== prevState.isOpen) {
       this.handleOutsideActionListeners();
-      callIfDefined(isOpen ? onClockOpen : onClockClose);
+      const callback = isOpen ? onClockOpen : onClockClose;
+      if (callback) callback();
     }
   }
 
