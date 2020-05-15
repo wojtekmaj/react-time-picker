@@ -48,26 +48,20 @@ Add React-Time-Picker to your project by executing `npm install react-time-picke
 Here's an example of basic usage:
 
 ```js
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import TimePicker from 'react-time-picker';
 
-class MyApp extends Component {
-  state = {
-    time: '10:00',
-  }
+function MyApp() {
+  const [value, onChange] = useState('10:00');
 
-  onChange = time => this.setState({ time })
-
-  render() {
-    return (
-      <div>
-        <TimePicker
-          onChange={this.onChange}
-          value={this.state.time}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <TimePicker
+        onChange={onChange}
+        value={value}
+      />
+    </div>
+  );
 }
 ```
 
