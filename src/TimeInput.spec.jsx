@@ -59,7 +59,7 @@ describe('TimeInput', () => {
     );
 
     const nativeInput = component.find('input[type="time"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput).toHaveLength(1);
     expect(customInputs).toHaveLength(2);
@@ -73,7 +73,7 @@ describe('TimeInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const secondInput = customInputs.find('input[name="second"]');
     const minuteInput = customInputs.find('input[name="minute"]');
     const hourInput = customInputs.find('input[name^="hour"]');
@@ -92,7 +92,7 @@ describe('TimeInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const secondInput = customInputs.find('input[name="second"]');
     const minuteInput = customInputs.find('input[name="minute"]');
     const hourInput = customInputs.find('input[name^="hour"]');
@@ -115,7 +115,7 @@ describe('TimeInput', () => {
     );
 
     const nativeInput = component.find('input[type="time"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBe(date);
     expect(customInputs.at(0).prop('value')).toBe(10);
@@ -136,7 +136,7 @@ describe('TimeInput', () => {
     );
 
     const nativeInput = component.find('input[type="time"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBe(date);
     expect(customInputs.at(0).prop('value')).toBe(22);
@@ -154,7 +154,7 @@ describe('TimeInput', () => {
     );
 
     const nativeInput = component.find('input[type="time"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBeFalsy();
     expect(customInputs.at(0).prop('value')).toBeFalsy();
@@ -176,7 +176,7 @@ describe('TimeInput', () => {
     component.setProps({ value: null });
 
     const nativeInput = component.find('input[type="time"]');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(nativeInput.prop('value')).toBeFalsy();
     expect(customInputs.at(0).prop('value')).toBeFalsy();
@@ -192,7 +192,7 @@ describe('TimeInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(customInputs.at(0).prop('name')).toBe('hour12');
     expect(customInputs.at(1).prop('name')).toBe('minute');
@@ -208,7 +208,7 @@ describe('TimeInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     expect(customInputs.at(0).prop('name')).toBe('hour24');
     expect(customInputs.at(1).prop('name')).toBe('minute');
@@ -264,7 +264,7 @@ describe('TimeInput', () => {
       );
 
       const componentInput = component.find('Hour12Input');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -279,7 +279,7 @@ describe('TimeInput', () => {
       );
 
       const componentInput = component.find('Hour12Input');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -310,7 +310,7 @@ describe('TimeInput', () => {
       );
 
       const componentInput = component.find('Hour24Input');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -325,7 +325,7 @@ describe('TimeInput', () => {
       );
 
       const componentInput = component.find('Hour24Input');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -356,7 +356,7 @@ describe('TimeInput', () => {
       );
 
       const componentInput = component.find('MinuteInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -371,7 +371,7 @@ describe('TimeInput', () => {
       );
 
       const componentInput = component.find('MinuteInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -402,7 +402,7 @@ describe('TimeInput', () => {
       );
 
       const componentInput = component.find('SecondInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -417,7 +417,7 @@ describe('TimeInput', () => {
       );
 
       const componentInput = component.find('SecondInput');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
@@ -448,7 +448,7 @@ describe('TimeInput', () => {
       );
 
       const componentInput = component.find('AmPm');
-      const customInputs = component.find('input[type="number"]');
+      const customInputs = component.find('input[data-input]');
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(0);
@@ -477,7 +477,7 @@ describe('TimeInput', () => {
     );
 
     const separators = component.find('.react-time-picker__inputGroup__divider');
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const ampm = component.find('select');
 
     expect(separators).toHaveLength(customInputs.length + ampm.length - 1);
@@ -492,7 +492,7 @@ describe('TimeInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const hourInput = customInputs.at(0);
     const minuteInput = customInputs.at(1);
 
@@ -514,7 +514,7 @@ describe('TimeInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const hourInput = customInputs.at(0);
     const minuteInput = customInputs.at(1);
 
@@ -558,7 +558,7 @@ describe('TimeInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const hourInput = customInputs.at(0);
     const minuteInput = customInputs.at(1);
 
@@ -580,7 +580,7 @@ describe('TimeInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const hourInput = customInputs.at(0);
 
     hourInput.getDOMNode().focus();
@@ -598,7 +598,7 @@ describe('TimeInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const hourInput = customInputs.at(0);
     const minuteInput = customInputs.at(1);
 
@@ -616,7 +616,7 @@ describe('TimeInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const hourInput = customInputs.at(0);
     const minuteInput = customInputs.at(1);
 
@@ -634,7 +634,7 @@ describe('TimeInput', () => {
       { attachTo: container }
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
     const hourInput = customInputs.at(0);
 
     hourInput.getDOMNode().focus();
@@ -658,7 +658,7 @@ describe('TimeInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     customInputs.at(0).getDOMNode().value = '20';
     customInputs.at(0).simulate('change');
@@ -680,7 +680,7 @@ describe('TimeInput', () => {
       />
     );
 
-    const customInputs = component.find('input[type="number"]');
+    const customInputs = component.find('input[data-input]');
 
     customInputs.forEach((customInput) => {
       customInput.getDOMNode().value = ''; // eslint-disable-line no-param-reassign
