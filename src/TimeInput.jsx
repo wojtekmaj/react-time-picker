@@ -31,15 +31,15 @@ function hoursAreDifferent(date1, date2) {
   );
 }
 
-function isValidInput(element) {
-  return element.tagName === 'INPUT' && element.type === 'number';
+function isInternalInput(element) {
+  return element.tagName === 'INPUT' && element.getAttribute('data-input') === 'true';
 }
 
 function findInput(element, property) {
   let nextElement = element;
   do {
     nextElement = nextElement[property];
-  } while (nextElement && !isValidInput(nextElement));
+  } while (nextElement && !isInternalInput(nextElement));
   return nextElement;
 }
 
