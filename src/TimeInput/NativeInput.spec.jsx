@@ -51,14 +51,15 @@ describe('NativeInput', () => {
     expect(input.prop('name')).toBe(name);
   });
 
-  /* eslint-disable indent */
   it.each`
     valueType   | parsedValue
     ${'second'} | ${'22:17:41'}
     ${'minute'} | ${'22:17'}
     ${'hour'}   | ${'22:00'}
-  `('displays given value properly if valueType is $valueType',
-  ({ valueType, parsedValue }) => {
+  `('displays given value properly if valueType is $valueType', ({
+    valueType,
+    parsedValue
+  }) => {
     const value = '22:17:41';
 
     const component = shallow(
@@ -136,8 +137,10 @@ describe('NativeInput', () => {
     ${'second'} | ${'22:00:00'}
     ${'minute'} | ${'22:00'}
     ${'hour'}   | ${'22:00'}
-  `('has proper min for minTime which is a full hour if valueType is $valueType',
-  ({ valueType, parsedMin }) => {
+  `('has proper min for minTime which is a full hour if valueType is $valueType', ({
+    valueType,
+    parsedMin,
+  }) => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
@@ -156,8 +159,10 @@ describe('NativeInput', () => {
     ${'second'} | ${'22:17:41'}
     ${'minute'} | ${'22:17'}
     ${'hour'}   | ${'22:00'}
-  `('has proper min for minTime which is not a full hour if valueType is $valueType',
-  ({ valueType, parsedMin }) => {
+  `('has proper min for minTime which is not a full hour if valueType is $valueType', ({
+    valueType,
+    parsedMin,
+  }) => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
@@ -186,8 +191,10 @@ describe('NativeInput', () => {
     ${'second'} | ${'22:00:00'}
     ${'minute'} | ${'22:00'}
     ${'hour'}   | ${'22:00'}
-  `('has proper max for maxTime which is a full hour if valueType is $valueType',
-  ({ valueType, parsedMax }) => {
+  `('has proper max for maxTime which is a full hour if valueType is $valueType', ({
+    valueType,
+    parsedMax,
+  }) => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
@@ -206,8 +213,10 @@ describe('NativeInput', () => {
     ${'second'} | ${'22:17:41'}
     ${'minute'} | ${'22:17'}
     ${'hour'}   | ${'22:00'}
-  `('has proper max for maxTime which is not a full hour if valueType is $valueType',
-  ({ valueType, parsedMax }) => {
+  `('has proper max for maxTime which is not a full hour if valueType is $valueType', ({
+    valueType,
+    parsedMax,
+  }) => {
     const component = shallow(
       <NativeInput
         {...defaultProps}
