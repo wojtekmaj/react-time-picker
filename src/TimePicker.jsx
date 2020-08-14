@@ -4,7 +4,7 @@ import makeEventProps from 'make-event-props';
 import mergeClassNames from 'merge-class-names';
 import Fit from 'react-fit';
 
-import Clock from 'react-clock/dist/entry.nostyle';
+import Clock from 'react-clock';
 
 import TimeInput from './TimeInput';
 
