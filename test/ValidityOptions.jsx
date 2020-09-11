@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { isTime } from '../src/shared/propTypes';
+import { isTime } from './shared/propTypes';
 
 export default function ValidityOptions({
   maxTime,
