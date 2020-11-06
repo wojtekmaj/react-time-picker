@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/react-time-picker.svg)](https://www.npmjs.com/package/react-time-picker) ![downloads](https://img.shields.io/npm/dt/react-time-picker.svg) [![build](https://travis-ci.com/wojtekmaj/react-time-picker.svg?branch=master)](https://travis-ci.com/wojtekmaj/react-time-picker) ![dependencies](https://img.shields.io/david/wojtekmaj/react-time-picker.svg
+[![npm](https://img.shields.io/npm/v/react-time-picker.svg)](https://www.npmjs.com/package/react-time-picker) ![downloads](https://img.shields.io/npm/dt/react-time-picker.svg) [![CI](https://github.com/wojtekmaj/react-time-picker/workflows/CI/badge.svg)](https://github.com/wojtekmaj/react-time-picker/actions) ![dependencies](https://img.shields.io/david/wojtekmaj/react-time-picker.svg
 ) ![dev dependencies](https://img.shields.io/david/dev/wojtekmaj/react-time-picker.svg
 ) [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
