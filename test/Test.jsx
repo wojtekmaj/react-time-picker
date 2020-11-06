@@ -44,7 +44,7 @@ export default class Test extends PureComponent {
     value: getHoursMinutesSeconds(now),
   }
 
-  onChange = value => this.setState({ value })
+  onChange = (value) => this.setState({ value })
 
   render() {
     const {
@@ -57,7 +57,7 @@ export default class Test extends PureComponent {
       value,
     } = this.state;
 
-    const setState = state => this.setState(state);
+    const setState = (state) => this.setState(state);
 
     return (
       <div className="Test">

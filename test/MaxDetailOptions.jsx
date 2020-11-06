@@ -20,7 +20,7 @@ export default function MaxDetailOptions({ maxDetail, setState }) {
         Maximum detail
       </legend>
 
-      {allViews.map(view => (
+      {allViews.map((view) => (
         <div key={view}>
           <input
             checked={maxDetail === view}

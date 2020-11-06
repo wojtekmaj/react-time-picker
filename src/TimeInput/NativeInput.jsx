@@ -22,7 +22,7 @@ export default function NativeInput({
   const nativeValueParser = (() => {
     switch (valueType) {
       case 'hour':
-        return receivedValue => `${getHours(receivedValue)}:00`;
+        return (receivedValue) => `${getHours(receivedValue)}:00`;
       case 'minute':
         return getHoursMinutes;
       case 'second':

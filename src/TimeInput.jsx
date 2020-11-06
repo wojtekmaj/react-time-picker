@@ -52,7 +52,7 @@ function focus(element) {
 function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances) {
   const usedFunctions = [];
   const pattern = new RegExp(
-    Object.keys(elementFunctions).map(el => `${el}+`).join('|'), 'g',
+    Object.keys(elementFunctions).map((el) => `${el}+`).join('|'), 'g',
   );
   const matches = placeholder.match(pattern);
 
@@ -72,7 +72,7 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
           elementFunctions[currentMatch]
           || elementFunctions[
             Object.keys(elementFunctions)
-              .find(elementFunction => currentMatch.match(elementFunction))
+              .find((elementFunction) => currentMatch.match(elementFunction))
           ]
         );
 
@@ -295,7 +295,7 @@ export default class TimeInput extends PureComponent {
     switch (name) {
       case 'hour12': {
         this.setState(
-          prevState => ({
+          (prevState) => ({
             hour: value ? convert12to24(parseInt(value, 10), prevState.amPm) : null,
           }),
           this.onChangeExternal,
@@ -375,16 +375,16 @@ export default class TimeInput extends PureComponent {
       values[formElement.name] = formElement.value;
     });
 
-    if (formElementsWithoutSelect.every(formElement => !formElement.value)) {
+    if (formElementsWithoutSelect.every((formElement) => !formElement.value)) {
       onChange(null, false);
     } else if (
-      formElements.every(formElement => formElement.value && formElement.validity.valid)
+      formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
       const hour = parseInt(values.hour24 || convert12to24(values.hour12, values.amPm) || 0, 10);
       const minute = parseInt(values.minute || 0, 10);
       const second = parseInt(values.second || 0, 10);
 
-      const padStart = num => `0${num}`.slice(-2);
+      const padStart = (num) => `0${num}`.slice(-2);
       const proposedValue = `${padStart(hour)}:${padStart(minute)}:${padStart(second)}`;
       const processedValue = this.getProcessedValue(proposedValue);
       onChange(processedValue, false);
