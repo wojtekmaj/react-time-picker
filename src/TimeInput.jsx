@@ -297,7 +297,7 @@ export default class TimeInput extends PureComponent {
       case 'hour12': {
         this.setState(
           (prevState) => ({
-            hour: value ? convert12to24(parseInt(value, 10), prevState.amPm).toString() : null,
+            hour: value ? convert12to24(Number(value), prevState.amPm).toString() : null,
           }),
           this.onChangeExternal,
         );
@@ -374,9 +374,9 @@ export default class TimeInput extends PureComponent {
     } else if (
       formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
-      const hour = parseInt(values.hour24 || convert12to24(values.hour12, values.amPm) || 0, 10);
-      const minute = parseInt(values.minute || 0, 10);
-      const second = parseInt(values.second || 0, 10);
+      const hour = Number(values.hour24 || convert12to24(values.hour12, values.amPm) || 0);
+      const minute = Number(values.minute || 0);
+      const second = Number(values.second || 0);
 
       const padStart = (num) => `0${num}`.slice(-2);
       const proposedValue = `${padStart(hour)}:${padStart(minute)}:${padStart(second)}`;
