@@ -15,7 +15,7 @@ export default function MinuteInput({
   ...otherProps
 }) {
   function isSameHour(date) {
-    return date && hour === getHours(date);
+    return date && Number(hour) === getHours(date);
   }
 
   const maxMinute = safeMin(59, isSameHour(maxTime) && getMinutes(maxTime));
@@ -32,11 +32,13 @@ export default function MinuteInput({
   );
 }
 
+const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
+
 MinuteInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  hour: PropTypes.number,
+  hour: isValue,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,
@@ -46,5 +48,5 @@ MinuteInput.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
+  value: isValue,
 };

@@ -112,9 +112,9 @@ export default class TimeInput extends PureComponent {
     ) {
       if (nextValue) {
         [, nextState.amPm] = convert24to12(getHours(nextValue));
-        nextState.hour = getHours(nextValue);
-        nextState.minute = getMinutes(nextValue);
-        nextState.second = getSeconds(nextValue);
+        nextState.hour = getHours(nextValue).toString();
+        nextState.minute = getMinutes(nextValue).toString();
+        nextState.second = getSeconds(nextValue).toString();
       } else {
         nextState.amPm = null;
         nextState.hour = null;
@@ -297,22 +297,15 @@ export default class TimeInput extends PureComponent {
       case 'hour12': {
         this.setState(
           (prevState) => ({
-            hour: value ? convert12to24(parseInt(value, 10), prevState.amPm) : null,
+            hour: value ? convert12to24(parseInt(value, 10), prevState.amPm).toString() : null,
           }),
-          this.onChangeExternal,
-        );
-        break;
-      }
-      case 'hour24': {
-        this.setState(
-          { hour: value ? parseInt(value, 10) : null },
           this.onChangeExternal,
         );
         break;
       }
       default: {
         this.setState(
-          { [name]: value ? parseInt(value, 10) : null },
+          { [name]: value },
           this.onChangeExternal,
         );
       }
