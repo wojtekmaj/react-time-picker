@@ -43,6 +43,28 @@ function findInput(element, property) {
   return nextElement;
 }
 
+function isInputValid(input) {
+  if (!input.validity.valid) {
+    return false;
+  }
+
+  const { value } = input;
+
+  if (!value) {
+    return false;
+  }
+
+  const rawValue = Number(value);
+  const min = Number(input.getAttribute('min'));
+  const max = Number(input.getAttribute('max'));
+
+  if (rawValue < min || rawValue > max) {
+    return false;
+  }
+
+  return true;
+}
+
 function focus(element) {
   if (element) {
     element.focus();
@@ -371,9 +393,7 @@ export default class TimeInput extends PureComponent {
 
     if (formElementsWithoutSelect.every((formElement) => !formElement.value)) {
       onChange(null, false);
-    } else if (
-      formElements.every((formElement) => formElement.value && formElement.validity.valid)
-    ) {
+    } else if (formElements.every(isInputValid)) {
       const hour = Number(values.hour24 || convert12to24(values.hour12, values.amPm) || 0);
       const minute = Number(values.minute || 0);
       const second = Number(values.second || 0);
