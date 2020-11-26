@@ -45,7 +45,7 @@
     "make-event-props": "^1.1.0",
     "merge-class-names": "^1.1.1",
     "prop-types": "^15.6.0",
-    "react-clock": "^2.3.0",
+    "react-clock": "^3.0.0",
     "react-fit": "^1.0.3",
     "update-input-width": "^1.1.1"
   },
