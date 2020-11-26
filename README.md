@@ -67,7 +67,9 @@ function MyApp() {
 
 ### Custom styling
 
-If you don't want to use default React-Time-Picker styling to build upon it, you can import React-Time-Picker by using `import TimePicker from 'react-time-picker/dist/entry.nostyle';` instead.
+If you don't want to use default React-Time-Picker and React-Clock styles, you can import React-Time-Picker without them by using `import TimePicker from 'react-time-picker/dist/entry.nostyle';` instead.
+
+Styles loaded by the default entry file are `react-time-picker/dist/TimePicker.css` and `react-clock/dist/Clock.css`. You can copy them to your project to build your own upon them.
 
 ## User guide
 
