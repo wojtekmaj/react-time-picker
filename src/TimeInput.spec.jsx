@@ -5,8 +5,6 @@ import TimeInput from './TimeInput';
 
 import { muteConsole, restoreConsole } from '../test-utils';
 
-/* eslint-disable comma-dangle */
-
 const hasFullICU = (() => {
   try {
     const date = new Date(2018, 0, 1, 21);
@@ -55,7 +53,7 @@ describe('TimeInput', () => {
 
   it('renders a native input and custom inputs', () => {
     const component = mount(
-      <TimeInput {...defaultProps} />
+      <TimeInput {...defaultProps} />,
     );
 
     const nativeInput = component.find('input[type="time"]');
@@ -70,7 +68,7 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="minute"
-      />
+      />,
     );
 
     const customInputs = component.find('input[data-input]');
@@ -89,7 +87,7 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="hour"
-      />
+      />,
     );
 
     const customInputs = component.find('input[data-input]');
@@ -111,7 +109,7 @@ describe('TimeInput', () => {
         {...defaultProps}
         maxDetail="second"
         value={date}
-      />
+      />,
     );
 
     const nativeInput = component.find('input[type="time"]');
@@ -132,7 +130,7 @@ describe('TimeInput', () => {
         locale="de-DE"
         maxDetail="second"
         value={date}
-      />
+      />,
     );
 
     const nativeInput = component.find('input[type="time"]');
@@ -150,7 +148,7 @@ describe('TimeInput', () => {
         {...defaultProps}
         maxDetail="second"
         value={null}
-      />
+      />,
     );
 
     const nativeInput = component.find('input[type="time"]');
@@ -170,7 +168,7 @@ describe('TimeInput', () => {
         {...defaultProps}
         maxDetail="second"
         value={date}
-      />
+      />,
     );
 
     component.setProps({ value: null });
@@ -189,7 +187,7 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
     );
 
     const customInputs = component.find('input[data-input]');
@@ -205,7 +203,7 @@ describe('TimeInput', () => {
         {...defaultProps}
         locale="de-DE"
         maxDetail="second"
-      />
+      />,
     );
 
     const customInputs = component.find('input[data-input]');
@@ -220,7 +218,7 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
     );
 
     const hourInput = component.find('Hour12Input');
@@ -233,7 +231,7 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
     );
 
     const minuteInput = component.find('MinuteInput');
@@ -246,7 +244,7 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
     );
 
     const secondInput = component.find('SecondInput');
@@ -260,7 +258,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="h"
-        />
+        />,
       );
 
       const componentInput = component.find('Hour12Input');
@@ -275,7 +273,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="hh"
-        />
+        />,
       );
 
       const componentInput = component.find('Hour12Input');
@@ -293,7 +291,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="hhh"
-        />
+        />,
       );
 
       expect(renderComponent).toThrow('Unsupported token: hhh');
@@ -306,7 +304,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="H"
-        />
+        />,
       );
 
       const componentInput = component.find('Hour24Input');
@@ -321,7 +319,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="HH"
-        />
+        />,
       );
 
       const componentInput = component.find('Hour24Input');
@@ -339,7 +337,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="HHH"
-        />
+        />,
       );
 
       expect(renderComponent).toThrow('Unsupported token: HHH');
@@ -352,7 +350,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="m"
-        />
+        />,
       );
 
       const componentInput = component.find('MinuteInput');
@@ -367,7 +365,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="mm"
-        />
+        />,
       );
 
       const componentInput = component.find('MinuteInput');
@@ -385,7 +383,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="mmm"
-        />
+        />,
       );
 
       expect(renderComponent).toThrow('Unsupported token: mmm');
@@ -398,7 +396,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="s"
-        />
+        />,
       );
 
       const componentInput = component.find('SecondInput');
@@ -413,7 +411,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="ss"
-        />
+        />,
       );
 
       const componentInput = component.find('SecondInput');
@@ -431,7 +429,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="sss"
-        />
+        />,
       );
 
       expect(renderComponent).toThrow('Unsupported token: sss');
@@ -444,7 +442,7 @@ describe('TimeInput', () => {
         <TimeInput
           {...defaultProps}
           format="a"
-        />
+        />,
       );
 
       const componentInput = component.find('AmPm');
@@ -460,7 +458,7 @@ describe('TimeInput', () => {
       <TimeInput
         {...defaultProps}
         maxDetail="second"
-      />
+      />,
     );
 
     const separators = component.find('.react-time-picker__inputGroup__divider');
@@ -473,7 +471,7 @@ describe('TimeInput', () => {
 
   it('renders proper amount of separators', () => {
     const component = mount(
-      <TimeInput {...defaultProps} />
+      <TimeInput {...defaultProps} />,
     );
 
     const separators = component.find('.react-time-picker__inputGroup__divider');
@@ -489,7 +487,7 @@ describe('TimeInput', () => {
         {...defaultProps}
         maxDetail="second"
       />,
-      { attachTo: container }
+      { attachTo: container },
     );
 
     const customInputs = component.find('input[data-input]');
@@ -511,7 +509,7 @@ describe('TimeInput', () => {
         {...defaultProps}
         maxDetail="second"
       />,
-      { attachTo: container }
+      { attachTo: container },
     );
 
     const customInputs = component.find('input[data-input]');
@@ -535,7 +533,7 @@ describe('TimeInput', () => {
         {...defaultProps}
         maxDetail="second"
       />,
-      { attachTo: container }
+      { attachTo: container },
     );
 
     const select = component.find('select');
@@ -555,7 +553,7 @@ describe('TimeInput', () => {
         {...defaultProps}
         maxDetail="second"
       />,
-      { attachTo: container }
+      { attachTo: container },
     );
 
     const customInputs = component.find('input[data-input]');
@@ -577,7 +575,7 @@ describe('TimeInput', () => {
         {...defaultProps}
         maxDetail="second"
       />,
-      { attachTo: container }
+      { attachTo: container },
     );
 
     const customInputs = component.find('input[data-input]');
@@ -595,7 +593,7 @@ describe('TimeInput', () => {
   it('jumps to the next field when a value which can\'t be extended to another valid value is entered', () => {
     const component = mount(
       <TimeInput {...defaultProps} />,
-      { attachTo: container }
+      { attachTo: container },
     );
 
     const customInputs = component.find('input[data-input]');
@@ -613,7 +611,7 @@ describe('TimeInput', () => {
   it('jumps to the next field when a value as long as the length of maximum value is entered', () => {
     const component = mount(
       <TimeInput {...defaultProps} />,
-      { attachTo: container }
+      { attachTo: container },
     );
 
     const customInputs = component.find('input[data-input]');
@@ -631,7 +629,7 @@ describe('TimeInput', () => {
   it('does not jump the next field when a value which can be extended to another valid value is entered', () => {
     const component = mount(
       <TimeInput {...defaultProps} />,
-      { attachTo: container }
+      { attachTo: container },
     );
 
     const customInputs = component.find('input[data-input]');
@@ -655,7 +653,7 @@ describe('TimeInput', () => {
         maxDetail="second"
         onChange={onChange}
         value={date}
-      />
+      />,
     );
 
     const customInputs = component.find('input[data-input]');
@@ -677,7 +675,7 @@ describe('TimeInput', () => {
         maxDetail="second"
         onChange={onChange}
         value={date}
-      />
+      />,
     );
 
     const customInputs = component.find('input[data-input]');
@@ -701,7 +699,7 @@ describe('TimeInput', () => {
         maxDetail="second"
         onChange={onChange}
         value={date}
-      />
+      />,
     );
 
     const nativeInput = component.find('input[type="time"]');
@@ -723,7 +721,7 @@ describe('TimeInput', () => {
         maxDetail="second"
         onChange={onChange}
         value={date}
-      />
+      />,
     );
 
     const nativeInput = component.find('input[type="time"]');

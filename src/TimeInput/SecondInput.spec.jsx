@@ -3,8 +3,6 @@ import { mount } from 'enzyme';
 
 import SecondInput from './SecondInput';
 
-/* eslint-disable comma-dangle */
-
 describe('SecondInput', () => {
   const defaultProps = {
     className: 'className',
@@ -13,7 +11,7 @@ describe('SecondInput', () => {
 
   it('renders an input', () => {
     const component = mount(
-      <SecondInput {...defaultProps} />
+      <SecondInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -28,7 +26,7 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         ariaLabel={secondAriaLabel}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -43,7 +41,7 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         placeholder={secondPlaceholder}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -56,7 +54,7 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         value={9}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -70,7 +68,7 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         value={10}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -81,7 +79,7 @@ describe('SecondInput', () => {
 
   it('has proper name defined', () => {
     const component = mount(
-      <SecondInput {...defaultProps} />
+      <SecondInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -96,7 +94,7 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         className={className}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -112,7 +110,7 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         value={value}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -122,7 +120,7 @@ describe('SecondInput', () => {
 
   it('does not disable input by default', () => {
     const component = mount(
-      <SecondInput {...defaultProps} />
+      <SecondInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -135,7 +133,7 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         disabled
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -145,7 +143,7 @@ describe('SecondInput', () => {
 
   it('is not required input by default', () => {
     const component = mount(
-      <SecondInput {...defaultProps} />
+      <SecondInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -158,7 +156,7 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         required
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -173,7 +171,7 @@ describe('SecondInput', () => {
       <SecondInput
         {...defaultProps}
         itemRef={itemRef}
-      />
+      />,
     );
 
     expect(itemRef).toHaveBeenCalled();
@@ -182,7 +180,7 @@ describe('SecondInput', () => {
 
   it('has min = 0 by default', () => {
     const component = mount(
-      <SecondInput {...defaultProps} />
+      <SecondInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -197,7 +195,7 @@ describe('SecondInput', () => {
         hour={22}
         minTime="21:40:15"
         minute={40}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -212,7 +210,7 @@ describe('SecondInput', () => {
         hour={22}
         minTime="22:40:15"
         minute={40}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -222,7 +220,7 @@ describe('SecondInput', () => {
 
   it('has max = 59 by default', () => {
     const component = mount(
-      <SecondInput {...defaultProps} />
+      <SecondInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -237,7 +235,7 @@ describe('SecondInput', () => {
         hour={22}
         maxTime="23:40:15"
         minute={40}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -252,7 +250,7 @@ describe('SecondInput', () => {
         hour={22}
         maxTime="22:40:15"
         minute={40}
-      />
+      />,
     );
 
     const input = component.find('input');

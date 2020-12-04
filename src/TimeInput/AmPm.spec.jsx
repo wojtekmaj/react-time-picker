@@ -3,8 +3,6 @@ import { shallow } from 'enzyme';
 
 import AmPm from './AmPm';
 
-/* eslint-disable comma-dangle */
-
 describe('AmPm', () => {
   const defaultProps = {
     className: '',
@@ -13,7 +11,7 @@ describe('AmPm', () => {
 
   it('renders a select', () => {
     const component = shallow(
-      <AmPm {...defaultProps} />
+      <AmPm {...defaultProps} />,
     );
 
     const select = component.find('select');
@@ -30,7 +28,7 @@ describe('AmPm', () => {
       <AmPm
         {...defaultProps}
         ariaLabel={amPmAriaLabel}
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -40,7 +38,7 @@ describe('AmPm', () => {
 
   it('has proper name defined', () => {
     const component = shallow(
-      <AmPm {...defaultProps} />
+      <AmPm {...defaultProps} />,
     );
 
     const select = component.find('select');
@@ -55,7 +53,7 @@ describe('AmPm', () => {
       <AmPm
         {...defaultProps}
         className={className}
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -71,7 +69,7 @@ describe('AmPm', () => {
       <AmPm
         {...defaultProps}
         value={value}
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -81,7 +79,7 @@ describe('AmPm', () => {
 
   it('does not disable select by default', () => {
     const component = shallow(
-      <AmPm {...defaultProps} />
+      <AmPm {...defaultProps} />,
     );
 
     const select = component.find('select');
@@ -94,7 +92,7 @@ describe('AmPm', () => {
       <AmPm
         {...defaultProps}
         disabled
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -104,7 +102,7 @@ describe('AmPm', () => {
 
   it('should not disable anything by default', () => {
     const component = shallow(
-      <AmPm {...defaultProps} />
+      <AmPm {...defaultProps} />,
     );
 
     const select = component.find('select');
@@ -120,7 +118,7 @@ describe('AmPm', () => {
       <AmPm
         {...defaultProps}
         maxTime="11:59"
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -134,7 +132,7 @@ describe('AmPm', () => {
       <AmPm
         {...defaultProps}
         maxTime="12:00"
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -148,7 +146,7 @@ describe('AmPm', () => {
       <AmPm
         {...defaultProps}
         minTime="12:00"
-      />
+      />,
     );
 
     const select = component.find('select');
@@ -162,7 +160,7 @@ describe('AmPm', () => {
       <AmPm
         {...defaultProps}
         minTime="11:59"
-      />
+      />,
     );
 
     const select = component.find('select');

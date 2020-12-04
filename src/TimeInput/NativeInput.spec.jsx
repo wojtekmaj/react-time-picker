@@ -3,8 +3,6 @@ import { shallow } from 'enzyme';
 
 import NativeInput from './NativeInput';
 
-/* eslint-disable comma-dangle */
-
 describe('NativeInput', () => {
   const defaultProps = {
     onChange: () => {},
@@ -13,7 +11,7 @@ describe('NativeInput', () => {
 
   it('renders an input', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -28,7 +26,7 @@ describe('NativeInput', () => {
       <NativeInput
         {...defaultProps}
         ariaLabel={nativeInputAriaLabel}
-      />
+      />,
     );
 
     const select = component.find('input');
@@ -43,7 +41,7 @@ describe('NativeInput', () => {
       <NativeInput
         {...defaultProps}
         name={name}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -58,7 +56,7 @@ describe('NativeInput', () => {
     ${'hour'}   | ${'22:00'}
   `('displays given value properly if valueType is $valueType', ({
     valueType,
-    parsedValue
+    parsedValue,
   }) => {
     const value = '22:17:41';
 
@@ -67,7 +65,7 @@ describe('NativeInput', () => {
         {...defaultProps}
         value={value}
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -78,7 +76,7 @@ describe('NativeInput', () => {
 
   it('does not disable input by default', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -91,7 +89,7 @@ describe('NativeInput', () => {
       <NativeInput
         {...defaultProps}
         disabled
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -101,7 +99,7 @@ describe('NativeInput', () => {
 
   it('is not required input by default', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -114,7 +112,7 @@ describe('NativeInput', () => {
       <NativeInput
         {...defaultProps}
         required
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -124,7 +122,7 @@ describe('NativeInput', () => {
 
   it('has no min by default', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -146,7 +144,7 @@ describe('NativeInput', () => {
         {...defaultProps}
         minTime="22:00:00"
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -168,7 +166,7 @@ describe('NativeInput', () => {
         {...defaultProps}
         minTime="22:17:41"
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -178,7 +176,7 @@ describe('NativeInput', () => {
 
   it('has no max by default', () => {
     const component = shallow(
-      <NativeInput {...defaultProps} />
+      <NativeInput {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -200,7 +198,7 @@ describe('NativeInput', () => {
         {...defaultProps}
         maxTime="22:00:00"
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -222,7 +220,7 @@ describe('NativeInput', () => {
         {...defaultProps}
         maxTime="22:17:41"
         valueType={valueType}
-      />
+      />,
     );
 
     const input = component.find('input');

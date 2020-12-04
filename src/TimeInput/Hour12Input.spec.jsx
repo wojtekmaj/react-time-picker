@@ -3,8 +3,6 @@ import { mount } from 'enzyme';
 
 import Hour12Input from './Hour12Input';
 
-/* eslint-disable comma-dangle */
-
 describe('Hour12Input', () => {
   const defaultProps = {
     amPm: 'am',
@@ -14,7 +12,7 @@ describe('Hour12Input', () => {
 
   it('renders an input', () => {
     const component = mount(
-      <Hour12Input {...defaultProps} />
+      <Hour12Input {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -29,7 +27,7 @@ describe('Hour12Input', () => {
       <Hour12Input
         {...defaultProps}
         ariaLabel={hourAriaLabel}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -44,7 +42,7 @@ describe('Hour12Input', () => {
       <Hour12Input
         {...defaultProps}
         placeholder={hourPlaceholder}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -54,7 +52,7 @@ describe('Hour12Input', () => {
 
   it('has proper name defined', () => {
     const component = mount(
-      <Hour12Input {...defaultProps} />
+      <Hour12Input {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -69,7 +67,7 @@ describe('Hour12Input', () => {
       <Hour12Input
         {...defaultProps}
         className={className}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -85,7 +83,7 @@ describe('Hour12Input', () => {
       <Hour12Input
         {...defaultProps}
         value={value}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -100,7 +98,7 @@ describe('Hour12Input', () => {
       <Hour12Input
         {...defaultProps}
         value={value}
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -110,7 +108,7 @@ describe('Hour12Input', () => {
 
   it('does not disable input by default', () => {
     const component = mount(
-      <Hour12Input {...defaultProps} />
+      <Hour12Input {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -123,7 +121,7 @@ describe('Hour12Input', () => {
       <Hour12Input
         {...defaultProps}
         disabled
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -133,7 +131,7 @@ describe('Hour12Input', () => {
 
   it('is not required input by default', () => {
     const component = mount(
-      <Hour12Input {...defaultProps} />
+      <Hour12Input {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -146,7 +144,7 @@ describe('Hour12Input', () => {
       <Hour12Input
         {...defaultProps}
         required
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -161,7 +159,7 @@ describe('Hour12Input', () => {
       <Hour12Input
         {...defaultProps}
         itemRef={itemRef}
-      />
+      />,
     );
 
     expect(itemRef).toHaveBeenCalled();
@@ -170,7 +168,7 @@ describe('Hour12Input', () => {
 
   it('has min = 1 by default', () => {
     const component = mount(
-      <Hour12Input {...defaultProps} />
+      <Hour12Input {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -184,7 +182,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="am"
         minTime="5:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -198,7 +196,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="pm"
         minTime="17:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -212,7 +210,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="pm"
         minTime="5:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -226,7 +224,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="am"
         minTime="17:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -240,7 +238,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="am"
         minTime="00:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -254,7 +252,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="pm"
         minTime="12:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -264,7 +262,7 @@ describe('Hour12Input', () => {
 
   it('has max = 12 by default', () => {
     const component = mount(
-      <Hour12Input {...defaultProps} />
+      <Hour12Input {...defaultProps} />,
     );
 
     const input = component.find('input');
@@ -278,7 +276,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="am"
         maxTime="5:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -292,7 +290,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="pm"
         maxTime="17:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -306,7 +304,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="pm"
         maxTime="5:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -320,7 +318,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="am"
         maxTime="17:35"
-      />
+      />,
     );
 
     const input = component.find('input');
@@ -334,7 +332,7 @@ describe('Hour12Input', () => {
         {...defaultProps}
         amPm="pm"
         maxTime="12:35"
-      />
+      />,
     );
 
     const input = component.find('input');
