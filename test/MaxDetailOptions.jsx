@@ -7,11 +7,11 @@ function upperCaseFirstLetter(str) {
   return str.slice(0, 1).toUpperCase() + str.slice(1);
 }
 
-export default function MaxDetailOptions({ maxDetail, setState }) {
+export default function MaxDetailOptions({ maxDetail, setMaxDetail }) {
   function onChange(event) {
     const { value } = event.target;
 
-    setState({ maxDetail: value });
+    setMaxDetail(value);
   }
 
   return (
@@ -41,5 +41,5 @@ export default function MaxDetailOptions({ maxDetail, setState }) {
 
 MaxDetailOptions.propTypes = {
   maxDetail: PropTypes.oneOf(allViews).isRequired,
-  setState: PropTypes.func.isRequired,
+  setMaxDetail: PropTypes.func.isRequired,
 };

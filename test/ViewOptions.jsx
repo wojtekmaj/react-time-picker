@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 export default function ViewOptions({
   disabled,
-  setState,
+  setDisabled,
 }) {
   function onDisabledChange(event) {
     const { checked } = event.target;
 
-    setState({ disabled: checked });
+    setDisabled(checked);
   }
 
   return (
@@ -34,5 +34,5 @@ export default function ViewOptions({
 
 ViewOptions.propTypes = {
   disabled: PropTypes.bool.isRequired,
-  setState: PropTypes.func.isRequired,
+  setDisabled: PropTypes.func.isRequired,
 };

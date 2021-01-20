@@ -7,18 +7,20 @@ export default function ValidityOptions({
   maxTime,
   minTime,
   required,
-  setState,
+  setMaxTime,
+  setMinTime,
+  setRequired,
 }) {
   function onMinChange(event) {
     const { value } = event.target;
 
-    setState({ minTime: value || null });
+    setMinTime(value || null);
   }
 
   function onMaxChange(event) {
     const { value } = event.target;
 
-    setState({ maxTime: value || null });
+    setMaxTime(value || null);
   }
 
   return (
@@ -40,7 +42,7 @@ export default function ValidityOptions({
         />
         &nbsp;
         <button
-          onClick={() => setState({ minTime: null })}
+          onClick={() => setMinTime(null)}
           type="button"
         >
           Clear
@@ -60,7 +62,7 @@ export default function ValidityOptions({
         />
         &nbsp;
         <button
-          onClick={() => setState({ maxTime: null })}
+          onClick={() => setMaxTime(null)}
           type="button"
         >
           Clear
@@ -71,7 +73,7 @@ export default function ValidityOptions({
         <input
           checked={required}
           id="required"
-          onChange={(event) => setState({ required: event.target.checked })}
+          onChange={(event) => setRequired(event.target.checked)}
           type="checkbox"
         />
         <label htmlFor="required">
@@ -86,5 +88,7 @@ ValidityOptions.propTypes = {
   maxTime: isTime,
   minTime: isTime,
   required: PropTypes.bool,
-  setState: PropTypes.func.isRequired,
+  setMaxTime: PropTypes.func.isRequired,
+  setMinTime: PropTypes.func.isRequired,
+  setRequired: PropTypes.func.isRequired,
 };

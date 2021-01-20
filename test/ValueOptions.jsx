@@ -2,13 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function ValueOptions({
-  setState,
+  setValue,
   value,
 }) {
-  function setValue(nextValue) {
-    setState({ value: nextValue });
-  }
-
   function onChange(event) {
     const { value: nextValue } = event.target;
 
@@ -51,7 +47,7 @@ export default function ValueOptions({
 }
 
 ValueOptions.propTypes = {
-  setState: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(Date),

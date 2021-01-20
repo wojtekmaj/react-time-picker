@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
 import TimePicker from 'react-time-picker/src/entry.nostyle';
 import 'react-time-picker/src/TimePicker.less';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -33,102 +33,86 @@ const placeholderProps = {
 
 /* eslint-disable no-console */
 
-export default class Test extends PureComponent {
-  state = {
-    disabled: false,
-    locale: null,
-    maxTime: null,
-    maxDetail: 'minute',
-    minTime: null,
-    required: true,
-    value: getHoursMinutesSeconds(now),
-  }
+export default function Test() {
+  const [disabled, setDisabled] = useState(false);
+  const [locale, setLocale] = useState(null);
+  const [maxTime, setMaxTime] = useState(null);
+  const [maxDetail, setMaxDetail] = useState('minute');
+  const [minTime, setMinTime] = useState(null);
+  const [required, setRequired] = useState(true);
+  const [value, setValue] = useState(getHoursMinutesSeconds(now));
 
-  onChange = (value) => this.setState({ value })
+  return (
+    <div className="Test">
+      <header>
+        <h1>
+          react-time-picker test page
+        </h1>
+      </header>
+      <div className="Test__container">
+        <aside className="Test__container__options">
+          <MaxDetailOptions
+            maxDetail={maxDetail}
+            setMaxDetail={setMaxDetail}
+          />
+          <ValidityOptions
+            maxTime={maxTime}
+            minTime={minTime}
+            required={required}
+            setMaxTime={setMaxTime}
+            setMinTime={setMinTime}
+            setRequired={setRequired}
+          />
+          <LocaleOptions
+            locale={locale}
+            setLocale={setLocale}
+          />
+          <ValueOptions
+            setValue={setValue}
+            value={value}
+          />
+          <ViewOptions
+            disabled={disabled}
+            setDisabled={setDisabled}
+          />
+        </aside>
+        <main className="Test__container__content">
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
 
-  render() {
-    const {
-      disabled,
-      locale,
-      maxTime,
-      maxDetail,
-      minTime,
-      required,
-      value,
-    } = this.state;
-
-    const setState = (state) => this.setState(state);
-
-    return (
-      <div className="Test">
-        <header>
-          <h1>
-            react-time-picker test page
-          </h1>
-        </header>
-        <div className="Test__container">
-          <aside className="Test__container__options">
-            <MaxDetailOptions
+              console.warn('TimePicker triggered submitting the form.');
+              console.log(event);
+            }}
+          >
+            <TimePicker
+              {...ariaLabelProps}
+              {...placeholderProps}
+              className="myCustomTimePickerClassName"
+              clockClassName="myCustomClockClassName"
+              disabled={disabled}
+              locale={locale}
               maxDetail={maxDetail}
-              setState={setState}
-            />
-            <ValidityOptions
               maxTime={maxTime}
               minTime={minTime}
+              name="myCustomName"
+              onChange={setValue}
+              onClockClose={() => console.log('Clock closed')}
+              onClockOpen={() => console.log('Clock opened')}
               required={required}
-              setState={setState}
-            />
-            <LocaleOptions
-              locale={locale}
-              setState={setState}
-            />
-            <ValueOptions
-              setState={setState}
               value={value}
             />
-            <ViewOptions
-              disabled={disabled}
-              setState={setState}
-            />
-          </aside>
-          <main className="Test__container__content">
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
-
-                console.warn('TimePicker triggered submitting the form.');
-                console.log(event);
-              }}
+            <br />
+            <br />
+            <button
+              id="submit"
+              type="submit"
             >
-              <TimePicker
-                {...ariaLabelProps}
-                {...placeholderProps}
-                className="myCustomTimePickerClassName"
-                clockClassName="myCustomClockClassName"
-                disabled={disabled}
-                locale={locale}
-                maxDetail={maxDetail}
-                maxTime={maxTime}
-                minTime={minTime}
-                name="myCustomName"
-                onChange={this.onChange}
-                onClockClose={() => console.log('Clock closed')}
-                onClockOpen={() => console.log('Clock opened')}
-                required={required}
-                value={value}
-              />
-              <br />
-              <br />
-              <button
-                id="submit"
-                type="submit"
-              >
-                Submit
-              </button>
-            </form>
-          </main>
-        </div>
+              Submit
+            </button>
+          </form>
+        </main>
       </div>
-    );
-  }
+    </div>
+  );
 }
