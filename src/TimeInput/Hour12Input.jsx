@@ -44,7 +44,7 @@ export default function Hour12Input({
     return minHourResult;
   })());
 
-  const value12 = value !== null ? convert24to12(value)[0] : null;
+  const value12 = value ? convert24to12(value)[0].toString() : '';
 
   return (
     <Input
@@ -63,7 +63,7 @@ Hour12Input.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  hour: PropTypes.number,
+  hour: PropTypes.string,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,
@@ -73,5 +73,5 @@ Hour12Input.propTypes = {
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
+  value: PropTypes.string,
 };

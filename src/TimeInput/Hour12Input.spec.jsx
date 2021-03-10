@@ -77,7 +77,7 @@ describe('Hour12Input', () => {
   });
 
   it('displays given value properly (am)', () => {
-    const value = 11;
+    const value = '11';
 
     const component = mount(
       <Hour12Input
@@ -92,7 +92,7 @@ describe('Hour12Input', () => {
   });
 
   it('displays given value properly (pm)', () => {
-    const value = 22;
+    const value = '22';
 
     const component = mount(
       <Hour12Input
@@ -103,7 +103,7 @@ describe('Hour12Input', () => {
 
     const input = component.find('input');
 
-    expect(input.prop('value')).toBe(value - 12);
+    expect(input.prop('value')).toBe(`${value - 12}`);
   });
 
   it('does not disable input by default', () => {
