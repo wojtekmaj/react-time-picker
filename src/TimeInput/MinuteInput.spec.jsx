@@ -53,7 +53,7 @@ describe('MinuteInput', () => {
     const component = mount(
       <MinuteInput
         {...defaultProps}
-        value={9}
+        value="9"
       />,
     );
 
@@ -63,11 +63,26 @@ describe('MinuteInput', () => {
     expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
+  it('does not render "0" given showLeadingZeros if minute is <10 with leading zero already', () => {
+    const component = mount(
+      <MinuteInput
+        {...defaultProps}
+        showLeadingZeros
+        value="09"
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(component.text()).not.toContain('0');
+    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
   it('does not render "0" if minute is >=10', () => {
     const component = mount(
       <MinuteInput
         {...defaultProps}
-        value={10}
+        value="10"
       />,
     );
 
@@ -104,7 +119,7 @@ describe('MinuteInput', () => {
   });
 
   it('displays given value properly', () => {
-    const value = 11;
+    const value = '11';
 
     const component = mount(
       <MinuteInput
@@ -192,7 +207,7 @@ describe('MinuteInput', () => {
     const component = mount(
       <MinuteInput
         {...defaultProps}
-        hour={22}
+        hour="22"
         minTime="21:40"
       />,
     );
@@ -206,7 +221,7 @@ describe('MinuteInput', () => {
     const component = mount(
       <MinuteInput
         {...defaultProps}
-        hour={22}
+        hour="22"
         minTime="22:40"
       />,
     );
@@ -230,7 +245,7 @@ describe('MinuteInput', () => {
     const component = mount(
       <MinuteInput
         {...defaultProps}
-        hour={22}
+        hour="22"
         maxTime="23:40"
       />,
     );
@@ -244,7 +259,7 @@ describe('MinuteInput', () => {
     const component = mount(
       <MinuteInput
         {...defaultProps}
-        hour={22}
+        hour="22"
         maxTime="22:40"
       />,
     );

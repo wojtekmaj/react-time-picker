@@ -16,7 +16,7 @@ export default function SecondInput({
   ...otherProps
 }) {
   function isSameMinute(date) {
-    return date && hour === getHours(date) && minute === getMinutes(date);
+    return date && hour === getHours(date).toString() && minute === getMinutes(date).toString();
   }
 
   const maxSecond = safeMin(59, isSameMinute(maxTime) && getSeconds(maxTime));
@@ -37,16 +37,16 @@ SecondInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  hour: PropTypes.number,
+  hour: PropTypes.string,
   itemRef: PropTypes.func,
   maxTime: isTime,
   minTime: isTime,
-  minute: PropTypes.number,
+  minute: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   showLeadingZeros: PropTypes.bool,
-  value: PropTypes.number,
+  value: PropTypes.string,
 };

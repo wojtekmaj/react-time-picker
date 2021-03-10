@@ -53,7 +53,7 @@ describe('SecondInput', () => {
     const component = mount(
       <SecondInput
         {...defaultProps}
-        value={9}
+        value="9"
       />,
     );
 
@@ -63,11 +63,26 @@ describe('SecondInput', () => {
     expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
+  it('does not render "0" given showLeadingZeros if second is <10 with leading zero already', () => {
+    const component = mount(
+      <SecondInput
+        {...defaultProps}
+        showLeadingZeros
+        value="09"
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(component.text()).not.toContain('0');
+    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
   it('does not render "0" if second is >=10', () => {
     const component = mount(
       <SecondInput
         {...defaultProps}
-        value={10}
+        value="10"
       />,
     );
 
@@ -104,7 +119,7 @@ describe('SecondInput', () => {
   });
 
   it('displays given value properly', () => {
-    const value = 11;
+    const value = '11';
 
     const component = mount(
       <SecondInput
@@ -192,9 +207,9 @@ describe('SecondInput', () => {
     const component = mount(
       <SecondInput
         {...defaultProps}
-        hour={22}
+        hour="22"
         minTime="21:40:15"
-        minute={40}
+        minute="40"
       />,
     );
 
@@ -207,9 +222,9 @@ describe('SecondInput', () => {
     const component = mount(
       <SecondInput
         {...defaultProps}
-        hour={22}
+        hour="22"
         minTime="22:40:15"
-        minute={40}
+        minute="40"
       />,
     );
 
@@ -232,9 +247,9 @@ describe('SecondInput', () => {
     const component = mount(
       <SecondInput
         {...defaultProps}
-        hour={22}
+        hour="22"
         maxTime="23:40:15"
-        minute={40}
+        minute="40"
       />,
     );
 
@@ -247,9 +262,9 @@ describe('SecondInput', () => {
     const component = mount(
       <SecondInput
         {...defaultProps}
-        hour={22}
+        hour="22"
         maxTime="22:40:15"
-        minute={40}
+        minute="40"
       />,
     );
 
