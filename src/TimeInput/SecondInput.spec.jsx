@@ -63,6 +63,21 @@ describe('SecondInput', () => {
     expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
+  it('renders "0" given showLeadingZeros if second is 0', () => {
+    const component = mount(
+      <SecondInput
+        {...defaultProps}
+        showLeadingZeros
+        value="0"
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(component.text()).toContain('0');
+    expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
   it('does not render "0" given showLeadingZeros if second is <10 with leading zero already', () => {
     const component = mount(
       <SecondInput
