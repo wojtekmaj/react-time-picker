@@ -50,6 +50,50 @@ describe('Hour12Input', () => {
     expect(input.prop('placeholder')).toBe(hourPlaceholder);
   });
 
+  it('renders "0" given showLeadingZeros if hour is <10', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        showLeadingZeros
+        value="9"
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(component.text()).toContain('0');
+    expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
+  it('does not render "0" given showLeadingZeros if hour is >=10', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        showLeadingZeros
+        value="10"
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(component.text()).not.toContain('0');
+    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
+  it('does not render "0" if not given showLeadingZeros', () => {
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        value="9"
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(component.text()).not.toContain('0');
+    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
   it('has proper name defined', () => {
     const component = mount(
       <Hour12Input {...defaultProps} />,
