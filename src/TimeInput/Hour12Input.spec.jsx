@@ -150,6 +150,23 @@ describe('Hour12Input', () => {
     expect(input.prop('value')).toBe(`${value - 12}`);
   });
 
+  // This is an edge case that can occur when using react-datetime-picker
+  // See react-datetime-picker/src/DateTimeInput.jsx:444
+  it('displays midnight when the value is the number zero', () => {
+    const value = 0;
+
+    const component = mount(
+      <Hour12Input
+        {...defaultProps}
+        value={value}
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(input.prop('value')).toBe('12');
+  });
+
   it('does not disable input by default', () => {
     const component = mount(
       <Hour12Input {...defaultProps} />,
