@@ -79,7 +79,6 @@ describe('SecondInput', () => {
   });
 
   // This is an edge case that can occur when using react-datetime-picker
-  // See react-datetime-picker/src/DateTimeInput.jsx:444
   it('renders "0" given showLeadingZeros if second is the number 0', () => {
     const component = mount(
       <SecondInput
