@@ -394,10 +394,10 @@ describe('TimePicker', () => {
       <TimePicker onChange={onChange} />,
     );
 
-    const calendar = component.find('Calendar');
+    const clock = component.find('Clock');
     const button = component.find('button.react-time-picker__clear-button');
 
-    expect(calendar).toHaveLength(0);
+    expect(clock).toHaveLength(0);
 
     button.simulate('click');
     component.update();
