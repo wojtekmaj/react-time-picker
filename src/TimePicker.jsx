@@ -71,7 +71,7 @@ export default class TimePicker extends PureComponent {
   }
 
   onFocus = (event) => {
-    const { disabled, onFocus } = this.props;
+    const { disabled, onFocus, openClockOnFocus } = this.props;
 
     if (onFocus) {
       onFocus(event);
@@ -82,7 +82,9 @@ export default class TimePicker extends PureComponent {
       return;
     }
 
-    this.openClock();
+    if (openClockOnFocus) {
+      this.openClock();
+    }
   }
 
   openClock = () => {
@@ -310,6 +312,7 @@ TimePicker.defaultProps = {
   closeClock: true,
   isOpen: null,
   maxDetail: 'minute',
+  openClockOnFocus: true,
 };
 
 const isValue = PropTypes.oneOfType([
@@ -351,6 +354,7 @@ TimePicker.propTypes = {
   onClockClose: PropTypes.func,
   onClockOpen: PropTypes.func,
   onFocus: PropTypes.func,
+  openClockOnFocus: PropTypes.bool,
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   secondPlaceholder: PropTypes.string,
