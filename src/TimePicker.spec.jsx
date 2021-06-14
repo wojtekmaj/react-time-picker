@@ -248,22 +248,60 @@ describe('TimePicker', () => {
     expect(clock2).toHaveLength(1);
   });
 
-  it('opens Clock component when focusing on an input inside', () => {
-    const component = mount(
-      <TimePicker />,
-    );
+  describe('handles opening Clock component when focusing on an input inside properly', () => {
+    it('opens Clock component when focusing on an input inside by default', () => {
+      const component = mount(
+        <TimePicker />,
+      );
 
-    const clock = component.find('Clock');
-    const input = component.find('input[name^="hour"]');
+      const clock = component.find('Clock');
+      const input = component.find('input[name^="hour"]');
 
-    expect(clock).toHaveLength(0);
+      expect(clock).toHaveLength(0);
 
-    input.simulate('focus');
-    component.update();
+      input.simulate('focus');
+      component.update();
 
-    const clock2 = component.find('Clock');
+      const clock2 = component.find('Clock');
 
-    expect(clock2).toHaveLength(1);
+      expect(clock2).toHaveLength(1);
+    });
+
+    it('opens Clock component when focusing on an input inside given openClockOnFocus = true', () => {
+      const component = mount(
+        <TimePicker openClockOnFocus />,
+      );
+
+      const clock = component.find('Clock');
+      const input = component.find('input[name^="hour"]');
+
+      expect(clock).toHaveLength(0);
+
+      input.simulate('focus');
+      component.update();
+
+      const clock2 = component.find('Clock');
+
+      expect(clock2).toHaveLength(1);
+    });
+
+    it('does not open Clock component when focusing on an input inside given openClockOnFocus = false', () => {
+      const component = mount(
+        <TimePicker openClockOnFocus={false} />,
+      );
+
+      const clock = component.find('Clock');
+      const input = component.find('input[name^="hour"]');
+
+      expect(clock).toHaveLength(0);
+
+      input.simulate('focus');
+      component.update();
+
+      const clock2 = component.find('Clock');
+
+      expect(clock2).toHaveLength(0);
+    });
   });
 
   it('closes Clock component when clicked outside', () => {
@@ -394,10 +432,10 @@ describe('TimePicker', () => {
       <TimePicker onChange={onChange} />,
     );
 
-    const calendar = component.find('Calendar');
+    const clock = component.find('Clock');
     const button = component.find('button.react-time-picker__clear-button');
 
-    expect(calendar).toHaveLength(0);
+    expect(clock).toHaveLength(0);
 
     button.simulate('click');
     component.update();
