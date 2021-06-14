@@ -78,6 +78,22 @@ describe('MinuteInput', () => {
     expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
+  // This is an edge case that can occur when using react-datetime-picker
+  it('renders "0" given showLeadingZeros if minute is the number 0', () => {
+    const component = mount(
+      <MinuteInput
+        {...defaultProps}
+        showLeadingZeros
+        value={0}
+      />,
+    );
+
+    const input = component.find('input');
+
+    expect(component.text()).toContain('0');
+    expect(input.prop('className')).toContain(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
   it('does not render "0" given showLeadingZeros if minute is <10 with leading zero already', () => {
     const component = mount(
       <MinuteInput

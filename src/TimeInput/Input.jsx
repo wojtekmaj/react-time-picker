@@ -94,9 +94,9 @@ export default function Input({
 }) {
   const hasLeadingZero = (
     showLeadingZeros
-    && value
+    && (value || value === 0)
     && value < 10
-    && (value === '0' || !value.toString().startsWith('0'))
+    && value.toString().length === 1
   );
   const maxLength = max ? max.toString().length : null;
 

@@ -44,7 +44,7 @@ export default function Hour12Input({
     return minHourResult;
   })());
 
-  const value12 = value ? convert24to12(value)[0].toString() : '';
+  const value12 = (value || value === 0) ? convert24to12(value)[0].toString() : '';
 
   return (
     <Input
