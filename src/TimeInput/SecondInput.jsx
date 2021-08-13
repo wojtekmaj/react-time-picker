@@ -4,7 +4,7 @@ import { getHours, getMinutes, getSeconds } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { isTime } from '../shared/propTypes';
+import { isRef, isTime } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
 export default function SecondInput({
@@ -38,7 +38,7 @@ SecondInput.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   hour: PropTypes.string,
-  itemRef: PropTypes.func,
+  inputRef: isRef,
   maxTime: isTime,
   minTime: isTime,
   minute: PropTypes.string,

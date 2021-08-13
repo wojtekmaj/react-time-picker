@@ -19,3 +19,11 @@ export const isTime = (props, propName, componentName) => {
 };
 
 export const isValueType = PropTypes.oneOf(allValueTypes);
+
+export const isRef = PropTypes.oneOfType([
+  PropTypes.func,
+  PropTypes.shape({
+    // eslint-disable-next-line react/forbid-prop-types
+    current: PropTypes.any,
+  }),
+]);

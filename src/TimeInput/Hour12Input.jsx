@@ -7,7 +7,7 @@ import Input from './Input';
 import {
   convert24to12,
 } from '../shared/dates';
-import { isTime } from '../shared/propTypes';
+import { isRef, isTime } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
 export default function Hour12Input({
@@ -64,7 +64,7 @@ Hour12Input.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   hour: PropTypes.string,
-  itemRef: PropTypes.func,
+  inputRef: isRef,
   maxTime: isTime,
   minTime: isTime,
   onChange: PropTypes.func,

@@ -196,18 +196,18 @@ describe('Hour12Input', () => {
     expect(input.prop('required')).toBeTruthy();
   });
 
-  it('calls itemRef properly', () => {
-    const itemRef = jest.fn();
+  it('calls inputRef properly', () => {
+    const inputRef = jest.fn();
 
     mount(
       <Hour12Input
         {...defaultProps}
-        itemRef={itemRef}
+        inputRef={inputRef}
       />,
     );
 
-    expect(itemRef).toHaveBeenCalled();
-    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'hour12');
+    expect(inputRef).toHaveBeenCalled();
+    expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLInputElement));
   });
 
   it('has min = 1 by default', () => {

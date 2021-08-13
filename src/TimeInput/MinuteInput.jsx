@@ -4,7 +4,7 @@ import { getHours, getMinutes } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { isTime } from '../shared/propTypes';
+import { isRef, isTime } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
 export default function MinuteInput({
@@ -37,7 +37,7 @@ MinuteInput.propTypes = {
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   hour: PropTypes.string,
-  itemRef: PropTypes.func,
+  inputRef: isRef,
   maxTime: isTime,
   minTime: isTime,
   onChange: PropTypes.func,

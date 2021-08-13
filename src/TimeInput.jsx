@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { createRef, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   getHours,
@@ -134,6 +134,16 @@ export default class TimeInput extends PureComponent {
     second: null,
   };
 
+  amPmInput = createRef();
+
+  hour12Input = createRef();
+
+  hour24Input = createRef();
+
+  minuteInput = createRef();
+
+  secondInput= createRef();
+
   get formatTime() {
     const { maxDetail } = this.props;
 
@@ -222,10 +232,6 @@ export default class TimeInput extends PureComponent {
     return {
       className,
       disabled,
-      itemRef: (ref, name) => {
-        // Save a reference to each input field
-        this[`${name}Input`] = ref;
-      },
       maxTime,
       minTime,
       onChange: this.onChange,
@@ -362,14 +368,14 @@ export default class TimeInput extends PureComponent {
     }
 
     const formElements = [
-      this.hour12Input,
-      this.hour24Input,
-      this.minuteInput,
-      this.secondInput,
-      this.amPmInput,
+      this.amPmInput.current,
+      this.hour12Input.current,
+      this.hour24Input.current,
+      this.minuteInput.current,
+      this.secondInput.current,
     ].filter(Boolean);
 
-    const formElementsWithoutSelect = formElements.slice(0, -1);
+    const formElementsWithoutSelect = formElements.slice(1);
 
     const values = {};
     formElements.forEach((formElement) => {
@@ -417,6 +423,7 @@ export default class TimeInput extends PureComponent {
         amPm={amPm}
         ariaLabel={hourAriaLabel}
         autoFocus={index === 0 && autoFocus}
+        inputRef={this.hour12Input}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
@@ -440,6 +447,7 @@ export default class TimeInput extends PureComponent {
         {...this.commonInputProps}
         ariaLabel={hourAriaLabel}
         autoFocus={index === 0 && autoFocus}
+        inputRef={this.hour24Input}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
@@ -464,6 +472,7 @@ export default class TimeInput extends PureComponent {
         ariaLabel={minuteAriaLabel}
         autoFocus={index === 0 && autoFocus}
         hour={hour}
+        inputRef={this.minuteInput}
         placeholder={minutePlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={minute}
@@ -488,6 +497,7 @@ export default class TimeInput extends PureComponent {
         ariaLabel={secondAriaLabel}
         autoFocus={index === 0 && autoFocus}
         hour={hour}
+        inputRef={this.secondInput}
         minute={minute}
         placeholder={secondPlaceholder}
         showLeadingZeros={showLeadingZeros}
@@ -506,6 +516,7 @@ export default class TimeInput extends PureComponent {
         {...this.commonInputProps}
         ariaLabel={amPmAriaLabel}
         autoFocus={index === 0 && autoFocus}
+        inputRef={this.amPmInput}
         locale={locale}
         onChange={this.onChangeAmPm}
         value={amPm}

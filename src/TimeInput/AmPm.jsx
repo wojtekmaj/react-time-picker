@@ -11,7 +11,7 @@ export default function AmPm({
   ariaLabel,
   className,
   disabled,
-  itemRef,
+  inputRef,
   locale,
   maxTime,
   minTime,
@@ -35,11 +35,7 @@ export default function AmPm({
       disabled={disabled}
       name={name}
       onChange={onChange}
-      ref={(ref) => {
-        if (itemRef) {
-          itemRef(ref, name);
-        }
-      }}
+      ref={inputRef}
       required={required}
       value={value !== null ? value : ''}
     >
@@ -62,7 +58,7 @@ AmPm.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  itemRef: PropTypes.func,
+  inputRef: PropTypes.func,
   locale: PropTypes.string,
   maxTime: isTime,
   minTime: isTime,

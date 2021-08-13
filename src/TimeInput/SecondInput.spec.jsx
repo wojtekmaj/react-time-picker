@@ -194,18 +194,18 @@ describe('SecondInput', () => {
     expect(input.prop('required')).toBeTruthy();
   });
 
-  it('calls itemRef properly', () => {
-    const itemRef = jest.fn();
+  it('calls inputRef properly', () => {
+    const inputRef = jest.fn();
 
     mount(
       <SecondInput
         {...defaultProps}
-        itemRef={itemRef}
+        inputRef={inputRef}
       />,
     );
 
-    expect(itemRef).toHaveBeenCalled();
-    expect(itemRef).toHaveBeenCalledWith(expect.any(HTMLInputElement), 'second');
+    expect(inputRef).toHaveBeenCalled();
+    expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLInputElement));
   });
 
   it('has min = 0 by default', () => {
