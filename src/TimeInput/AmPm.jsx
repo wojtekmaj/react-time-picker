@@ -4,7 +4,7 @@ import mergeClassNames from 'merge-class-names';
 import { getHours } from '@wojtekmaj/date-utils';
 
 import { convert24to12 } from '../shared/dates';
-import { isTime } from '../shared/propTypes';
+import { isRef, isTime } from '../shared/propTypes';
 import { getAmPmLabels } from '../shared/utils';
 
 export default function AmPm({
@@ -58,7 +58,7 @@ AmPm.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  inputRef: PropTypes.func,
+  inputRef: isRef,
   locale: PropTypes.string,
   maxTime: isTime,
   minTime: isTime,
