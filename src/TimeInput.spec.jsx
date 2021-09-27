@@ -404,6 +404,8 @@ describe('TimeInput', () => {
 
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
+      expect(componentInput.prop('showLeadingZeros')).toBeFalsy();
+      expect(componentInput.prop('step')).toBeUndefined();
     });
 
     it('renders "ss" properly', () => {
@@ -420,6 +422,41 @@ describe('TimeInput', () => {
       expect(componentInput).toHaveLength(1);
       expect(customInputs).toHaveLength(1);
       expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
+      expect(componentInput.prop('step')).toBeUndefined();
+    });
+
+    it('renders "ss.S" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="ss"
+        />,
+      );
+
+      const componentInput = component.find('SecondInput');
+      const customInputs = component.find('input[data-input]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
+      expect(componentInput.prop('step')).toBe('0.1');
+    });
+
+    it('renders "ss.SS" properly', () => {
+      const component = mount(
+        <TimeInput
+          {...defaultProps}
+          format="ss"
+        />,
+      );
+
+      const componentInput = component.find('SecondInput');
+      const customInputs = component.find('input[data-input]');
+
+      expect(componentInput).toHaveLength(1);
+      expect(customInputs).toHaveLength(1);
+      expect(componentInput.prop('showLeadingZeros')).toBeTruthy();
+      expect(componentInput.prop('step')).toBe('0.01');
     });
 
     it('throws error for "sss"', () => {
