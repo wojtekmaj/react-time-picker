@@ -32,6 +32,7 @@ export default function AmPm({
         `${className}__input`,
         `${className}__${name}`,
       )}
+      data-input="true"
       disabled={disabled}
       name={name}
       onChange={onChange}
