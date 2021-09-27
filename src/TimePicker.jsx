@@ -85,6 +85,10 @@ export default class TimePicker extends PureComponent {
     }
 
     if (openClockOnFocus) {
+      if (event.target.getAttribute('data-select') === 'true') {
+        return;
+      }
+
       this.openClock();
     }
   }
