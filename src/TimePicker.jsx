@@ -247,7 +247,14 @@ export default class TimePicker extends PureComponent {
 
     return (
       <Fit>
-        <div className={mergeClassNames(className, `${className}--${isOpen ? 'open' : 'closed'}`)}>
+        <div
+          ref={(ref) => {
+            if (ref && !isOpen) {
+              ref.removeAttribute('style');
+            }
+          }}
+          className={mergeClassNames(className, `${className}--${isOpen ? 'open' : 'closed'}`)}
+        >
           <Clock
             className={clockClassName}
             renderMinuteHand={maxDetailIndex > 0}
