@@ -16,7 +16,7 @@ import SecondInput from './TimeInput/SecondInput';
 import NativeInput from './TimeInput/NativeInput';
 import AmPm from './TimeInput/AmPm';
 
-import { getFormatter } from './shared/dateFormatter';
+import { getFormatter, getNumberFormatter } from './shared/dateFormatter';
 import { convert12to24, convert24to12 } from './shared/dates';
 import { isTime } from './shared/propTypes';
 import { getAmPmLabels } from './shared/utils';
@@ -86,6 +86,8 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
       return res;
     }, []);
 }
+
+const formatNumber = getNumberFormatter({ useGrouping: false });
 
 export default class TimeInput extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -161,9 +163,7 @@ export default class TimeInput extends PureComponent {
 
   // eslint-disable-next-line class-methods-use-this
   get formatNumber() {
-    const options = { useGrouping: false };
-
-    return getFormatter(options);
+    return formatNumber;
   }
 
   /**
