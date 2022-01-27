@@ -10,9 +10,7 @@ describe('AmPm', () => {
   };
 
   it('renders a select', () => {
-    const component = shallow(
-      <AmPm {...defaultProps} />,
-    );
+    const component = shallow(<AmPm {...defaultProps} />);
 
     const select = component.find('select');
     const options = select.find('option');
@@ -24,12 +22,7 @@ describe('AmPm', () => {
   it('applies given aria-label properly', () => {
     const amPmAriaLabel = 'Select AM/PM';
 
-    const component = shallow(
-      <AmPm
-        {...defaultProps}
-        ariaLabel={amPmAriaLabel}
-      />,
-    );
+    const component = shallow(<AmPm {...defaultProps} ariaLabel={amPmAriaLabel} />);
 
     const select = component.find('select');
 
@@ -37,9 +30,7 @@ describe('AmPm', () => {
   });
 
   it('has proper name defined', () => {
-    const component = shallow(
-      <AmPm {...defaultProps} />,
-    );
+    const component = shallow(<AmPm {...defaultProps} />);
 
     const select = component.find('select');
 
@@ -49,12 +40,7 @@ describe('AmPm', () => {
   it('has proper className defined', () => {
     const className = 'react-time-picker';
 
-    const component = shallow(
-      <AmPm
-        {...defaultProps}
-        className={className}
-      />,
-    );
+    const component = shallow(<AmPm {...defaultProps} className={className} />);
 
     const select = component.find('select');
 
@@ -65,12 +51,7 @@ describe('AmPm', () => {
   it('displays given value properly', () => {
     const value = 'pm';
 
-    const component = shallow(
-      <AmPm
-        {...defaultProps}
-        value={value}
-      />,
-    );
+    const component = shallow(<AmPm {...defaultProps} value={value} />);
 
     const select = component.find('select');
 
@@ -78,9 +59,7 @@ describe('AmPm', () => {
   });
 
   it('does not disable select by default', () => {
-    const component = shallow(
-      <AmPm {...defaultProps} />,
-    );
+    const component = shallow(<AmPm {...defaultProps} />);
 
     const select = component.find('select');
 
@@ -88,12 +67,7 @@ describe('AmPm', () => {
   });
 
   it('disables input given disabled flag', () => {
-    const component = shallow(
-      <AmPm
-        {...defaultProps}
-        disabled
-      />,
-    );
+    const component = shallow(<AmPm {...defaultProps} disabled />);
 
     const select = component.find('select');
 
@@ -101,9 +75,7 @@ describe('AmPm', () => {
   });
 
   it('should not disable anything by default', () => {
-    const component = shallow(
-      <AmPm {...defaultProps} />,
-    );
+    const component = shallow(<AmPm {...defaultProps} />);
 
     const select = component.find('select');
     const optionAm = select.find('option[value="am"]');
@@ -114,12 +86,7 @@ describe('AmPm', () => {
   });
 
   it('should disable "pm" given maxTime before 12:00 pm', () => {
-    const component = shallow(
-      <AmPm
-        {...defaultProps}
-        maxTime="11:59"
-      />,
-    );
+    const component = shallow(<AmPm {...defaultProps} maxTime="11:59" />);
 
     const select = component.find('select');
     const optionPm = select.find('option[value="pm"]');
@@ -128,12 +95,7 @@ describe('AmPm', () => {
   });
 
   it('should not disable "pm" given maxTime after or equal to 12:00 pm', () => {
-    const component = shallow(
-      <AmPm
-        {...defaultProps}
-        maxTime="12:00"
-      />,
-    );
+    const component = shallow(<AmPm {...defaultProps} maxTime="12:00" />);
 
     const select = component.find('select');
     const optionPm = select.find('option[value="pm"]');
@@ -142,12 +104,7 @@ describe('AmPm', () => {
   });
 
   it('should disable "am" given minTime after or equal to 12:00 pm', () => {
-    const component = shallow(
-      <AmPm
-        {...defaultProps}
-        minTime="12:00"
-      />,
-    );
+    const component = shallow(<AmPm {...defaultProps} minTime="12:00" />);
 
     const select = component.find('select');
     const optionAm = select.find('option[value="am"]');
@@ -156,12 +113,7 @@ describe('AmPm', () => {
   });
 
   it('should not disable "am" given minTime before 12:00 pm', () => {
-    const component = shallow(
-      <AmPm
-        {...defaultProps}
-        minTime="11:59"
-      />,
-    );
+    const component = shallow(<AmPm {...defaultProps} minTime="11:59" />);
 
     const select = component.find('select');
     const optionAm = select.find('option[value="pm"]');

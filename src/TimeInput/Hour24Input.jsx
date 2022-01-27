@@ -7,24 +7,11 @@ import Input from './Input';
 import { isRef, isTime } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
-export default function Hour24Input({
-  hour,
-  maxTime,
-  minTime,
-  ...otherProps
-}) {
+export default function Hour24Input({ hour, maxTime, minTime, ...otherProps }) {
   const maxHour = safeMin(23, maxTime && getHours(maxTime));
   const minHour = safeMax(0, minTime && getHours(minTime));
 
-  return (
-    <Input
-      max={maxHour}
-      min={minHour}
-      name="hour24"
-      nameForClass="hour"
-      {...otherProps}
-    />
-  );
+  return <Input max={maxHour} min={minHour} name="hour24" nameForClass="hour" {...otherProps} />;
 }
 
 Hour24Input.propTypes = {

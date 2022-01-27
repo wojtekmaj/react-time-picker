@@ -28,10 +28,7 @@ export default function AmPm({
   return (
     <select
       aria-label={ariaLabel}
-      className={mergeClassNames(
-        `${className}__input`,
-        `${className}__${name}`,
-      )}
+      className={mergeClassNames(`${className}__input`, `${className}__${name}`)}
       data-input="true"
       data-select="true"
       disabled={disabled}
@@ -41,11 +38,7 @@ export default function AmPm({
       required={required}
       value={value !== null ? value : ''}
     >
-      {!value && (
-        <option value="">
-          --
-        </option>
-      )}
+      {!value && <option value="">--</option>}
       <option disabled={amDisabled} value="am">
         {amLabel}
       </option>

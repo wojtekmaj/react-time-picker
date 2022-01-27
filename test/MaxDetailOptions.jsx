@@ -16,9 +16,7 @@ export default function MaxDetailOptions({ maxDetail, setMaxDetail }) {
 
   return (
     <fieldset id="maxdetailoptions">
-      <legend htmlFor="maxdetailoptions">
-        Maximum detail
-      </legend>
+      <legend htmlFor="maxdetailoptions">Maximum detail</legend>
 
       {allViews.map((view) => (
         <div key={view}>
@@ -30,9 +28,7 @@ export default function MaxDetailOptions({ maxDetail, setMaxDetail }) {
             type="radio"
             value={view}
           />
-          <label htmlFor={`max-${view}`}>
-            {upperCaseFirstLetter(view)}
-          </label>
+          <label htmlFor={`max-${view}`}>{upperCaseFirstLetter(view)}</label>
         </div>
       ))}
     </fieldset>

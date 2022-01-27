@@ -4,45 +4,44 @@ import { getHours } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import {
-  convert24to12,
-} from '../shared/dates';
+import { convert24to12 } from '../shared/dates';
 import { isRef, isTime } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
-export default function Hour12Input({
-  amPm,
-  hour,
-  maxTime,
-  minTime,
-  value,
-  ...otherProps
-}) {
-  const maxHour = safeMin(12, maxTime && (() => {
-    const [maxHourResult, maxAmPm] = convert24to12(getHours(maxTime));
+export default function Hour12Input({ amPm, hour, maxTime, minTime, value, ...otherProps }) {
+  const maxHour = safeMin(
+    12,
+    maxTime &&
+      (() => {
+        const [maxHourResult, maxAmPm] = convert24to12(getHours(maxTime));
 
-    if (maxAmPm !== amPm) {
-      // pm is always after am, so we should ignore validation
-      return null;
-    }
+        if (maxAmPm !== amPm) {
+          // pm is always after am, so we should ignore validation
+          return null;
+        }
 
-    return maxHourResult;
-  })());
+        return maxHourResult;
+      })(),
+  );
 
-  const minHour = safeMax(1, minTime && (() => {
-    const [minHourResult, minAmPm] = convert24to12(getHours(minTime));
+  const minHour = safeMax(
+    1,
+    minTime &&
+      (() => {
+        const [minHourResult, minAmPm] = convert24to12(getHours(minTime));
 
-    if (
-      // pm is always after am, so we should ignore validation
-      minAmPm !== amPm
-      // If minHour is 12 am/pm, user should be able to enter 12, 1, ..., 11.
-      || minHourResult === 12
-    ) {
-      return null;
-    }
+        if (
+          // pm is always after am, so we should ignore validation
+          minAmPm !== amPm ||
+          // If minHour is 12 am/pm, user should be able to enter 12, 1, ..., 11.
+          minHourResult === 12
+        ) {
+          return null;
+        }
 
-    return minHourResult;
-  })());
+        return minHourResult;
+      })(),
+  );
 
   const value12 = value ? convert24to12(value)[0].toString() : '';
 

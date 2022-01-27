@@ -57,9 +57,8 @@ export default class TimePicker extends PureComponent {
     if (this.wrapper && !this.wrapper.contains(target)) {
       this.closeClock();
     }
-  }
+  };
 
-  // eslint-disable-next-line react/destructuring-assignment
   onChange = (value, closeClock = this.props.closeClock) => {
     const { onChange } = this.props;
 
@@ -70,7 +69,7 @@ export default class TimePicker extends PureComponent {
     if (onChange) {
       onChange(value);
     }
-  }
+  };
 
   onFocus = (event) => {
     const { disabled, onFocus, openClockOnFocus } = this.props;
@@ -91,17 +90,17 @@ export default class TimePicker extends PureComponent {
 
       this.openClock();
     }
-  }
+  };
 
   onKeyDown = (event) => {
     if (event.key === 'Escape') {
       this.closeClock();
     }
-  }
+  };
 
   openClock = () => {
     this.setState({ isOpen: true });
-  }
+  };
 
   closeClock = () => {
     this.setState((prevState) => {
@@ -111,11 +110,11 @@ export default class TimePicker extends PureComponent {
 
       return { isOpen: false };
     });
-  }
+  };
 
   toggleClock = () => {
     this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
-  }
+  };
 
   stopPropagation = (event) => event.stopPropagation();
 
@@ -179,6 +178,7 @@ export default class TimePicker extends PureComponent {
         <TimeInput
           {...ariaLabelProps}
           {...placeholderProps}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
@@ -338,25 +338,16 @@ TimePicker.defaultProps = {
   openClockOnFocus: true,
 };
 
-const isValue = PropTypes.oneOfType([
-  isTime,
-  PropTypes.instanceOf(Date),
-]);
+const isValue = PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]);
 
 TimePicker.propTypes = {
   amPmAriaLabel: PropTypes.string,
   autoFocus: PropTypes.bool,
-  className: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   clearAriaLabel: PropTypes.string,
   clearIcon: PropTypes.node,
   clockAriaLabel: PropTypes.string,
-  clockClassName: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
+  clockClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   clockIcon: PropTypes.node,
   closeClock: PropTypes.bool,
   disableClock: PropTypes.bool,
@@ -381,8 +372,5 @@ TimePicker.propTypes = {
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   secondPlaceholder: PropTypes.string,
-  value: PropTypes.oneOfType([
-    isValue,
-    PropTypes.arrayOf(isValue),
-  ]),
+  value: PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]),
 };

@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  getHours,
-  getHoursMinutes,
-  getHoursMinutesSeconds,
-} from '@wojtekmaj/date-utils';
+import { getHours, getHoursMinutes, getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
 
 import { isTime, isValueType } from '../shared/propTypes';
 
@@ -79,9 +75,6 @@ NativeInput.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   valueType: isValueType,
 };

@@ -25,46 +25,22 @@ export default function ValidityOptions({
 
   return (
     <fieldset id="ValidityOptions">
-      <legend htmlFor="ValidityOptions">
-        Minimum and maximum time
-      </legend>
+      <legend htmlFor="ValidityOptions">Minimum and maximum time</legend>
 
       <div>
-        <label htmlFor="minTime">
-          Minimum time
-        </label>
-        <input
-          id="minTime"
-          onChange={onMinChange}
-          step="1"
-          type="time"
-          value={minTime || ''}
-        />
+        <label htmlFor="minTime">Minimum time</label>
+        <input id="minTime" onChange={onMinChange} step="1" type="time" value={minTime || ''} />
         &nbsp;
-        <button
-          onClick={() => setMinTime(undefined)}
-          type="button"
-        >
+        <button onClick={() => setMinTime(undefined)} type="button">
           Clear
         </button>
       </div>
 
       <div>
-        <label htmlFor="maxTime">
-          Maximum time
-        </label>
-        <input
-          id="maxTime"
-          onChange={onMaxChange}
-          step="1"
-          type="time"
-          value={maxTime || ''}
-        />
+        <label htmlFor="maxTime">Maximum time</label>
+        <input id="maxTime" onChange={onMaxChange} step="1" type="time" value={maxTime || ''} />
         &nbsp;
-        <button
-          onClick={() => setMaxTime(undefined)}
-          type="button"
-        >
+        <button onClick={() => setMaxTime(undefined)} type="button">
           Clear
         </button>
       </div>
@@ -76,9 +52,7 @@ export default function ValidityOptions({
           onChange={(event) => setRequired(event.target.checked)}
           type="checkbox"
         />
-        <label htmlFor="required">
-          Required
-        </label>
+        <label htmlFor="required">Required</label>
       </div>
     </fieldset>
   );

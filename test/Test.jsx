@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import TimePicker from 'react-time-picker/src/entry.nostyle';
 import 'react-time-picker/src/TimePicker.less';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-clock/dist/Clock.css';
 import { getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
 
@@ -45,16 +44,11 @@ export default function Test() {
   return (
     <div className="Test">
       <header>
-        <h1>
-          react-time-picker test page
-        </h1>
+        <h1>react-time-picker test page</h1>
       </header>
       <div className="Test__container">
         <aside className="Test__container__options">
-          <MaxDetailOptions
-            maxDetail={maxDetail}
-            setMaxDetail={setMaxDetail}
-          />
+          <MaxDetailOptions maxDetail={maxDetail} setMaxDetail={setMaxDetail} />
           <ValidityOptions
             maxTime={maxTime}
             minTime={minTime}
@@ -63,18 +57,9 @@ export default function Test() {
             setMinTime={setMinTime}
             setRequired={setRequired}
           />
-          <LocaleOptions
-            locale={locale}
-            setLocale={setLocale}
-          />
-          <ValueOptions
-            setValue={setValue}
-            value={value}
-          />
-          <ViewOptions
-            disabled={disabled}
-            setDisabled={setDisabled}
-          />
+          <LocaleOptions locale={locale} setLocale={setLocale} />
+          <ValueOptions setValue={setValue} value={value} />
+          <ViewOptions disabled={disabled} setDisabled={setDisabled} />
         </aside>
         <main className="Test__container__content">
           <form
@@ -104,10 +89,7 @@ export default function Test() {
             />
             <br />
             <br />
-            <button
-              id="submit"
-              type="submit"
-            >
+            <button id="submit" type="submit">
               Submit
             </button>
           </form>

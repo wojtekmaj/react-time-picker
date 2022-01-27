@@ -1,7 +1,4 @@
-import {
-  safeMin,
-  safeMax,
-} from './utils';
+import { safeMin, safeMax } from './utils';
 
 describe('safeMin', () => {
   it('returns Infinity given no values', () => {

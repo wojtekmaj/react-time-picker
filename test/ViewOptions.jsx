@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function ViewOptions({
-  disabled,
-  setDisabled,
-}) {
+export default function ViewOptions({ disabled, setDisabled }) {
   function onDisabledChange(event) {
     const { checked } = event.target;
 
@@ -13,20 +10,11 @@ export default function ViewOptions({
 
   return (
     <fieldset id="viewoptions">
-      <legend htmlFor="viewoptions">
-        View options
-      </legend>
+      <legend htmlFor="viewoptions">View options</legend>
 
       <div>
-        <input
-          checked={disabled}
-          id="disabled"
-          onChange={onDisabledChange}
-          type="checkbox"
-        />
-        <label htmlFor="disabled">
-          Disabled
-        </label>
+        <input checked={disabled} id="disabled" onChange={onDisabledChange} type="checkbox" />
+        <label htmlFor="disabled">Disabled</label>
       </div>
     </fieldset>
   );

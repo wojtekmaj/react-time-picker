@@ -10,9 +10,7 @@ describe('SecondInput', () => {
   };
 
   it('renders an input', () => {
-    const component = mount(
-      <SecondInput {...defaultProps} />,
-    );
+    const component = mount(<SecondInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -22,12 +20,7 @@ describe('SecondInput', () => {
   it('applies given aria-label properly', () => {
     const secondAriaLabel = 'Second';
 
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        ariaLabel={secondAriaLabel}
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} ariaLabel={secondAriaLabel} />);
 
     const input = component.find('input');
 
@@ -37,12 +30,7 @@ describe('SecondInput', () => {
   it('applies given placeholder properly', () => {
     const secondPlaceholder = 'ss';
 
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        placeholder={secondPlaceholder}
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} placeholder={secondPlaceholder} />);
 
     const input = component.find('input');
 
@@ -50,12 +38,7 @@ describe('SecondInput', () => {
   });
 
   it('renders "0" if second is <10', () => {
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        value="9"
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} value="9" />);
 
     const input = component.find('input');
 
@@ -64,13 +47,7 @@ describe('SecondInput', () => {
   });
 
   it('renders "0" given showLeadingZeros if second is 0', () => {
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        showLeadingZeros
-        value="0"
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} showLeadingZeros value="0" />);
 
     const input = component.find('input');
 
@@ -79,38 +56,29 @@ describe('SecondInput', () => {
   });
 
   it('does not render "0" given showLeadingZeros if second is <10 with leading zero already', () => {
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        showLeadingZeros
-        value="09"
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} showLeadingZeros value="09" />);
 
     const input = component.find('input');
 
     expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+    expect(input.prop('className')).not.toContain(
+      `${defaultProps.className}__input--hasLeadingZero`,
+    );
   });
 
   it('does not render "0" if second is >=10', () => {
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        value="10"
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} value="10" />);
 
     const input = component.find('input');
 
     expect(component.text()).not.toContain('0');
-    expect(input.prop('className')).not.toContain(`${defaultProps.className}__input--hasLeadingZero`);
+    expect(input.prop('className')).not.toContain(
+      `${defaultProps.className}__input--hasLeadingZero`,
+    );
   });
 
   it('has proper name defined', () => {
-    const component = mount(
-      <SecondInput {...defaultProps} />,
-    );
+    const component = mount(<SecondInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -120,12 +88,7 @@ describe('SecondInput', () => {
   it('has proper className defined', () => {
     const className = 'react-time-picker';
 
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        className={className}
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} className={className} />);
 
     const input = component.find('input');
 
@@ -136,12 +99,7 @@ describe('SecondInput', () => {
   it('displays given value properly', () => {
     const value = '11';
 
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        value={value}
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} value={value} />);
 
     const input = component.find('input');
 
@@ -149,9 +107,7 @@ describe('SecondInput', () => {
   });
 
   it('does not disable input by default', () => {
-    const component = mount(
-      <SecondInput {...defaultProps} />,
-    );
+    const component = mount(<SecondInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -159,12 +115,7 @@ describe('SecondInput', () => {
   });
 
   it('disables input given disabled flag', () => {
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        disabled
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} disabled />);
 
     const input = component.find('input');
 
@@ -172,9 +123,7 @@ describe('SecondInput', () => {
   });
 
   it('is not required input by default', () => {
-    const component = mount(
-      <SecondInput {...defaultProps} />,
-    );
+    const component = mount(<SecondInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -182,12 +131,7 @@ describe('SecondInput', () => {
   });
 
   it('required input given required flag', () => {
-    const component = mount(
-      <SecondInput
-        {...defaultProps}
-        required
-      />,
-    );
+    const component = mount(<SecondInput {...defaultProps} required />);
 
     const input = component.find('input');
 
@@ -197,21 +141,14 @@ describe('SecondInput', () => {
   it('calls inputRef properly', () => {
     const inputRef = jest.fn();
 
-    mount(
-      <SecondInput
-        {...defaultProps}
-        inputRef={inputRef}
-      />,
-    );
+    mount(<SecondInput {...defaultProps} inputRef={inputRef} />);
 
     expect(inputRef).toHaveBeenCalled();
     expect(inputRef).toHaveBeenCalledWith(expect.any(HTMLInputElement));
   });
 
   it('has min = 0 by default', () => {
-    const component = mount(
-      <SecondInput {...defaultProps} />,
-    );
+    const component = mount(<SecondInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -220,12 +157,7 @@ describe('SecondInput', () => {
 
   it('has min = 0 given minDate in a past minute', () => {
     const component = mount(
-      <SecondInput
-        {...defaultProps}
-        hour="22"
-        minTime="21:40:15"
-        minute="40"
-      />,
+      <SecondInput {...defaultProps} hour="22" minTime="21:40:15" minute="40" />,
     );
 
     const input = component.find('input');
@@ -235,12 +167,7 @@ describe('SecondInput', () => {
 
   it('has min = (second in minTime) given minTime in a current minute', () => {
     const component = mount(
-      <SecondInput
-        {...defaultProps}
-        hour="22"
-        minTime="22:40:15"
-        minute="40"
-      />,
+      <SecondInput {...defaultProps} hour="22" minTime="22:40:15" minute="40" />,
     );
 
     const input = component.find('input');
@@ -249,9 +176,7 @@ describe('SecondInput', () => {
   });
 
   it('has max = 59 by default', () => {
-    const component = mount(
-      <SecondInput {...defaultProps} />,
-    );
+    const component = mount(<SecondInput {...defaultProps} />);
 
     const input = component.find('input');
 
@@ -260,12 +185,7 @@ describe('SecondInput', () => {
 
   it('has max = 59 given maxTime in a future minute', () => {
     const component = mount(
-      <SecondInput
-        {...defaultProps}
-        hour="22"
-        maxTime="23:40:15"
-        minute="40"
-      />,
+      <SecondInput {...defaultProps} hour="22" maxTime="23:40:15" minute="40" />,
     );
 
     const input = component.find('input');
@@ -275,12 +195,7 @@ describe('SecondInput', () => {
 
   it('has max = (second in maxHour) given maxTime in a current minute', () => {
     const component = mount(
-      <SecondInput
-        {...defaultProps}
-        hour="22"
-        maxTime="22:40:15"
-        minute="40"
-      />,
+      <SecondInput {...defaultProps} hour="22" maxTime="22:40:15" minute="40" />,
     );
 
     const input = component.find('input');
