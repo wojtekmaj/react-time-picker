@@ -3507,7 +3507,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-user-locale@npm:^1.2.0":
+"get-user-locale@npm:^1.2.0, get-user-locale@npm:^1.4.0":
   version: 1.4.0
   resolution: "get-user-locale@npm:1.4.0"
   dependencies:
@@ -5346,17 +5346,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-clock@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "react-clock@npm:3.0.0"
+"react-clock@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "react-clock@npm:3.1.0"
   dependencies:
     "@wojtekmaj/date-utils": ^1.0.0
+    get-user-locale: ^1.4.0
     merge-class-names: ^1.1.1
     prop-types: ^15.6.0
   peerDependencies:
-    react: ">=15.5"
-    react-dom: ">=15.5"
-  checksum: 2f93f15f5fc1e4961db809044612ee430978242b8a7d886b62c9a2e1a368d4b399e807377d9fb388eb01a2d0f333f21415229f7ab949291124c16d5b9ed07ed3
+    react: ^15.5.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^15.5.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 5046a24caacbf8cf6a86c00172533f0914e849d246299a0a2e6335d06b89bc8393734d71413e75c42275d872f160953255f48c7b88cb0f791273f3d10dfb6691
   languageName: node
   linkType: hard
 
@@ -5439,7 +5440,7 @@ __metadata:
     merge-class-names: ^1.1.1
     merge-refs: ^1.0.0
     prop-types: ^15.6.0
-    react-clock: ^3.0.0
+    react-clock: ^3.1.0
     react-fit: ^1.4.0
     update-input-width: ^1.2.2
   peerDependencies:
