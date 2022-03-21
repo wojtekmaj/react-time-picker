@@ -21,6 +21,8 @@ import { convert12to24, convert24to12 } from './shared/dates';
 import { isTime } from './shared/propTypes';
 import { getAmPmLabels } from './shared/utils';
 
+const getFormatterOptionsCache = {};
+
 const allViews = ['hour', 'minute', 'second'];
 
 function hoursAreDifferent(date1, date2) {
@@ -147,16 +149,24 @@ export default class TimeInput extends PureComponent {
   get formatTime() {
     const { maxDetail } = this.props;
 
-    const options = { hour: 'numeric' };
     const level = allViews.indexOf(maxDetail);
-    if (level >= 1) {
-      options.minute = 'numeric';
-    }
-    if (level >= 2) {
-      options.second = 'numeric';
-    }
+    const formatterOptions =
+      getFormatterOptionsCache[level] ||
+      (() => {
+        const options = { hour: 'numeric' };
+        if (level >= 1) {
+          options.minute = 'numeric';
+        }
+        if (level >= 2) {
+          options.second = 'numeric';
+        }
 
-    return getFormatter(options);
+        getFormatterOptionsCache[level] = options;
+
+        return options;
+      })();
+
+    return getFormatter(formatterOptions);
   }
 
   get formatNumber() {
