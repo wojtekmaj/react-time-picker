@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { createRef, PureComponent } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import makeEventProps from 'make-event-props';
@@ -29,6 +29,10 @@ export default class TimePicker extends PureComponent {
 
   state = {};
 
+  wrapper = createRef();
+
+  clockWrapper = createRef();
+
   componentDidMount() {
     this.handleOutsideActionListeners();
   }
@@ -53,9 +57,16 @@ export default class TimePicker extends PureComponent {
   }
 
   onOutsideAction = (event) => {
+    const { wrapper, clockWrapper } = this;
+
     // Try event.composedPath first to handle clicks inside a Shadow DOM.
     const target = 'composedPath' in event ? event.composedPath()[0] : event.target;
-    if (this.wrapper && !this.wrapper.contains(target)) {
+
+    if (
+      wrapper.current &&
+      !wrapper.current.contains(target) &&
+      (!clockWrapper.current || !clockWrapper.current.contains(target))
+    ) {
       this.closeClock();
     }
   };
@@ -260,7 +271,12 @@ export default class TimePicker extends PureComponent {
     );
 
     return portalContainer ? (
-      createPortal(<div className={classNames}>{clock}</div>, portalContainer)
+      createPortal(
+        <div ref={this.clockWrapper} className={classNames}>
+          {clock}
+        </div>,
+        portalContainer,
+      )
     ) : (
       <Fit>
         <div
@@ -294,13 +310,7 @@ export default class TimePicker extends PureComponent {
         )}
         {...eventPropsWithoutOnChange}
         onFocus={this.onFocus}
-        ref={(ref) => {
-          if (!ref) {
-            return;
-          }
-
-          this.wrapper = ref;
-        }}
+        ref={this.wrapper}
       >
         {this.renderInputs()}
         {this.renderClock()}
