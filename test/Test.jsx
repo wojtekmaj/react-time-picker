@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import TimePicker from 'react-time-picker/src/entry.nostyle';
 import 'react-time-picker/src/TimePicker.less';
 import 'react-clock/dist/Clock.css';
@@ -33,11 +33,13 @@ const placeholderProps = {
 /* eslint-disable no-console */
 
 export default function Test() {
+  const portalContainer = useRef();
   const [disabled, setDisabled] = useState(false);
   const [locale, setLocale] = useState(null);
   const [maxTime, setMaxTime] = useState(null);
   const [maxDetail, setMaxDetail] = useState('minute');
   const [minTime, setMinTime] = useState(null);
+  const [renderInPortal, setRenderInPortal] = useState(false);
   const [required, setRequired] = useState(true);
   const [value, setValue] = useState(getHoursMinutesSeconds(now));
 
@@ -59,7 +61,12 @@ export default function Test() {
           />
           <LocaleOptions locale={locale} setLocale={setLocale} />
           <ValueOptions setValue={setValue} value={value} />
-          <ViewOptions disabled={disabled} setDisabled={setDisabled} />
+          <ViewOptions
+            disabled={disabled}
+            renderInPortal={renderInPortal}
+            setDisabled={setDisabled}
+            setRenderInPortal={setRenderInPortal}
+          />
         </aside>
         <main className="Test__container__content">
           <form
@@ -84,9 +91,11 @@ export default function Test() {
               onChange={setValue}
               onClockClose={() => console.log('Clock closed')}
               onClockOpen={() => console.log('Clock opened')}
+              portalContainer={renderInPortal ? portalContainer.current : undefined}
               required={required}
               value={value}
             />
+            <div ref={portalContainer} />
             <br />
             <br />
             <button id="submit" type="submit">
