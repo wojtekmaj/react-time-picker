@@ -96,7 +96,7 @@ export default class TimePicker extends PureComponent {
     }
 
     if (openClockOnFocus) {
-      if (event.target.getAttribute('data-select') === 'true') {
+      if (event.target.dataset.select === 'true') {
         return;
       }
 
