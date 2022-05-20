@@ -16,6 +16,7 @@ export default function AmPm({
   maxTime,
   minTime,
   onChange,
+  onKeyDown,
   required,
   value,
 }) {
@@ -34,6 +35,7 @@ export default function AmPm({
       disabled={disabled}
       name={name}
       onChange={onChange}
+      onKeyDown={onKeyDown}
       ref={inputRef}
       required={required}
       value={value !== null ? value : ''}
@@ -58,6 +60,7 @@ AmPm.propTypes = {
   maxTime: isTime,
   minTime: isTime,
   onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
   required: PropTypes.bool,
   value: PropTypes.oneOf(['am', 'pm']),
 };
