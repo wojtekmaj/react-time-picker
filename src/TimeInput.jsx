@@ -32,7 +32,7 @@ function hoursAreDifferent(date1, date2) {
 }
 
 function isInternalInput(element) {
-  return element.getAttribute('data-input') === 'true';
+  return element.dataset.input === 'true';
 }
 
 function findInput(element, property) {
