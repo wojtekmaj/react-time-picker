@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import NativeInput from './NativeInput';
 
@@ -10,31 +10,33 @@ describe('NativeInput', () => {
   };
 
   it('renders an input', () => {
-    const component = shallow(<NativeInput {...defaultProps} />);
+    const { container } = render(<NativeInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input).toHaveLength(1);
+    expect(input).toBeInTheDocument();
   });
 
   it('applies given aria-label properly', () => {
-    const nativeInputAriaLabel = 'Time';
+    const nativeInputAriaLabel = 'Date';
 
-    const component = shallow(<NativeInput {...defaultProps} ariaLabel={nativeInputAriaLabel} />);
+    const { container } = render(
+      <NativeInput {...defaultProps} ariaLabel={nativeInputAriaLabel} />,
+    );
 
-    const select = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(select.prop('aria-label')).toBe(nativeInputAriaLabel);
+    expect(input).toHaveAttribute('aria-label', nativeInputAriaLabel);
   });
 
   it('has proper name defined', () => {
     const name = 'testName';
 
-    const component = shallow(<NativeInput {...defaultProps} name={name} />);
+    const { container } = render(<NativeInput {...defaultProps} name={name} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('name')).toBe(name);
+    expect(input).toHaveAttribute('name', name);
   });
 
   it.each`
@@ -45,54 +47,53 @@ describe('NativeInput', () => {
   `('displays given value properly if valueType is $valueType', ({ valueType, parsedValue }) => {
     const value = '22:17:41';
 
-    const component = shallow(
+    const { container } = render(
       <NativeInput {...defaultProps} value={value} valueType={valueType} />,
     );
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('value').toString()).toBe(parsedValue);
+    expect(input).toHaveValue(parsedValue);
   });
-  /* eslint-enable indent */
 
   it('does not disable input by default', () => {
-    const component = shallow(<NativeInput {...defaultProps} />);
+    const { container } = render(<NativeInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('disabled')).toBeFalsy();
+    expect(input).not.toBeDisabled();
   });
 
   it('disables input given disabled flag', () => {
-    const component = shallow(<NativeInput {...defaultProps} disabled />);
+    const { container } = render(<NativeInput {...defaultProps} disabled />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('disabled')).toBeTruthy();
+    expect(input).toBeDisabled();
   });
 
   it('is not required input by default', () => {
-    const component = shallow(<NativeInput {...defaultProps} />);
+    const { container } = render(<NativeInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('required')).toBeFalsy();
+    expect(input).not.toBeRequired();
   });
 
   it('required input given required flag', () => {
-    const component = shallow(<NativeInput {...defaultProps} required />);
+    const { container } = render(<NativeInput {...defaultProps} required />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('required')).toBeTruthy();
+    expect(input).toBeRequired();
   });
 
   it('has no min by default', () => {
-    const component = shallow(<NativeInput {...defaultProps} />);
+    const { container } = render(<NativeInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('min')).toBeFalsy();
+    expect(input).not.toHaveAttribute('min');
   });
 
   it.each`
@@ -103,13 +104,13 @@ describe('NativeInput', () => {
   `(
     'has proper min for minTime which is a full hour if valueType is $valueType',
     ({ valueType, parsedMin }) => {
-      const component = shallow(
+      const { container } = render(
         <NativeInput {...defaultProps} minTime="22:00:00" valueType={valueType} />,
       );
 
-      const input = component.find('input');
+      const input = container.querySelector('input');
 
-      expect(input.prop('min').toString()).toBe(parsedMin);
+      expect(input).toHaveAttribute('min', parsedMin);
     },
   );
 
@@ -121,22 +122,22 @@ describe('NativeInput', () => {
   `(
     'has proper min for minTime which is not a full hour if valueType is $valueType',
     ({ valueType, parsedMin }) => {
-      const component = shallow(
+      const { container } = render(
         <NativeInput {...defaultProps} minTime="22:17:41" valueType={valueType} />,
       );
 
-      const input = component.find('input');
+      const input = container.querySelector('input');
 
-      expect(input.prop('min').toString()).toBe(parsedMin);
+      expect(input).toHaveAttribute('min', parsedMin);
     },
   );
 
   it('has no max by default', () => {
-    const component = shallow(<NativeInput {...defaultProps} />);
+    const { container } = render(<NativeInput {...defaultProps} />);
 
-    const input = component.find('input');
+    const input = container.querySelector('input');
 
-    expect(input.prop('max')).toBeFalsy();
+    expect(input).not.toHaveAttribute('max');
   });
 
   it.each`
@@ -147,13 +148,13 @@ describe('NativeInput', () => {
   `(
     'has proper max for maxTime which is a full hour if valueType is $valueType',
     ({ valueType, parsedMax }) => {
-      const component = shallow(
+      const { container } = render(
         <NativeInput {...defaultProps} maxTime="22:00:00" valueType={valueType} />,
       );
 
-      const input = component.find('input');
+      const input = container.querySelector('input');
 
-      expect(input.prop('max').toString()).toBe(parsedMax);
+      expect(input).toHaveAttribute('max', parsedMax);
     },
   );
 
@@ -165,13 +166,13 @@ describe('NativeInput', () => {
   `(
     'has proper max for maxTime which is not a full hour if valueType is $valueType',
     ({ valueType, parsedMax }) => {
-      const component = shallow(
+      const { container } = render(
         <NativeInput {...defaultProps} maxTime="22:17:41" valueType={valueType} />,
       );
 
-      const input = component.find('input');
+      const input = container.querySelector('input');
 
-      expect(input.prop('max').toString()).toBe(parsedMax);
+      expect(input).toHaveAttribute('max', parsedMax);
     },
   );
 });
