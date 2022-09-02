@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import AmPm from './AmPm';
 
@@ -10,114 +10,114 @@ describe('AmPm', () => {
   };
 
   it('renders a select', () => {
-    const component = shallow(<AmPm {...defaultProps} />);
+    const { container } = render(<AmPm {...defaultProps} />);
 
-    const select = component.find('select');
-    const options = select.find('option');
+    const select = container.querySelector('select');
+    expect(select).toBeInTheDocument();
 
-    expect(select).toHaveLength(1);
+    const options = select.querySelectorAll('option');
     expect(options).toHaveLength(3);
   });
 
   it('applies given aria-label properly', () => {
     const amPmAriaLabel = 'Select AM/PM';
 
-    const component = shallow(<AmPm {...defaultProps} ariaLabel={amPmAriaLabel} />);
+    const { container } = render(<AmPm {...defaultProps} ariaLabel={amPmAriaLabel} />);
 
-    const select = component.find('select');
+    const select = container.querySelector('select');
 
-    expect(select.prop('aria-label')).toBe(amPmAriaLabel);
+    expect(select).toHaveAttribute('aria-label', amPmAriaLabel);
   });
 
   it('has proper name defined', () => {
-    const component = shallow(<AmPm {...defaultProps} />);
+    const { container } = render(<AmPm {...defaultProps} />);
 
-    const select = component.find('select');
+    const select = container.querySelector('select');
 
-    expect(select.prop('name')).toBe('amPm');
+    expect(select).toHaveAttribute('name', 'amPm');
   });
 
   it('has proper className defined', () => {
     const className = 'react-time-picker';
 
-    const component = shallow(<AmPm {...defaultProps} className={className} />);
+    const { container } = render(<AmPm {...defaultProps} className={className} />);
 
-    const select = component.find('select');
+    const select = container.querySelector('select');
 
-    expect(select.hasClass('react-time-picker__input')).toBe(true);
-    expect(select.hasClass('react-time-picker__amPm')).toBe(true);
+    expect(select).toHaveClass('react-time-picker__input');
+    expect(select).toHaveClass('react-time-picker__amPm');
   });
 
   it('displays given value properly', () => {
     const value = 'pm';
 
-    const component = shallow(<AmPm {...defaultProps} value={value} />);
+    const { container } = render(<AmPm {...defaultProps} value={value} />);
 
-    const select = component.find('select');
+    const select = container.querySelector('select');
 
-    expect(select.prop('value')).toBe(value);
+    expect(select).toHaveValue(value);
   });
 
   it('does not disable select by default', () => {
-    const component = shallow(<AmPm {...defaultProps} />);
+    const { container } = render(<AmPm {...defaultProps} />);
 
-    const select = component.find('select');
+    const select = container.querySelector('select');
 
-    expect(select.prop('disabled')).toBeFalsy();
+    expect(select).not.toBeDisabled();
   });
 
   it('disables input given disabled flag', () => {
-    const component = shallow(<AmPm {...defaultProps} disabled />);
+    const { container } = render(<AmPm {...defaultProps} disabled />);
 
-    const select = component.find('select');
+    const select = container.querySelector('select');
 
-    expect(select.prop('disabled')).toBeTruthy();
+    expect(select).toBeDisabled();
   });
 
   it('should not disable anything by default', () => {
-    const component = shallow(<AmPm {...defaultProps} />);
+    const { container } = render(<AmPm {...defaultProps} />);
 
-    const select = component.find('select');
-    const optionAm = select.find('option[value="am"]');
-    const optionPm = select.find('option[value="pm"]');
+    const select = container.querySelector('select');
+    const optionAm = select.querySelector('option[value="am"]');
+    const optionPm = select.querySelector('option[value="pm"]');
 
-    expect(optionAm.prop('disabled')).toBeFalsy();
-    expect(optionPm.prop('disabled')).toBeFalsy();
+    expect(optionAm).not.toBeDisabled();
+    expect(optionPm).not.toBeDisabled();
   });
 
   it('should disable "pm" given maxTime before 12:00 pm', () => {
-    const component = shallow(<AmPm {...defaultProps} maxTime="11:59" />);
+    const { container } = render(<AmPm {...defaultProps} maxTime="11:59" />);
 
-    const select = component.find('select');
-    const optionPm = select.find('option[value="pm"]');
+    const select = container.querySelector('select');
+    const optionPm = select.querySelector('option[value="pm"]');
 
-    expect(optionPm.prop('disabled')).toBeTruthy();
+    expect(optionPm).toBeDisabled();
   });
 
   it('should not disable "pm" given maxTime after or equal to 12:00 pm', () => {
-    const component = shallow(<AmPm {...defaultProps} maxTime="12:00" />);
+    const { container } = render(<AmPm {...defaultProps} maxTime="12:00" />);
 
-    const select = component.find('select');
-    const optionPm = select.find('option[value="pm"]');
+    const select = container.querySelector('select');
+    const optionPm = select.querySelector('option[value="pm"]');
 
-    expect(optionPm.prop('disabled')).toBeFalsy();
+    expect(optionPm).not.toBeDisabled();
   });
 
   it('should disable "am" given minTime after or equal to 12:00 pm', () => {
-    const component = shallow(<AmPm {...defaultProps} minTime="12:00" />);
+    const { container } = render(<AmPm {...defaultProps} minTime="12:00" />);
 
-    const select = component.find('select');
-    const optionAm = select.find('option[value="am"]');
+    const select = container.querySelector('select');
+    const optionAm = select.querySelector('option[value="am"]');
 
-    expect(optionAm.prop('disabled')).toBeTruthy();
+    expect(optionAm).toBeDisabled();
   });
 
   it('should not disable "am" given minTime before 12:00 pm', () => {
-    const component = shallow(<AmPm {...defaultProps} minTime="11:59" />);
+    const { container } = render(<AmPm {...defaultProps} minTime="11:59" />);
 
-    const select = component.find('select');
-    const optionAm = select.find('option[value="pm"]');
+    const select = container.querySelector('select');
+    const optionAm = select.querySelector('option[value="pm"]');
 
-    expect(optionAm.prop('disabled')).toBeFalsy();
+    expect(optionAm).not.toBeDisabled();
   });
 });
