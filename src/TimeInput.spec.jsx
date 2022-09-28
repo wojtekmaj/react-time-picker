@@ -316,9 +316,7 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the next field when right arrow is pressed', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />, {
-      attachTo: container,
-    });
+    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
@@ -335,9 +333,7 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the next field when separator key is pressed', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />, {
-      attachTo: container,
-    });
+    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
@@ -356,9 +352,7 @@ describe('TimeInput', () => {
   });
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />, {
-      attachTo: container,
-    });
+    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const select = container.querySelector('select');
 
@@ -372,9 +366,7 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the previous field when left arrow is pressed', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />, {
-      attachTo: container,
-    });
+    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
@@ -391,9 +383,7 @@ describe('TimeInput', () => {
   });
 
   it('does not jump to the previous field when left arrow is pressed when the first input is focused', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />, {
-      attachTo: container,
-    });
+    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
@@ -409,7 +399,7 @@ describe('TimeInput', () => {
   });
 
   it("jumps to the next field when a value which can't be extended to another valid value is entered", () => {
-    const { container } = render(<TimeInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<TimeInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
@@ -424,7 +414,7 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', () => {
-    const { container } = render(<TimeInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<TimeInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
@@ -439,7 +429,7 @@ describe('TimeInput', () => {
   });
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', () => {
-    const { container } = render(<TimeInput {...defaultProps} />, { attachTo: container });
+    const { container } = render(<TimeInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
