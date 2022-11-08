@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import mergeClassNames from 'merge-class-names';
+import clsx from 'clsx';
 import { getHours } from '@wojtekmaj/date-utils';
 
 import { convert24to12 } from '../shared/dates';
@@ -29,7 +29,7 @@ export default function AmPm({
   return (
     <select
       aria-label={ariaLabel}
-      className={mergeClassNames(`${className}__input`, `${className}__${name}`)}
+      className={clsx(`${className}__input`, `${className}__${name}`)}
       data-input="true"
       data-select="true"
       disabled={disabled}
