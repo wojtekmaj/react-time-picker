@@ -33,7 +33,7 @@
     "get-user-locale": "^1.2.0",
     "make-event-props": "^1.1.0",
     "prop-types": "^15.6.0",
-    "react-clock": "^3.1.0",
+    "react-clock": "^4.0.0",
     "react-fit": "^1.4.0",
     "update-input-width": "^1.2.2"
   },

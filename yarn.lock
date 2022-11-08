@@ -5220,13 +5220,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merge-class-names@npm:^1.1.1":
-  version: 1.4.2
-  resolution: "merge-class-names@npm:1.4.2"
-  checksum: 569c333ab0d7fa1e06ae6e637d58e0d4623d7b165ea78d085c1bbd042568d8793bb7ce54ec55580679416046b11fc6eaf4956d68d19964cb320edc034e182c1d
-  languageName: node
-  linkType: hard
-
 "merge-stream@npm:^2.0.0":
   version: 2.0.0
   resolution: "merge-stream@npm:2.0.0"
@@ -5957,18 +5950,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-clock@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "react-clock@npm:3.1.0"
+"react-clock@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "react-clock@npm:4.0.0"
   dependencies:
     "@wojtekmaj/date-utils": ^1.0.0
+    clsx: ^1.2.1
     get-user-locale: ^1.4.0
-    merge-class-names: ^1.1.1
     prop-types: ^15.6.0
   peerDependencies:
-    react: ^15.5.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^15.5.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 5046a24caacbf8cf6a86c00172533f0914e849d246299a0a2e6335d06b89bc8393734d71413e75c42275d872f160953255f48c7b88cb0f791273f3d10dfb6691
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 590b5e1b51a64291733d6b49f4c6c51873d07f71aa486bf75aed3e54fc1653da7756c3a32e83af9195185abb22c8d38c5bccbb96d940f87b5d11d23db9a301c2
   languageName: node
   linkType: hard
 
@@ -6043,7 +6036,7 @@ __metadata:
     pretty-quick: ^3.1.0
     prop-types: ^15.6.0
     react: ^18.2.0
-    react-clock: ^3.1.0
+    react-clock: ^4.0.0
     react-dom: ^18.2.0
     react-fit: ^1.4.0
     rimraf: ^3.0.0
