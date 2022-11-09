@@ -49,6 +49,7 @@ export default function NativeInput({
     <input
       aria-label={ariaLabel}
       disabled={disabled}
+      hidden
       max={maxTime ? nativeValueParser(maxTime) : null}
       min={minTime ? nativeValueParser(minTime) : null}
       name={name}
