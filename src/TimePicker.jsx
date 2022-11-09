@@ -84,15 +84,10 @@ export default class TimePicker extends PureComponent {
   };
 
   onFocus = (event) => {
-    const { disabled, onFocus, openClockOnFocus } = this.props;
+    const { onFocus, openClockOnFocus } = this.props;
 
     if (onFocus) {
       onFocus(event);
-    }
-
-    // Internet Explorer still fires onFocus on disabled elements
-    if (disabled) {
-      return;
     }
 
     if (openClockOnFocus) {
