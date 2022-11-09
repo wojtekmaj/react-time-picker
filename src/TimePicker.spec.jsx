@@ -1,7 +1,22 @@
 import React, { createRef } from 'react';
-import { act, fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, fireEvent, render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import TimePicker from './TimePicker';
+
+async function waitForElementToBeRemovedOrHidden(callback) {
+  const element = callback();
+
+  if (element) {
+    try {
+      await waitFor(() =>
+        expect(element).toHaveAttribute('class', expect.stringContaining('--closed')),
+      );
+    } catch (error) {
+      await waitForElementToBeRemoved(element);
+    }
+  }
+}
 
 describe('TimePicker', () => {
   it('passes default name to TimeInput', () => {
@@ -283,18 +298,20 @@ describe('TimePicker', () => {
     });
   });
 
-  it('closes Clock component when clicked outside', () => {
+  it('closes Clock component when clicked outside', async () => {
     const root = document.createElement('div');
     document.body.appendChild(root);
 
     const { container } = render(<TimePicker isOpen />, { attachTo: root });
 
-    fireEvent.mouseDown(document.body);
+    userEvent.click(document.body);
 
-    waitForElementToBeRemoved(() => container.querySelector('.react-clock'));
+    await waitForElementToBeRemovedOrHidden(() =>
+      container.querySelector('.react-time-picker__clock'),
+    );
   });
 
-  it('closes Clock component when focused outside', () => {
+  it('closes Clock component when focused outside', async () => {
     const root = document.createElement('div');
     document.body.appendChild(root);
 
@@ -302,10 +319,12 @@ describe('TimePicker', () => {
 
     fireEvent.focusIn(document.body);
 
-    waitForElementToBeRemoved(() => container.querySelector('.react-clock'));
+    await waitForElementToBeRemovedOrHidden(() =>
+      container.querySelector('.react-time-picker__clock'),
+    );
   });
 
-  it('closes Clock component when tapped outside', () => {
+  it('closes Clock component when tapped outside', async () => {
     const root = document.createElement('div');
     document.body.appendChild(root);
 
@@ -313,7 +332,9 @@ describe('TimePicker', () => {
 
     fireEvent.touchStart(document.body);
 
-    waitForElementToBeRemoved(() => container.querySelector('.react-clock'));
+    await waitForElementToBeRemovedOrHidden(() =>
+      container.querySelector('.react-time-picker__clock'),
+    );
   });
 
   it('does not close Clock component when focused inside', () => {
@@ -331,7 +352,7 @@ describe('TimePicker', () => {
     expect(clock).toBeInTheDocument();
   });
 
-  it('closes Clock when calling internal onChange by default', () => {
+  it('closes Clock when calling internal onChange by default', async () => {
     const instance = createRef();
 
     const { container } = render(<TimePicker isOpen ref={instance} />);
@@ -342,7 +363,9 @@ describe('TimePicker', () => {
       onChangeInternal(new Date());
     });
 
-    waitForElementToBeRemoved(() => container.querySelector('.react-clock'));
+    await waitForElementToBeRemovedOrHidden(() =>
+      container.querySelector('.react-time-picker__clock'),
+    );
   });
 
   it('does not close Clock when calling internal onChange with prop closeClock = false', () => {
