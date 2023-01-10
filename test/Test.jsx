@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import TimePicker from 'react-time-picker/src/entry.nostyle';
-import 'react-time-picker/src/TimePicker.less';
+import 'react-time-picker/src/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 import { getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
 
@@ -10,7 +10,7 @@ import LocaleOptions from './LocaleOptions';
 import ValueOptions from './ValueOptions';
 import ViewOptions from './ViewOptions';
 
-import './Test.less';
+import './Test.css';
 
 const now = new Date();
 
