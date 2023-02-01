@@ -5,7 +5,7 @@ const allValueTypes = [...allViews];
 
 const hourOptionalSecondsRegExp = /^(([0-1])?[0-9]|2[0-3]):[0-5][0-9](:([0-5][0-9]))?$/;
 
-export const isTime = (props, propName, componentName) => {
+export function isTime(props, propName, componentName) {
   const { [propName]: time } = props;
 
   if (time) {
@@ -18,7 +18,7 @@ export const isTime = (props, propName, componentName) => {
 
   // Everything is fine
   return null;
-};
+}
 
 export const isValueType = PropTypes.oneOf(allValueTypes);
 
