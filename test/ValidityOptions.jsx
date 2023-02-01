@@ -24,8 +24,8 @@ export default function ValidityOptions({
   }
 
   return (
-    <fieldset id="ValidityOptions">
-      <legend htmlFor="ValidityOptions">Minimum and maximum time</legend>
+    <fieldset>
+      <legend>Minimum and maximum time</legend>
 
       <div>
         <label htmlFor="minTime">Minimum time</label>

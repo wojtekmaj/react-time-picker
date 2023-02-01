@@ -15,8 +15,8 @@ export default function MaxDetailOptions({ maxDetail, setMaxDetail }) {
   }
 
   return (
-    <fieldset id="maxdetailoptions">
-      <legend htmlFor="maxdetailoptions">Maximum detail</legend>
+    <fieldset>
+      <legend>Maximum detail</legend>
 
       {allViews.map((view) => (
         <div key={view}>
