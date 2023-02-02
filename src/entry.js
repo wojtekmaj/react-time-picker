@@ -6,4 +6,6 @@ import TimePicker from './TimePicker';
 // eslint-disable-next-line import/no-unresolved
 import './TimePicker.css';
 
+export { TimePicker };
+
 export default TimePicker;
