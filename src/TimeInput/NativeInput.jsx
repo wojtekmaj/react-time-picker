@@ -24,7 +24,7 @@ export default function NativeInput({
       case 'second':
         return getHoursMinutesSeconds;
       default:
-        throw new Error('Invalid valueType.');
+        throw new Error('Invalid valueType');
     }
   })();
 
@@ -37,7 +37,7 @@ export default function NativeInput({
       case 'second':
         return 1;
       default:
-        throw new Error('Invalid valueType.');
+        throw new Error('Invalid valueType');
     }
   })();
 

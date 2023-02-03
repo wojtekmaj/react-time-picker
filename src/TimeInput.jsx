@@ -185,7 +185,7 @@ export default class TimeInput extends PureComponent {
         case 'second':
           return getHoursMinutesSeconds;
         default:
-          throw new Error('Invalid valueType.');
+          throw new Error('Invalid valueType');
       }
     })();
 
