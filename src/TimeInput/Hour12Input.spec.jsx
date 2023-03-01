@@ -7,7 +7,9 @@ describe('Hour12Input', () => {
   const defaultProps = {
     amPm: 'am',
     className: '',
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
   };
 
   it('renders an input', () => {

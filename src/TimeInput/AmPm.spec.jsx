@@ -6,7 +6,9 @@ import AmPm from './AmPm';
 describe('AmPm', () => {
   const defaultProps = {
     className: '',
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
   };
 
   it('renders a select', () => {

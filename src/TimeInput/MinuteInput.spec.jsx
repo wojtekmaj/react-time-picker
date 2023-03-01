@@ -6,7 +6,9 @@ import MinuteInput from './MinuteInput';
 describe('MinuteInput', () => {
   const defaultProps = {
     className: 'className',
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
   };
 
   it('renders an input', () => {

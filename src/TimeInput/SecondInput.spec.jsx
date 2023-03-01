@@ -6,7 +6,9 @@ import SecondInput from './SecondInput';
 describe('SecondInput', () => {
   const defaultProps = {
     className: 'className',
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
   };
 
   it('renders an input', () => {

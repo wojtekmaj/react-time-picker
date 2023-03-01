@@ -6,7 +6,9 @@ import Hour24Input from './Hour24Input';
 describe('Hour24Input', () => {
   const defaultProps = {
     className: '',
-    onChange: () => {},
+    onChange: () => {
+      // Intentionally empty
+    },
   };
 
   it('renders an input', () => {
