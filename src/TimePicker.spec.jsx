@@ -144,7 +144,7 @@ describe('TimePicker', () => {
 
     const { container } = render(<TimePicker className={className} />);
 
-    const wrapper = container.firstChild;
+    const wrapper = container.firstElementChild;
 
     expect(wrapper).toHaveClass(className);
   });
@@ -152,7 +152,7 @@ describe('TimePicker', () => {
   it('applies "--open" className to its wrapper when given isOpen flag', () => {
     const { container } = render(<TimePicker isOpen />);
 
-    const wrapper = container.firstChild;
+    const wrapper = container.firstElementChild;
 
     expect(wrapper).toHaveClass('react-time-picker--open');
   });
