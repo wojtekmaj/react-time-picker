@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { safeMin, safeMax } from './utils';
 
 describe('safeMin', () => {

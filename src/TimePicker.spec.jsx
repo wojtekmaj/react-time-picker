@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import React, { createRef } from 'react';
 import { act, fireEvent, render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -475,7 +476,7 @@ describe('TimePicker', () => {
   it('calls onChange callback when calling internal onChange', () => {
     const instance = createRef();
     const nextValue = '22:41:28';
-    const onChange = jest.fn();
+    const onChange = vi.fn();
 
     render(<TimePicker onChange={onChange} ref={instance} />);
 
@@ -489,7 +490,7 @@ describe('TimePicker', () => {
   });
 
   it('clears the value when clicking on a button', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
 
     const { container } = render(<TimePicker onChange={onChange} />);
 

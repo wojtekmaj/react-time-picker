@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
@@ -444,7 +445,7 @@ describe('TimeInput', () => {
   });
 
   it('triggers onChange correctly when changed custom input', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = '22:17:00';
 
     const { container } = render(
@@ -460,7 +461,7 @@ describe('TimeInput', () => {
   });
 
   it('triggers onChange correctly when cleared custom inputs', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = '22:17:00';
 
     const { container } = render(
@@ -478,7 +479,7 @@ describe('TimeInput', () => {
   });
 
   it('triggers onChange correctly when changed native input', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = '22:17:00';
 
     const { container } = render(
@@ -494,7 +495,7 @@ describe('TimeInput', () => {
   });
 
   it('triggers onChange correctly when cleared native input', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const date = '22:17:00';
 
     const { container } = render(
