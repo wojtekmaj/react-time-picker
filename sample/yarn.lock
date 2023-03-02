@@ -1619,8 +1619,8 @@ __metadata:
   linkType: soft
 
 "react-time-picker@npm:latest":
-  version: 5.1.0
-  resolution: "react-time-picker@npm:5.1.0"
+  version: 5.2.0
+  resolution: "react-time-picker@npm:5.2.0"
   dependencies:
     "@wojtekmaj/date-utils": ^1.0.0
     clsx: ^1.2.1
@@ -1633,7 +1633,7 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 9dacc5bf130bc1462f4f756f570a94108286a6124cf0555844b9a5449eff3617f71936f5a56657c1835d5dfe345a5c168b0b6b5593053d8d0f823363353787be
+  checksum: 24ae145f954927a1a131eb63d215174ca7253aa19d19da00acd799bb4856e3b63d8e84071cf031781e78ce35ba7707cdaf9664ff2e57a8b53e00b03e0f2549a7
   languageName: node
   linkType: hard
 
