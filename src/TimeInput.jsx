@@ -90,6 +90,35 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
 const formatNumber = getNumberFormatter({ useGrouping: false });
 
 export default class TimeInput extends PureComponent {
+  static defaultProps = {
+    maxDetail: 'minute',
+    name: 'time',
+  };
+
+  static propTypes = {
+    amPmAriaLabel: PropTypes.string,
+    autoFocus: PropTypes.bool,
+    className: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
+    format: PropTypes.string,
+    hourAriaLabel: PropTypes.string,
+    hourPlaceholder: PropTypes.string,
+    isClockOpen: PropTypes.bool,
+    locale: PropTypes.string,
+    maxDetail: PropTypes.oneOf(allViews),
+    maxTime: isTime,
+    minTime: isTime,
+    minuteAriaLabel: PropTypes.string,
+    minutePlaceholder: PropTypes.string,
+    name: PropTypes.string,
+    nativeInputAriaLabel: PropTypes.string,
+    onChange: PropTypes.func,
+    required: PropTypes.bool,
+    secondAriaLabel: PropTypes.string,
+    secondPlaceholder: PropTypes.string,
+    value: PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]),
+  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const nextState = {};
 
@@ -569,32 +598,3 @@ export default class TimeInput extends PureComponent {
     );
   }
 }
-
-TimeInput.defaultProps = {
-  maxDetail: 'minute',
-  name: 'time',
-};
-
-TimeInput.propTypes = {
-  amPmAriaLabel: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  format: PropTypes.string,
-  hourAriaLabel: PropTypes.string,
-  hourPlaceholder: PropTypes.string,
-  isClockOpen: PropTypes.bool,
-  locale: PropTypes.string,
-  maxDetail: PropTypes.oneOf(allViews),
-  maxTime: isTime,
-  minTime: isTime,
-  minuteAriaLabel: PropTypes.string,
-  minutePlaceholder: PropTypes.string,
-  name: PropTypes.string,
-  nativeInputAriaLabel: PropTypes.string,
-  onChange: PropTypes.func,
-  required: PropTypes.bool,
-  secondAriaLabel: PropTypes.string,
-  secondPlaceholder: PropTypes.string,
-  value: PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]),
-};
