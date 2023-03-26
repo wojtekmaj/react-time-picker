@@ -401,7 +401,12 @@ export default class TimeInput extends PureComponent {
 
     const values = {};
     formElements.forEach((formElement) => {
-      values[formElement.name] = formElement.value;
+      values[formElement.name] =
+        formElement.type === 'number'
+          ? 'valueAsNumber' in formElement
+            ? formElement.valueAsNumber
+            : parseInt(formElement.value, 10)
+          : formElement.value;
     });
 
     if (formElementsWithoutSelect.every((formElement) => !formElement.value)) {
@@ -409,9 +414,9 @@ export default class TimeInput extends PureComponent {
     } else if (
       formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
-      const hour = parseInt(values.hour24 || convert12to24(values.hour12, values.amPm) || 0, 10);
-      const minute = parseInt(values.minute || 0, 10);
-      const second = parseInt(values.second || 0, 10);
+      const hour = values.hour24 || convert12to24(values.hour12, values.amPm) || 0;
+      const minute = values.minute || 0;
+      const second = values.second || 0;
 
       const padStart = (num) => `0${num}`.slice(-2);
       const proposedValue = `${padStart(hour)}:${padStart(minute)}:${padStart(second)}`;
