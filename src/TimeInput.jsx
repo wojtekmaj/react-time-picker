@@ -308,7 +308,7 @@ export default class TimeInput extends PureComponent {
       return;
     }
 
-    const { value, max } = input;
+    const { value } = input;
     const max = input.getAttribute('max');
 
     /**
