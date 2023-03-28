@@ -308,7 +308,7 @@ export default class TimeInput extends PureComponent {
       return;
     }
 
-    const { value } = input;
+    const { value, max } = input;
     const max = input.getAttribute('max');
 
     /**
@@ -320,7 +320,9 @@ export default class TimeInput extends PureComponent {
     if (value * 10 > max || value.length >= max.length) {
       const property = 'nextElementSibling';
       const nextInput = findInput(input, property);
-      focus(nextInput);
+      setTimeout(() => {
+        focus(nextInput);
+      }, 250);
     }
   };
 
