@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import React, { createRef } from 'react';
+import React from 'react';
 import { act, fireEvent, render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -425,31 +425,13 @@ describe('TimePicker', () => {
     expect(clock).toBeInTheDocument();
   });
 
-  it('closes Clock when calling internal onChange by default', async () => {
-    const instance = createRef();
+  it('does not close Clock when changing value', () => {
+    const { container } = render(<TimePicker isOpen />);
 
-    const { container } = render(<TimePicker isOpen ref={instance} />);
-
-    const { onChange: onChangeInternal } = instance.current;
+    const hourInput = container.querySelector('input[name="hour12"]');
 
     act(() => {
-      onChangeInternal(new Date());
-    });
-
-    await waitForElementToBeRemovedOrHidden(() =>
-      container.querySelector('.react-time-picker__clock'),
-    );
-  });
-
-  it('does not close Clock when calling internal onChange with prop closeClock = false', () => {
-    const instance = createRef();
-
-    const { container } = render(<TimePicker closeClock={false} isOpen ref={instance} />);
-
-    const { onChange: onChangeInternal } = instance.current;
-
-    act(() => {
-      onChangeInternal(new Date());
+      fireEvent.change(hourInput, { target: { value: '9' } });
     });
 
     const clock = container.querySelector('.react-clock');
@@ -457,36 +439,21 @@ describe('TimePicker', () => {
     expect(clock).toBeInTheDocument();
   });
 
-  it('does not close Clock when calling internal onChange with closeClock = false', () => {
-    const instance = createRef();
-
-    const { container } = render(<TimePicker isOpen ref={instance} />);
-
-    const { onChange: onChangeInternal } = instance.current;
-
-    act(() => {
-      onChangeInternal(new Date(), false);
-    });
-
-    const clock = container.querySelector('.react-clock');
-
-    expect(clock).toBeInTheDocument();
-  });
-
-  it('calls onChange callback when calling internal onChange', () => {
-    const instance = createRef();
-    const nextValue = '22:41:28';
+  it('calls onChange callback when changing value', () => {
+    const value = '22:41:28';
     const onChange = vi.fn();
 
-    render(<TimePicker onChange={onChange} ref={instance} />);
+    const { container } = render(
+      <TimePicker maxDetail="second" onChange={onChange} value={value} />,
+    );
 
-    const { onChange: onChangeInternal } = instance.current;
+    const hourInput = container.querySelector('input[name="hour12"]');
 
     act(() => {
-      onChangeInternal(nextValue);
+      fireEvent.change(hourInput, { target: { value: '9' } });
     });
 
-    expect(onChange).toHaveBeenCalledWith(nextValue);
+    expect(onChange).toHaveBeenCalledWith('21:41:28');
   });
 
   it('clears the value when clicking on a button', () => {
