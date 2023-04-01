@@ -1,4 +1,4 @@
-import React, { createRef, PureComponent } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   getHours,
@@ -24,12 +24,6 @@ import { getAmPmLabels } from './shared/utils';
 const getFormatterOptionsCache = {};
 
 const allViews = ['hour', 'minute', 'second'];
-
-function hoursAreDifferent(date1, date2) {
-  return (
-    (date1 && !date2) || (!date1 && date2) || (date1 && date2 && date1 !== date2) // TODO: Compare 11:22:00 and 11:22 properly
-  );
-}
 
 function isInternalInput(element) {
   return element.dataset.input === 'true';
@@ -89,95 +83,72 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
 
 const formatNumber = getNumberFormatter({ useGrouping: false });
 
-export default class TimeInput extends PureComponent {
-  static defaultProps = {
-    maxDetail: 'minute',
-    name: 'time',
-  };
+export default function TimeInput({
+  amPmAriaLabel,
+  autoFocus,
+  className,
+  disabled,
+  format,
+  hourAriaLabel,
+  hourPlaceholder,
+  isClockOpen: isClockOpenProps,
+  locale,
+  maxDetail,
+  maxTime,
+  minTime,
+  minuteAriaLabel,
+  minutePlaceholder,
+  name,
+  nativeInputAriaLabel,
+  onChange: onChangeProps,
+  required,
+  secondAriaLabel,
+  secondPlaceholder,
+  value: valueProps,
+}) {
+  const [amPm, setAmPm] = useState(null);
+  const [hour, setHour] = useState(null);
+  const [minute, setMinute] = useState(null);
+  const [second, setSecond] = useState(null);
+  const [value, setValue] = useState(null);
+  const amPmInput = useRef();
+  const hour12Input = useRef();
+  const hour24Input = useRef();
+  const minuteInput = useRef();
+  const secondInput = useRef();
+  const [isClockOpen, setIsClockOpen] = useState(isClockOpenProps);
 
-  static propTypes = {
-    amPmAriaLabel: PropTypes.string,
-    autoFocus: PropTypes.bool,
-    className: PropTypes.string.isRequired,
-    disabled: PropTypes.bool,
-    format: PropTypes.string,
-    hourAriaLabel: PropTypes.string,
-    hourPlaceholder: PropTypes.string,
-    isClockOpen: PropTypes.bool,
-    locale: PropTypes.string,
-    maxDetail: PropTypes.oneOf(allViews),
-    maxTime: isTime,
-    minTime: isTime,
-    minuteAriaLabel: PropTypes.string,
-    minutePlaceholder: PropTypes.string,
-    name: PropTypes.string,
-    nativeInputAriaLabel: PropTypes.string,
-    onChange: PropTypes.func,
-    required: PropTypes.bool,
-    secondAriaLabel: PropTypes.string,
-    secondPlaceholder: PropTypes.string,
-    value: PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]),
-  };
+  useEffect(() => {
+    setIsClockOpen(isClockOpenProps);
+  }, [isClockOpenProps]);
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const nextState = {};
+  useEffect(() => {
+    const nextValue = valueProps;
 
-    /**
-     * If isClockOpen flag has changed, we have to update it.
-     * It's saved in state purely for use in getDerivedStateFromProps.
-     */
-    if (nextProps.isClockOpen !== prevState.isClockOpen) {
-      nextState.isClockOpen = nextProps.isClockOpen;
+    if (nextValue) {
+      setAmPm(convert24to12(getHours(nextValue))[1]);
+      setHour(getHours(nextValue).toString());
+      setMinute(getMinutes(nextValue).toString());
+      setSecond(getSeconds(nextValue).toString());
+    } else {
+      setAmPm(null);
+      setHour(null);
+      setMinute(null);
+      setSecond(null);
     }
+    setValue(nextValue);
+  }, [
+    valueProps,
+    minTime,
+    maxTime,
+    maxDetail,
+    // Toggling clock visibility resets values
+    isClockOpen,
+  ]);
 
-    /**
-     * If the next value is different from the current one  (with an exception of situation in
-     * which values provided are limited by minDate and maxDate so that the dates are the same),
-     * get a new one.
-     */
-    const nextValue = nextProps.value;
-    if (
-      // Toggling calendar visibility resets values
-      nextState.isClockOpen || // Flag was toggled
-      hoursAreDifferent(nextValue, prevState.value)
-    ) {
-      if (nextValue) {
-        [, nextState.amPm] = convert24to12(getHours(nextValue));
-        nextState.hour = getHours(nextValue).toString();
-        nextState.minute = getMinutes(nextValue).toString();
-        nextState.second = getSeconds(nextValue).toString();
-      } else {
-        nextState.amPm = null;
-        nextState.hour = null;
-        nextState.minute = null;
-        nextState.second = null;
-      }
-      nextState.value = nextValue;
-    }
+  const valueType = maxDetail;
 
-    return nextState;
-  }
-
-  state = {
-    amPm: null,
-    hour: null,
-    minute: null,
-    second: null,
-  };
-
-  amPmInput = createRef();
-
-  hour12Input = createRef();
-
-  hour24Input = createRef();
-
-  minuteInput = createRef();
-
-  secondInput = createRef();
-
-  get formatTime() {
-    const { maxDetail } = this.props;
-
+  const formatTime = (() => {
     const level = allViews.indexOf(maxDetail);
     const formatterOptions =
       getFormatterOptionsCache[level] ||
@@ -196,18 +167,14 @@ export default class TimeInput extends PureComponent {
       })();
 
     return getFormatter(formatterOptions);
-  }
-
-  get formatNumber() {
-    return formatNumber;
-  }
+  })();
 
   /**
    * Gets current value in a desired format.
    */
-  getProcessedValue(value) {
+  function getProcessedValue(value) {
     const processFunction = (() => {
-      switch (this.valueType) {
+      switch (valueType) {
         case 'hour':
         case 'minute':
           return getHoursMinutes;
@@ -221,71 +188,41 @@ export default class TimeInput extends PureComponent {
     return processFunction(value);
   }
 
-  /**
-   * Returns value type that can be returned with currently applied settings.
-   */
-  get valueType() {
-    const { maxDetail } = this.props;
+  const placeholder =
+    format ||
+    (() => {
+      const hour24 = 21;
+      const hour12 = 9;
+      const minute = 13;
+      const second = 14;
+      const date = new Date(2017, 0, 1, hour24, minute, second);
 
-    return maxDetail;
-  }
+      return formatTime(locale, date)
+        .replace(formatNumber(locale, hour12), 'h')
+        .replace(formatNumber(locale, hour24), 'H')
+        .replace(formatNumber(locale, minute), 'mm')
+        .replace(formatNumber(locale, second), 'ss')
+        .replace(new RegExp(getAmPmLabels(locale).join('|')), 'a');
+    })();
 
-  get divider() {
-    const dividers = this.placeholder.match(/[^0-9a-z]/i);
+  const divider = (() => {
+    const dividers = placeholder.match(/[^0-9a-z]/i);
     return dividers ? dividers[0] : null;
-  }
+  })();
 
-  get placeholder() {
-    const { format, locale } = this.props;
-
-    if (format) {
-      return format;
-    }
-
-    const hour24 = 21;
-    const hour12 = 9;
-    const minute = 13;
-    const second = 14;
-    const date = new Date(2017, 0, 1, hour24, minute, second);
-
-    return this.formatTime(locale, date)
-      .replace(this.formatNumber(locale, hour12), 'h')
-      .replace(this.formatNumber(locale, hour24), 'H')
-      .replace(this.formatNumber(locale, minute), 'mm')
-      .replace(this.formatNumber(locale, second), 'ss')
-      .replace(new RegExp(getAmPmLabels(locale).join('|')), 'a');
-  }
-
-  get commonInputProps() {
-    const { className, disabled, isClockOpen, maxTime, minTime, required } = this.props;
-
-    return {
-      className,
-      disabled,
-      maxTime,
-      minTime,
-      onChange: this.onChange,
-      onKeyDown: this.onKeyDown,
-      onKeyUp: this.onKeyUp,
-      placeholder: '--',
-      // This is only for showing validity when editing
-      required: required || isClockOpen,
-    };
-  }
-
-  onClick = (event) => {
+  function onClick(event) {
     if (event.target === event.currentTarget) {
       // Wrapper was directly clicked
       const firstInput = event.target.children[1];
       focus(firstInput);
     }
-  };
+  }
 
-  onKeyDown = (event) => {
+  function onKeyDown(event) {
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowRight':
-      case this.divider: {
+      case divider: {
         event.preventDefault();
 
         const { target: input } = event;
@@ -297,9 +234,9 @@ export default class TimeInput extends PureComponent {
       }
       default:
     }
-  };
+  }
 
-  onKeyUp = (event) => {
+  function onKeyUp(event) {
     const { key, target: input } = event;
 
     const isNumberKey = !isNaN(parseInt(key, 10));
@@ -322,79 +259,23 @@ export default class TimeInput extends PureComponent {
       const nextInput = findInput(input, property);
       focus(nextInput);
     }
-  };
-
-  /**
-   * Called when non-native date input is changed.
-   */
-  onChange = (event) => {
-    const { name, value } = event.target;
-
-    switch (name) {
-      case 'hour12': {
-        this.setState(
-          (prevState) => ({
-            hour: value ? convert12to24(parseInt(value, 10), prevState.amPm).toString() : '',
-          }),
-          this.onChangeExternal,
-        );
-        break;
-      }
-      case 'hour24': {
-        this.setState({ hour: value }, this.onChangeExternal);
-        break;
-      }
-      default: {
-        this.setState({ [name]: value }, this.onChangeExternal);
-      }
-    }
-  };
-
-  /**
-   * Called when native date input is changed.
-   */
-  onChangeNative = (event) => {
-    const { onChange } = this.props;
-    const { value } = event.target;
-
-    if (!onChange) {
-      return;
-    }
-
-    const processedValue = (() => {
-      if (!value) {
-        return null;
-      }
-
-      return value;
-    })();
-
-    onChange(processedValue, false);
-  };
-
-  onChangeAmPm = (event) => {
-    const { value } = event.target;
-
-    this.setState({ amPm: value }, this.onChangeExternal);
-  };
+  }
 
   /**
    * Called after internal onChange. Checks input validity. If all fields are valid,
    * calls props.onChange.
    */
-  onChangeExternal = () => {
-    const { onChange } = this.props;
-
-    if (!onChange) {
+  function onChangeExternal() {
+    if (!onChangeProps) {
       return;
     }
 
     const formElements = [
-      this.amPmInput.current,
-      this.hour12Input.current,
-      this.hour24Input.current,
-      this.minuteInput.current,
-      this.secondInput.current,
+      amPmInput.current,
+      hour12Input.current,
+      hour24Input.current,
+      minuteInput.current,
+      secondInput.current,
     ].filter(Boolean);
 
     const formElementsWithoutSelect = formElements.slice(1);
@@ -410,7 +291,7 @@ export default class TimeInput extends PureComponent {
     });
 
     if (formElementsWithoutSelect.every((formElement) => !formElement.value)) {
-      onChange(null, false);
+      onChangeProps(null, false);
     } else if (
       formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
@@ -419,24 +300,69 @@ export default class TimeInput extends PureComponent {
       const second = values.second || 0;
 
       const padStart = (num) => `0${num}`.slice(-2);
+
       const proposedValue = `${padStart(hour)}:${padStart(minute)}:${padStart(second)}`;
-      const processedValue = this.getProcessedValue(proposedValue);
-      onChange(processedValue, false);
+
+      const processedValue = getProcessedValue(proposedValue);
+      onChangeProps(processedValue, false);
     }
+  }
+
+  /**
+   * Called when non-native date input is changed.
+   */
+  function onChange(event) {
+    const { name, value } = event.target;
+
+    switch (name) {
+      case 'amPm':
+        setAmPm(value);
+        break;
+      case 'hour12':
+        setHour(value ? convert12to24(parseInt(value, 10), amPm).toString() : '');
+        break;
+      case 'hour24':
+        setHour(value);
+        break;
+      case 'minute':
+        setMinute(value);
+        break;
+      case 'second':
+        setSecond(value);
+        break;
+    }
+
+    onChangeExternal();
+  }
+
+  /**
+   * Called when native date input is changed.
+   */
+  function onChangeNative(event) {
+    const { value } = event.target;
+
+    if (!onChangeProps) {
+      return;
+    }
+
+    const processedValue = value || null;
+
+    onChangeProps(processedValue, false);
+  }
+
+  const commonInputProps = {
+    className,
+    disabled,
+    maxTime,
+    minTime,
+    onChange,
+    onKeyDown,
+    onKeyUp,
+    // This is only for showing validity when editing
+    required: required || isClockOpen,
   };
 
-  renderHour = (currentMatch, index) => {
-    if (/h/.test(currentMatch)) {
-      return this.renderHour12(currentMatch, index);
-    }
-
-    return this.renderHour24(currentMatch, index);
-  };
-
-  renderHour12 = (currentMatch, index) => {
-    const { autoFocus, hourAriaLabel, hourPlaceholder } = this.props;
-    const { amPm, hour } = this.state;
-
+  function renderHour12(currentMatch, index) {
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
@@ -446,23 +372,20 @@ export default class TimeInput extends PureComponent {
     return (
       <Hour12Input
         key="hour12"
-        {...this.commonInputProps}
+        {...commonInputProps}
         amPm={amPm}
         ariaLabel={hourAriaLabel}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
-        inputRef={this.hour12Input}
+        inputRef={hour12Input}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
       />
     );
-  };
+  }
 
-  renderHour24 = (currentMatch, index) => {
-    const { autoFocus, hourAriaLabel, hourPlaceholder } = this.props;
-    const { hour } = this.state;
-
+  function renderHour24(currentMatch, index) {
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
@@ -472,22 +395,27 @@ export default class TimeInput extends PureComponent {
     return (
       <Hour24Input
         key="hour24"
-        {...this.commonInputProps}
+        {...commonInputProps}
         ariaLabel={hourAriaLabel}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
-        inputRef={this.hour24Input}
+        inputRef={hour24Input}
         placeholder={hourPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={hour}
       />
     );
-  };
+  }
 
-  renderMinute = (currentMatch, index) => {
-    const { autoFocus, minuteAriaLabel, minutePlaceholder } = this.props;
-    const { hour, minute } = this.state;
+  function renderHour(currentMatch, index) {
+    if (/h/.test(currentMatch)) {
+      return renderHour12(currentMatch, index);
+    }
 
+    return renderHour24(currentMatch, index);
+  }
+
+  function renderMinute(currentMatch, index) {
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
@@ -497,23 +425,20 @@ export default class TimeInput extends PureComponent {
     return (
       <MinuteInput
         key="minute"
-        {...this.commonInputProps}
+        {...commonInputProps}
         ariaLabel={minuteAriaLabel}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         hour={hour}
-        inputRef={this.minuteInput}
+        inputRef={minuteInput}
         placeholder={minutePlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={minute}
       />
     );
-  };
+  }
 
-  renderSecond = (currentMatch, index) => {
-    const { autoFocus, secondAriaLabel, secondPlaceholder } = this.props;
-    const { hour, minute, second } = this.state;
-
+  function renderSecond(currentMatch, index) {
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
@@ -523,58 +448,50 @@ export default class TimeInput extends PureComponent {
     return (
       <SecondInput
         key="second"
-        {...this.commonInputProps}
+        {...commonInputProps}
         ariaLabel={secondAriaLabel}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         hour={hour}
-        inputRef={this.secondInput}
+        inputRef={secondInput}
         minute={minute}
         placeholder={secondPlaceholder}
         showLeadingZeros={showLeadingZeros}
         value={second}
       />
     );
-  };
+  }
 
-  renderAmPm = (currentMatch, index) => {
-    const { amPmAriaLabel, autoFocus, locale } = this.props;
-    const { amPm } = this.state;
-
+  function renderAmPm(currentMatch, index) {
     return (
       <AmPm
         key="ampm"
-        {...this.commonInputProps}
+        {...commonInputProps}
         ariaLabel={amPmAriaLabel}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
-        inputRef={this.amPmInput}
+        inputRef={amPmInput}
         locale={locale}
-        onChange={this.onChangeAmPm}
+        onChange={onChange}
         value={amPm}
       />
     );
-  };
+  }
 
-  renderCustomInputs() {
-    const { placeholder } = this;
-    const { format } = this.props;
-
+  function renderCustomInputsInternal() {
     const elementFunctions = {
-      h: this.renderHour,
-      H: this.renderHour,
-      m: this.renderMinute,
-      s: this.renderSecond,
-      a: this.renderAmPm,
+      h: renderHour,
+      H: renderHour,
+      m: renderMinute,
+      s: renderSecond,
+      a: renderAmPm,
     };
 
     const allowMultipleInstances = typeof format !== 'undefined';
     return renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances);
   }
 
-  renderNativeInput() {
-    const { disabled, maxTime, minTime, name, nativeInputAriaLabel, required, value } = this.props;
-
+  function renderNativeInput() {
     return (
       <NativeInput
         key="time"
@@ -583,23 +500,48 @@ export default class TimeInput extends PureComponent {
         maxTime={maxTime}
         minTime={minTime}
         name={name}
-        onChange={this.onChangeNative}
+        onChange={onChangeNative}
         required={required}
         value={value}
-        valueType={this.valueType}
+        valueType={valueType}
       />
     );
   }
 
-  render() {
-    const { className } = this.props;
-
-    return (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-      <div className={className} onClick={this.onClick}>
-        {this.renderNativeInput()}
-        {this.renderCustomInputs()}
-      </div>
-    );
-  }
+  return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    <div className={className} onClick={onClick}>
+      {renderNativeInput()}
+      {renderCustomInputsInternal()}
+    </div>
+  );
 }
+
+TimeInput.defaultProps = {
+  maxDetail: 'minute',
+  name: 'time',
+};
+
+TimeInput.propTypes = {
+  amPmAriaLabel: PropTypes.string,
+  autoFocus: PropTypes.bool,
+  className: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  format: PropTypes.string,
+  hourAriaLabel: PropTypes.string,
+  hourPlaceholder: PropTypes.string,
+  isClockOpen: PropTypes.bool,
+  locale: PropTypes.string,
+  maxDetail: PropTypes.oneOf(allViews),
+  maxTime: isTime,
+  minTime: isTime,
+  minuteAriaLabel: PropTypes.string,
+  minutePlaceholder: PropTypes.string,
+  name: PropTypes.string,
+  nativeInputAriaLabel: PropTypes.string,
+  onChange: PropTypes.func,
+  required: PropTypes.bool,
+  secondAriaLabel: PropTypes.string,
+  secondPlaceholder: PropTypes.string,
+  value: PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]),
+};
