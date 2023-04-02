@@ -454,7 +454,7 @@ describe('TimeInput', () => {
 
     const customInputs = container.querySelectorAll('input[data-input]');
 
-    fireEvent.change(customInputs[0], { target: { value: '20' } });
+    fireEvent.change(customInputs[0], { target: { value: '8' } });
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith('20:17:00', false);
