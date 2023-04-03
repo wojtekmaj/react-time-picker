@@ -2,18 +2,18 @@ import { describe, expect, it } from 'vitest';
 import React, { createRef } from 'react';
 import { render } from '@testing-library/react';
 
-import SecondInput from './SecondInput';
+import MinuteInput from './MinuteInput';
 
-describe('SecondInput', () => {
+describe('MinuteInput', () => {
   const defaultProps = {
     className: 'className',
     onChange: () => {
       // Intentionally empty
     },
-  };
+  } satisfies React.ComponentProps<typeof MinuteInput>;
 
   it('renders an input', () => {
-    const { container } = render(<SecondInput {...defaultProps} />);
+    const { container } = render(<MinuteInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
@@ -21,36 +21,27 @@ describe('SecondInput', () => {
   });
 
   it('applies given aria-label properly', () => {
-    const secondAriaLabel = 'Second';
+    const minuteAriaLabel = 'Minute';
 
-    const { container } = render(<SecondInput {...defaultProps} ariaLabel={secondAriaLabel} />);
+    const { container } = render(<MinuteInput {...defaultProps} ariaLabel={minuteAriaLabel} />);
 
     const input = container.querySelector('input');
 
-    expect(input).toHaveAttribute('aria-label', secondAriaLabel);
+    expect(input).toHaveAttribute('aria-label', minuteAriaLabel);
   });
 
   it('applies given placeholder properly', () => {
-    const secondPlaceholder = 'ss';
+    const minutePlaceholder = 'mm';
 
-    const { container } = render(<SecondInput {...defaultProps} placeholder={secondPlaceholder} />);
-
-    const input = container.querySelector('input');
-
-    expect(input).toHaveAttribute('placeholder', secondPlaceholder);
-  });
-
-  it('renders "0" if second is <10', () => {
-    const { container } = render(<SecondInput {...defaultProps} value="9" />);
+    const { container } = render(<MinuteInput {...defaultProps} placeholder={minutePlaceholder} />);
 
     const input = container.querySelector('input');
 
-    expect(container).toHaveTextContent('0');
-    expect(input).toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
+    expect(input).toHaveAttribute('placeholder', minutePlaceholder);
   });
 
-  it('renders "0" given showLeadingZeros if second is 0', () => {
-    const { container } = render(<SecondInput {...defaultProps} showLeadingZeros value="0" />);
+  it('renders "0" if minute is <10', () => {
+    const { container } = render(<MinuteInput {...defaultProps} value="9" />);
 
     const input = container.querySelector('input');
 
@@ -58,8 +49,17 @@ describe('SecondInput', () => {
     expect(input).toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
-  it('does not render "0" given showLeadingZeros if second is <10 with leading zero already', () => {
-    const { container } = render(<SecondInput {...defaultProps} showLeadingZeros value="09" />);
+  it('renders "0" given showLeadingZeros if minute is 0', () => {
+    const { container } = render(<MinuteInput {...defaultProps} showLeadingZeros value="0" />);
+
+    const input = container.querySelector('input');
+
+    expect(container).toHaveTextContent('0');
+    expect(input).toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
+  });
+
+  it('does not render "0" given showLeadingZeros if minute is <10 with leading zero already', () => {
+    const { container } = render(<MinuteInput {...defaultProps} showLeadingZeros value="09" />);
 
     const input = container.querySelector('input');
 
@@ -67,8 +67,8 @@ describe('SecondInput', () => {
     expect(input).not.toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
-  it('does not render "0" if second is >=10', () => {
-    const { container } = render(<SecondInput {...defaultProps} value="10" />);
+  it('does not render "0" if minute is >=10', () => {
+    const { container } = render(<MinuteInput {...defaultProps} value="10" />);
 
     const input = container.querySelector('input');
 
@@ -77,28 +77,28 @@ describe('SecondInput', () => {
   });
 
   it('has proper name defined', () => {
-    const { container } = render(<SecondInput {...defaultProps} />);
+    const { container } = render(<MinuteInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
-    expect(input).toHaveAttribute('name', 'second');
+    expect(input).toHaveAttribute('name', 'minute');
   });
 
   it('has proper className defined', () => {
     const className = 'react-time-picker';
 
-    const { container } = render(<SecondInput {...defaultProps} className={className} />);
+    const { container } = render(<MinuteInput {...defaultProps} className={className} />);
 
     const input = container.querySelector('input');
 
     expect(input).toHaveClass('react-time-picker__input');
-    expect(input).toHaveClass('react-time-picker__second');
+    expect(input).toHaveClass('react-time-picker__minute');
   });
 
   it('displays given value properly', () => {
     const value = '11';
 
-    const { container } = render(<SecondInput {...defaultProps} value={value} />);
+    const { container } = render(<MinuteInput {...defaultProps} value={value} />);
 
     const input = container.querySelector('input');
 
@@ -106,7 +106,7 @@ describe('SecondInput', () => {
   });
 
   it('does not disable input by default', () => {
-    const { container } = render(<SecondInput {...defaultProps} />);
+    const { container } = render(<MinuteInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
@@ -114,7 +114,7 @@ describe('SecondInput', () => {
   });
 
   it('disables input given disabled flag', () => {
-    const { container } = render(<SecondInput {...defaultProps} disabled />);
+    const { container } = render(<MinuteInput {...defaultProps} disabled />);
 
     const input = container.querySelector('input');
 
@@ -122,7 +122,7 @@ describe('SecondInput', () => {
   });
 
   it('is not required input by default', () => {
-    const { container } = render(<SecondInput {...defaultProps} />);
+    const { container } = render(<MinuteInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
@@ -130,7 +130,7 @@ describe('SecondInput', () => {
   });
 
   it('required input given required flag', () => {
-    const { container } = render(<SecondInput {...defaultProps} required />);
+    const { container } = render(<MinuteInput {...defaultProps} required />);
 
     const input = container.querySelector('input');
 
@@ -138,66 +138,58 @@ describe('SecondInput', () => {
   });
 
   it('handles inputRef properly', () => {
-    const inputRef = createRef();
+    const inputRef = createRef<HTMLInputElement>();
 
-    render(<SecondInput {...defaultProps} inputRef={inputRef} />);
+    render(<MinuteInput {...defaultProps} inputRef={inputRef} />);
 
     expect(inputRef.current).toBeInstanceOf(HTMLInputElement);
   });
 
   it('has min = "0" by default', () => {
-    const { container } = render(<SecondInput {...defaultProps} />);
+    const { container } = render(<MinuteInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
     expect(input).toHaveAttribute('min', '0');
   });
 
-  it('has min = "0" given minDate in a past minute', () => {
-    const { container } = render(
-      <SecondInput {...defaultProps} hour="22" minTime="21:40:15" minute="40" />,
-    );
+  it('has min = "0" given minTime in a past hour', () => {
+    const { container } = render(<MinuteInput {...defaultProps} hour="22" minTime="21:40" />);
 
     const input = container.querySelector('input');
 
     expect(input).toHaveAttribute('min', '0');
   });
 
-  it('has min = (second in minTime) given minTime in a current minute', () => {
-    const { container } = render(
-      <SecondInput {...defaultProps} hour="22" minTime="22:40:15" minute="40" />,
-    );
+  it('has min = (minute in minTime) given minTime in a current hour', () => {
+    const { container } = render(<MinuteInput {...defaultProps} hour="22" minTime="22:40" />);
 
     const input = container.querySelector('input');
 
-    expect(input).toHaveAttribute('min', '15');
+    expect(input).toHaveAttribute('min', '40');
   });
 
   it('has max = "59" by default', () => {
-    const { container } = render(<SecondInput {...defaultProps} />);
+    const { container } = render(<MinuteInput {...defaultProps} />);
 
     const input = container.querySelector('input');
 
     expect(input).toHaveAttribute('max', '59');
   });
 
-  it('has max = "59" given maxTime in a future minute', () => {
-    const { container } = render(
-      <SecondInput {...defaultProps} hour="22" maxTime="23:40:15" minute="40" />,
-    );
+  it('has max = "59" given maxTime in a future hour', () => {
+    const { container } = render(<MinuteInput {...defaultProps} hour="22" maxTime="23:40" />);
 
     const input = container.querySelector('input');
 
     expect(input).toHaveAttribute('max', '59');
   });
 
-  it('has max = (second in maxHour) given maxTime in a current minute', () => {
-    const { container } = render(
-      <SecondInput {...defaultProps} hour="22" maxTime="22:40:15" minute="40" />,
-    );
+  it('has max = (minute in maxHour) given maxTime in a current hour', () => {
+    const { container } = render(<MinuteInput {...defaultProps} hour="22" maxTime="22:40" />);
 
     const input = container.querySelector('input');
 
-    expect(input).toHaveAttribute('max', '15');
+    expect(input).toHaveAttribute('max', '40');
   });
 });

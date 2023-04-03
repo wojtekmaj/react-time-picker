@@ -11,7 +11,7 @@ describe('Hour12Input', () => {
     onChange: () => {
       // Intentionally empty
     },
-  };
+  } satisfies React.ComponentProps<typeof Hour12Input>;
 
   it('renders an input', () => {
     const { container } = render(<Hour12Input {...defaultProps} />);
@@ -104,7 +104,7 @@ describe('Hour12Input', () => {
 
     const input = container.querySelector('input');
 
-    expect(input).toHaveValue(value - 12);
+    expect(input).toHaveValue(Number(value) - 12);
   });
 
   it('does not disable input by default', () => {
@@ -140,7 +140,7 @@ describe('Hour12Input', () => {
   });
 
   it('handles inputRef properly', () => {
-    const inputRef = createRef();
+    const inputRef = createRef<HTMLInputElement>();
 
     render(<Hour12Input {...defaultProps} inputRef={inputRef} />);
 

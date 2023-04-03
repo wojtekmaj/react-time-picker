@@ -21,30 +21,41 @@ import { convert12to24, convert24to12 } from './shared/dates';
 import { isTime } from './shared/propTypes';
 import { getAmPmLabels } from './shared/utils';
 
-const getFormatterOptionsCache = {};
+import type { AmPmType, Detail } from './shared/types';
 
-const allViews = ['hour', 'minute', 'second'];
+const getFormatterOptionsCache: Record<string, Intl.DateTimeFormatOptions> = {};
 
-function isInternalInput(element) {
+const allViews = ['hour', 'minute', 'second'] as const;
+
+function isInternalInput(element: HTMLElement) {
   return element.dataset.input === 'true';
 }
 
-function findInput(element, property) {
-  let nextElement = element;
+function findInput(
+  element: HTMLElement,
+  property: 'previousElementSibling' | 'nextElementSibling',
+) {
+  let nextElement: HTMLElement | null = element;
   do {
-    nextElement = nextElement[property];
+    nextElement = nextElement[property] as HTMLElement | null;
   } while (nextElement && !isInternalInput(nextElement));
   return nextElement;
 }
 
-function focus(element) {
+function focus(element?: HTMLElement | null) {
   if (element) {
     element.focus();
   }
 }
 
-function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstances) {
-  const usedFunctions = [];
+type RenderFunction = (match: string, index: number) => React.ReactNode;
+
+function renderCustomInputs(
+  placeholder: string,
+  elementFunctions: Record<string, RenderFunction>,
+  allowMultipleInstances: boolean,
+) {
+  const usedFunctions: RenderFunction[] = [];
   const pattern = new RegExp(
     Object.keys(elementFunctions)
       .map((el) => `${el}+`)
@@ -53,7 +64,7 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
   );
   const matches = placeholder.match(pattern);
 
-  return placeholder.split(pattern).reduce((arr, element, index) => {
+  return placeholder.split(pattern).reduce<React.ReactNode[]>((arr, element, index) => {
     const divider = element && (
       // eslint-disable-next-line react/no-array-index-key
       <Divider key={`separator_${index}`}>{element}</Divider>
@@ -67,7 +78,7 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
         elementFunctions[
           Object.keys(elementFunctions).find((elementFunction) =>
             currentMatch.match(elementFunction),
-          )
+          ) as string
         ];
 
       if (!renderFunction) {
@@ -87,6 +98,30 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
 }
 
 const formatNumber = getNumberFormatter({ useGrouping: false });
+
+type TimeInputProps = {
+  amPmAriaLabel?: string;
+  autoFocus?: boolean;
+  className: string;
+  disabled?: boolean;
+  format?: string;
+  hourAriaLabel?: string;
+  hourPlaceholder?: string;
+  isClockOpen?: boolean | null;
+  locale?: string;
+  maxDetail?: Detail;
+  maxTime?: string;
+  minTime?: string;
+  minuteAriaLabel?: string;
+  minutePlaceholder?: string;
+  name?: string;
+  nativeInputAriaLabel?: string;
+  onChange?: (value: string | null, shouldCloseClock: boolean) => void;
+  required?: boolean;
+  secondAriaLabel?: string;
+  secondPlaceholder?: string;
+  value?: string | Date | null;
+};
 
 export default function TimeInput({
   amPmAriaLabel,
@@ -110,17 +145,17 @@ export default function TimeInput({
   secondAriaLabel,
   secondPlaceholder,
   value: valueProps,
-}) {
-  const [amPm, setAmPm] = useState(null);
-  const [hour, setHour] = useState(null);
-  const [minute, setMinute] = useState(null);
-  const [second, setSecond] = useState(null);
-  const [value, setValue] = useState(null);
-  const amPmInput = useRef();
-  const hour12Input = useRef();
-  const hour24Input = useRef();
-  const minuteInput = useRef();
-  const secondInput = useRef();
+}: TimeInputProps) {
+  const [amPm, setAmPm] = useState<AmPmType | null>(null);
+  const [hour, setHour] = useState<string | null>(null);
+  const [minute, setMinute] = useState<string | null>(null);
+  const [second, setSecond] = useState<string | null>(null);
+  const [value, setValue] = useState<string | Date | null>(null);
+  const amPmInput = useRef<HTMLSelectElement>(null);
+  const hour12Input = useRef<HTMLInputElement>(null);
+  const hour24Input = useRef<HTMLInputElement>(null);
+  const minuteInput = useRef<HTMLInputElement>(null);
+  const secondInput = useRef<HTMLInputElement>(null);
   const [isClockOpen, setIsClockOpen] = useState(isClockOpenProps);
 
   useEffect(() => {
@@ -135,13 +170,14 @@ export default function TimeInput({
       setHour(getHours(nextValue).toString());
       setMinute(getMinutes(nextValue).toString());
       setSecond(getSeconds(nextValue).toString());
+      setValue(nextValue);
     } else {
       setAmPm(null);
       setHour(null);
       setMinute(null);
       setSecond(null);
+      setValue(null);
     }
-    setValue(nextValue);
   }, [
     valueProps,
     minTime,
@@ -158,7 +194,7 @@ export default function TimeInput({
     const formatterOptions =
       getFormatterOptionsCache[level] ||
       (() => {
-        const options = { hour: 'numeric' };
+        const options: Intl.DateTimeFormatOptions = { hour: 'numeric' };
         if (level >= 1) {
           options.minute = 'numeric';
         }
@@ -177,7 +213,7 @@ export default function TimeInput({
   /**
    * Gets current value in a desired format.
    */
-  function getProcessedValue(value) {
+  function getProcessedValue(value: string) {
     const processFunction = (() => {
       switch (valueType) {
         case 'hour':
@@ -215,15 +251,19 @@ export default function TimeInput({
     return dividers ? dividers[0] : null;
   })();
 
-  function onClick(event) {
+  function onClick(event: React.MouseEvent<HTMLDivElement> & { target: HTMLDivElement }) {
     if (event.target === event.currentTarget) {
       // Wrapper was directly clicked
-      const firstInput = event.target.children[1];
+      const firstInput = event.target.children[1] as HTMLInputElement;
       focus(firstInput);
     }
   }
 
-  function onKeyDown(event) {
+  function onKeyDown(
+    event:
+      | (React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement })
+      | (React.KeyboardEvent<HTMLSelectElement> & { target: HTMLSelectElement }),
+  ) {
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowRight':
@@ -241,7 +281,7 @@ export default function TimeInput({
     }
   }
 
-  function onKeyUp(event) {
+  function onKeyUp(event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement }) {
     const { key, target: input } = event;
 
     const isNumberKey = !isNaN(Number(key));
@@ -280,17 +320,25 @@ export default function TimeInput({
       return;
     }
 
+    type NonFalsy<T> = T extends false | 0 | '' | null | undefined | 0n ? never : T;
+
+    function filterBoolean<T>(value: T): value is NonFalsy<typeof value> {
+      return Boolean(value);
+    }
+
     const formElements = [
       amPmInput.current,
       hour12Input.current,
       hour24Input.current,
       minuteInput.current,
       secondInput.current,
-    ].filter(Boolean);
+    ].filter(filterBoolean);
 
     const formElementsWithoutSelect = formElements.slice(1);
 
-    const values = {};
+    const values: Record<string, string | number> & {
+      amPm?: AmPmType;
+    } = {};
     formElements.forEach((formElement) => {
       values[formElement.name] =
         formElement.type === 'number'
@@ -305,11 +353,15 @@ export default function TimeInput({
     } else if (
       formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
-      const hour = Number(values.hour24 || convert12to24(values.hour12, values.amPm) || 0);
+      const hour = Number(
+        values.hour24 ||
+          (values.hour12 && values.amPm && convert12to24(values.hour12, values.amPm)) ||
+          0,
+      );
       const minute = Number(values.minute || 0);
       const second = Number(values.second || 0);
 
-      const padStart = (num) => `0${num}`.slice(-2);
+      const padStart = (num: string | number) => `0${num}`.slice(-2);
 
       const proposedValue = `${padStart(hour)}:${padStart(minute)}:${padStart(second)}`;
 
@@ -321,15 +373,15 @@ export default function TimeInput({
   /**
    * Called when non-native date input is changed.
    */
-  function onChange(event) {
+  function onChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = event.target;
 
     switch (name) {
       case 'amPm':
-        setAmPm(value);
+        setAmPm(value as AmPmType);
         break;
       case 'hour12':
-        setHour(value ? convert12to24(Number(value), amPm).toString() : '');
+        setHour(value ? convert12to24(value, amPm || 'am').toString() : '');
         break;
       case 'hour24':
         setHour(value);
@@ -348,7 +400,7 @@ export default function TimeInput({
   /**
    * Called when native date input is changed.
    */
-  function onChangeNative(event) {
+  function onChangeNative(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
 
     if (!onChangeProps) {
@@ -372,12 +424,12 @@ export default function TimeInput({
     required: Boolean(required || isClockOpen),
   };
 
-  function renderHour12(currentMatch, index) {
+  function renderHour12(currentMatch: string, index: number) {
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
 
-    const showLeadingZeros = currentMatch && currentMatch.length === 2;
+    const showLeadingZeros = currentMatch ? currentMatch.length === 2 : false;
 
     return (
       <Hour12Input
@@ -395,12 +447,12 @@ export default function TimeInput({
     );
   }
 
-  function renderHour24(currentMatch, index) {
+  function renderHour24(currentMatch: string, index: number) {
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
 
-    const showLeadingZeros = currentMatch && currentMatch.length === 2;
+    const showLeadingZeros = currentMatch ? currentMatch.length === 2 : false;
 
     return (
       <Hour24Input
@@ -417,7 +469,7 @@ export default function TimeInput({
     );
   }
 
-  function renderHour(currentMatch, index) {
+  function renderHour(currentMatch: string, index: number) {
     if (/h/.test(currentMatch)) {
       return renderHour12(currentMatch, index);
     }
@@ -425,12 +477,12 @@ export default function TimeInput({
     return renderHour24(currentMatch, index);
   }
 
-  function renderMinute(currentMatch, index) {
+  function renderMinute(currentMatch: string, index: number) {
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
 
-    const showLeadingZeros = currentMatch && currentMatch.length === 2;
+    const showLeadingZeros = currentMatch ? currentMatch.length === 2 : false;
 
     return (
       <MinuteInput
@@ -448,7 +500,7 @@ export default function TimeInput({
     );
   }
 
-  function renderSecond(currentMatch, index) {
+  function renderSecond(currentMatch: string, index: number) {
     if (currentMatch && currentMatch.length > 2) {
       throw new Error(`Unsupported token: ${currentMatch}`);
     }
@@ -472,7 +524,7 @@ export default function TimeInput({
     );
   }
 
-  function renderAmPm(currentMatch, index) {
+  function renderAmPm(currentMatch: string, index: number) {
     return (
       <AmPm
         key="ampm"

@@ -10,9 +10,11 @@ import TimeInput from './TimeInput';
 
 import { isTime } from './shared/propTypes';
 
+import type { ClassName, Detail, LooseValue } from './shared/types';
+
 const baseClassName = 'react-time-picker';
-const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'];
-const allViews = ['hour', 'minute', 'second'];
+const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
+const allViews = ['hour', 'minute', 'second'] as const;
 
 const iconProps = {
   xmlns: 'http://www.w3.org/2000/svg',
@@ -44,7 +46,49 @@ const ClearIcon = (
   </svg>
 );
 
-export default function TimePicker(props) {
+type Icon = React.ReactElement | string;
+
+type IconOrRenderFunction = Icon | React.ComponentType | React.ReactElement;
+
+type TimePickerProps = {
+  amPmAriaLabel?: string;
+  autoFocus?: boolean;
+  className?: ClassName;
+  clearAriaLabel?: string;
+  clearIcon?: IconOrRenderFunction;
+  clockAriaLabel?: string;
+  clockClassName?: ClassName;
+  clockIcon?: IconOrRenderFunction;
+  closeClock?: boolean;
+  'data-testid'?: string;
+  disableClock?: boolean;
+  disabled?: boolean;
+  format?: string;
+  hourAriaLabel?: string;
+  hourPlaceholder?: string;
+  id?: string;
+  isOpen?: boolean;
+  locale?: string;
+  maxDetail?: Detail;
+  maxTime?: string;
+  minTime?: string;
+  minuteAriaLabel?: string;
+  minutePlaceholder?: string;
+  name?: string;
+  nativeInputAriaLabel?: string;
+  onChange?: (value: string | null) => void;
+  onClockClose?: () => void;
+  onClockOpen?: () => void;
+  onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
+  openClockOnFocus?: boolean;
+  portalContainer?: HTMLElement;
+  required?: boolean;
+  secondAriaLabel?: string;
+  secondPlaceholder?: string;
+  value?: LooseValue;
+};
+
+export default function TimePicker(props: TimePickerProps) {
   const {
     amPmAriaLabel,
     autoFocus,
@@ -82,9 +126,9 @@ export default function TimePicker(props) {
     ...otherProps
   } = props;
 
-  const [isOpen, setIsOpen] = useState(isOpenProps);
-  const wrapper = useRef();
-  const clockWrapper = useRef();
+  const [isOpen, setIsOpen] = useState<boolean | null>(isOpenProps);
+  const wrapper = useRef<HTMLDivElement>(null);
+  const clockWrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsOpen(isOpenProps);
@@ -114,7 +158,7 @@ export default function TimePicker(props) {
     }
   }
 
-  function onChange(value, shouldCloseClock = shouldCloseClockProps) {
+  function onChange(value: string | null, shouldCloseClock: boolean = shouldCloseClockProps) {
     if (shouldCloseClock) {
       closeClock();
     }
@@ -124,7 +168,7 @@ export default function TimePicker(props) {
     }
   }
 
-  function onFocus(event) {
+  function onFocus(event: React.FocusEvent<HTMLInputElement>) {
     if (onFocusProps) {
       onFocusProps(event);
     }
@@ -143,7 +187,7 @@ export default function TimePicker(props) {
   }
 
   const onKeyDown = useCallback(
-    (event) => {
+    (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         closeClock();
       }
@@ -155,17 +199,19 @@ export default function TimePicker(props) {
     onChange(null);
   }
 
-  function stopPropagation(event) {
+  function stopPropagation(event: React.FocusEvent) {
     event.stopPropagation();
   }
 
   const onOutsideAction = useCallback(
-    (event) => {
+    (event: Event) => {
       const { current: wrapperEl } = wrapper;
       const { current: clockWrapperEl } = clockWrapper;
 
       // Try event.composedPath first to handle clicks inside a Shadow DOM.
-      const target = 'composedPath' in event ? event.composedPath()[0] : event.target;
+      const target = (
+        'composedPath' in event ? event.composedPath()[0] : (event as Event).target
+      ) as HTMLElement;
 
       if (
         target &&
@@ -181,13 +227,19 @@ export default function TimePicker(props) {
 
   const handleOutsideActionListeners = useCallback(
     (shouldListen = isOpen) => {
-      const action = shouldListen ? 'addEventListener' : 'removeEventListener';
-
       outsideActionEvents.forEach((event) => {
-        document[action](event, onOutsideAction);
+        if (shouldListen) {
+          document.addEventListener(event, onOutsideAction);
+        } else {
+          document.removeEventListener(event, onOutsideAction);
+        }
       });
 
-      document[action]('keydown', onKeyDown);
+      if (shouldListen) {
+        document.addEventListener('keydown', onKeyDown);
+      } else {
+        document.removeEventListener('keydown', onKeyDown);
+      }
     },
     [isOpen, onOutsideAction, onKeyDown],
   );
@@ -201,7 +253,7 @@ export default function TimePicker(props) {
   }, [handleOutsideActionListeners]);
 
   function renderInputs() {
-    const [valueFrom] = [].concat(value);
+    const [valueFrom] = Array.isArray(value) ? value : [value];
 
     const ariaLabelProps = {
       amPmAriaLabel,
@@ -282,7 +334,9 @@ export default function TimePicker(props) {
     const className = `${baseClassName}__clock`;
     const classNames = clsx(className, `${className}--${isOpen ? 'open' : 'closed'}`);
 
-    const clock = <Clock className={clockClassName} value={value} {...clockProps} />;
+    const [valueFrom] = Array.isArray(value) ? value : [value];
+
+    const clock = <Clock className={clockClassName} value={valueFrom} {...clockProps} />;
 
     return portalContainer ? (
       createPortal(

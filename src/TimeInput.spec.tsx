@@ -26,7 +26,7 @@ describe('TimeInput', () => {
     className: 'react-time-picker__inputGroup',
   };
 
-  let user;
+  let user: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {
     user = userEvent.setup({
       advanceTimers: vi.advanceTimersByTime.bind(vi),
@@ -314,7 +314,7 @@ describe('TimeInput', () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0];
+    const hourInput = customInputs[0] as HTMLInputElement;
     const minuteInput = customInputs[1];
 
     await user.type(hourInput, '{arrowright}');
@@ -326,11 +326,13 @@ describe('TimeInput', () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0];
+    const hourInput = customInputs[0] as HTMLInputElement;
     const minuteInput = customInputs[1];
 
-    const separator = container.querySelector('.react-time-picker__inputGroup__divider');
-    const separatorKey = separator.textContent;
+    const separator = container.querySelector(
+      '.react-time-picker__inputGroup__divider',
+    ) as HTMLSpanElement;
+    const separatorKey = separator.textContent as string;
 
     await user.type(hourInput, separatorKey);
 
@@ -340,7 +342,7 @@ describe('TimeInput', () => {
   it('does not jump to the next field when right arrow is pressed when the last input is focused', async () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
 
     await user.type(select, '{arrowright}');
 
@@ -352,7 +354,7 @@ describe('TimeInput', () => {
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
-    const minuteInput = customInputs[1];
+    const minuteInput = customInputs[1] as HTMLInputElement;
 
     await user.type(minuteInput, '{arrowleft}');
 
@@ -363,7 +365,7 @@ describe('TimeInput', () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0];
+    const hourInput = customInputs[0] as HTMLInputElement;
 
     await user.type(hourInput, '{arrowleft}');
 
@@ -374,7 +376,7 @@ describe('TimeInput', () => {
     const { container } = render(<TimeInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0];
+    const hourInput = customInputs[0] as HTMLInputElement;
     const minuteInput = customInputs[1];
 
     await user.type(hourInput, '4');
@@ -386,7 +388,7 @@ describe('TimeInput', () => {
     const { container } = render(<TimeInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0];
+    const hourInput = customInputs[0] as HTMLInputElement;
     const minuteInput = customInputs[1];
 
     await user.type(hourInput, '03');
@@ -398,7 +400,7 @@ describe('TimeInput', () => {
     const { container } = render(<TimeInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0];
+    const hourInput = customInputs[0] as HTMLInputElement;
 
     await user.type(hourInput, '1');
 
@@ -414,8 +416,9 @@ describe('TimeInput', () => {
     );
 
     const customInputs = container.querySelectorAll('input[data-input]');
+    const hourInput = customInputs[0] as HTMLInputElement;
 
-    fireEvent.change(customInputs[0], { target: { value: '8' } });
+    fireEvent.change(hourInput, { target: { value: '8' } });
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith('20:17:00', false);
@@ -447,7 +450,7 @@ describe('TimeInput', () => {
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
     );
 
-    const nativeInput = container.querySelector('input[type="time"]');
+    const nativeInput = container.querySelector('input[type="time"]') as HTMLInputElement;
 
     fireEvent.change(nativeInput, { target: { value: '20:17:00' } });
 
@@ -463,7 +466,7 @@ describe('TimeInput', () => {
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
     );
 
-    const nativeInput = container.querySelector('input[type="time"]');
+    const nativeInput = container.querySelector('input[type="time"]') as HTMLInputElement;
 
     fireEvent.change(nativeInput, { target: { value: '' } });
 

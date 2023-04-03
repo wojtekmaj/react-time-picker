@@ -1,39 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getHours, getMinutes, getSeconds } from '@wojtekmaj/date-utils';
+import { getHours, getMinutes } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
 import { isRef, isTime } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
-export default function SecondInput({
+type MinuteInputProps = {
+  hour?: string | null;
+  maxTime?: string;
+  minTime?: string;
+  showLeadingZeros?: boolean;
+} & Omit<React.ComponentProps<typeof Input>, 'max' | 'min' | 'name'>;
+
+export default function MinuteInput({
   hour,
   maxTime,
   minTime,
-  minute,
   showLeadingZeros = true,
   ...otherProps
-}) {
-  function isSameMinute(date) {
-    return date && hour === getHours(date).toString() && minute === getMinutes(date).toString();
+}: MinuteInputProps) {
+  function isSameHour(date: string | Date) {
+    return hour === getHours(date).toString();
   }
 
-  const maxSecond = safeMin(59, isSameMinute(maxTime) && getSeconds(maxTime));
-  const minSecond = safeMax(0, isSameMinute(minTime) && getSeconds(minTime));
+  const maxMinute = safeMin(59, maxTime && isSameHour(maxTime) && getMinutes(maxTime));
+  const minMinute = safeMax(0, minTime && isSameHour(minTime) && getMinutes(minTime));
 
   return (
     <Input
-      max={maxSecond}
-      min={minSecond}
-      name="second"
+      max={maxMinute}
+      min={minMinute}
+      name="minute"
       showLeadingZeros={showLeadingZeros}
       {...otherProps}
     />
   );
 }
 
-SecondInput.propTypes = {
+MinuteInput.propTypes = {
   ariaLabel: PropTypes.string,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
@@ -41,7 +47,6 @@ SecondInput.propTypes = {
   inputRef: isRef,
   maxTime: isTime,
   minTime: isTime,
-  minute: PropTypes.string,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,

@@ -7,8 +7,28 @@ import { convert24to12 } from '../shared/dates';
 import { isRef, isTime } from '../shared/propTypes';
 import { getAmPmLabels } from '../shared/utils';
 
+/* eslint-disable jsx-a11y/no-autofocus */
+
+type AmPmProps = {
+  ariaLabel?: string;
+  autoFocus?: boolean;
+  className: string;
+  disabled?: boolean;
+  inputRef?: React.RefObject<HTMLSelectElement>;
+  locale?: string;
+  maxTime?: string;
+  minTime?: string;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement> & { target: HTMLSelectElement }) => void;
+  onKeyDown?: (
+    event: React.KeyboardEvent<HTMLSelectElement> & { target: HTMLSelectElement },
+  ) => void;
+  required?: boolean;
+  value?: string | null;
+};
+
 export default function AmPm({
   ariaLabel,
+  autoFocus,
   className,
   disabled,
   inputRef,
@@ -19,9 +39,9 @@ export default function AmPm({
   onKeyDown,
   required,
   value,
-}) {
-  const amDisabled = minTime && convert24to12(getHours(minTime))[1] === 'pm';
-  const pmDisabled = maxTime && convert24to12(getHours(maxTime))[1] === 'am';
+}: AmPmProps) {
+  const amDisabled = minTime ? convert24to12(getHours(minTime))[1] === 'pm' : false;
+  const pmDisabled = maxTime ? convert24to12(getHours(maxTime))[1] === 'am' : false;
 
   const name = 'amPm';
   const [amLabel, pmLabel] = getAmPmLabels(locale);
@@ -29,6 +49,7 @@ export default function AmPm({
   return (
     <select
       aria-label={ariaLabel}
+      autoFocus={autoFocus}
       className={clsx(`${className}__input`, `${className}__${name}`)}
       data-input="true"
       data-select="true"
@@ -53,6 +74,7 @@ export default function AmPm({
 
 AmPm.propTypes = {
   ariaLabel: PropTypes.string,
+  autoFocus: PropTypes.bool,
   className: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   inputRef: isRef,
