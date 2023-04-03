@@ -282,14 +282,7 @@ export default function TimePicker(props) {
     const className = `${baseClassName}__clock`;
     const classNames = clsx(className, `${className}--${isOpen ? 'open' : 'closed'}`);
 
-    const clock = (
-      <Clock
-        className={clockClassName}
-        onChange={(value) => onChange(value)}
-        value={value || null}
-        {...clockProps}
-      />
-    );
+    const clock = <Clock className={clockClassName} value={value} {...clockProps} />;
 
     return portalContainer ? (
       createPortal(
