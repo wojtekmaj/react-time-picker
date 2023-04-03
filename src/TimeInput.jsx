@@ -91,14 +91,14 @@ export default function TimeInput({
   format,
   hourAriaLabel,
   hourPlaceholder,
-  isClockOpen: isClockOpenProps,
+  isClockOpen: isClockOpenProps = null,
   locale,
-  maxDetail,
+  maxDetail = 'minute',
   maxTime,
   minTime,
   minuteAriaLabel,
   minutePlaceholder,
-  name,
+  name = 'time',
   nativeInputAriaLabel,
   onChange: onChangeProps,
   required,
@@ -516,11 +516,6 @@ export default function TimeInput({
     </div>
   );
 }
-
-TimeInput.defaultProps = {
-  maxDetail: 'minute',
-  name: 'time',
-};
 
 TimeInput.propTypes = {
   amPmAriaLabel: PropTypes.string,

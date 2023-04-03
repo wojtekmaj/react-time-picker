@@ -50,10 +50,10 @@ export default function TimePicker(props) {
     autoFocus,
     className,
     clearAriaLabel,
-    clearIcon,
+    clearIcon = ClearIcon,
     clockAriaLabel,
-    clockIcon,
-    closeClock: shouldCloseClockProps,
+    clockIcon = ClockIcon,
+    closeClock: shouldCloseClockProps = true,
     'data-testid': dataTestid,
     hourAriaLabel,
     hourPlaceholder,
@@ -61,20 +61,20 @@ export default function TimePicker(props) {
     disabled,
     format,
     id,
-    isOpen: isOpenProps,
+    isOpen: isOpenProps = null,
     locale,
     maxTime,
-    maxDetail,
+    maxDetail = 'minute',
     minTime,
     minuteAriaLabel,
     minutePlaceholder,
-    name,
+    name = 'time',
     nativeInputAriaLabel,
     onClockClose,
     onClockOpen,
     onChange: onChangeProps,
     onFocus: onFocusProps,
-    openClockOnFocus,
+    openClockOnFocus = true,
     required,
     value,
     secondAriaLabel,
@@ -339,15 +339,6 @@ export default function TimePicker(props) {
     </div>
   );
 }
-
-TimePicker.defaultProps = {
-  clearIcon: ClearIcon,
-  clockIcon: ClockIcon,
-  closeClock: true,
-  isOpen: null,
-  maxDetail: 'minute',
-  openClockOnFocus: true,
-};
 
 const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
 
