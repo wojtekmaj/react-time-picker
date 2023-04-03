@@ -21,22 +21,6 @@ const hasFullICU = (() => {
 
 const itIfFullICU = hasFullICU ? it : it.skip;
 
-const keyCodes = {
-  ArrowLeft: 37,
-  ArrowUp: 38,
-  ArrowRight: 39,
-  ArrowDown: 40,
-  '-': 189,
-  '.': 190,
-  '/': 191,
-};
-
-const getKey = (key) => ({
-  keyCode: keyCodes[key],
-  which: keyCodes[key],
-  key,
-});
-
 describe('TimeInput', () => {
   const defaultProps = {
     className: 'react-time-picker__inputGroup',
@@ -326,85 +310,62 @@ describe('TimeInput', () => {
     expect(separators).toHaveLength(customInputs.length + ampm.length - 1);
   });
 
-  it('jumps to the next field when right arrow is pressed', () => {
+  it('jumps to the next field when right arrow is pressed', async () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
     const minuteInput = customInputs[1];
 
-    fireEvent.focus(hourInput);
-    hourInput.focus();
-
-    expect(hourInput).toHaveFocus();
-
-    fireEvent.keyDown(hourInput, getKey('ArrowRight'));
+    await user.type(hourInput, '{arrowright}');
 
     expect(minuteInput).toHaveFocus();
   });
 
-  it('jumps to the next field when separator key is pressed', () => {
+  it('jumps to the next field when separator key is pressed', async () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
     const minuteInput = customInputs[1];
-
-    fireEvent.focus(hourInput);
-    hourInput.focus();
-
-    expect(hourInput).toHaveFocus();
 
     const separators = container.querySelectorAll('.react-time-picker__inputGroup__divider');
     const separatorKey = separators[0].textContent;
-    fireEvent.keyDown(hourInput, getKey(separatorKey));
+
+    await user.type(hourInput, separatorKey);
 
     expect(minuteInput).toHaveFocus();
   });
 
-  it('does not jump to the next field when right arrow is pressed when the last input is focused', () => {
+  it('does not jump to the next field when right arrow is pressed when the last input is focused', async () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const select = container.querySelector('select');
 
-    select.focus();
-
-    expect(select).toHaveFocus();
-
-    fireEvent.keyDown(select, getKey('ArrowRight'));
+    await user.type(select, '{arrowright}');
 
     expect(select).toHaveFocus();
   });
 
-  it('jumps to the previous field when left arrow is pressed', () => {
+  it('jumps to the previous field when left arrow is pressed', async () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
     const minuteInput = customInputs[1];
 
-    fireEvent.focus(minuteInput);
-    minuteInput.focus();
-
-    expect(minuteInput).toHaveFocus();
-
-    fireEvent.keyDown(minuteInput, getKey('ArrowLeft'));
+    await user.type(minuteInput, '{arrowleft}');
 
     expect(hourInput).toHaveFocus();
   });
 
-  it('does not jump to the previous field when left arrow is pressed when the first input is focused', () => {
+  it('does not jump to the previous field when left arrow is pressed when the first input is focused', async () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
 
-    fireEvent.focus(hourInput);
-    hourInput.focus();
-
-    expect(hourInput).toHaveFocus();
-
-    fireEvent.keyDown(hourInput, getKey('ArrowLeft'));
+    await user.type(hourInput, '{arrowleft}');
 
     expect(hourInput).toHaveFocus();
   });
