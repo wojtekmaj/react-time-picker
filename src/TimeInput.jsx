@@ -70,6 +70,10 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
           )
         ];
 
+      if (!renderFunction) {
+        return res;
+      }
+
       if (!allowMultipleInstances && usedFunctions.includes(renderFunction)) {
         res.push(currentMatch);
       } else {
@@ -77,6 +81,7 @@ function renderCustomInputs(placeholder, elementFunctions, allowMultipleInstance
         usedFunctions.push(renderFunction);
       }
     }
+
     return res;
   }, []);
 }
