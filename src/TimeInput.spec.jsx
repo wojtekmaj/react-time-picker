@@ -329,8 +329,8 @@ describe('TimeInput', () => {
     const hourInput = customInputs[0];
     const minuteInput = customInputs[1];
 
-    const separators = container.querySelectorAll('.react-time-picker__inputGroup__divider');
-    const separatorKey = separators[0].textContent;
+    const separator = container.querySelector('.react-time-picker__inputGroup__divider');
+    const separatorKey = separator.textContent;
 
     await user.type(hourInput, separatorKey);
 
