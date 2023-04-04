@@ -1,8 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
 
-export default function ValueOptions({ setValue, value }) {
-  function onChange(event) {
+import type { LooseValue } from './shared/types';
+
+type ValueOptionsProps = {
+  setValue: (value: LooseValue) => void;
+  value?: LooseValue;
+};
+
+export default function ValueOptions({ setValue, value }: ValueOptionsProps) {
+  const [time] = Array.isArray(value) ? value : [value];
+
+  function onChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value: nextValue } = event.target;
 
     setValue(nextValue);
@@ -14,7 +24,13 @@ export default function ValueOptions({ setValue, value }) {
 
       <div>
         <label htmlFor="time">Time</label>
-        <input id="time" onChange={onChange} step="1" type="time" value={value || ''} />
+        <input
+          id="time"
+          onChange={onChange}
+          step="1"
+          type="time"
+          value={time && time instanceof Date ? getHoursMinutesSeconds(time) : time || undefined}
+        />
         &nbsp;
         <button onClick={() => setValue(null)} type="button">
           Clear to null
@@ -27,7 +43,7 @@ export default function ValueOptions({ setValue, value }) {
   );
 }
 
-const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
+const isValue = PropTypes.string;
 
 const isValueOrValueArray = PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]);
 

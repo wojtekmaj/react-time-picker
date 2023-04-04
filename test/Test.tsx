@@ -12,6 +12,8 @@ import ViewOptions from './ViewOptions';
 
 import './Test.css';
 
+import type { Detail, LooseValue } from './shared/types';
+
 const now = new Date();
 
 const ariaLabelProps = {
@@ -33,15 +35,15 @@ const placeholderProps = {
 /* eslint-disable no-console */
 
 export default function Test() {
-  const portalContainer = useRef();
+  const portalContainer = useRef<HTMLDivElement>(null);
   const [disabled, setDisabled] = useState(false);
-  const [locale, setLocale] = useState(null);
-  const [maxTime, setMaxTime] = useState(null);
-  const [maxDetail, setMaxDetail] = useState('minute');
-  const [minTime, setMinTime] = useState(null);
+  const [locale, setLocale] = useState<string>();
+  const [maxTime, setMaxTime] = useState<string | undefined>();
+  const [maxDetail, setMaxDetail] = useState<Detail>('minute');
+  const [minTime, setMinTime] = useState<string | undefined>();
   const [renderInPortal, setRenderInPortal] = useState(false);
   const [required, setRequired] = useState(true);
-  const [value, setValue] = useState(getHoursMinutesSeconds(now));
+  const [value, setValue] = useState<LooseValue>(getHoursMinutesSeconds(now));
 
   return (
     <div className="Test">

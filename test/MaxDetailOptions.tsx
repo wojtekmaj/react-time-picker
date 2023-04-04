@@ -1,17 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const allViews = ['hour', 'minute', 'second'];
+import type { Detail } from './shared/types';
 
-function upperCaseFirstLetter(str) {
+const allViews = ['hour', 'minute', 'second'] as const;
+
+function upperCaseFirstLetter(str: string) {
   return str.slice(0, 1).toUpperCase() + str.slice(1);
 }
 
-export default function MaxDetailOptions({ maxDetail, setMaxDetail }) {
-  function onChange(event) {
+type MaxDetailOptionsProps = {
+  maxDetail: Detail;
+  setMaxDetail: (maxDetail: Detail) => void;
+};
+
+export default function MaxDetailOptions({ maxDetail, setMaxDetail }: MaxDetailOptionsProps) {
+  function onChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
 
-    setMaxDetail(value);
+    setMaxDetail(value as Detail);
   }
 
   return (
