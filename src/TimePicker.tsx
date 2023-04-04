@@ -86,7 +86,7 @@ type TimePickerProps = {
   secondAriaLabel?: string;
   secondPlaceholder?: string;
   value?: LooseValue;
-};
+} & Omit<React.ComponentPropsWithoutRef<typeof Clock>, 'value'>;
 
 export default function TimePicker(props: TimePickerProps) {
   const {
