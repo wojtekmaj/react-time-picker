@@ -81,7 +81,7 @@ type TimePickerProps = {
   onClockOpen?: () => void;
   onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
   openClockOnFocus?: boolean;
-  portalContainer?: HTMLElement;
+  portalContainer?: HTMLElement | null;
   required?: boolean;
   secondAriaLabel?: string;
   secondPlaceholder?: string;
