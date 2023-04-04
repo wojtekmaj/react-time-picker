@@ -10,7 +10,7 @@ describe('Hour24Input', () => {
     onChange: () => {
       // Intentionally empty
     },
-  };
+  } satisfies React.ComponentProps<typeof Hour24Input>;
 
   it('renders an input', () => {
     const { container } = render(<Hour24Input {...defaultProps} />);
@@ -147,7 +147,7 @@ describe('Hour24Input', () => {
   });
 
   it('handles inputRef properly', () => {
-    const inputRef = createRef();
+    const inputRef = createRef<HTMLInputElement>();
 
     render(<Hour24Input {...defaultProps} inputRef={inputRef} />);
 

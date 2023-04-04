@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import TimePicker from './TimePicker';
 
-async function waitForElementToBeRemovedOrHidden(callback) {
+async function waitForElementToBeRemovedOrHidden(callback: () => HTMLElement | null) {
   const element = callback();
 
   if (element) {
@@ -188,7 +188,9 @@ describe('TimePicker', () => {
     it('renders clear icon by default when clearIcon is not given', () => {
       const { container } = render(<TimePicker />);
 
-      const clearButton = container.querySelector('button.react-time-picker__clear-button');
+      const clearButton = container.querySelector(
+        'button.react-time-picker__clear-button',
+      ) as HTMLButtonElement;
 
       const clearIcon = clearButton.querySelector('svg');
 
@@ -205,7 +207,7 @@ describe('TimePicker', () => {
 
     it('renders clear icon when given clearIcon as a React element', () => {
       function ClearIcon() {
-        return '❌';
+        return <>❌</>;
       }
 
       const { container } = render(<TimePicker clearIcon={<ClearIcon />} />);
@@ -217,7 +219,7 @@ describe('TimePicker', () => {
 
     it('renders clear icon when given clearIcon as a function', () => {
       function ClearIcon() {
-        return '❌';
+        return <>❌</>;
       }
 
       const { container } = render(<TimePicker clearIcon={ClearIcon} />);
@@ -240,7 +242,9 @@ describe('TimePicker', () => {
     it('renders clock icon by default when clockIcon is not given', () => {
       const { container } = render(<TimePicker />);
 
-      const clockButton = container.querySelector('button.react-time-picker__clock-button');
+      const clockButton = container.querySelector(
+        'button.react-time-picker__clock-button',
+      ) as HTMLButtonElement;
 
       const clockIcon = clockButton.querySelector('svg');
 
@@ -257,7 +261,7 @@ describe('TimePicker', () => {
 
     it('renders clock icon when given clockIcon as a React element', () => {
       function ClockIcon() {
-        return '🕒';
+        return <>🕒</>;
       }
 
       const { container } = render(<TimePicker clockIcon={<ClockIcon />} />);
@@ -269,7 +273,7 @@ describe('TimePicker', () => {
 
     it('renders clock icon when given clockIcon as a function', () => {
       function ClockIcon() {
-        return '🕒';
+        return <>🕒</>;
       }
 
       const { container } = render(<TimePicker clockIcon={ClockIcon} />);
@@ -314,7 +318,9 @@ describe('TimePicker', () => {
     const { container } = render(<TimePicker />);
 
     const clock = container.querySelector('.react-clock');
-    const button = container.querySelector('button.react-time-picker__clock-button');
+    const button = container.querySelector(
+      'button.react-time-picker__clock-button',
+    ) as HTMLButtonElement;
 
     expect(clock).toBeFalsy();
 
@@ -330,7 +336,7 @@ describe('TimePicker', () => {
       const { container } = render(<TimePicker />);
 
       const clock = container.querySelector('.react-clock');
-      const input = container.querySelector('input[name^="hour"]');
+      const input = container.querySelector('input[name^="hour"]') as HTMLInputElement;
 
       expect(clock).toBeFalsy();
 
@@ -345,7 +351,7 @@ describe('TimePicker', () => {
       const { container } = render(<TimePicker openClockOnFocus />);
 
       const clock = container.querySelector('.react-clock');
-      const input = container.querySelector('input[name^="hour"]');
+      const input = container.querySelector('input[name^="hour"]') as HTMLInputElement;
 
       expect(clock).toBeFalsy();
 
@@ -360,7 +366,7 @@ describe('TimePicker', () => {
       const { container } = render(<TimePicker openClockOnFocus={false} />);
 
       const clock = container.querySelector('.react-clock');
-      const input = container.querySelector('input[name^="hour"]');
+      const input = container.querySelector('input[name^="hour"]') as HTMLInputElement;
 
       expect(clock).toBeFalsy();
 
@@ -375,7 +381,7 @@ describe('TimePicker', () => {
       const { container } = render(<TimePicker format="hh:mm:ss a" />);
 
       const clock = container.querySelector('.react-clock');
-      const select = container.querySelector('select[name="amPm"]');
+      const select = container.querySelector('select[name="amPm"]') as HTMLSelectElement;
 
       expect(clock).toBeFalsy();
 
@@ -421,8 +427,8 @@ describe('TimePicker', () => {
     const { container } = render(<TimePicker isOpen />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0];
-    const minuteInput = customInputs[1];
+    const hourInput = customInputs[0] as HTMLInputElement;
+    const minuteInput = customInputs[1] as HTMLInputElement;
 
     fireEvent.blur(hourInput);
     fireEvent.focus(minuteInput);
@@ -435,7 +441,7 @@ describe('TimePicker', () => {
   it('does not close Clock when changing value', () => {
     const { container } = render(<TimePicker isOpen />);
 
-    const hourInput = container.querySelector('input[name="hour12"]');
+    const hourInput = container.querySelector('input[name="hour12"]') as HTMLInputElement;
 
     act(() => {
       fireEvent.change(hourInput, { target: { value: '9' } });
@@ -454,7 +460,7 @@ describe('TimePicker', () => {
       <TimePicker maxDetail="second" onChange={onChange} value={value} />,
     );
 
-    const hourInput = container.querySelector('input[name="hour12"]');
+    const hourInput = container.querySelector('input[name="hour12"]') as HTMLInputElement;
 
     act(() => {
       fireEvent.change(hourInput, { target: { value: '9' } });
@@ -469,7 +475,9 @@ describe('TimePicker', () => {
     const { container } = render(<TimePicker onChange={onChange} />);
 
     const clock = container.querySelector('.react-clock');
-    const button = container.querySelector('button.react-time-picker__clear-button');
+    const button = container.querySelector(
+      'button.react-time-picker__clear-button',
+    ) as HTMLButtonElement;
 
     expect(clock).toBeFalsy();
 

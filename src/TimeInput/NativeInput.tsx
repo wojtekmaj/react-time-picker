@@ -4,6 +4,18 @@ import { getHours, getHoursMinutes, getHoursMinutesSeconds } from '@wojtekmaj/da
 
 import { isTime, isValueType } from '../shared/propTypes';
 
+type NativeInputProps = {
+  ariaLabel?: string;
+  disabled?: boolean;
+  maxTime?: string;
+  minTime?: string;
+  name?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  value?: string | Date | null;
+  valueType: 'hour' | 'minute' | 'second';
+};
+
 export default function NativeInput({
   ariaLabel,
   disabled,
@@ -14,11 +26,11 @@ export default function NativeInput({
   required,
   value,
   valueType,
-}) {
+}: NativeInputProps) {
   const nativeValueParser = (() => {
     switch (valueType) {
       case 'hour':
-        return (receivedValue) => `${getHours(receivedValue)}:00`;
+        return (receivedValue: string | Date) => `${getHours(receivedValue)}:00`;
       case 'minute':
         return getHoursMinutes;
       case 'second':
@@ -41,7 +53,7 @@ export default function NativeInput({
     }
   })();
 
-  function stopPropagation(event) {
+  function stopPropagation(event: React.FocusEvent<HTMLInputElement>) {
     event.stopPropagation();
   }
 
@@ -50,8 +62,8 @@ export default function NativeInput({
       aria-label={ariaLabel}
       disabled={disabled}
       hidden
-      max={maxTime ? nativeValueParser(maxTime) : null}
-      min={minTime ? nativeValueParser(minTime) : null}
+      max={maxTime ? nativeValueParser(maxTime) : undefined}
+      min={minTime ? nativeValueParser(minTime) : undefined}
       name={name}
       onChange={onChange}
       onFocus={stopPropagation}

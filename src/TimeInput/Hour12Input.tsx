@@ -8,7 +8,22 @@ import { convert24to12 } from '../shared/dates';
 import { isRef, isTime } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
-export default function Hour12Input({ amPm, hour, maxTime, minTime, value, ...otherProps }) {
+import type { AmPmType } from '../shared/types';
+
+type Hour12InputProps = {
+  amPm: AmPmType | null;
+  maxTime?: string;
+  minTime?: string;
+  value?: string | null;
+} & Omit<React.ComponentProps<typeof Input>, 'max' | 'min' | 'name' | 'nameForClass'>;
+
+export default function Hour12Input({
+  amPm,
+  maxTime,
+  minTime,
+  value,
+  ...otherProps
+}: Hour12InputProps) {
   const maxHour = safeMin(
     12,
     maxTime &&

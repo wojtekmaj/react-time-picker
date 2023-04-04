@@ -10,12 +10,12 @@ describe('AmPm', () => {
     onChange: () => {
       // Intentionally empty
     },
-  };
+  } satisfies React.ComponentProps<typeof AmPm>;
 
   it('renders a select', () => {
     const { container } = render(<AmPm {...defaultProps} />);
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     expect(select).toBeInTheDocument();
 
     const options = select.querySelectorAll('option');
@@ -80,7 +80,7 @@ describe('AmPm', () => {
   it('should not disable anything by default', () => {
     const { container } = render(<AmPm {...defaultProps} />);
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const optionAm = select.querySelector('option[value="am"]');
     const optionPm = select.querySelector('option[value="pm"]');
 
@@ -91,7 +91,7 @@ describe('AmPm', () => {
   it('should disable "pm" given maxTime before 12:00 pm', () => {
     const { container } = render(<AmPm {...defaultProps} maxTime="11:59" />);
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const optionPm = select.querySelector('option[value="pm"]');
 
     expect(optionPm).toBeDisabled();
@@ -100,7 +100,7 @@ describe('AmPm', () => {
   it('should not disable "pm" given maxTime after or equal to 12:00 pm', () => {
     const { container } = render(<AmPm {...defaultProps} maxTime="12:00" />);
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const optionPm = select.querySelector('option[value="pm"]');
 
     expect(optionPm).not.toBeDisabled();
@@ -109,7 +109,7 @@ describe('AmPm', () => {
   it('should disable "am" given minTime after or equal to 12:00 pm', () => {
     const { container } = render(<AmPm {...defaultProps} minTime="12:00" />);
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const optionAm = select.querySelector('option[value="am"]');
 
     expect(optionAm).toBeDisabled();
@@ -118,7 +118,7 @@ describe('AmPm', () => {
   it('should not disable "am" given minTime before 12:00 pm', () => {
     const { container } = render(<AmPm {...defaultProps} minTime="11:59" />);
 
-    const select = container.querySelector('select');
+    const select = container.querySelector('select') as HTMLSelectElement;
     const optionAm = select.querySelector('option[value="pm"]');
 
     expect(optionAm).not.toBeDisabled();
