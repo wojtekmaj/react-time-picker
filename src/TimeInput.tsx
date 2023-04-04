@@ -21,7 +21,7 @@ import { convert12to24, convert24to12 } from './shared/dates';
 import { isTime } from './shared/propTypes';
 import { getAmPmLabels } from './shared/utils';
 
-import type { AmPmType, Detail } from './shared/types';
+import type { AmPmType, Detail, LooseValuePiece, Value } from './shared/types';
 
 const getFormatterOptionsCache: Record<string, Intl.DateTimeFormatOptions> = {};
 
@@ -116,11 +116,11 @@ type TimeInputProps = {
   minutePlaceholder?: string;
   name?: string;
   nativeInputAriaLabel?: string;
-  onChange?: (value: string | null, shouldCloseClock: boolean) => void;
+  onChange?: (value: Value, shouldCloseClock: boolean) => void;
   required?: boolean;
   secondAriaLabel?: string;
   secondPlaceholder?: string;
-  value?: string | Date | null;
+  value?: LooseValuePiece;
 };
 
 export default function TimeInput({
