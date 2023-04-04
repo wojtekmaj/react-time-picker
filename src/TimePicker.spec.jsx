@@ -195,6 +195,14 @@ describe('TimePicker', () => {
       expect(clearIcon).toBeInTheDocument();
     });
 
+    it('renders clear icon when given clearIcon as a string', () => {
+      const { container } = render(<TimePicker clearIcon="❌" />);
+
+      const clearButton = container.querySelector('button.react-time-picker__clear-button');
+
+      expect(clearButton).toHaveTextContent('❌');
+    });
+
     it('renders clear icon when given clearIcon as a React element', () => {
       function ClearIcon() {
         return '❌';
@@ -237,6 +245,14 @@ describe('TimePicker', () => {
       const clockIcon = clockButton.querySelector('svg');
 
       expect(clockIcon).toBeInTheDocument();
+    });
+
+    it('renders clock icon when given clockIcon as a string', () => {
+      const { container } = render(<TimePicker clockIcon="🕒" />);
+
+      const clockButton = container.querySelector('button.react-time-picker__clock-button');
+
+      expect(clockButton).toHaveTextContent('🕒');
     });
 
     it('renders clock icon when given clockIcon as a React element', () => {
