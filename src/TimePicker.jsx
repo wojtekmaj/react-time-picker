@@ -329,7 +329,7 @@ export default function TimePicker(props) {
   );
 }
 
-const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
+const isValue = PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]);
 
 const isValueOrValueArray = PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]);
 

@@ -527,6 +527,8 @@ export default function TimeInput({
   );
 }
 
+const isValue = PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]);
+
 TimeInput.propTypes = {
   amPmAriaLabel: PropTypes.string,
   autoFocus: PropTypes.bool,
@@ -548,5 +550,5 @@ TimeInput.propTypes = {
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   secondPlaceholder: PropTypes.string,
-  value: PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]),
+  value: isValue,
 };
