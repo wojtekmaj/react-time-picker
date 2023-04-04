@@ -244,7 +244,7 @@ export default function TimeInput({
   function onKeyUp(event) {
     const { key, target: input } = event;
 
-    const isNumberKey = !isNaN(parseInt(key, 10));
+    const isNumberKey = !isNaN(Number(key));
 
     if (!isNumberKey) {
       return;
@@ -296,7 +296,7 @@ export default function TimeInput({
         formElement.type === 'number'
           ? 'valueAsNumber' in formElement
             ? formElement.valueAsNumber
-            : parseInt(formElement.value, 10)
+            : Number(formElement.value)
           : formElement.value;
     });
 
@@ -305,9 +305,9 @@ export default function TimeInput({
     } else if (
       formElements.every((formElement) => formElement.value && formElement.validity.valid)
     ) {
-      const hour = values.hour24 || convert12to24(values.hour12, values.amPm) || 0;
-      const minute = values.minute || 0;
-      const second = values.second || 0;
+      const hour = Number(values.hour24 || convert12to24(values.hour12, values.amPm) || 0);
+      const minute = Number(values.minute || 0);
+      const second = Number(values.second || 0);
 
       const padStart = (num) => `0${num}`.slice(-2);
 
@@ -329,7 +329,7 @@ export default function TimeInput({
         setAmPm(value);
         break;
       case 'hour12':
-        setHour(value ? convert12to24(parseInt(value, 10), amPm).toString() : '');
+        setHour(value ? convert12to24(Number(value), amPm).toString() : '');
         break;
       case 'hour24':
         setHour(value);
@@ -369,7 +369,7 @@ export default function TimeInput({
     onKeyDown,
     onKeyUp,
     // This is only for showing validity when editing
-    required: required || isClockOpen,
+    required: Boolean(required || isClockOpen),
   };
 
   function renderHour12(currentMatch, index) {
