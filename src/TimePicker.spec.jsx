@@ -372,10 +372,7 @@ describe('TimePicker', () => {
   });
 
   it('closes Clock component when clicked outside', async () => {
-    const root = document.createElement('div');
-    document.body.appendChild(root);
-
-    const { container } = render(<TimePicker isOpen />, { attachTo: root });
+    const { container } = render(<TimePicker isOpen />);
 
     userEvent.click(document.body);
 
@@ -385,10 +382,7 @@ describe('TimePicker', () => {
   });
 
   it('closes Clock component when focused outside', async () => {
-    const root = document.createElement('div');
-    document.body.appendChild(root);
-
-    const { container } = render(<TimePicker isOpen />, { attachTo: root });
+    const { container } = render(<TimePicker isOpen />);
 
     fireEvent.focusIn(document.body);
 
@@ -398,10 +392,7 @@ describe('TimePicker', () => {
   });
 
   it('closes Clock component when tapped outside', async () => {
-    const root = document.createElement('div');
-    document.body.appendChild(root);
-
-    const { container } = render(<TimePicker isOpen />, { attachTo: root });
+    const { container } = render(<TimePicker isOpen />);
 
     fireEvent.touchStart(document.body);
 
