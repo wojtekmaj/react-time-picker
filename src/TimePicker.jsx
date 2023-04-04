@@ -331,6 +331,8 @@ export default function TimePicker(props) {
 
 const isValue = PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]);
 
+const isValueOrValueArray = PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]);
+
 TimePicker.propTypes = {
   amPmAriaLabel: PropTypes.string,
   autoFocus: PropTypes.bool,
@@ -366,5 +368,5 @@ TimePicker.propTypes = {
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   secondPlaceholder: PropTypes.string,
-  value: PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]),
+  value: isValueOrValueArray,
 };
