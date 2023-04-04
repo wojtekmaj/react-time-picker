@@ -3,6 +3,15 @@ import PropTypes from 'prop-types';
 
 import { isTime } from './shared/propTypes';
 
+type ValidityOptionsProps = {
+  maxTime?: string;
+  minTime?: string;
+  required?: boolean;
+  setMaxTime: (maxTime: string | undefined) => void;
+  setMinTime: (minTime: string | undefined) => void;
+  setRequired: (required: boolean) => void;
+};
+
 export default function ValidityOptions({
   maxTime,
   minTime,
@@ -10,17 +19,17 @@ export default function ValidityOptions({
   setMaxTime,
   setMinTime,
   setRequired,
-}) {
-  function onMinChange(event) {
+}: ValidityOptionsProps) {
+  function onMinChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
 
-    setMinTime(value || null);
+    setMinTime(value);
   }
 
-  function onMaxChange(event) {
+  function onMaxChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
 
-    setMaxTime(value || null);
+    setMaxTime(value);
   }
 
   return (

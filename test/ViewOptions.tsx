@@ -1,14 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function ViewOptions({ disabled, renderInPortal, setDisabled, setRenderInPortal }) {
-  function onDisabledChange(event) {
+type ViewOptionsProps = {
+  disabled: boolean;
+  renderInPortal: boolean;
+  setDisabled: (disabled: boolean) => void;
+  setRenderInPortal: (renderInPortal: boolean) => void;
+};
+
+export default function ViewOptions({
+  disabled,
+  renderInPortal,
+  setDisabled,
+  setRenderInPortal,
+}: ViewOptionsProps) {
+  function onDisabledChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
 
     setDisabled(checked);
   }
 
-  function onRenderInPortalChange(event) {
+  function onRenderInPortalChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
 
     setRenderInPortal(checked);
