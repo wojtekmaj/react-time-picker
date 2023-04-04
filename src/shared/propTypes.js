@@ -11,7 +11,7 @@ export function isTime(props, propName, componentName) {
   if (time) {
     if (!hourOptionalSecondsRegExp.test(time)) {
       return new Error(
-        `Invalid prop \`${propName}\` of type \`${typeof minDate}\` supplied to \`${componentName}\`, expected time in HH:mm(:ss) format.`,
+        `Invalid prop \`${propName}\` of type \`${typeof time}\` supplied to \`${componentName}\`, expected time in HH:mm(:ss) format.`,
       );
     }
   }
