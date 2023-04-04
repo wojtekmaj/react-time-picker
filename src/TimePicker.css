@@ -42,6 +42,7 @@
 }
 
 .react-time-picker__inputGroup__input {
+  color: currentColor
   min-width: 0.54em;
   height: 100%;
   position: relative;
