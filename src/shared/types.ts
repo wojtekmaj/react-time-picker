@@ -8,6 +8,4 @@ export type LooseValuePiece = string | Date | null;
 
 export type LooseValue = LooseValuePiece | [LooseValuePiece, LooseValuePiece];
 
-type ValuePiece = string | null;
-
-export type Value = ValuePiece | [ValuePiece, ValuePiece];
+export type Value = string | null;
