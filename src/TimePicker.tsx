@@ -55,10 +55,10 @@ type TimePickerProps = {
   autoFocus?: boolean;
   className?: ClassName;
   clearAriaLabel?: string;
-  clearIcon?: IconOrRenderFunction;
+  clearIcon?: IconOrRenderFunction | null;
   clockAriaLabel?: string;
   clockClassName?: ClassName;
-  clockIcon?: IconOrRenderFunction;
+  clockIcon?: IconOrRenderFunction | null;
   closeClock?: boolean;
   'data-testid'?: string;
   disableClock?: boolean;
