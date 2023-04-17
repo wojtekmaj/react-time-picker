@@ -50,6 +50,10 @@ type Icon = React.ReactElement | string;
 
 type IconOrRenderFunction = Icon | React.ComponentType | React.ReactElement;
 
+type ClockProps = Omit<React.ComponentPropsWithoutRef<typeof Clock>, 'value'>;
+
+type EventProps = ReturnType<typeof makeEventProps>;
+
 type TimePickerProps = {
   amPmAriaLabel?: string;
   autoFocus?: boolean;
@@ -86,7 +90,8 @@ type TimePickerProps = {
   secondAriaLabel?: string;
   secondPlaceholder?: string;
   value?: LooseValue;
-} & Omit<React.ComponentPropsWithoutRef<typeof Clock>, 'value'>;
+} & ClockProps &
+  EventProps;
 
 export default function TimePicker(props: TimePickerProps) {
   const {
