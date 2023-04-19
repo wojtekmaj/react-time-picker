@@ -157,6 +157,7 @@ export default function TimeInput({
   const minuteInput = useRef<HTMLInputElement>(null);
   const secondInput = useRef<HTMLInputElement>(null);
   const [isClockOpen, setIsClockOpen] = useState(isClockOpenProps);
+  const lastPressedKey = useRef<KeyboardEvent['key']>();
 
   useEffect(() => {
     setIsClockOpen(isClockOpenProps);
@@ -264,6 +265,8 @@ export default function TimeInput({
       | (React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement })
       | (React.KeyboardEvent<HTMLSelectElement> & { target: HTMLSelectElement }),
   ) {
+    lastPressedKey.current = event.key;
+
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowRight':
@@ -283,6 +286,12 @@ export default function TimeInput({
 
   function onKeyUp(event: React.KeyboardEvent<HTMLInputElement> & { target: HTMLInputElement }) {
     const { key, target: input } = event;
+
+    const isLastPressedKey = lastPressedKey.current === key;
+
+    if (!isLastPressedKey) {
+      return;
+    }
 
     const isNumberKey = !isNaN(Number(key));
 

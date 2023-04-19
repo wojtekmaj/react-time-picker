@@ -396,6 +396,43 @@ describe('TimeInput', () => {
     expect(minuteInput).toHaveFocus();
   });
 
+  it("jumps to the next field when a value which can't be extended to another valid value is entered by typing with multiple keys", async () => {
+    function getActiveElement() {
+      return document.activeElement as HTMLInputElement;
+    }
+
+    function keyDown(key: string, initial = false) {
+      const element = getActiveElement();
+      fireEvent.keyDown(element, { key });
+      fireEvent.keyPress(element, { key });
+      element.value = (initial ? '' : element.value) + key;
+    }
+
+    function keyUp(key: string) {
+      fireEvent.keyUp(getActiveElement(), { key });
+    }
+
+    const date = '22:17:00';
+
+    const { container } = render(<TimeInput {...defaultProps} value={date} />);
+
+    const customInputs = container.querySelectorAll('input[data-input]');
+    const hourInput = customInputs[0] as HTMLInputElement;
+    const minuteInput = customInputs[1];
+
+    hourInput.focus();
+    expect(hourInput).toHaveFocus();
+
+    keyDown('1', true);
+    keyDown('2');
+
+    keyUp('1');
+    expect(hourInput).toHaveFocus();
+
+    keyUp('2');
+    expect(minuteInput).toHaveFocus();
+  });
+
   it('does not jump the next field when a value which can be extended to another valid value is entered', async () => {
     const { container } = render(<TimeInput {...defaultProps} />);
 
