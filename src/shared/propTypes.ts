@@ -24,7 +24,7 @@ export const isValueType = PropTypes.oneOf(allValueTypes);
 
 export const isRef = PropTypes.oneOfType([
   PropTypes.func,
-  PropTypes.shape({
+  PropTypes.exact({
     current: PropTypes.any,
   }),
 ]);
