@@ -10,7 +10,7 @@ import TimeInput from './TimeInput';
 
 import { isTime } from './shared/propTypes';
 
-import type { ClassName, Detail, LooseValue, Value } from './shared/types';
+import type { ClassName, CloseReason, Detail, LooseValue, OpenReason, Value } from './shared/types';
 
 const baseClassName = 'react-time-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
@@ -89,6 +89,8 @@ type TimePickerProps = {
   required?: boolean;
   secondAriaLabel?: string;
   secondPlaceholder?: string;
+  shouldCloseClock?: ({ reason }: { reason: CloseReason }) => boolean;
+  shouldOpenClock?: ({ reason }: { reason: OpenReason }) => boolean;
   value?: LooseValue;
 } & ClockProps &
   EventProps;
@@ -102,7 +104,7 @@ export default function TimePicker(props: TimePickerProps) {
     clearIcon = ClearIcon,
     clockAriaLabel,
     clockIcon = ClockIcon,
-    closeClock: shouldCloseClockProps = true,
+    closeClock: shouldCloseClockOnSelect = true,
     'data-testid': dataTestid,
     hourAriaLabel,
     hourPlaceholder,
@@ -128,6 +130,8 @@ export default function TimePicker(props: TimePickerProps) {
     value,
     secondAriaLabel,
     secondPlaceholder,
+    shouldCloseClock,
+    shouldOpenClock,
     ...otherProps
   } = props;
 
@@ -139,7 +143,13 @@ export default function TimePicker(props: TimePickerProps) {
     setIsOpen(isOpenProps);
   }, [isOpenProps]);
 
-  function openClock() {
+  function openClock({ reason }: { reason: OpenReason }) {
+    if (shouldOpenClock) {
+      if (!shouldOpenClock({ reason })) {
+        return;
+      }
+    }
+
     setIsOpen(true);
 
     if (onClockOpen) {
@@ -147,25 +157,34 @@ export default function TimePicker(props: TimePickerProps) {
     }
   }
 
-  const closeClock = useCallback(() => {
-    setIsOpen(false);
+  const closeClock = useCallback(
+    ({ reason }: { reason: CloseReason }) => {
+      if (shouldCloseClock) {
+        if (!shouldCloseClock({ reason })) {
+          return;
+        }
+      }
 
-    if (onClockClose) {
-      onClockClose();
-    }
-  }, [onClockClose]);
+      setIsOpen(false);
+
+      if (onClockClose) {
+        onClockClose();
+      }
+    },
+    [onClockClose, shouldCloseClock],
+  );
 
   function toggleClock() {
     if (isOpen) {
-      closeClock();
+      closeClock({ reason: 'buttonClick' });
     } else {
-      openClock();
+      openClock({ reason: 'buttonClick' });
     }
   }
 
-  function onChange(value: Value, shouldCloseClock: boolean = shouldCloseClockProps) {
+  function onChange(value: Value, shouldCloseClock: boolean = shouldCloseClockOnSelect) {
     if (shouldCloseClock) {
-      closeClock();
+      closeClock({ reason: 'select' });
     }
 
     if (onChangeProps) {
@@ -188,13 +207,13 @@ export default function TimePicker(props: TimePickerProps) {
       return;
     }
 
-    openClock();
+    openClock({ reason: 'focus' });
   }
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        closeClock();
+        closeClock({ reason: 'escape' });
       }
     },
     [closeClock],
@@ -224,7 +243,7 @@ export default function TimePicker(props: TimePickerProps) {
         !wrapperEl.contains(target) &&
         (!clockWrapperEl || !clockWrapperEl.contains(target))
       ) {
-        closeClock();
+        closeClock({ reason: 'outsideAction' });
       }
     },
     [clockWrapper, closeClock, wrapper],
