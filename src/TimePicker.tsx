@@ -54,7 +54,7 @@ type ClockProps = Omit<React.ComponentPropsWithoutRef<typeof Clock>, 'value'>;
 
 type EventProps = ReturnType<typeof makeEventProps>;
 
-type TimePickerProps = {
+export type TimePickerProps = {
   amPmAriaLabel?: string;
   autoFocus?: boolean;
   className?: ClassName;
