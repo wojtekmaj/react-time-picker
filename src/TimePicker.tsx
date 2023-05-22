@@ -93,7 +93,7 @@ export type TimePickerProps = {
   shouldOpenClock?: ({ reason }: { reason: OpenReason }) => boolean;
   value?: LooseValue;
 } & ClockProps &
-  EventProps;
+  Omit<EventProps, 'onChange' | 'onFocus'>;
 
 export default function TimePicker(props: TimePickerProps) {
   const {
