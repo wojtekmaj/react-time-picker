@@ -117,6 +117,7 @@ type TimeInputProps = {
   name?: string;
   nativeInputAriaLabel?: string;
   onChange?: (value: Value, shouldCloseClock: boolean) => void;
+  onInvalidChange?: () => void;
   required?: boolean;
   secondAriaLabel?: string;
   secondPlaceholder?: string;
@@ -141,6 +142,7 @@ export default function TimeInput({
   name = 'time',
   nativeInputAriaLabel,
   onChange: onChangeProps,
+  onInvalidChange,
   required,
   secondAriaLabel,
   secondPlaceholder,
@@ -384,6 +386,12 @@ export default function TimeInput({
       onChangeProps(processedValue, false);
       return;
     }
+
+    if (!onInvalidChange) {
+      return;
+    }
+
+    onInvalidChange();
   }
 
   /**

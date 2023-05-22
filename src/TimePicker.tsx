@@ -84,6 +84,7 @@ export type TimePickerProps = {
   onClockClose?: () => void;
   onClockOpen?: () => void;
   onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
+  onInvalidChange?: () => void;
   openClockOnFocus?: boolean;
   portalContainer?: HTMLElement | null;
   required?: boolean;
@@ -125,6 +126,7 @@ export default function TimePicker(props: TimePickerProps) {
     onClockOpen,
     onChange: onChangeProps,
     onFocus: onFocusProps,
+    onInvalidChange,
     openClockOnFocus = true,
     required,
     value,
@@ -310,6 +312,7 @@ export default function TimePicker(props: TimePickerProps) {
           minTime={minTime}
           name={name}
           onChange={onChange}
+          onInvalidChange={onInvalidChange}
           required={required}
           value={valueFrom}
         />
