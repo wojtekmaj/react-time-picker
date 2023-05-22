@@ -357,11 +357,17 @@ export default function TimeInput({
           : formElement.value;
     });
 
-    if (formElementsWithoutSelect.every((formElement) => !formElement.value)) {
+    const isEveryValueEmpty = formElementsWithoutSelect.every((formElement) => !formElement.value);
+
+    if (isEveryValueEmpty) {
       onChangeProps(null, false);
-    } else if (
-      formElements.every((formElement) => formElement.value && formElement.validity.valid)
-    ) {
+      return;
+    }
+
+    const isEveryValueFilled = formElements.every((formElement) => formElement.value);
+    const isEveryValueValid = formElements.every((formElement) => formElement.validity.valid);
+
+    if (isEveryValueFilled && isEveryValueValid) {
       const hour = Number(
         values.hour24 ||
           (values.hour12 && values.amPm && convert12to24(values.hour12, values.amPm)) ||
@@ -376,6 +382,7 @@ export default function TimeInput({
 
       const processedValue = getProcessedValue(proposedValue);
       onChangeProps(processedValue, false);
+      return;
     }
   }
 
