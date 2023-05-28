@@ -8,7 +8,7 @@ import Fit from 'react-fit';
 
 import TimeInput from './TimeInput';
 
-import { isTime } from './shared/propTypes';
+import { isTime, rangeOf } from './shared/propTypes';
 
 import type { ClassName, CloseReason, Detail, LooseValue, OpenReason, Value } from './shared/types';
 
@@ -412,7 +412,7 @@ export default function TimePicker(props: TimePickerProps) {
 
 const isValue = PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]);
 
-const isValueOrValueArray = PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]);
+const isValueOrValueArray = PropTypes.oneOfType([isValue, rangeOf(isValue)]);
 
 TimePicker.propTypes = {
   amPmAriaLabel: PropTypes.string,
