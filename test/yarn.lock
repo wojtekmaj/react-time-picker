@@ -792,10 +792,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "clsx@npm:1.2.1"
-  checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
+"clsx@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "clsx@npm:2.0.0"
+  checksum: a2cfb2351b254611acf92faa0daf15220f4cd648bdf96ce369d729813b85336993871a4bf6978ddea2b81b5a130478339c20d9d0b5c6fc287e5147f0c059276e
   languageName: node
   linkType: hard
 
@@ -1618,19 +1618,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-clock@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "react-clock@npm:4.2.0"
+"react-clock@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "react-clock@npm:4.3.0"
   dependencies:
     "@types/react": "*"
     "@wojtekmaj/date-utils": ^1.1.2
-    clsx: ^1.2.1
+    clsx: ^2.0.0
     get-user-locale: ^2.2.1
     prop-types: ^15.6.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 82897d1393594c63fb0ae9d408e4ce4fab6e96b5287483a8cf07a94de74f7e1a8d2eb04852cef0aa867207fac41a8d94f7c9f4a8f4af8503b1ead0ec9e2bd739
+  checksum: ebfc850a5c27a964799bc7097384045d7bb0359524fd646a2f32a8f6783d238a6f99579f1c66466533b7e35b84af159681d92c767de96cf0f29d319b91f6d244
   languageName: node
   linkType: hard
 
@@ -1697,11 +1697,11 @@ __metadata:
   resolution: "react-time-picker@portal:../::locator=react-time-picker-test-page%40workspace%3A."
   dependencies:
     "@wojtekmaj/date-utils": ^1.1.3
-    clsx: ^1.2.1
+    clsx: ^2.0.0
     get-user-locale: ^2.2.1
     make-event-props: ^1.4.2
     prop-types: ^15.6.0
-    react-clock: ^4.2.0
+    react-clock: ^4.3.0
     react-fit: ^1.5.1
     update-input-width: ^1.3.1
   peerDependencies:
