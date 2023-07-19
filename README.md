@@ -46,8 +46,8 @@ Add React-Time-Picker to your project by executing `npm install react-time-picke
 
 Here's an example of basic usage:
 
-```js
-import React, { useState } from 'react';
+```tsx
+import { useState } from 'react';
 import TimePicker from 'react-time-picker';
 
 function MyApp() {
@@ -65,7 +65,7 @@ function MyApp() {
 
 If you want to use default React-Date-Picker and React-Clock styling to build upon it, you can import them by using:
 
-```js
+```ts
 import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 ```
