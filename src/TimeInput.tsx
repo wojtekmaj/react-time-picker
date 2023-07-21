@@ -109,6 +109,7 @@ type TimeInputProps = {
   hourPlaceholder?: string;
   isClockOpen?: boolean | null;
   locale?: string;
+  loopInputs?: boolean;
   maxDetail?: Detail;
   maxTime?: string;
   minTime?: string;
@@ -134,6 +135,7 @@ export default function TimeInput({
   hourPlaceholder,
   isClockOpen: isClockOpenProps = null,
   locale,
+  loopInputs = false,
   maxDetail = 'minute',
   maxTime,
   minTime,
@@ -282,6 +284,27 @@ export default function TimeInput({
         focus(nextInput);
         break;
       }
+      // if looping inputs is enabled and we try, for example, to go past
+      // 59 seconds, we'll intervene and "loop" back to the min.
+      // Because of how the events trigger,
+      // we actually have to 'fix' the value.
+      case 'ArrowUp':
+        if (loopInputs && event.target instanceof HTMLInputElement) {
+          const { value, max, min } = event.target;
+          if (value === max) {
+            event.target.value = (Number(min) - 1).toString();
+          }
+        }
+        break;
+      // Same in the other direction.
+      case 'ArrowDown':
+        if (loopInputs && event.target instanceof HTMLInputElement) {
+          const { value, max, min } = event.target;
+          if (value === min) {
+            event.target.value = (Number(max) + 1).toString();
+          }
+        }
+        break;
       default:
     }
   }
@@ -615,6 +638,7 @@ TimeInput.propTypes = {
   hourPlaceholder: PropTypes.string,
   isClockOpen: PropTypes.bool,
   locale: PropTypes.string,
+  loopInputs: PropTypes.bool,
   maxDetail: PropTypes.oneOf(allViews),
   maxTime: isTime,
   minTime: isTime,

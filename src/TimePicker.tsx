@@ -73,6 +73,12 @@ export type TimePickerProps = {
   id?: string;
   isOpen?: boolean;
   locale?: string;
+  /**
+   * If enabled, inputs will loop to the min or max when going out of range.
+   * For example, if seconds is currently 59 and the arrow up key is pressed,
+   * the seconds value will go to 0.
+   */
+  loopInputs?: boolean;
   maxDetail?: Detail;
   maxTime?: string;
   minTime?: string;
@@ -115,6 +121,7 @@ export default function TimePicker(props: TimePickerProps) {
     id,
     isOpen: isOpenProps = null,
     locale,
+    loopInputs = false,
     maxTime,
     maxDetail = 'minute',
     minTime,
@@ -307,6 +314,7 @@ export default function TimePicker(props: TimePickerProps) {
           format={format}
           isClockOpen={isOpen}
           locale={locale}
+          loopInputs={loopInputs}
           maxDetail={maxDetail}
           maxTime={maxTime}
           minTime={minTime}
@@ -433,6 +441,7 @@ TimePicker.propTypes = {
   id: PropTypes.string,
   isOpen: PropTypes.bool,
   locale: PropTypes.string,
+  loopInputs: PropTypes.bool,
   maxDetail: PropTypes.oneOf(allViews),
   maxTime: isTime,
   minTime: isTime,
