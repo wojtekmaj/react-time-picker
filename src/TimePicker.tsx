@@ -448,7 +448,7 @@ TimePicker.propTypes = {
   onClockOpen: PropTypes.func,
   onFocus: PropTypes.func,
   openClockOnFocus: PropTypes.bool,
-  portalContainer: PropTypes.object,
+  portalContainer: PropTypes.instanceOf(HTMLElement),
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   secondPlaceholder: PropTypes.string,
