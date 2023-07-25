@@ -84,5 +84,5 @@ AmPm.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   required: PropTypes.bool,
-  value: PropTypes.oneOf(['am', 'pm']),
+  value: PropTypes.oneOf(['am', 'pm'] as const),
 };
