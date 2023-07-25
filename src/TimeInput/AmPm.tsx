@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { getHours } from '@wojtekmaj/date-utils';
 
 import { convert24to12 } from '../shared/dates';
-import { isRef, isTime } from '../shared/propTypes';
 import { getAmPmLabels } from '../shared/utils';
 
 /* eslint-disable jsx-a11y/no-autofocus */
@@ -71,18 +69,3 @@ export default function AmPm({
     </select>
   );
 }
-
-AmPm.propTypes = {
-  ariaLabel: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  inputRef: isRef,
-  locale: PropTypes.string,
-  maxTime: isTime,
-  minTime: isTime,
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  required: PropTypes.bool,
-  value: PropTypes.oneOf(['am', 'pm'] as const),
-};

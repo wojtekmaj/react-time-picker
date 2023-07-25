@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getHours, getMinutes } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
-import { isRef, isTime } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
 type MinuteInputProps = {
@@ -38,20 +36,3 @@ export default function MinuteInput({
     />
   );
 }
-
-MinuteInput.propTypes = {
-  ariaLabel: PropTypes.string,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  hour: PropTypes.string,
-  inputRef: isRef,
-  maxTime: isTime,
-  minTime: isTime,
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  onKeyUp: PropTypes.func,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  showLeadingZeros: PropTypes.bool,
-  value: PropTypes.string,
-};

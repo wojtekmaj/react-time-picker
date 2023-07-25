@@ -1,7 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import { isTime } from './shared/propTypes';
 
 type ValidityOptionsProps = {
   maxTime?: string;
@@ -66,12 +63,3 @@ export default function ValidityOptions({
     </fieldset>
   );
 }
-
-ValidityOptions.propTypes = {
-  maxTime: isTime,
-  minTime: isTime,
-  required: PropTypes.bool,
-  setMaxTime: PropTypes.func.isRequired,
-  setMinTime: PropTypes.func.isRequired,
-  setRequired: PropTypes.func.isRequired,
-};

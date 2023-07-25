@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 type ViewOptionsProps = {
   disabled: boolean;
@@ -47,10 +46,3 @@ export default function ViewOptions({
     </fieldset>
   );
 }
-
-ViewOptions.propTypes = {
-  disabled: PropTypes.bool.isRequired,
-  renderInPortal: PropTypes.bool.isRequired,
-  setDisabled: PropTypes.func.isRequired,
-  setRenderInPortal: PropTypes.func.isRequired,
-};

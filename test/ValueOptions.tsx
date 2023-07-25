@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
 
 import type { LooseValue } from './shared/types';
@@ -42,12 +41,3 @@ export default function ValueOptions({ setValue, value }: ValueOptionsProps) {
     </fieldset>
   );
 }
-
-const isValue = PropTypes.string;
-
-const isValueOrValueArray = PropTypes.oneOfType([isValue, PropTypes.arrayOf(isValue)]);
-
-ValueOptions.propTypes = {
-  setValue: PropTypes.func.isRequired,
-  value: isValueOrValueArray,
-};

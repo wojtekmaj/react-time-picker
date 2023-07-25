@@ -1,8 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getHours, getHoursMinutes, getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
-
-import { isTime, isValueType } from '../shared/propTypes';
 
 type NativeInputProps = {
   ariaLabel?: string;
@@ -79,15 +76,3 @@ export default function NativeInput({
     />
   );
 }
-
-NativeInput.propTypes = {
-  ariaLabel: PropTypes.string,
-  disabled: PropTypes.bool,
-  maxTime: isTime,
-  minTime: isTime,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  required: PropTypes.bool,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-  valueType: isValueType,
-};

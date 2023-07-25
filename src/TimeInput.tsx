@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   getHours,
   getMinutes,
@@ -20,7 +19,6 @@ import AmPm from './TimeInput/AmPm';
 
 import { getFormatter, getNumberFormatter } from './shared/dateFormatter';
 import { convert12to24, convert24to12 } from './shared/dates';
-import { isTime } from './shared/propTypes';
 import { getAmPmLabels } from './shared/utils';
 
 import type { AmPmType, Detail, LooseValuePiece, Value } from './shared/types';
@@ -604,29 +602,3 @@ export default function TimeInput({
     </div>
   );
 }
-
-const isValue = PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]);
-
-TimeInput.propTypes = {
-  amPmAriaLabel: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  format: PropTypes.string,
-  hourAriaLabel: PropTypes.string,
-  hourPlaceholder: PropTypes.string,
-  isClockOpen: PropTypes.bool,
-  locale: PropTypes.string,
-  maxDetail: PropTypes.oneOf(allViews),
-  maxTime: isTime,
-  minTime: isTime,
-  minuteAriaLabel: PropTypes.string,
-  minutePlaceholder: PropTypes.string,
-  name: PropTypes.string,
-  nativeInputAriaLabel: PropTypes.string,
-  onChange: PropTypes.func,
-  required: PropTypes.bool,
-  secondAriaLabel: PropTypes.string,
-  secondPlaceholder: PropTypes.string,
-  value: isValue,
-};
