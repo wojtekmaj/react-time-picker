@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getHours } from '@wojtekmaj/date-utils';
 
 import Input from './Input';
 
 import { convert24to12 } from '../shared/dates';
-import { isRef, isTime } from '../shared/propTypes';
 import { safeMin, safeMax } from '../shared/utils';
 
 import type { AmPmType } from '../shared/types';
@@ -71,21 +69,3 @@ export default function Hour12Input({
     />
   );
 }
-
-Hour12Input.propTypes = {
-  amPm: PropTypes.string,
-  ariaLabel: PropTypes.string,
-  className: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  hour: PropTypes.string,
-  inputRef: isRef,
-  maxTime: isTime,
-  minTime: isTime,
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  onKeyUp: PropTypes.func,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  showLeadingZeros: PropTypes.bool,
-  value: PropTypes.string,
-};
