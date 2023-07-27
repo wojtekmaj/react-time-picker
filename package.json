@@ -15,6 +15,54 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     },
+    "./dist/TimeInput": {
+      "import": "./dist/esm/TimeInput.js",
+      "require": "./dist/cjs/TimeInput.js"
+    },
+    "./dist/TimeInput.js": {
+      "import": "./dist/esm/TimeInput.js",
+      "require": "./dist/cjs/TimeInput.js"
+    },
+    "./dist/TimeInput/Hour12Input": {
+      "import": "./dist/esm/TimeInput/Hour12Input.js",
+      "require": "./dist/cjs/TimeInput/Hour12Input.js"
+    },
+    "./dist/TimeInput/Hour12Input.js": {
+      "import": "./dist/esm/TimeInput/Hour12Input.js",
+      "require": "./dist/cjs/TimeInput/Hour12Input.js"
+    },
+    "./dist/TimeInput/Hour24Input": {
+      "import": "./dist/esm/TimeInput/Hour24Input.js",
+      "require": "./dist/cjs/TimeInput/Hour24Input.js"
+    },
+    "./dist/TimeInput/Hour24Input.js": {
+      "import": "./dist/esm/TimeInput/Hour24Input.js",
+      "require": "./dist/cjs/TimeInput/Hour24Input.js"
+    },
+    "./dist/TimeInput/MinuteInput": {
+      "import": "./dist/esm/TimeInput/MinuteInput.js",
+      "require": "./dist/cjs/TimeInput/MinuteInput.js"
+    },
+    "./dist/TimeInput/MinuteInput.js": {
+      "import": "./dist/esm/TimeInput/MinuteInput.js",
+      "require": "./dist/cjs/TimeInput/MinuteInput.js"
+    },
+    "./dist/TimeInput/SecondInput": {
+      "import": "./dist/esm/TimeInput/SecondInput.js",
+      "require": "./dist/cjs/TimeInput/SecondInput.js"
+    },
+    "./dist/TimeInput/SecondInput.js": {
+      "import": "./dist/esm/TimeInput/SecondInput.js",
+      "require": "./dist/cjs/TimeInput/SecondInput.js"
+    },
+    "./dist/TimeInput/AmPm": {
+      "import": "./dist/esm/TimeInput/AmPm.js",
+      "require": "./dist/cjs/TimeInput/AmPm.js"
+    },
+    "./dist/TimeInput/AmPm.js": {
+      "import": "./dist/esm/TimeInput/AmPm.js",
+      "require": "./dist/cjs/TimeInput/AmPm.js"
+    },
     "./dist/cjs/TimeInput": "./dist/cjs/TimeInput.js",
     "./dist/cjs/TimeInput.js": "./dist/cjs/TimeInput.js",
     "./dist/cjs/TimeInput/Hour12Input": "./dist/cjs/TimeInput/Hour12Input.js",
