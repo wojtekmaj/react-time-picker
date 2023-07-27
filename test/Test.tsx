@@ -1,18 +1,18 @@
 import React, { useRef, useState } from 'react';
-import TimePicker from 'react-time-picker/src';
-import 'react-time-picker/src/TimePicker.css';
+import TimePicker from 'react-time-picker';
+import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 import { getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
 
-import ValidityOptions from './ValidityOptions';
-import MaxDetailOptions from './MaxDetailOptions';
-import LocaleOptions from './LocaleOptions';
-import ValueOptions from './ValueOptions';
-import ViewOptions from './ViewOptions';
+import ValidityOptions from './ValidityOptions.js';
+import MaxDetailOptions from './MaxDetailOptions.js';
+import LocaleOptions from './LocaleOptions.js';
+import ValueOptions from './ValueOptions.js';
+import ViewOptions from './ViewOptions.js';
 
 import './Test.css';
 
-import type { Detail, LooseValue } from './shared/types';
+import type { Detail, LooseValue } from './shared/types.js';
 
 const now = new Date();
 

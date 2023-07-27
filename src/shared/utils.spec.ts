@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { safeMin, safeMax } from './utils';
+import { safeMin, safeMax } from './utils.js';
 
 describe('safeMin', () => {
   it('returns Infinity given no values', () => {

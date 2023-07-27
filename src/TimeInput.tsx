@@ -9,19 +9,19 @@ import {
   getHoursMinutesSeconds,
 } from '@wojtekmaj/date-utils';
 
-import Divider from './Divider';
-import Hour12Input from './TimeInput/Hour12Input';
-import Hour24Input from './TimeInput/Hour24Input';
-import MinuteInput from './TimeInput/MinuteInput';
-import SecondInput from './TimeInput/SecondInput';
-import NativeInput from './TimeInput/NativeInput';
-import AmPm from './TimeInput/AmPm';
+import Divider from './Divider.js';
+import Hour12Input from './TimeInput/Hour12Input.js';
+import Hour24Input from './TimeInput/Hour24Input.js';
+import MinuteInput from './TimeInput/MinuteInput.js';
+import SecondInput from './TimeInput/SecondInput.js';
+import NativeInput from './TimeInput/NativeInput.js';
+import AmPm from './TimeInput/AmPm.js';
 
-import { getFormatter, getNumberFormatter } from './shared/dateFormatter';
-import { convert12to24, convert24to12 } from './shared/dates';
-import { getAmPmLabels } from './shared/utils';
+import { getFormatter, getNumberFormatter } from './shared/dateFormatter.js';
+import { convert12to24, convert24to12 } from './shared/dates.js';
+import { getAmPmLabels } from './shared/utils.js';
 
-import type { AmPmType, Detail, LooseValuePiece, Value } from './shared/types';
+import type { AmPmType, Detail, LooseValuePiece, Value } from './shared/types.js';
 
 const getFormatterOptionsCache: Record<string, Intl.DateTimeFormatOptions> = {};
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { getHours, getMinutes, getSeconds } from '@wojtekmaj/date-utils';
 
-import Input from './Input';
+import Input from './Input.js';
 
-import { safeMin, safeMax } from '../shared/utils';
+import { safeMin, safeMax } from '../shared/utils.js';
 
 type SecondInputProps = {
   hour?: string | null;

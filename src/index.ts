@@ -1,6 +1,6 @@
-import TimePicker from './TimePicker';
+import TimePicker from './TimePicker.js';
 
-export type { TimePickerProps } from './TimePicker';
+export type { TimePickerProps } from './TimePicker.js';
 
 export { TimePicker };
 

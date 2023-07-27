@@ -2,8 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import { getHours } from '@wojtekmaj/date-utils';
 
-import { convert24to12 } from '../shared/dates';
-import { getAmPmLabels } from '../shared/utils';
+import { convert24to12 } from '../shared/dates.js';
+import { getAmPmLabels } from '../shared/utils.js';
 
 /* eslint-disable jsx-a11y/no-autofocus */
 

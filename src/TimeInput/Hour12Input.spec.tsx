@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import React, { createRef } from 'react';
 import { render } from '@testing-library/react';
 
-import Hour12Input from './Hour12Input';
+import Hour12Input from './Hour12Input.js';
 
 describe('Hour12Input', () => {
   const defaultProps = {

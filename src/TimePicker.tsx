@@ -8,12 +8,19 @@ import clsx from 'clsx';
 import Clock from 'react-clock';
 import Fit from 'react-fit';
 
-import TimeInput from './TimeInput';
+import TimeInput from './TimeInput.js';
 
-import { isTime, rangeOf } from './shared/propTypes';
+import { isTime, rangeOf } from './shared/propTypes.js';
 
 import type { ReactNodeArray } from 'prop-types';
-import type { ClassName, CloseReason, Detail, LooseValue, OpenReason, Value } from './shared/types';
+import type {
+  ClassName,
+  CloseReason,
+  Detail,
+  LooseValue,
+  OpenReason,
+  Value,
+} from './shared/types.js';
 
 const baseClassName = 'react-time-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
