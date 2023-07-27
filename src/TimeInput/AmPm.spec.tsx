@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import AmPm from './AmPm';
+import AmPm from './AmPm.js';
 
 describe('AmPm', () => {
   const defaultProps = {

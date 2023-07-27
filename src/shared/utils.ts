@@ -1,4 +1,4 @@
-import { getFormatter } from './dateFormatter';
+import { getFormatter } from './dateFormatter.js';
 
 const nines = ['9', '٩'];
 const ninesRegExp = new RegExp(`[${nines.join('')}]`);

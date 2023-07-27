@@ -1,12 +1,12 @@
 import React from 'react';
 import { getHours } from '@wojtekmaj/date-utils';
 
-import Input from './Input';
+import Input from './Input.js';
 
-import { convert24to12 } from '../shared/dates';
-import { safeMin, safeMax } from '../shared/utils';
+import { convert24to12 } from '../shared/dates.js';
+import { safeMin, safeMax } from '../shared/utils.js';
 
-import type { AmPmType } from '../shared/types';
+import type { AmPmType } from '../shared/types.js';
 
 type Hour12InputProps = {
   amPm: AmPmType | null;

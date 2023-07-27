@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import React, { createRef } from 'react';
 import { render } from '@testing-library/react';
 
-import SecondInput from './SecondInput';
+import SecondInput from './SecondInput.js';
 
 describe('SecondInput', () => {
   const defaultProps = {
