@@ -22,6 +22,8 @@ import type {
   Value,
 } from './shared/types.js';
 
+const isBrowser = typeof document !== 'undefined';
+
 const baseClassName = 'react-time-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
 const allViews = ['hour', 'minute', 'second'] as const;
@@ -455,7 +457,7 @@ TimePicker.propTypes = {
   onClockOpen: PropTypes.func,
   onFocus: PropTypes.func,
   openClockOnFocus: PropTypes.bool,
-  portalContainer: PropTypes.instanceOf(HTMLElement),
+  portalContainer: isBrowser ? PropTypes.instanceOf(HTMLElement) : undefined,
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   secondPlaceholder: PropTypes.string,
