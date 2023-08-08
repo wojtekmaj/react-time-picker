@@ -457,11 +457,14 @@ TimePicker.propTypes = {
   onClockOpen: PropTypes.func,
   onFocus: PropTypes.func,
   openClockOnFocus: PropTypes.bool,
-  portalContainer: isBrowser ? PropTypes.instanceOf(HTMLElement) : undefined,
   required: PropTypes.bool,
   secondAriaLabel: PropTypes.string,
   secondPlaceholder: PropTypes.string,
   value: isValueOrValueArray,
 };
+
+if (isBrowser) {
+  TimePicker.propTypes.portalContainer = PropTypes.instanceOf(HTMLElement);
+}
 
 export default TimePicker;
