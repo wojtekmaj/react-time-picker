@@ -39,6 +39,7 @@
 .react-time-picker__inputGroup__divider,
 .react-time-picker__inputGroup__leadingZero {
   display: inline-block;
+  font: inherit;
 }
 
 .react-time-picker__inputGroup__input {
