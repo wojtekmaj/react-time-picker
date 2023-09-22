@@ -1,5 +1,3 @@
-import React from 'react';
-
 type ValidityOptionsProps = {
   maxTime?: string;
   minTime?: string;
