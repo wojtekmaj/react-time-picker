@@ -72,7 +72,7 @@ describe('TimeInput', () => {
   });
 
   it('shows a given time in all inputs correctly (12-hour format)', () => {
-    const date = '22:17:00';
+    const date = '22:17:03';
 
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" value={date} />);
 
@@ -82,11 +82,11 @@ describe('TimeInput', () => {
     expect(nativeInput).toHaveValue(date);
     expect(customInputs[0]).toHaveValue(10);
     expect(customInputs[1]).toHaveValue(17);
-    expect(customInputs[2]).toHaveValue(0);
+    expect(customInputs[2]).toHaveValue(3);
   });
 
   itIfFullICU('shows a given time in all inputs correctly (24-hour format)', () => {
-    const date = '22:17:00';
+    const date = '22:17:03';
 
     const { container } = render(
       <TimeInput {...defaultProps} locale="de-DE" maxDetail="second" value={date} />,
@@ -98,7 +98,7 @@ describe('TimeInput', () => {
     expect(nativeInput).toHaveValue(date);
     expect(customInputs[0]).toHaveValue(22);
     expect(customInputs[1]).toHaveValue(17);
-    expect(customInputs[2]).toHaveValue(0);
+    expect(customInputs[2]).toHaveValue(3);
   });
 
   it('shows empty value in all inputs correctly given null', () => {
@@ -114,7 +114,7 @@ describe('TimeInput', () => {
   });
 
   it('clears the value correctly', () => {
-    const date = '22:17:00';
+    const date = '22:17:03';
 
     const { container, rerender } = render(
       <TimeInput {...defaultProps} maxDetail="second" value={date} />,
@@ -412,7 +412,7 @@ describe('TimeInput', () => {
       fireEvent.keyUp(getActiveElement(), { key });
     }
 
-    const date = '22:17:00';
+    const date = '22:17:03';
 
     const { container } = render(<TimeInput {...defaultProps} value={date} />);
 
@@ -446,7 +446,7 @@ describe('TimeInput', () => {
 
   it('triggers onChange correctly when changed custom input', () => {
     const onChange = vi.fn();
-    const date = '22:17:00';
+    const date = '22:17:03';
 
     const { container } = render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
@@ -458,12 +458,12 @@ describe('TimeInput', () => {
     fireEvent.change(hourInput, { target: { value: '8' } });
 
     expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledWith('20:17:00', false);
+    expect(onChange).toHaveBeenCalledWith('20:17:03', false);
   });
 
   it('triggers onChange correctly when cleared custom inputs', () => {
     const onChange = vi.fn();
-    const date = '22:17:00';
+    const date = '22:17:03';
 
     const { container } = render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
@@ -481,7 +481,7 @@ describe('TimeInput', () => {
 
   it('triggers onChange correctly when changed native input', () => {
     const onChange = vi.fn();
-    const date = '22:17:00';
+    const date = '22:17:03';
 
     const { container } = render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
@@ -489,15 +489,15 @@ describe('TimeInput', () => {
 
     const nativeInput = container.querySelector('input[type="time"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '20:17:00' } });
+    fireEvent.change(nativeInput, { target: { value: '20:17:03' } });
 
     expect(onChange).toHaveBeenCalled();
-    expect(onChange).toHaveBeenCalledWith('20:17:00', false);
+    expect(onChange).toHaveBeenCalledWith('20:17:03', false);
   });
 
   it('triggers onChange correctly when cleared native input', () => {
     const onChange = vi.fn();
-    const date = '22:17:00';
+    const date = '22:17:03';
 
     const { container } = render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
