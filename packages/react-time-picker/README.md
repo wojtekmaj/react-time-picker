@@ -17,7 +17,7 @@ A time picker for your React app.
 
 A minimal demo page can be found in `sample` directory.
 
-[Online demo](http://projects.wojtekmaj.pl/react-time-picker/) is also available!
+[Online demo](https://projects.wojtekmaj.pl/react-time-picker/) is also available!
 
 ## Looking for a date picker or a datetime picker?
 
