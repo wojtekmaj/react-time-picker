@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/react-time-picker.svg)](https://www.npmjs.com/package/react-time-picker) ![downloads](https://img.shields.io/npm/dt/react-time-picker.svg) [![CI](https://github.com/wojtekmaj/react-time-picker/workflows/CI/badge.svg)](https://github.com/wojtekmaj/react-time-picker/actions)
+[![npm](https://img.shields.io/npm/v/react-time-picker.svg)](https://www.npmjs.com/package/react-time-picker) ![downloads](https://img.shields.io/npm/dt/react-time-picker.svg) [![CI](https://github.com/wojtekmaj/react-time-picker/actions/workflows/ci.yml/badge.svg)](https://github.com/wojtekmaj/react-time-picker/actions)
 
 # React-Time-Picker
 
