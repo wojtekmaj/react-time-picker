@@ -67,43 +67,262 @@ type ClockProps = Omit<React.ComponentPropsWithoutRef<typeof Clock>, 'value'>;
 type EventProps = ReturnType<typeof makeEventProps>;
 
 export type TimePickerProps = {
+  /**
+   * `aria-label` for the AM/PM select input.
+   *
+   * @example 'Select AM/PM'
+   */
   amPmAriaLabel?: string;
+  /**
+   * Automatically focuses the input on mount.
+   *
+   * @example true
+   */
   autoFocus?: boolean;
+  /**
+   * Class name(s) that will be added along with `"react-time-picker"` to the main React-Time-Picker `<div>` element.
+   *
+   * @example 'class1 class2'
+   * @example ['class1', 'class2 class3']
+   */
   className?: ClassName;
+  /**
+   * `aria-label` for the clear button.
+   *
+   * @example 'Clear value'
+   */
   clearAriaLabel?: string;
+  /**
+   * Content of the clear button. Setting the value explicitly to `null` will hide the icon.
+   *
+   * @example 'Clear'
+   * @example <ClearIcon />
+   * @example ClearIcon
+   */
   clearIcon?: IconOrRenderFunction | null;
+  /**
+   * `aria-label` for the clock button.
+   *
+   * @example 'Toggle clock'
+   */
   clockAriaLabel?: string;
+  /**
+   * Class name(s) that will be added along with `"react-clock"` to the main React-Clock `<time>` element.
+   *
+   * @example 'class1 class2'
+   * @example ['class1', 'class2 class3']
+   */
   clockClassName?: ClassName;
+  /**
+   * Content of the clock button. Setting the value explicitly to `null` will hide the icon.
+   *
+   * @example 'Clock'
+   * @example <ClockIcon />
+   * @example ClockIcon
+   */
   clockIcon?: IconOrRenderFunction | null;
+  /**
+   * Whether to close the clock on value selection.
+   *
+   * **Note**: It's recommended to use `shouldCloseClock` function instead.
+   *
+   * @default true
+   * @example false
+   */
   closeClock?: boolean;
+  /**
+   * `data-testid` attribute for the main React-Time-Picker `<div>` element.
+   *
+   * @example 'time-picker'
+   */
   'data-testid'?: string;
+  /**
+   * When set to `true`, will remove the clock and the button toggling its visibility.
+   *
+   * @default false
+   * @example true
+   */
   disableClock?: boolean;
+  /**
+   * Whether the time picker should be disabled.
+   *
+   * @default false
+   * @example true
+   */
   disabled?: boolean;
+  /**
+   * Input format based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table). Supported values are: `H`, `HH`, `h`, `hh`, `m`, `mm`, `s`, `ss`, `a`.
+   *
+   * **Note**: When using SSR, setting this prop may help resolving hydration errors caused by locale mismatch between server and client.
+   *
+   * @example 'h:m:s a'
+   */
   format?: string;
+  /**
+   * `aria-label` for the hour input.
+   *
+   * @example 'Hour'
+   */
   hourAriaLabel?: string;
+  /**
+   * `placeholder` for the hour input.
+   *
+   * @default '--'
+   * @example 'hh'
+   */
   hourPlaceholder?: string;
+  /**
+   * `id` attribute for the main React-TimeRange-Picker `<div>` element.
+   *
+   * @example 'time-picker'
+   */
   id?: string;
+  /**
+   * Whether the clock should be opened.
+   *
+   * @default false
+   * @example true
+   */
   isOpen?: boolean;
+  /**
+   * Locale that should be used by the datetime picker and the calendar. Can be any [IETF language tag](https://en.wikipedia.org/wiki/IETF_language_tag).
+   *
+   * **Note**: When using SSR, setting this prop may help resolving hydration errors caused by locale mismatch between server and client.
+   *
+   * @example 'hu-HU'
+   */
   locale?: string;
+  /**
+   * How detailed time picking shall be. Can be `"hour"`, `"minute"` or `"second"`.
+   *
+   * @default 'minute'
+   * @example 'second'
+   */
   maxDetail?: Detail;
+  /**
+   * Maximum date that the user can select.
+   *
+   * @example new Date()
+   * @example '22:15:00'
+   */
   maxTime?: string;
+  /**
+   * Minimum date that the user can select.
+   *
+   * @example new Date()
+   * @example '22:15:00'
+   */
   minTime?: string;
+  /**
+   * `aria-label` for the minute input.
+   *
+   * @example 'Minute'
+   */
   minuteAriaLabel?: string;
+  /**
+   * `placeholder` for the minute input.
+   *
+   * @default '--'
+   * @example 'mm'
+   */
   minutePlaceholder?: string;
+  /**
+   * Input name.
+   *
+   * @default 'time'
+   */
   name?: string;
+  /**
+   * `aria-label` for the native time input.
+   *
+   * @example 'Time'
+   */
   nativeInputAriaLabel?: string;
+  /**
+   * Function called when the user picks a valid time.
+   *
+   * @example (value) => alert('New time is: ', value)
+   */
   onChange?: (value: Value) => void;
+  /**
+   * Function called when the clock closes.
+   *
+   * @example () => alert('Clock closed')
+   */
   onClockClose?: () => void;
+  /**
+   * Function called when the clock opens.
+   *
+   * @example () => alert('Clock opened')
+   */
   onClockOpen?: () => void;
+  /**
+   * Function called when the user focuses an input.
+   *
+   * @example (event) => alert('Focused input: ', event.target.name)
+   */
   onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
+  /**
+   * Function called when the user picks an invalid time.
+   *
+   * @example () => alert('Invalid time')
+   */
   onInvalidChange?: () => void;
+  /**
+   * Whether to open the clock on input focus.
+   *
+   * **Note**: It's recommended to use `shouldOpenClock` function instead.
+   *
+   * @default true
+   * @example false
+   */
   openClockOnFocus?: boolean;
+  /**
+   * Element to render the clock in using portal.
+   *
+   * @example document.getElementById('my-div')
+   */
   portalContainer?: HTMLElement | null;
+  /**
+   * Whether time input should be required.
+   *
+   * @default false
+   * @example true
+   */
   required?: boolean;
+  /**
+   * `aria-label` for the second input.
+   *
+   * @example 'Second'
+   */
   secondAriaLabel?: string;
+  /**
+   * `placeholder` for the second input.
+   *
+   * @default '--'
+   * @example 'ss'
+   */
   secondPlaceholder?: string;
+  /**
+   * Function called before the clock closes. `reason` can be `"buttonClick"`, `"escape"`, `"outsideAction"`, or `"select"`. If it returns `false`, the clock will not close.
+   *
+   * @example ({ reason }) => reason !== 'outsideAction'
+   */
   shouldCloseClock?: ({ reason }: { reason: CloseReason }) => boolean;
+  /**
+   * Function called before the clock opens. `reason` can be `"buttonClick"` or `"focus"`. If it returns `false`, the clock will not open.
+   *
+   * @example ({ reason }) => reason !== 'focus'
+   */
   shouldOpenClock?: ({ reason }: { reason: OpenReason }) => boolean;
+  /**
+   * Input value. Note that if you pass an array of values, only first value will be fully utilized.
+   *
+   * @example new Date(2017, 0, 1, 22, 15)
+   * @example '22:15:00'
+   * @example [new Date(2017, 0, 1, 22, 15), new Date(2017, 0, 1, 23, 45)]
+   * @example ["22:15:00", "23:45:00"]
+   */
   value?: LooseValue;
 } & ClockProps &
   Omit<EventProps, 'onChange' | 'onFocus'>;
