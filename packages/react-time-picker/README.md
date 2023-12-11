@@ -19,6 +19,14 @@ A minimal demo page can be found in `sample` directory.
 
 [Online demo](https://projects.wojtekmaj.pl/react-time-picker/) is also available!
 
+## Consider native alternative
+
+If you don't need to support legacy browsers and don't need the advanced features this package provides, consider using native time input instead. It's more accessible, adds no extra weight to your bundle, and works better on mobile devices.
+
+```tsx
+<input aria-label="Time" type="time" />
+```
+
 ## Looking for a date picker or a datetime picker?
 
 React-Time-Picker will play nicely with [React-Date-Picker](https://github.com/wojtekmaj/react-date-picker) and [React-DateTime-Picker](https://github.com/wojtekmaj/react-datetime-picker). Check them out!
