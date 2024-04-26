@@ -120,7 +120,6 @@
     "clsx": "^2.0.0",
     "get-user-locale": "^2.2.1",
     "make-event-props": "^1.6.0",
-    "prop-types": "^15.6.0",
     "react-clock": "^4.5.0",
     "react-fit": "^1.7.0",
     "update-input-width": "^1.4.0"

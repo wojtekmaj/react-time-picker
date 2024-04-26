@@ -2,7 +2,6 @@
 
 import { createElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
 import makeEventProps from 'make-event-props';
 import clsx from 'clsx';
 import Clock from 'react-clock';
@@ -10,9 +9,6 @@ import Fit from 'react-fit';
 
 import TimeInput from './TimeInput.js';
 
-import { isTime, rangeOf } from './shared/propTypes.js';
-
-import type { ReactNodeArray } from 'prop-types';
 import type {
   ClassName,
   CloseReason,
@@ -22,11 +18,8 @@ import type {
   Value,
 } from './shared/types.js';
 
-const isBrowser = typeof document !== 'undefined';
-
 const baseClassName = 'react-time-picker';
 const outsideActionEvents = ['mousedown', 'focusin', 'touchstart'] as const;
-const allViews = ['hour', 'minute', 'second'] as const;
 
 const iconProps = {
   xmlns: 'http://www.w3.org/2000/svg',
@@ -58,7 +51,9 @@ const ClearIcon = (
   </svg>
 );
 
-type Icon = React.ReactElement | ReactNodeArray | null | string | number | boolean;
+type ReactNodeLike = React.ReactNode | string | number | boolean | null | undefined;
+
+type Icon = ReactNodeLike | ReactNodeLike[];
 
 type IconOrRenderFunction = Icon | React.ComponentType | React.ReactElement;
 
@@ -641,50 +636,5 @@ const TimePicker: React.FC<TimePickerProps> = function TimePicker(props) {
     </div>
   );
 };
-
-const isValue = PropTypes.oneOfType([isTime, PropTypes.instanceOf(Date)]);
-
-const isValueOrValueArray = PropTypes.oneOfType([isValue, rangeOf(isValue)]);
-
-TimePicker.propTypes = {
-  amPmAriaLabel: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  clearAriaLabel: PropTypes.string,
-  clearIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  clockAriaLabel: PropTypes.string,
-  clockClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  clockIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  closeClock: PropTypes.bool,
-  'data-testid': PropTypes.string,
-  disableClock: PropTypes.bool,
-  disabled: PropTypes.bool,
-  format: PropTypes.string,
-  hourAriaLabel: PropTypes.string,
-  hourPlaceholder: PropTypes.string,
-  id: PropTypes.string,
-  isOpen: PropTypes.bool,
-  locale: PropTypes.string,
-  maxDetail: PropTypes.oneOf(allViews),
-  maxTime: isTime,
-  minTime: isTime,
-  minuteAriaLabel: PropTypes.string,
-  minutePlaceholder: PropTypes.string,
-  name: PropTypes.string,
-  nativeInputAriaLabel: PropTypes.string,
-  onChange: PropTypes.func,
-  onClockClose: PropTypes.func,
-  onClockOpen: PropTypes.func,
-  onFocus: PropTypes.func,
-  openClockOnFocus: PropTypes.bool,
-  required: PropTypes.bool,
-  secondAriaLabel: PropTypes.string,
-  secondPlaceholder: PropTypes.string,
-  value: isValueOrValueArray,
-};
-
-if (isBrowser) {
-  TimePicker.propTypes.portalContainer = PropTypes.instanceOf(HTMLElement);
-}
 
 export default TimePicker;
