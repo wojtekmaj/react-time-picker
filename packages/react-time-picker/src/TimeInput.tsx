@@ -159,7 +159,7 @@ export default function TimeInput({
   const minuteInput = useRef<HTMLInputElement>(null);
   const secondInput = useRef<HTMLInputElement>(null);
   const [isClockOpen, setIsClockOpen] = useState(isClockOpenProps);
-  const lastPressedKey = useRef<KeyboardEvent['key']>();
+  const lastPressedKey = useRef<KeyboardEvent['key'] | undefined>(undefined);
 
   useEffect(() => {
     setIsClockOpen(isClockOpenProps);
