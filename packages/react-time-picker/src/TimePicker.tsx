@@ -322,7 +322,7 @@ export type TimePickerProps = {
 } & ClockProps &
   Omit<EventProps, 'onChange' | 'onFocus'>;
 
-const TimePicker: React.FC<TimePickerProps> = function TimePicker(props) {
+export default function TimePicker(props: TimePickerProps) {
   const {
     amPmAriaLabel,
     autoFocus,
@@ -635,6 +635,4 @@ const TimePicker: React.FC<TimePickerProps> = function TimePicker(props) {
       {renderClock()}
     </div>
   );
-};
-
-export default TimePicker;
+}
