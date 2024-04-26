@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import makeEventProps from 'make-event-props';
@@ -556,7 +556,7 @@ const TimePicker: React.FC<TimePickerProps> = function TimePicker(props) {
             onFocus={stopPropagation}
             type="button"
           >
-            {typeof clearIcon === 'function' ? React.createElement(clearIcon) : clearIcon}
+            {typeof clearIcon === 'function' ? createElement(clearIcon) : clearIcon}
           </button>
         )}
         {clockIcon !== null && !disableClock && (
@@ -569,7 +569,7 @@ const TimePicker: React.FC<TimePickerProps> = function TimePicker(props) {
             onFocus={stopPropagation}
             type="button"
           >
-            {typeof clockIcon === 'function' ? React.createElement(clockIcon) : clockIcon}
+            {typeof clockIcon === 'function' ? createElement(clockIcon) : clockIcon}
           </button>
         )}
       </div>

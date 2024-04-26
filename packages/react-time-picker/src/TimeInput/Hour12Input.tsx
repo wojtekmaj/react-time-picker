@@ -1,4 +1,3 @@
-import React from 'react';
 import { getHours } from '@wojtekmaj/date-utils';
 
 import Input from './Input.js';

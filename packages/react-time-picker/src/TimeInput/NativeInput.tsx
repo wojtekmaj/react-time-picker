@@ -1,4 +1,3 @@
-import React from 'react';
 import { getHours, getHoursMinutes, getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
 
 type NativeInputProps = {
