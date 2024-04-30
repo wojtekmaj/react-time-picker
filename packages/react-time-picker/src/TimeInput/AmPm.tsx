@@ -11,7 +11,7 @@ type AmPmProps = {
   autoFocus?: boolean;
   className: string;
   disabled?: boolean;
-  inputRef?: React.RefObject<HTMLSelectElement>;
+  inputRef?: React.RefObject<HTMLSelectElement | null>;
   locale?: string;
   maxTime?: string;
   minTime?: string;
@@ -54,7 +54,8 @@ export default function AmPm({
       name={name}
       onChange={onChange}
       onKeyDown={onKeyDown}
-      ref={inputRef}
+      // Assertion is needed for React 18 compatibility
+      ref={inputRef as React.RefObject<HTMLSelectElement>}
       required={required}
       value={value !== null ? value : ''}
     >
