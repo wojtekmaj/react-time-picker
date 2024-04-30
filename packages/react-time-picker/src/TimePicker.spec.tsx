@@ -156,10 +156,10 @@ describe('TimePicker', () => {
     expect(wrapper).toHaveClass('react-time-picker--open');
   });
 
-  it('applies clockClassName to the clock when given a string', () => {
+  it('applies clock className to the clock when given a string', () => {
     const clockClassName = 'testClassName';
 
-    const { container } = render(<TimePicker clockClassName={clockClassName} isOpen />);
+    const { container } = render(<TimePicker clockProps={{ className: clockClassName }} isOpen />);
 
     const clock = container.querySelector('.react-clock');
 

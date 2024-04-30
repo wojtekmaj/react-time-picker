@@ -102,13 +102,6 @@ export type TimePickerProps = {
    */
   clockAriaLabel?: string;
   /**
-   * Class name(s) that will be added along with `"react-clock"` to the main React-Clock `<time>` element.
-   *
-   * @example 'class1 class2'
-   * @example ['class1', 'class2 class3']
-   */
-  clockClassName?: ClassName;
-  /**
    * Content of the clock button. Setting the value explicitly to `null` will hide the icon.
    *
    * @example 'Clock'
@@ -116,6 +109,10 @@ export type TimePickerProps = {
    * @example ClockIcon
    */
   clockIcon?: IconOrRenderFunction | null;
+  /**
+   * Props to pass to React-Clock component.
+   */
+  clockProps?: ClockProps;
   /**
    * Whether to close the clock on value selection.
    *
@@ -319,8 +316,7 @@ export type TimePickerProps = {
    * @example ["22:15:00", "23:45:00"]
    */
   value?: LooseValue;
-} & ClockProps &
-  Omit<EventProps, 'onChange' | 'onFocus'>;
+} & Omit<EventProps, 'onChange' | 'onFocus'>;
 
 export default function TimePicker(props: TimePickerProps) {
   const {
@@ -576,21 +572,14 @@ export default function TimePicker(props: TimePickerProps) {
       return null;
     }
 
-    const {
-      clockClassName,
-      className: timePickerClassName, // Unused, here to exclude it from clockProps
-      onChange: onChangeProps, // Unused, here to exclude it from clockProps
-      portalContainer,
-      value,
-      ...clockProps
-    } = props;
+    const { clockProps, portalContainer, value } = props;
 
     const className = `${baseClassName}__clock`;
     const classNames = clsx(className, `${className}--${isOpen ? 'open' : 'closed'}`);
 
     const [valueFrom] = Array.isArray(value) ? value : [value];
 
-    const clock = <Clock className={clockClassName} value={valueFrom} {...clockProps} />;
+    const clock = <Clock locale={locale} value={valueFrom} {...clockProps} />;
 
     return portalContainer ? (
       createPortal(
