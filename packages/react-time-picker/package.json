@@ -1,6 +1,6 @@
 {
   "name": "react-time-picker",
-  "version": "6.6.0",
+  "version": "7.0.0",
   "description": "A time picker for your React app.",
   "type": "module",
   "sideEffects": [
