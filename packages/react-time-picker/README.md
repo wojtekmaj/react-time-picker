@@ -39,7 +39,8 @@ Your project needs to use React 16.3 or later. If you use an older version of Re
 
 | React version | Newest compatible React-Time-Picker version |
 | ------------- | ------------------------------------------- |
-| ≥16.3         | latest                                      |
+| ≥16.8         | latest                                      |
+| ≥16.3         | 4.x                                         |
 | ≥16.0         | 3.x                                         |
 
 ### Installation
