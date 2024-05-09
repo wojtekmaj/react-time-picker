@@ -42,10 +42,6 @@ Your project needs to use React 16.3 or later. If you use an older version of Re
 | ≥16.3         | latest                                      |
 | ≥16.0         | 3.x                                         |
 
-#### Legacy browsers
-
-If you need to support legacy browsers like Internet Explorer 10, you will need to use [Intl.js](https://github.com/andyearnshaw/Intl.js/) or another Intl polyfill along with React-Date-Picker.
-
 ### Installation
 
 Add React-Time-Picker to your project by executing `npm install react-time-picker` or `yarn add react-time-picker`.
