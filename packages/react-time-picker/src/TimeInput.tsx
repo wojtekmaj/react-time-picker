@@ -66,7 +66,7 @@ function renderCustomInputs(
 
   return placeholder.split(pattern).reduce<React.ReactNode[]>((arr, element, index) => {
     const divider = element && (
-      // eslint-disable-next-line react/no-array-index-key
+      // biome-ignore lint/suspicious/noArrayIndexKey: index is stable here
       <Divider key={`separator_${index}`}>{element}</Divider>
     );
     arr.push(divider);
@@ -165,6 +165,7 @@ export default function TimeInput({
     setIsClockOpen(isClockOpenProps);
   }, [isClockOpenProps]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: useEffect intentionally triggered on props change
   useEffect(() => {
     const nextValue = valueProps;
 
@@ -461,7 +462,6 @@ export default function TimeInput({
         {...commonInputProps}
         amPm={amPm}
         ariaLabel={hourAriaLabel}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         inputRef={hour12Input}
         placeholder={hourPlaceholder}
@@ -483,7 +483,6 @@ export default function TimeInput({
         key="hour24"
         {...commonInputProps}
         ariaLabel={hourAriaLabel}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         inputRef={hour24Input}
         placeholder={hourPlaceholder}
@@ -513,7 +512,6 @@ export default function TimeInput({
         key="minute"
         {...commonInputProps}
         ariaLabel={minuteAriaLabel}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         hour={hour}
         inputRef={minuteInput}
@@ -536,7 +534,6 @@ export default function TimeInput({
         key="second"
         {...commonInputProps}
         ariaLabel={secondAriaLabel}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         hour={hour}
         inputRef={secondInput}
@@ -554,7 +551,6 @@ export default function TimeInput({
         key="ampm"
         {...commonInputProps}
         ariaLabel={amPmAriaLabel}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={index === 0 && autoFocus}
         inputRef={amPmInput}
         locale={locale}
@@ -595,7 +591,7 @@ export default function TimeInput({
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    // biome-ignore lint/a11y/useKeyWithClickEvents: This interaction is designed for mouse users only
     <div className={className} onClick={onClick}>
       {renderNativeInput()}
       {renderCustomInputsInternal()}

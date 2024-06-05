@@ -4,8 +4,6 @@ import { getHours } from '@wojtekmaj/date-utils';
 import { convert24to12 } from '../shared/dates.js';
 import { getAmPmLabels } from '../shared/utils.js';
 
-/* eslint-disable jsx-a11y/no-autofocus */
-
 type AmPmProps = {
   ariaLabel?: string;
   autoFocus?: boolean;
@@ -46,6 +44,7 @@ export default function AmPm({
   return (
     <select
       aria-label={ariaLabel}
+      // biome-ignore lint/a11y/noAutofocus: This is up to developers' decision
       autoFocus={autoFocus}
       className={clsx(`${className}__input`, `${className}__${name}`)}
       data-input="true"
