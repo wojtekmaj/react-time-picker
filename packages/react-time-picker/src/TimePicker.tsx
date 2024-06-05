@@ -31,6 +31,7 @@ const iconProps = {
 };
 
 const ClockIcon = (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: Purely decorative icon
   <svg
     {...iconProps}
     className={`${baseClassName}__clock-button__icon ${baseClassName}__button__icon`}
@@ -42,6 +43,7 @@ const ClockIcon = (
 );
 
 const ClearIcon = (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: Purely decorative icon
   <svg
     {...iconProps}
     className={`${baseClassName}__clear-button__icon ${baseClassName}__button__icon`}
@@ -470,18 +472,18 @@ export default function TimePicker(props: TimePickerProps) {
         closeClock({ reason: 'outsideAction' });
       }
     },
-    [clockWrapper, closeClock, wrapper],
+    [closeClock],
   );
 
   const handleOutsideActionListeners = useCallback(
     (shouldListen = isOpen) => {
-      outsideActionEvents.forEach((event) => {
+      for (const event of outsideActionEvents) {
         if (shouldListen) {
           document.addEventListener(event, onOutsideAction);
         } else {
           document.removeEventListener(event, onOutsideAction);
         }
-      });
+      }
 
       if (shouldListen) {
         document.addEventListener('keydown', onKeyDown);
@@ -522,7 +524,6 @@ export default function TimePicker(props: TimePickerProps) {
         <TimeInput
           {...ariaLabelProps}
           {...placeholderProps}
-          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
           disabled={disabled}
@@ -604,7 +605,11 @@ export default function TimePicker(props: TimePickerProps) {
     );
   }
 
-  const eventProps = useMemo(() => makeEventProps(otherProps), [otherProps]);
+  const eventProps = useMemo(
+    () => makeEventProps(otherProps),
+    // biome-ignore lint/correctness/useExhaustiveDependencies: FIXME
+    [otherProps],
+  );
 
   return (
     <div

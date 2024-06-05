@@ -32,8 +32,6 @@ const placeholderProps = {
   secondPlaceholder: 'ss',
 };
 
-/* eslint-disable no-console */
-
 export default function Test() {
   const portalContainer = useRef<HTMLDivElement>(null);
   const [disabled, setDisabled] = useState(false);
