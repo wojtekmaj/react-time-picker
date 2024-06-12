@@ -31,9 +31,9 @@ const iconProps = {
 };
 
 const ClockIcon = (
-  // biome-ignore lint/a11y/noSvgWithoutTitle: Purely decorative icon
   <svg
     {...iconProps}
+    aria-hidden="true"
     className={`${baseClassName}__clock-button__icon ${baseClassName}__button__icon`}
     fill="none"
   >
@@ -43,9 +43,9 @@ const ClockIcon = (
 );
 
 const ClearIcon = (
-  // biome-ignore lint/a11y/noSvgWithoutTitle: Purely decorative icon
   <svg
     {...iconProps}
+    aria-hidden="true"
     className={`${baseClassName}__clear-button__icon ${baseClassName}__button__icon`}
   >
     <line x1="4" x2="15" y1="4" y2="15" />
