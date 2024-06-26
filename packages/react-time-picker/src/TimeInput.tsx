@@ -147,7 +147,7 @@ export default function TimeInput({
   secondAriaLabel,
   secondPlaceholder,
   value: valueProps,
-}: TimeInputProps) {
+}: TimeInputProps): React.ReactElement {
   const [amPm, setAmPm] = useState<AmPmType | null>(null);
   const [hour, setHour] = useState<string | null>(null);
   const [minute, setMinute] = useState<string | null>(null);

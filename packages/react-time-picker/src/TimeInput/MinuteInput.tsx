@@ -17,7 +17,7 @@ export default function MinuteInput({
   minTime,
   showLeadingZeros = true,
   ...otherProps
-}: MinuteInputProps) {
+}: MinuteInputProps): React.ReactElement {
   function isSameHour(date: string | Date) {
     return hour === getHours(date).toString();
   }

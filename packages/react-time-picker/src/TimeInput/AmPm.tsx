@@ -34,7 +34,7 @@ export default function AmPm({
   onKeyDown,
   required,
   value,
-}: AmPmProps) {
+}: AmPmProps): React.ReactElement {
   const amDisabled = minTime ? convert24to12(getHours(minTime))[1] === 'pm' : false;
   const pmDisabled = maxTime ? convert24to12(getHours(maxTime))[1] === 'am' : false;
 

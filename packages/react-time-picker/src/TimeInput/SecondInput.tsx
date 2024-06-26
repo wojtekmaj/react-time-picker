@@ -19,7 +19,7 @@ export default function SecondInput({
   minute,
   showLeadingZeros = true,
   ...otherProps
-}: SecondInputProps) {
+}: SecondInputProps): React.ReactElement {
   function isSameMinute(date: string | Date) {
     return hour === getHours(date).toString() && minute === getMinutes(date).toString();
   }

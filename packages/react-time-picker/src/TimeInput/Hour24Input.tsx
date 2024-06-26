@@ -10,7 +10,11 @@ type Hour24InputProps = {
   value?: string | null;
 } & Omit<React.ComponentProps<typeof Input>, 'max' | 'min' | 'name' | 'nameForClass'>;
 
-export default function Hour24Input({ maxTime, minTime, ...otherProps }: Hour24InputProps) {
+export default function Hour24Input({
+  maxTime,
+  minTime,
+  ...otherProps
+}: Hour24InputProps): React.ReactElement {
   const maxHour = safeMin(23, maxTime && getHours(maxTime));
   const minHour = safeMax(0, minTime && getHours(minTime));
 

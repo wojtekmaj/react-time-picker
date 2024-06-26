@@ -320,7 +320,7 @@ export type TimePickerProps = {
   value?: LooseValue;
 } & Omit<EventProps, 'onChange' | 'onFocus'>;
 
-export default function TimePicker(props: TimePickerProps) {
+export default function TimePicker(props: TimePickerProps): React.ReactElement {
   const {
     amPmAriaLabel,
     autoFocus,

@@ -20,7 +20,7 @@ export default function Hour12Input({
   minTime,
   value,
   ...otherProps
-}: Hour12InputProps) {
+}: Hour12InputProps): React.ReactElement {
   const maxHour = safeMin(
     12,
     maxTime &&
