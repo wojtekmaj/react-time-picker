@@ -541,7 +541,7 @@ export default function TimeInput({
     );
   }
 
-  function renderAmPm(currentMatch: string, index: number) {
+  function renderAmPm(_currentMatch: string, index: number) {
     return (
       <AmPm
         key="ampm"
