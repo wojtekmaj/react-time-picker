@@ -588,6 +588,7 @@ export default function TimeInput({
 
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: This interaction is designed for mouse users only
+    // biome-ignore lint/a11y/noStaticElementInteractions: This interaction is designed for mouse users only
     <div className={className} onClick={onClick}>
       {renderNativeInput()}
       {renderCustomInputsInternal()}

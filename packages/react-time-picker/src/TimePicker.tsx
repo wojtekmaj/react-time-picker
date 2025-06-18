@@ -612,6 +612,7 @@ export default function TimePicker(props: TimePickerProps): React.ReactElement {
   );
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: False positive caused by non interactive wrapper listening for bubbling events
     <div
       className={clsx(
         baseClassName,
