@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 type ValidityOptionsProps = {
   maxTime?: string;
   minTime?: string;
@@ -15,6 +17,10 @@ export default function ValidityOptions({
   setMinTime,
   setRequired,
 }: ValidityOptionsProps) {
+  const minTimeId = useId();
+  const maxTimeId = useId();
+  const requiredId = useId();
+
   function onMinChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
 
@@ -32,8 +38,8 @@ export default function ValidityOptions({
       <legend>Minimum and maximum time</legend>
 
       <div>
-        <label htmlFor="minTime">Minimum time</label>
-        <input id="minTime" onChange={onMinChange} step="1" type="time" value={minTime || ''} />
+        <label htmlFor={minTimeId}>Minimum time</label>
+        <input id={minTimeId} onChange={onMinChange} step="1" type="time" value={minTime || ''} />
         &nbsp;
         <button onClick={() => setMinTime(undefined)} type="button">
           Clear
@@ -41,8 +47,8 @@ export default function ValidityOptions({
       </div>
 
       <div>
-        <label htmlFor="maxTime">Maximum time</label>
-        <input id="maxTime" onChange={onMaxChange} step="1" type="time" value={maxTime || ''} />
+        <label htmlFor={maxTimeId}>Maximum time</label>
+        <input id={maxTimeId} onChange={onMaxChange} step="1" type="time" value={maxTime || ''} />
         &nbsp;
         <button onClick={() => setMaxTime(undefined)} type="button">
           Clear
@@ -52,11 +58,11 @@ export default function ValidityOptions({
       <div>
         <input
           checked={required}
-          id="required"
+          id={requiredId}
           onChange={(event) => setRequired(event.target.checked)}
           type="checkbox"
         />
-        <label htmlFor="required">Required</label>
+        <label htmlFor={requiredId}>Required</label>
       </div>
     </fieldset>
   );

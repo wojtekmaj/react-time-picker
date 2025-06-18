@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 type ViewOptionsProps = {
   disabled: boolean;
   renderInPortal: boolean;
@@ -11,6 +13,9 @@ export default function ViewOptions({
   setDisabled,
   setRenderInPortal,
 }: ViewOptionsProps) {
+  const disabledId = useId();
+  const renderInPortalId = useId();
+
   function onDisabledChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
 
@@ -28,18 +33,18 @@ export default function ViewOptions({
       <legend>View options</legend>
 
       <div>
-        <input checked={disabled} id="disabled" onChange={onDisabledChange} type="checkbox" />
-        <label htmlFor="disabled">Disabled</label>
+        <input checked={disabled} id={disabledId} onChange={onDisabledChange} type="checkbox" />
+        <label htmlFor={disabledId}>Disabled</label>
       </div>
 
       <div>
         <input
           checked={renderInPortal}
-          id="renderInPortal"
+          id={renderInPortalId}
           onChange={onRenderInPortalChange}
           type="checkbox"
         />
-        <label htmlFor="renderInPortal">Render in portal</label>
+        <label htmlFor={renderInPortalId}>Render in portal</label>
       </div>
     </fieldset>
   );
