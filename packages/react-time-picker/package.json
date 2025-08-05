@@ -6,75 +6,23 @@
   "sideEffects": [
     "*.css"
   ],
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
+  "main": "./dist/index.js",
   "source": "./src/index.ts",
-  "types": "./dist/cjs/index.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
-    },
-    "./dist/TimeInput": {
-      "import": "./dist/esm/TimeInput.js",
-      "require": "./dist/cjs/TimeInput.js"
-    },
-    "./dist/TimeInput.js": {
-      "import": "./dist/esm/TimeInput.js",
-      "require": "./dist/cjs/TimeInput.js"
-    },
-    "./dist/TimeInput/Hour12Input": {
-      "import": "./dist/esm/TimeInput/Hour12Input.js",
-      "require": "./dist/cjs/TimeInput/Hour12Input.js"
-    },
-    "./dist/TimeInput/Hour12Input.js": {
-      "import": "./dist/esm/TimeInput/Hour12Input.js",
-      "require": "./dist/cjs/TimeInput/Hour12Input.js"
-    },
-    "./dist/TimeInput/Hour24Input": {
-      "import": "./dist/esm/TimeInput/Hour24Input.js",
-      "require": "./dist/cjs/TimeInput/Hour24Input.js"
-    },
-    "./dist/TimeInput/Hour24Input.js": {
-      "import": "./dist/esm/TimeInput/Hour24Input.js",
-      "require": "./dist/cjs/TimeInput/Hour24Input.js"
-    },
-    "./dist/TimeInput/MinuteInput": {
-      "import": "./dist/esm/TimeInput/MinuteInput.js",
-      "require": "./dist/cjs/TimeInput/MinuteInput.js"
-    },
-    "./dist/TimeInput/MinuteInput.js": {
-      "import": "./dist/esm/TimeInput/MinuteInput.js",
-      "require": "./dist/cjs/TimeInput/MinuteInput.js"
-    },
-    "./dist/TimeInput/SecondInput": {
-      "import": "./dist/esm/TimeInput/SecondInput.js",
-      "require": "./dist/cjs/TimeInput/SecondInput.js"
-    },
-    "./dist/TimeInput/SecondInput.js": {
-      "import": "./dist/esm/TimeInput/SecondInput.js",
-      "require": "./dist/cjs/TimeInput/SecondInput.js"
-    },
-    "./dist/TimeInput/AmPm": {
-      "import": "./dist/esm/TimeInput/AmPm.js",
-      "require": "./dist/cjs/TimeInput/AmPm.js"
-    },
-    "./dist/TimeInput/AmPm.js": {
-      "import": "./dist/esm/TimeInput/AmPm.js",
-      "require": "./dist/cjs/TimeInput/AmPm.js"
-    },
-    "./dist/cjs/TimeInput": "./dist/cjs/TimeInput.js",
-    "./dist/cjs/TimeInput/Hour12Input": "./dist/cjs/TimeInput/Hour12Input.js",
-    "./dist/cjs/TimeInput/Hour24Input": "./dist/cjs/TimeInput/Hour24Input.js",
-    "./dist/cjs/TimeInput/MinuteInput": "./dist/cjs/TimeInput/MinuteInput.js",
-    "./dist/cjs/TimeInput/SecondInput": "./dist/cjs/TimeInput/SecondInput.js",
-    "./dist/cjs/TimeInput/AmPm": "./dist/cjs/TimeInput/AmPm.js",
-    "./dist/esm/TimeInput": "./dist/esm/TimeInput.js",
-    "./dist/esm/TimeInput/Hour12Input": "./dist/esm/TimeInput/Hour12Input.js",
-    "./dist/esm/TimeInput/Hour24Input": "./dist/esm/TimeInput/Hour24Input.js",
-    "./dist/esm/TimeInput/MinuteInput": "./dist/esm/TimeInput/MinuteInput.js",
-    "./dist/esm/TimeInput/SecondInput": "./dist/esm/TimeInput/SecondInput.js",
-    "./dist/esm/TimeInput/AmPm": "./dist/esm/TimeInput/AmPm.js",
+    ".": "./dist/index.js",
+    "./dist/TimeInput": "./dist/TimeInput.js",
+    "./dist/TimeInput.js": "./dist/TimeInput.js",
+    "./dist/TimeInput/Hour12Input": "./dist/TimeInput/Hour12Input.js",
+    "./dist/TimeInput/Hour12Input.js": "./dist/TimeInput/Hour12Input.js",
+    "./dist/TimeInput/Hour24Input": "./dist/TimeInput/Hour24Input.js",
+    "./dist/TimeInput/Hour24Input.js": "./dist/TimeInput/Hour24Input.js",
+    "./dist/TimeInput/MinuteInput": "./dist/TimeInput/MinuteInput.js",
+    "./dist/TimeInput/MinuteInput.js": "./dist/TimeInput/MinuteInput.js",
+    "./dist/TimeInput/SecondInput": "./dist/TimeInput/SecondInput.js",
+    "./dist/TimeInput/SecondInput.js": "./dist/TimeInput/SecondInput.js",
+    "./dist/TimeInput/AmPm": "./dist/TimeInput/AmPm.js",
+    "./dist/TimeInput/AmPm.js": "./dist/TimeInput/AmPm.js",
     "./*": "./*"
   },
   "scripts": {
