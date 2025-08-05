@@ -1,6 +1,6 @@
+import { userEvent } from '@vitest/browser/context';
 import { describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 
 import TimePicker from './TimePicker.js';
 
@@ -410,19 +410,19 @@ describe('TimePicker', () => {
   it('closes Clock component when clicked outside', async () => {
     const { container } = render(<TimePicker isOpen />);
 
-    userEvent.click(document.body);
+    await userEvent.click(document.body);
 
     await waitForElementToBeRemovedOrHidden(() =>
       container.querySelector('.react-time-picker__clock'),
     );
   });
 
-  it('does not close Clock clicked outside with shouldCloseClock function returning false', () => {
+  it('does not close Clock clicked outside with shouldCloseClock function returning false', async () => {
     const shouldCloseClock = () => false;
 
     const { container } = render(<TimePicker isOpen shouldCloseClock={shouldCloseClock} />);
 
-    userEvent.click(document.body);
+    await userEvent.click(document.body);
 
     const clock = container.querySelector('.react-clock');
 

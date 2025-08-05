@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { userEvent } from '@vitest/browser/context';
+import { describe, expect, it, vi } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 
 import TimeInput from './TimeInput.js';
 
@@ -25,13 +25,6 @@ describe('TimeInput', () => {
   const defaultProps = {
     className: 'react-time-picker__inputGroup',
   };
-
-  let user: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
-    user = userEvent.setup({
-      advanceTimers: vi.advanceTimersByTime.bind(vi),
-    });
-  });
 
   it('renders a native input and custom inputs', () => {
     const { container } = render(<TimeInput {...defaultProps} />);
@@ -317,7 +310,7 @@ describe('TimeInput', () => {
     const hourInput = customInputs[0] as HTMLInputElement;
     const minuteInput = customInputs[1];
 
-    await user.type(hourInput, '{arrowright}');
+    await userEvent.type(hourInput, '{arrowright}');
 
     expect(minuteInput).toHaveFocus();
   });
@@ -334,7 +327,7 @@ describe('TimeInput', () => {
     ) as HTMLSpanElement;
     const separatorKey = separator.textContent as string;
 
-    await user.type(hourInput, separatorKey);
+    await userEvent.type(hourInput, separatorKey);
 
     expect(minuteInput).toHaveFocus();
   });
@@ -345,7 +338,7 @@ describe('TimeInput', () => {
 
     const select = container.querySelector('select') as HTMLSelectElement;
 
-    await user.type(select, '{arrowright}');
+    await userEvent.type(select, '{arrowright}');
 
     expect(select).toHaveFocus();
   });
@@ -357,7 +350,7 @@ describe('TimeInput', () => {
     const hourInput = customInputs[0];
     const minuteInput = customInputs[1] as HTMLInputElement;
 
-    await user.type(minuteInput, '{arrowleft}');
+    await userEvent.type(minuteInput, '{arrowleft}');
 
     expect(hourInput).toHaveFocus();
   });
@@ -368,7 +361,7 @@ describe('TimeInput', () => {
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
 
-    await user.type(hourInput, '{arrowleft}');
+    await userEvent.type(hourInput, '{arrowleft}');
 
     expect(hourInput).toHaveFocus();
   });
@@ -380,7 +373,7 @@ describe('TimeInput', () => {
     const hourInput = customInputs[0] as HTMLInputElement;
     const minuteInput = customInputs[1];
 
-    await user.type(hourInput, '4');
+    await userEvent.type(hourInput, '4');
 
     expect(minuteInput).toHaveFocus();
   });
@@ -392,7 +385,7 @@ describe('TimeInput', () => {
     const hourInput = customInputs[0] as HTMLInputElement;
     const minuteInput = customInputs[1];
 
-    await user.type(hourInput, '03');
+    await userEvent.type(hourInput, '03');
 
     expect(minuteInput).toHaveFocus();
   });
@@ -440,7 +433,7 @@ describe('TimeInput', () => {
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
 
-    await user.type(hourInput, '1');
+    await userEvent.type(hourInput, '1');
 
     expect(hourInput).toHaveFocus();
   });
