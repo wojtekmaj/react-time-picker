@@ -332,8 +332,7 @@ describe('TimeInput', () => {
     expect(minuteInput).toHaveFocus();
   });
 
-  // See https://github.com/capricorn86/happy-dom/issues/1592
-  it.skip('does not jump to the next field when right arrow is pressed when the last input is focused', async () => {
+  it('does not jump to the next field when right arrow is pressed when the last input is focused', async () => {
     const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
