@@ -2,7 +2,7 @@ import { getHours, getMinutes } from '@wojtekmaj/date-utils';
 
 import Input from './Input.js';
 
-import { safeMin, safeMax } from '../shared/utils.js';
+import { safeMax, safeMin } from '../shared/utils.js';
 
 type MinuteInputProps = {
   hour?: string | null;

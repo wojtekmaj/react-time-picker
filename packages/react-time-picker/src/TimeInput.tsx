@@ -3,19 +3,19 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   getHours,
-  getMinutes,
-  getSeconds,
   getHoursMinutes,
   getHoursMinutesSeconds,
+  getMinutes,
+  getSeconds,
 } from '@wojtekmaj/date-utils';
 
 import Divider from './Divider.js';
+import AmPm from './TimeInput/AmPm.js';
 import Hour12Input from './TimeInput/Hour12Input.js';
 import Hour24Input from './TimeInput/Hour24Input.js';
 import MinuteInput from './TimeInput/MinuteInput.js';
-import SecondInput from './TimeInput/SecondInput.js';
 import NativeInput from './TimeInput/NativeInput.js';
-import AmPm from './TimeInput/AmPm.js';
+import SecondInput from './TimeInput/SecondInput.js';
 
 import { getFormatter, getNumberFormatter } from './shared/dateFormatter.js';
 import { convert12to24, convert24to12 } from './shared/dates.js';

@@ -3,7 +3,7 @@ import { getHours } from '@wojtekmaj/date-utils';
 import Input from './Input.js';
 
 import { convert24to12 } from '../shared/dates.js';
-import { safeMin, safeMax } from '../shared/utils.js';
+import { safeMax, safeMin } from '../shared/utils.js';
 
 import type { AmPmType } from '../shared/types.js';
 

@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { getHours } from '@wojtekmaj/date-utils';
+import clsx from 'clsx';
 
 import { convert24to12 } from '../shared/dates.js';
 import { getAmPmLabels } from '../shared/utils.js';
