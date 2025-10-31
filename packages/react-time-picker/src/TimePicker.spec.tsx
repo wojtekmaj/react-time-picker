@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import { act, fireEvent } from '@testing-library/react';
+import { act } from '@testing-library/react';
 
 import TimePicker from './TimePicker.js';
 
@@ -472,6 +472,20 @@ describe('TimePicker', () => {
     );
   });
 
+  function triggerFocusOutEvent(element: HTMLElement) {
+    element.dispatchEvent(
+      new FocusEvent('focusout', { bubbles: true, cancelable: false, composed: true }),
+    );
+  }
+
+  function triggerBlurEvent(element: HTMLElement) {
+    triggerFocusOutEvent(element);
+
+    element.dispatchEvent(
+      new FocusEvent('blur', { bubbles: false, cancelable: false, composed: true }),
+    );
+  }
+
   it('does not close Clock component when focused inside', async () => {
     const { container } = await render(<TimePicker isOpen />);
 
@@ -479,7 +493,7 @@ describe('TimePicker', () => {
     const hourInput = customInputs[0] as HTMLInputElement;
     const minuteInput = customInputs[1] as HTMLInputElement;
 
-    fireEvent.blur(hourInput);
+    triggerBlurEvent(hourInput);
     triggerFocusEvent(minuteInput);
 
     const clock = container.querySelector('.react-clock');
