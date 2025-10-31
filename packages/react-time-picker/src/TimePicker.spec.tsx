@@ -438,10 +438,14 @@ describe('TimePicker', () => {
     );
   });
 
+  function triggerTouchStart(element: HTMLElement) {
+    element.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, cancelable: true }));
+  }
+
   it('closes Clock component when tapped outside', async () => {
     const { container } = await render(<TimePicker isOpen />);
 
-    fireEvent.touchStart(document.body);
+    triggerTouchStart(document.body);
 
     await waitForElementToBeRemovedOrHidden(() =>
       container.querySelector('.react-time-picker__clock'),
@@ -545,7 +549,8 @@ describe('TimePicker', () => {
     const { container } = await render(<TimePicker onTouchStart={onTouchStart} />);
 
     const wrapper = container.firstElementChild as HTMLDivElement;
-    fireEvent.touchStart(wrapper);
+
+    triggerTouchStart(wrapper);
 
     expect(onTouchStart).toHaveBeenCalled();
   });
