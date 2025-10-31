@@ -11,8 +11,8 @@ describe('AmPm', () => {
     },
   } satisfies React.ComponentProps<typeof AmPm>;
 
-  it('renders a select', () => {
-    const { container } = render(<AmPm {...defaultProps} />);
+  it('renders a select', async () => {
+    const { container } = await render(<AmPm {...defaultProps} />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
     expect(select).toBeInTheDocument();
@@ -21,28 +21,28 @@ describe('AmPm', () => {
     expect(options).toHaveLength(3);
   });
 
-  it('applies given aria-label properly', () => {
+  it('applies given aria-label properly', async () => {
     const amPmAriaLabel = 'Select AM/PM';
 
-    const { container } = render(<AmPm {...defaultProps} ariaLabel={amPmAriaLabel} />);
+    const { container } = await render(<AmPm {...defaultProps} ariaLabel={amPmAriaLabel} />);
 
     const select = container.querySelector('select');
 
     expect(select).toHaveAttribute('aria-label', amPmAriaLabel);
   });
 
-  it('has proper name defined', () => {
-    const { container } = render(<AmPm {...defaultProps} />);
+  it('has proper name defined', async () => {
+    const { container } = await render(<AmPm {...defaultProps} />);
 
     const select = container.querySelector('select');
 
     expect(select).toHaveAttribute('name', 'amPm');
   });
 
-  it('has proper className defined', () => {
+  it('has proper className defined', async () => {
     const className = 'react-time-picker';
 
-    const { container } = render(<AmPm {...defaultProps} className={className} />);
+    const { container } = await render(<AmPm {...defaultProps} className={className} />);
 
     const select = container.querySelector('select');
 
@@ -50,34 +50,34 @@ describe('AmPm', () => {
     expect(select).toHaveClass('react-time-picker__amPm');
   });
 
-  it('displays given value properly', () => {
+  it('displays given value properly', async () => {
     const value = 'pm';
 
-    const { container } = render(<AmPm {...defaultProps} value={value} />);
+    const { container } = await render(<AmPm {...defaultProps} value={value} />);
 
     const select = container.querySelector('select');
 
     expect(select).toHaveValue(value);
   });
 
-  it('does not disable select by default', () => {
-    const { container } = render(<AmPm {...defaultProps} />);
+  it('does not disable select by default', async () => {
+    const { container } = await render(<AmPm {...defaultProps} />);
 
     const select = container.querySelector('select');
 
     expect(select).not.toBeDisabled();
   });
 
-  it('disables input given disabled flag', () => {
-    const { container } = render(<AmPm {...defaultProps} disabled />);
+  it('disables input given disabled flag', async () => {
+    const { container } = await render(<AmPm {...defaultProps} disabled />);
 
     const select = container.querySelector('select');
 
     expect(select).toBeDisabled();
   });
 
-  it('should not disable anything by default', () => {
-    const { container } = render(<AmPm {...defaultProps} />);
+  it('should not disable anything by default', async () => {
+    const { container } = await render(<AmPm {...defaultProps} />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
     const optionAm = select.querySelector('option[value="am"]');
@@ -87,8 +87,8 @@ describe('AmPm', () => {
     expect(optionPm).not.toBeDisabled();
   });
 
-  it('should disable "pm" given maxTime before 12:00 pm', () => {
-    const { container } = render(<AmPm {...defaultProps} maxTime="11:59" />);
+  it('should disable "pm" given maxTime before 12:00 pm', async () => {
+    const { container } = await render(<AmPm {...defaultProps} maxTime="11:59" />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
     const optionPm = select.querySelector('option[value="pm"]');
@@ -96,8 +96,8 @@ describe('AmPm', () => {
     expect(optionPm).toBeDisabled();
   });
 
-  it('should not disable "pm" given maxTime after or equal to 12:00 pm', () => {
-    const { container } = render(<AmPm {...defaultProps} maxTime="12:00" />);
+  it('should not disable "pm" given maxTime after or equal to 12:00 pm', async () => {
+    const { container } = await render(<AmPm {...defaultProps} maxTime="12:00" />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
     const optionPm = select.querySelector('option[value="pm"]');
@@ -105,8 +105,8 @@ describe('AmPm', () => {
     expect(optionPm).not.toBeDisabled();
   });
 
-  it('should disable "am" given minTime after or equal to 12:00 pm', () => {
-    const { container } = render(<AmPm {...defaultProps} minTime="12:00" />);
+  it('should disable "am" given minTime after or equal to 12:00 pm', async () => {
+    const { container } = await render(<AmPm {...defaultProps} minTime="12:00" />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
     const optionAm = select.querySelector('option[value="am"]');
@@ -114,8 +114,8 @@ describe('AmPm', () => {
     expect(optionAm).toBeDisabled();
   });
 
-  it('should not disable "am" given minTime before 12:00 pm', () => {
-    const { container } = render(<AmPm {...defaultProps} minTime="11:59" />);
+  it('should not disable "am" given minTime before 12:00 pm', async () => {
+    const { container } = await render(<AmPm {...defaultProps} minTime="11:59" />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
     const optionAm = select.querySelector('option[value="pm"]');
