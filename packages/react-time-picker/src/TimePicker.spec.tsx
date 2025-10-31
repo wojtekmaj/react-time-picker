@@ -327,6 +327,15 @@ describe('TimePicker', () => {
     expect(clock2).toBeInTheDocument();
   });
 
+  function triggerFocusEvent(element: HTMLElement) {
+    element.dispatchEvent(
+      new FocusEvent('focusin', { bubbles: true, cancelable: false, composed: true }),
+    );
+    element.dispatchEvent(
+      new FocusEvent('focus', { bubbles: false, cancelable: false, composed: true }),
+    );
+  }
+
   describe('handles opening Clock component when focusing on an input inside properly', () => {
     it('opens Clock component when focusing on an input inside by default', async () => {
       const { container } = await render(<TimePicker />);
@@ -336,7 +345,9 @@ describe('TimePicker', () => {
 
       expect(clock).toBeFalsy();
 
-      fireEvent.focus(input);
+      act(() => {
+        triggerFocusEvent(input);
+      });
 
       const clock2 = container.querySelector('.react-clock');
 
@@ -351,7 +362,9 @@ describe('TimePicker', () => {
 
       expect(clock).toBeFalsy();
 
-      fireEvent.focus(input);
+      act(() => {
+        triggerFocusEvent(input);
+      });
 
       const clock2 = container.querySelector('.react-clock');
 
@@ -366,7 +379,9 @@ describe('TimePicker', () => {
 
       expect(clock).toBeFalsy();
 
-      fireEvent.focus(input);
+      act(() => {
+        triggerFocusEvent(input);
+      });
 
       const clock2 = container.querySelector('.react-clock');
 
@@ -383,7 +398,7 @@ describe('TimePicker', () => {
 
       expect(clock).toBeFalsy();
 
-      fireEvent.focus(input);
+      triggerFocusEvent(input);
 
       const clock2 = container.querySelector('.react-clock');
 
@@ -398,7 +413,7 @@ describe('TimePicker', () => {
 
       expect(clock).toBeFalsy();
 
-      fireEvent.focus(select);
+      triggerFocusEvent(select);
 
       const clock2 = container.querySelector('.react-clock');
 
@@ -460,7 +475,7 @@ describe('TimePicker', () => {
     const minuteInput = customInputs[1] as HTMLInputElement;
 
     fireEvent.blur(hourInput);
-    fireEvent.focus(minuteInput);
+    triggerFocusEvent(minuteInput);
 
     const clock = container.querySelector('.react-clock');
 
