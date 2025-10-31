@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from 'vitest-browser-react';
 
 import TimeInput from './TimeInput.js';
 
@@ -25,8 +25,8 @@ describe('TimeInput', () => {
     className: 'react-time-picker__inputGroup',
   };
 
-  it('renders a native input and custom inputs', () => {
-    const { container } = render(<TimeInput {...defaultProps} />);
+  it('renders a native input and custom inputs', async () => {
+    const { container } = await render(<TimeInput {...defaultProps} />);
 
     const nativeInput = container.querySelector('input[type="time"]');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -35,8 +35,8 @@ describe('TimeInput', () => {
     expect(customInputs).toHaveLength(2);
   });
 
-  it('does not render second input when maxDetail is "minute" or less', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="minute" />);
+  it('does not render second input when maxDetail is "minute" or less', async () => {
+    const { container } = await render(<TimeInput {...defaultProps} maxDetail="minute" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const secondInput = container.querySelector('input[name="second"]');
@@ -49,8 +49,8 @@ describe('TimeInput', () => {
     expect(hourInput).toBeInTheDocument();
   });
 
-  it('does not render second and minute inputs when maxDetail is "hour" or less', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="hour" />);
+  it('does not render second and minute inputs when maxDetail is "hour" or less', async () => {
+    const { container } = await render(<TimeInput {...defaultProps} maxDetail="hour" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const secondInput = container.querySelector('input[name="second"]');
@@ -63,10 +63,12 @@ describe('TimeInput', () => {
     expect(hourInput).toBeInTheDocument();
   });
 
-  it('shows a given time in all inputs correctly (12-hour format)', () => {
+  it('shows a given time in all inputs correctly (12-hour format)', async () => {
     const date = '22:17:03';
 
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" value={date} />);
+    const { container } = await render(
+      <TimeInput {...defaultProps} maxDetail="second" value={date} />,
+    );
 
     const nativeInput = container.querySelector('input[type="time"]');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -77,10 +79,10 @@ describe('TimeInput', () => {
     expect(customInputs[2]).toHaveValue(3);
   });
 
-  itIfFullICU('shows a given time in all inputs correctly (24-hour format)', () => {
+  itIfFullICU('shows a given time in all inputs correctly (24-hour format)', async () => {
     const date = '22:17:03';
 
-    const { container } = render(
+    const { container } = await render(
       <TimeInput {...defaultProps} locale="de-DE" maxDetail="second" value={date} />,
     );
 
@@ -93,8 +95,10 @@ describe('TimeInput', () => {
     expect(customInputs[2]).toHaveValue(3);
   });
 
-  it('shows empty value in all inputs correctly given null', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" value={null} />);
+  it('shows empty value in all inputs correctly given null', async () => {
+    const { container } = await render(
+      <TimeInput {...defaultProps} maxDetail="second" value={null} />,
+    );
 
     const nativeInput = container.querySelector('input[type="time"]');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -105,10 +109,10 @@ describe('TimeInput', () => {
     expect(customInputs[2]).toHaveAttribute('value', '');
   });
 
-  it('clears the value correctly', () => {
+  it('clears the value correctly', async () => {
     const date = '22:17:03';
 
-    const { container, rerender } = render(
+    const { container, rerender } = await render(
       <TimeInput {...defaultProps} maxDetail="second" value={date} />,
     );
 
@@ -123,8 +127,8 @@ describe('TimeInput', () => {
     expect(customInputs[2]).toHaveAttribute('value', '');
   });
 
-  it('renders custom inputs in a proper order (12-hour format)', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
+  it('renders custom inputs in a proper order (12-hour format)', async () => {
+    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
 
@@ -133,8 +137,10 @@ describe('TimeInput', () => {
     expect(customInputs[2]).toHaveAttribute('name', 'second');
   });
 
-  itIfFullICU('renders custom inputs in a proper order (24-hour format)', () => {
-    const { container } = render(<TimeInput {...defaultProps} locale="de-DE" maxDetail="second" />);
+  itIfFullICU('renders custom inputs in a proper order (24-hour format)', async () => {
+    const { container } = await render(
+      <TimeInput {...defaultProps} locale="de-DE" maxDetail="second" />,
+    );
 
     const customInputs = container.querySelectorAll('input[data-input]');
 
@@ -150,8 +156,8 @@ describe('TimeInput', () => {
   it.todo('renders second input with leading zero by default');
 
   describe('renders custom input in a proper order given format', () => {
-    it('renders "h" properly', () => {
-      const { container } = render(<TimeInput {...defaultProps} format="h" />);
+    it('renders "h" properly', async () => {
+      const { container } = await render(<TimeInput {...defaultProps} format="h" />);
 
       const componentInput = container.querySelector('input[name="hour12"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -160,8 +166,8 @@ describe('TimeInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "hh" properly', () => {
-      const { container } = render(<TimeInput {...defaultProps} format="hh" />);
+    it('renders "hh" properly', async () => {
+      const { container } = await render(<TimeInput {...defaultProps} format="hh" />);
 
       const componentInput = container.querySelector('input[name="hour12"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -170,18 +176,18 @@ describe('TimeInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('throws error for "hhh"', () => {
+    it('throws error for "hhh"', async () => {
       muteConsole();
 
       const renderComponent = () => render(<TimeInput {...defaultProps} format="hhh" />);
 
-      expect(renderComponent).toThrow('Unsupported token: hhh');
+      await expect(renderComponent).rejects.toThrowError('Unsupported token: hhh');
 
       restoreConsole();
     });
 
-    it('renders "H" properly', () => {
-      const { container } = render(<TimeInput {...defaultProps} format="H" />);
+    it('renders "H" properly', async () => {
+      const { container } = await render(<TimeInput {...defaultProps} format="H" />);
 
       const componentInput = container.querySelector('input[name="hour24"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -190,8 +196,8 @@ describe('TimeInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "HH" properly', () => {
-      const { container } = render(<TimeInput {...defaultProps} format="HH" />);
+    it('renders "HH" properly', async () => {
+      const { container } = await render(<TimeInput {...defaultProps} format="HH" />);
 
       const componentInput = container.querySelector('input[name="hour24"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -200,18 +206,18 @@ describe('TimeInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('throws error for "HHH"', () => {
+    it('throws error for "HHH"', async () => {
       muteConsole();
 
       const renderComponent = () => render(<TimeInput {...defaultProps} format="HHH" />);
 
-      expect(renderComponent).toThrow('Unsupported token: HHH');
+      await expect(renderComponent).rejects.toThrowError('Unsupported token: HHH');
 
       restoreConsole();
     });
 
-    it('renders "m" properly', () => {
-      const { container } = render(<TimeInput {...defaultProps} format="m" />);
+    it('renders "m" properly', async () => {
+      const { container } = await render(<TimeInput {...defaultProps} format="m" />);
 
       const componentInput = container.querySelector('input[name="minute"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -220,8 +226,8 @@ describe('TimeInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "mm" properly', () => {
-      const { container } = render(<TimeInput {...defaultProps} format="mm" />);
+    it('renders "mm" properly', async () => {
+      const { container } = await render(<TimeInput {...defaultProps} format="mm" />);
 
       const componentInput = container.querySelector('input[name="minute"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -230,18 +236,18 @@ describe('TimeInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('throws error for "mmm"', () => {
+    it('throws error for "mmm"', async () => {
       muteConsole();
 
       const renderComponent = () => render(<TimeInput {...defaultProps} format="mmm" />);
 
-      expect(renderComponent).toThrow('Unsupported token: mmm');
+      await expect(renderComponent).rejects.toThrowError('Unsupported token: mmm');
 
       restoreConsole();
     });
 
-    it('renders "s" properly', () => {
-      const { container } = render(<TimeInput {...defaultProps} format="s" />);
+    it('renders "s" properly', async () => {
+      const { container } = await render(<TimeInput {...defaultProps} format="s" />);
 
       const componentInput = container.querySelector('input[name="second"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -250,8 +256,8 @@ describe('TimeInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('renders "ss" properly', () => {
-      const { container } = render(<TimeInput {...defaultProps} format="ss" />);
+    it('renders "ss" properly', async () => {
+      const { container } = await render(<TimeInput {...defaultProps} format="ss" />);
 
       const componentInput = container.querySelector('input[name="second"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -260,18 +266,18 @@ describe('TimeInput', () => {
       expect(customInputs).toHaveLength(1);
     });
 
-    it('throws error for "sss"', () => {
+    it('throws error for "sss"', async () => {
       muteConsole();
 
       const renderComponent = () => render(<TimeInput {...defaultProps} format="sss" />);
 
-      expect(renderComponent).toThrow('Unsupported token: sss');
+      await expect(renderComponent).rejects.toThrowError('Unsupported token: sss');
 
       restoreConsole();
     });
 
-    it('renders "a" properly', () => {
-      const { container } = render(<TimeInput {...defaultProps} format="a" />);
+    it('renders "a" properly', async () => {
+      const { container } = await render(<TimeInput {...defaultProps} format="a" />);
 
       const componentSelect = container.querySelector('select[name="amPm"]');
       const customInputs = container.querySelectorAll('input[data-input]');
@@ -281,8 +287,8 @@ describe('TimeInput', () => {
     });
   });
 
-  it('renders proper input separators', () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
+  it('renders proper input separators', async () => {
+    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const separators = container.querySelectorAll('.react-time-picker__inputGroup__divider');
 
@@ -292,8 +298,8 @@ describe('TimeInput', () => {
     expect(separators[2]).toHaveTextContent(''); // Non-breaking space
   });
 
-  it('renders proper amount of separators', () => {
-    const { container } = render(<TimeInput {...defaultProps} />);
+  it('renders proper amount of separators', async () => {
+    const { container } = await render(<TimeInput {...defaultProps} />);
 
     const separators = container.querySelectorAll('.react-time-picker__inputGroup__divider');
     const customInputs = container.querySelectorAll('input[data-input]');
@@ -303,7 +309,7 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the next field when right arrow is pressed', async () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
+    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
@@ -315,7 +321,7 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the next field when separator key is pressed', async () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
+    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
@@ -332,7 +338,7 @@ describe('TimeInput', () => {
   });
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', async () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
+    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const select = container.querySelector('select') as HTMLSelectElement;
 
@@ -342,7 +348,7 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the previous field when left arrow is pressed', async () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
+    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0];
@@ -354,7 +360,7 @@ describe('TimeInput', () => {
   });
 
   it('does not jump to the previous field when left arrow is pressed when the first input is focused', async () => {
-    const { container } = render(<TimeInput {...defaultProps} maxDetail="second" />);
+    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
@@ -365,7 +371,7 @@ describe('TimeInput', () => {
   });
 
   it("jumps to the next field when a value which can't be extended to another valid value is entered", async () => {
-    const { container } = render(<TimeInput {...defaultProps} />);
+    const { container } = await render(<TimeInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
@@ -377,7 +383,7 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', async () => {
-    const { container } = render(<TimeInput {...defaultProps} />);
+    const { container } = await render(<TimeInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
@@ -388,6 +394,18 @@ describe('TimeInput', () => {
     expect(minuteInput).toHaveFocus();
   });
 
+  function triggerKeyDown(element: HTMLElement, { key }: { key: string }) {
+    element.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+  }
+
+  function triggerKeyPress(element: HTMLElement, { key }: { key: string }) {
+    element.dispatchEvent(new KeyboardEvent('keypress', { key, bubbles: true, cancelable: true }));
+  }
+
+  function triggerKeyUp(element: HTMLElement, { key }: { key: string }) {
+    element.dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true, cancelable: true }));
+  }
+
   it("jumps to the next field when a value which can't be extended to another valid value is entered by typing with multiple keys", async () => {
     function getActiveElement() {
       return document.activeElement as HTMLInputElement;
@@ -395,18 +413,18 @@ describe('TimeInput', () => {
 
     function keyDown(key: string, initial = false) {
       const element = getActiveElement();
-      fireEvent.keyDown(element, { key });
-      fireEvent.keyPress(element, { key });
+      triggerKeyDown(element, { key });
+      triggerKeyPress(element, { key });
       element.value = (initial ? '' : element.value) + key;
     }
 
     function keyUp(key: string) {
-      fireEvent.keyUp(getActiveElement(), { key });
+      triggerKeyUp(getActiveElement(), { key });
     }
 
     const date = '22:17:03';
 
-    const { container } = render(<TimeInput {...defaultProps} value={date} />);
+    const { container } = await render(<TimeInput {...defaultProps} value={date} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
@@ -426,7 +444,7 @@ describe('TimeInput', () => {
   });
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', async () => {
-    const { container } = render(<TimeInput {...defaultProps} />);
+    const { container } = await render(<TimeInput {...defaultProps} />);
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
@@ -436,68 +454,83 @@ describe('TimeInput', () => {
     expect(hourInput).toHaveFocus();
   });
 
-  it('triggers onChange correctly when changed custom input', () => {
+  it('triggers onChange correctly when changed custom input', async () => {
     const onChange = vi.fn();
     const date = '22:17:03';
 
-    const { container } = render(
+    const { container } = await render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
     );
 
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
 
-    fireEvent.change(hourInput, { target: { value: '8' } });
+    await userEvent.fill(hourInput, '8');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith('20:17:03', false);
   });
 
-  it('triggers onChange correctly when cleared custom inputs', () => {
+  it('triggers onChange correctly when cleared custom inputs', async () => {
     const onChange = vi.fn();
     const date = '22:17:03';
 
-    const { container } = render(
+    const { container } = await render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
     );
 
     const customInputs = Array.from(container.querySelectorAll('input[data-input]'));
 
     for (const customInput of customInputs) {
-      fireEvent.change(customInput, { target: { value: '' } });
+      await userEvent.clear(customInput);
     }
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith(null, false);
   });
 
-  it('triggers onChange correctly when changed native input', () => {
+  function setNativeValue(element: HTMLInputElement, value: string) {
+    const prototype = Object.getPrototypeOf(element);
+    const propertyDescriptor = Object.getOwnPropertyDescriptor(prototype, 'value');
+    const prototypeValueSetter = propertyDescriptor?.set;
+
+    if (prototypeValueSetter) {
+      prototypeValueSetter.call(element, value);
+    }
+  }
+
+  function triggerChange(element: HTMLInputElement, value: string) {
+    setNativeValue(element, value);
+    element.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+  }
+
+  it('triggers onChange correctly when changed native input', async () => {
     const onChange = vi.fn();
     const date = '22:17:03';
 
-    const { container } = render(
+    const { container } = await render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
     );
 
     const nativeInput = container.querySelector('input[type="time"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '20:17:03' } });
+    triggerChange(nativeInput, '20:17:03');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith('20:17:03', false);
   });
 
-  it('triggers onChange correctly when cleared native input', () => {
+  it('triggers onChange correctly when cleared native input', async () => {
     const onChange = vi.fn();
     const date = '22:17:03';
 
-    const { container } = render(
+    const { container } = await render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
     );
 
     const nativeInput = container.querySelector('input[type="time"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '' } });
+    triggerChange(nativeInput, '');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(null, false);
