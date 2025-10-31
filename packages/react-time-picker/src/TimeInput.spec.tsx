@@ -454,7 +454,7 @@ describe('TimeInput', () => {
     const customInputs = container.querySelectorAll('input[data-input]');
     const hourInput = customInputs[0] as HTMLInputElement;
 
-    fireEvent.change(hourInput, { target: { value: '8' } });
+    await userEvent.fill(hourInput, '8');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith('20:17:03', false);
@@ -471,12 +471,27 @@ describe('TimeInput', () => {
     const customInputs = Array.from(container.querySelectorAll('input[data-input]'));
 
     for (const customInput of customInputs) {
-      fireEvent.change(customInput, { target: { value: '' } });
+      await userEvent.fill(customInput, '');
     }
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith(null, false);
   });
+
+  function setNativeValue(element: HTMLInputElement, value: string) {
+    const prototype = Object.getPrototypeOf(element);
+    const propertyDescriptor = Object.getOwnPropertyDescriptor(prototype, 'value');
+    const prototypeValueSetter = propertyDescriptor?.set;
+
+    if (prototypeValueSetter) {
+      prototypeValueSetter.call(element, value);
+    }
+  }
+
+  function triggerChange(element: HTMLInputElement, value: string) {
+    setNativeValue(element, value);
+    element.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+  }
 
   it('triggers onChange correctly when changed native input', async () => {
     const onChange = vi.fn();
@@ -488,7 +503,7 @@ describe('TimeInput', () => {
 
     const nativeInput = container.querySelector('input[type="time"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '20:17:03' } });
+    triggerChange(nativeInput, '20:17:03');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith('20:17:03', false);
@@ -504,7 +519,7 @@ describe('TimeInput', () => {
 
     const nativeInput = container.querySelector('input[type="time"]') as HTMLInputElement;
 
-    fireEvent.change(nativeInput, { target: { value: '' } });
+    triggerChange(nativeInput, '');
 
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(null, false);

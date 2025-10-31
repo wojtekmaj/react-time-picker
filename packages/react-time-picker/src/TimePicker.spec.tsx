@@ -472,8 +472,8 @@ describe('TimePicker', () => {
 
     const hourInput = container.querySelector('input[name="hour12"]') as HTMLInputElement;
 
-    act(() => {
-      fireEvent.change(hourInput, { target: { value: '9' } });
+    await act(async () => {
+      await userEvent.fill(hourInput, '9');
     });
 
     const clock = container.querySelector('.react-clock');
@@ -491,8 +491,8 @@ describe('TimePicker', () => {
 
     const hourInput = container.querySelector('input[name="hour12"]') as HTMLInputElement;
 
-    act(() => {
-      fireEvent.change(hourInput, { target: { value: '9' } });
+    await act(async () => {
+      await userEvent.fill(hourInput, '9');
     });
 
     expect(onChange).toHaveBeenCalledWith('21:41:28');
@@ -508,8 +508,8 @@ describe('TimePicker', () => {
 
     const hourInput = container.querySelector('input[name="hour12"]') as HTMLInputElement;
 
-    act(() => {
-      fireEvent.change(hourInput, { target: { value: '99' } });
+    await act(async () => {
+      await userEvent.fill(hourInput, '99');
     });
 
     expect(onInvalidChange).toHaveBeenCalled();
