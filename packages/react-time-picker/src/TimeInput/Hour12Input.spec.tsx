@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { createRef } from 'react';
 
@@ -14,9 +15,9 @@ describe('Hour12Input', () => {
   } satisfies React.ComponentProps<typeof Hour12Input>;
 
   it('renders an input', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} />);
+    await render(<Hour12Input {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toBeInTheDocument();
   });
@@ -24,9 +25,9 @@ describe('Hour12Input', () => {
   it('applies given aria-label properly', async () => {
     const hourAriaLabel = 'Hour';
 
-    const { container } = await render(<Hour12Input {...defaultProps} ariaLabel={hourAriaLabel} />);
+    await render(<Hour12Input {...defaultProps} ariaLabel={hourAriaLabel} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('aria-label', hourAriaLabel);
   });
@@ -34,11 +35,9 @@ describe('Hour12Input', () => {
   it('applies given placeholder properly', async () => {
     const hourPlaceholder = 'hh';
 
-    const { container } = await render(
-      <Hour12Input {...defaultProps} placeholder={hourPlaceholder} />,
-    );
+    await render(<Hour12Input {...defaultProps} placeholder={hourPlaceholder} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('placeholder', hourPlaceholder);
   });
@@ -48,7 +47,7 @@ describe('Hour12Input', () => {
       <Hour12Input {...defaultProps} showLeadingZeros value="9" />,
     );
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(container).toHaveTextContent('0');
     expect(input).toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
@@ -59,7 +58,7 @@ describe('Hour12Input', () => {
       <Hour12Input {...defaultProps} showLeadingZeros value="10" />,
     );
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(container).not.toHaveTextContent('0');
     expect(input).not.toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
@@ -68,16 +67,16 @@ describe('Hour12Input', () => {
   it('does not render "0" if not given showLeadingZeros', async () => {
     const { container } = await render(<Hour12Input {...defaultProps} value="9" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(container).not.toHaveTextContent('0');
     expect(input).not.toHaveClass(`${defaultProps.className}__input--hasLeadingZero`);
   });
 
   it('has proper name defined', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} />);
+    await render(<Hour12Input {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('name', 'hour12');
   });
@@ -85,9 +84,9 @@ describe('Hour12Input', () => {
   it('has proper className defined', async () => {
     const className = 'react-time-picker';
 
-    const { container } = await render(<Hour12Input {...defaultProps} className={className} />);
+    await render(<Hour12Input {...defaultProps} className={className} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveClass('react-time-picker__input');
     expect(input).toHaveClass('react-time-picker__hour');
@@ -96,9 +95,9 @@ describe('Hour12Input', () => {
   it('displays given value properly (am)', async () => {
     const value = '11';
 
-    const { container } = await render(<Hour12Input {...defaultProps} value={value} />);
+    await render(<Hour12Input {...defaultProps} value={value} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveValue(Number(value));
   });
@@ -106,41 +105,41 @@ describe('Hour12Input', () => {
   it('displays given value properly (pm)', async () => {
     const value = '22';
 
-    const { container } = await render(<Hour12Input {...defaultProps} value={value} />);
+    await render(<Hour12Input {...defaultProps} value={value} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveValue(Number(value) - 12);
   });
 
   it('does not disable input by default', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} />);
+    await render(<Hour12Input {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).not.toBeDisabled();
   });
 
   it('disables input given disabled flag', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} disabled />);
+    await render(<Hour12Input {...defaultProps} disabled />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toBeDisabled();
   });
 
   it('is not required input by default', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} />);
+    await render(<Hour12Input {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).not.toBeRequired();
   });
 
   it('required input given required flag', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} required />);
+    await render(<Hour12Input {...defaultProps} required />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toBeRequired();
   });
@@ -154,105 +153,105 @@ describe('Hour12Input', () => {
   });
 
   it('has min = "1" by default', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} />);
+    await render(<Hour12Input {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '1');
   });
 
   it('has min = (hour in minTime) given am minTime when amPm is am', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="am" minTime="5:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="am" minTime="5:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '5');
   });
 
   it('has min = (hour in minTime) given pm minTime when amPm is pm', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="pm" minTime="17:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="pm" minTime="17:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '5');
   });
 
   it('has min = "1" given am minTime when amPm is pm', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="pm" minTime="5:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="pm" minTime="5:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '1');
   });
 
   it('has min = "1" given pm minTime when amPm is am', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="am" minTime="17:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="am" minTime="17:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '1');
   });
 
   it('has min = "1" given 12 am minTime when amPm is am', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="am" minTime="00:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="am" minTime="00:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '1');
   });
 
   it('has min = "1" given 12 pm minTime when amPm is pm', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="pm" minTime="12:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="pm" minTime="12:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('min', '1');
   });
 
   it('has max = "12" by default', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} />);
+    await render(<Hour12Input {...defaultProps} />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '12');
   });
 
   it('has max = (hour in maxTime) given am maxTime when amPm is am', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="am" maxTime="5:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="am" maxTime="5:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '5');
   });
 
   it('has max = (hour in maxTime) given pm maxTime when amPm is pm', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="pm" maxTime="17:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="pm" maxTime="17:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '5');
   });
 
   it('has max = "12" given am maxTime when amPm is pm', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="pm" maxTime="5:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="pm" maxTime="5:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '12');
   });
 
   it('has max = "12" given pm maxTime when amPm is am', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="am" maxTime="17:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="am" maxTime="17:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '12');
   });
 
   it('has max = "12" given 12 pm minTime when amPm is pm', async () => {
-    const { container } = await render(<Hour12Input {...defaultProps} amPm="pm" maxTime="12:35" />);
+    await render(<Hour12Input {...defaultProps} amPm="pm" maxTime="12:35" />);
 
-    const input = container.querySelector('input');
+    const input = page.getByRole('spinbutton');
 
     expect(input).toHaveAttribute('max', '12');
   });

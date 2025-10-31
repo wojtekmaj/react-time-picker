@@ -543,6 +543,7 @@ export default function TimePicker(props: TimePickerProps): React.ReactElement {
           <button
             aria-label={clearAriaLabel}
             className={`${baseClassName}__clear-button ${baseClassName}__button`}
+            data-testid="clear-button"
             disabled={disabled}
             onClick={clear}
             onFocus={stopPropagation}
@@ -556,6 +557,7 @@ export default function TimePicker(props: TimePickerProps): React.ReactElement {
             aria-expanded={isOpen || false}
             aria-label={clockAriaLabel}
             className={`${baseClassName}__clock-button ${baseClassName}__button`}
+            data-testid="clock-button"
             disabled={disabled}
             onClick={toggleClock}
             onFocus={stopPropagation}

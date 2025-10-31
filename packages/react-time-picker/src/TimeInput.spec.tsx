@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 
 import TimeInput from './TimeInput.js';
@@ -22,44 +22,48 @@ const itIfFullICU = it.skipIf(!hasFullICU);
 
 describe('TimeInput', () => {
   const defaultProps = {
+    amPmAriaLabel: 'amPm',
     className: 'react-time-picker__inputGroup',
+    hourAriaLabel: 'hour',
+    minuteAriaLabel: 'minute',
+    secondAriaLabel: 'second',
   };
 
   it('renders a native input and custom inputs', async () => {
     const { container } = await render(<TimeInput {...defaultProps} />);
 
     const nativeInput = container.querySelector('input[type="time"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toBeInTheDocument();
     expect(customInputs).toHaveLength(2);
   });
 
   it('does not render second input when maxDetail is "minute" or less', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} maxDetail="minute" />);
+    await render(<TimeInput {...defaultProps} maxDetail="minute" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const secondInput = container.querySelector('input[name="second"]');
-    const minuteInput = container.querySelector('input[name="minute"]');
-    const hourInput = container.querySelector('input[name^="hour"]');
+    const customInputs = page.getByRole('spinbutton');
+    const secondInput = page.getByRole('spinbutton', { name: 'second' });
+    const minuteInput = page.getByRole('spinbutton', { name: 'minute' });
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
 
     expect(customInputs).toHaveLength(2);
-    expect(secondInput).toBeFalsy();
+    expect(secondInput).not.toBeInTheDocument();
     expect(minuteInput).toBeInTheDocument();
     expect(hourInput).toBeInTheDocument();
   });
 
   it('does not render second and minute inputs when maxDetail is "hour" or less', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} maxDetail="hour" />);
+    await render(<TimeInput {...defaultProps} maxDetail="hour" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const secondInput = container.querySelector('input[name="second"]');
-    const minuteInput = container.querySelector('input[name="minute"]');
-    const hourInput = container.querySelector('input[name^="hour"]');
+    const customInputs = page.getByRole('spinbutton');
+    const secondInput = page.getByRole('spinbutton', { name: 'second' });
+    const minuteInput = page.getByRole('spinbutton', { name: 'minute' });
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
 
     expect(customInputs).toHaveLength(1);
-    expect(secondInput).toBeFalsy();
-    expect(minuteInput).toBeFalsy();
+    expect(secondInput).not.toBeInTheDocument();
+    expect(minuteInput).not.toBeInTheDocument();
     expect(hourInput).toBeInTheDocument();
   });
 
@@ -71,12 +75,12 @@ describe('TimeInput', () => {
     );
 
     const nativeInput = container.querySelector('input[type="time"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toHaveValue(date);
-    expect(customInputs[0]).toHaveValue(10);
-    expect(customInputs[1]).toHaveValue(17);
-    expect(customInputs[2]).toHaveValue(3);
+    expect(customInputs.nth(0)).toHaveValue(10);
+    expect(customInputs.nth(1)).toHaveValue(17);
+    expect(customInputs.nth(2)).toHaveValue(3);
   });
 
   itIfFullICU('shows a given time in all inputs correctly (24-hour format)', async () => {
@@ -87,12 +91,12 @@ describe('TimeInput', () => {
     );
 
     const nativeInput = container.querySelector('input[type="time"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toHaveValue(date);
-    expect(customInputs[0]).toHaveValue(22);
-    expect(customInputs[1]).toHaveValue(17);
-    expect(customInputs[2]).toHaveValue(3);
+    expect(customInputs.nth(0)).toHaveValue(22);
+    expect(customInputs.nth(1)).toHaveValue(17);
+    expect(customInputs.nth(2)).toHaveValue(3);
   });
 
   it('shows empty value in all inputs correctly given null', async () => {
@@ -101,12 +105,12 @@ describe('TimeInput', () => {
     );
 
     const nativeInput = container.querySelector('input[type="time"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toHaveAttribute('value', '');
-    expect(customInputs[0]).toHaveAttribute('value', '');
-    expect(customInputs[1]).toHaveAttribute('value', '');
-    expect(customInputs[2]).toHaveAttribute('value', '');
+    expect(customInputs.nth(0)).toHaveAttribute('value', '');
+    expect(customInputs.nth(1)).toHaveAttribute('value', '');
+    expect(customInputs.nth(2)).toHaveAttribute('value', '');
   });
 
   it('clears the value correctly', async () => {
@@ -119,34 +123,32 @@ describe('TimeInput', () => {
     rerender(<TimeInput {...defaultProps} maxDetail="second" value={null} />);
 
     const nativeInput = container.querySelector('input[type="time"]');
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
     expect(nativeInput).toHaveAttribute('value', '');
-    expect(customInputs[0]).toHaveAttribute('value', '');
-    expect(customInputs[1]).toHaveAttribute('value', '');
-    expect(customInputs[2]).toHaveAttribute('value', '');
+    expect(customInputs.nth(0)).toHaveAttribute('value', '');
+    expect(customInputs.nth(1)).toHaveAttribute('value', '');
+    expect(customInputs.nth(2)).toHaveAttribute('value', '');
   });
 
   it('renders custom inputs in a proper order (12-hour format)', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
+    await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
-    expect(customInputs[0]).toHaveAttribute('name', 'hour12');
-    expect(customInputs[1]).toHaveAttribute('name', 'minute');
-    expect(customInputs[2]).toHaveAttribute('name', 'second');
+    expect(customInputs.nth(0)).toHaveAttribute('name', 'hour12');
+    expect(customInputs.nth(1)).toHaveAttribute('name', 'minute');
+    expect(customInputs.nth(2)).toHaveAttribute('name', 'second');
   });
 
   itIfFullICU('renders custom inputs in a proper order (24-hour format)', async () => {
-    const { container } = await render(
-      <TimeInput {...defaultProps} locale="de-DE" maxDetail="second" />,
-    );
+    await render(<TimeInput {...defaultProps} locale="de-DE" maxDetail="second" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
+    const customInputs = page.getByRole('spinbutton');
 
-    expect(customInputs[0]).toHaveAttribute('name', 'hour24');
-    expect(customInputs[1]).toHaveAttribute('name', 'minute');
-    expect(customInputs[2]).toHaveAttribute('name', 'second');
+    expect(customInputs.nth(0)).toHaveAttribute('name', 'hour24');
+    expect(customInputs.nth(1)).toHaveAttribute('name', 'minute');
+    expect(customInputs.nth(2)).toHaveAttribute('name', 'second');
   });
 
   it.todo('renders hour input without leading zero by default');
@@ -157,20 +159,20 @@ describe('TimeInput', () => {
 
   describe('renders custom input in a proper order given format', () => {
     it('renders "h" properly', async () => {
-      const { container } = await render(<TimeInput {...defaultProps} format="h" />);
+      await render(<TimeInput {...defaultProps} format="h" />);
 
-      const componentInput = container.querySelector('input[name="hour12"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'hour' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "hh" properly', async () => {
-      const { container } = await render(<TimeInput {...defaultProps} format="hh" />);
+      await render(<TimeInput {...defaultProps} format="hh" />);
 
-      const componentInput = container.querySelector('input[name="hour12"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'hour' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
@@ -187,20 +189,20 @@ describe('TimeInput', () => {
     });
 
     it('renders "H" properly', async () => {
-      const { container } = await render(<TimeInput {...defaultProps} format="H" />);
+      await render(<TimeInput {...defaultProps} format="H" />);
 
-      const componentInput = container.querySelector('input[name="hour24"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'hour' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "HH" properly', async () => {
-      const { container } = await render(<TimeInput {...defaultProps} format="HH" />);
+      await render(<TimeInput {...defaultProps} format="HH" />);
 
-      const componentInput = container.querySelector('input[name="hour24"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'hour' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
@@ -217,20 +219,20 @@ describe('TimeInput', () => {
     });
 
     it('renders "m" properly', async () => {
-      const { container } = await render(<TimeInput {...defaultProps} format="m" />);
+      await render(<TimeInput {...defaultProps} format="m" />);
 
-      const componentInput = container.querySelector('input[name="minute"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'minute' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "mm" properly', async () => {
-      const { container } = await render(<TimeInput {...defaultProps} format="mm" />);
+      await render(<TimeInput {...defaultProps} format="mm" />);
 
-      const componentInput = container.querySelector('input[name="minute"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'minute' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
@@ -247,20 +249,20 @@ describe('TimeInput', () => {
     });
 
     it('renders "s" properly', async () => {
-      const { container } = await render(<TimeInput {...defaultProps} format="s" />);
+      await render(<TimeInput {...defaultProps} format="s" />);
 
-      const componentInput = container.querySelector('input[name="second"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'second' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
     });
 
     it('renders "ss" properly', async () => {
-      const { container } = await render(<TimeInput {...defaultProps} format="ss" />);
+      await render(<TimeInput {...defaultProps} format="ss" />);
 
-      const componentInput = container.querySelector('input[name="second"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentInput = page.getByRole('spinbutton', { name: 'second' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentInput).toBeInTheDocument();
       expect(customInputs).toHaveLength(1);
@@ -277,10 +279,10 @@ describe('TimeInput', () => {
     });
 
     it('renders "a" properly', async () => {
-      const { container } = await render(<TimeInput {...defaultProps} format="a" />);
+      await render(<TimeInput {...defaultProps} format="a" />);
 
-      const componentSelect = container.querySelector('select[name="amPm"]');
-      const customInputs = container.querySelectorAll('input[data-input]');
+      const componentSelect = page.getByRole('combobox', { name: 'amPm' });
+      const customInputs = page.getByRole('spinbutton');
 
       expect(componentSelect).toBeInTheDocument();
       expect(customInputs).toHaveLength(0);
@@ -288,32 +290,31 @@ describe('TimeInput', () => {
   });
 
   it('renders proper input separators', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
+    await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
-    const separators = container.querySelectorAll('.react-time-picker__inputGroup__divider');
+    const separators = page.getByTestId('divider');
 
     expect(separators).toHaveLength(3);
-    expect(separators[0]).toHaveTextContent(':');
-    expect(separators[1]).toHaveTextContent(':');
-    expect(separators[2]).toHaveTextContent(''); // Non-breaking space
+    expect(separators.nth(0)).toHaveTextContent(':');
+    expect(separators.nth(1)).toHaveTextContent(':');
+    expect(separators.nth(2)).toHaveTextContent(''); // Non-breaking space
   });
 
   it('renders proper amount of separators', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} />);
+    await render(<TimeInput {...defaultProps} />);
 
-    const separators = container.querySelectorAll('.react-time-picker__inputGroup__divider');
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const ampm = container.querySelectorAll('select');
+    const separators = page.getByTestId('divider');
+    const customInputs = page.getByRole('spinbutton');
+    const ampm = page.getByRole('combobox', { name: 'amPm' });
 
     expect(separators).toHaveLength(customInputs.length + ampm.length - 1);
   });
 
   it('jumps to the next field when right arrow is pressed', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
+    await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0] as HTMLInputElement;
-    const minuteInput = customInputs[1];
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
+    const minuteInput = page.getByRole('spinbutton', { name: 'minute' });
 
     await userEvent.type(hourInput, '{arrowright}');
 
@@ -321,16 +322,13 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the next field when separator key is pressed', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
+    await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0] as HTMLInputElement;
-    const minuteInput = customInputs[1];
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
+    const minuteInput = page.getByRole('spinbutton', { name: 'minute' });
 
-    const separator = container.querySelector(
-      '.react-time-picker__inputGroup__divider',
-    ) as HTMLSpanElement;
-    const separatorKey = separator.textContent as string;
+    const separator = page.getByTestId('divider').first();
+    const separatorKey = separator.element().textContent;
 
     await userEvent.type(hourInput, separatorKey);
 
@@ -338,9 +336,9 @@ describe('TimeInput', () => {
   });
 
   it('does not jump to the next field when right arrow is pressed when the last input is focused', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
+    await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
-    const select = container.querySelector('select') as HTMLSelectElement;
+    const select = page.getByRole('combobox');
 
     await userEvent.type(select, '{arrowright}');
 
@@ -348,11 +346,10 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the previous field when left arrow is pressed', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
+    await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0];
-    const minuteInput = customInputs[1] as HTMLInputElement;
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
+    const minuteInput = page.getByRole('spinbutton', { name: 'minute' });
 
     await userEvent.type(minuteInput, '{arrowleft}');
 
@@ -360,10 +357,9 @@ describe('TimeInput', () => {
   });
 
   it('does not jump to the previous field when left arrow is pressed when the first input is focused', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} maxDetail="second" />);
+    await render(<TimeInput {...defaultProps} maxDetail="second" />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0] as HTMLInputElement;
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
 
     await userEvent.type(hourInput, '{arrowleft}');
 
@@ -371,11 +367,10 @@ describe('TimeInput', () => {
   });
 
   it("jumps to the next field when a value which can't be extended to another valid value is entered", async () => {
-    const { container } = await render(<TimeInput {...defaultProps} />);
+    await render(<TimeInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0] as HTMLInputElement;
-    const minuteInput = customInputs[1];
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
+    const minuteInput = page.getByRole('spinbutton', { name: 'minute' });
 
     await userEvent.type(hourInput, '4');
 
@@ -383,11 +378,10 @@ describe('TimeInput', () => {
   });
 
   it('jumps to the next field when a value as long as the length of maximum value is entered', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} />);
+    await render(<TimeInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0] as HTMLInputElement;
-    const minuteInput = customInputs[1];
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
+    const minuteInput = page.getByRole('spinbutton', { name: 'minute' });
 
     await userEvent.type(hourInput, '03');
 
@@ -424,13 +418,12 @@ describe('TimeInput', () => {
 
     const date = '22:17:03';
 
-    const { container } = await render(<TimeInput {...defaultProps} value={date} />);
+    await render(<TimeInput {...defaultProps} value={date} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0] as HTMLInputElement;
-    const minuteInput = customInputs[1];
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
+    const minuteInput = page.getByRole('spinbutton', { name: 'minute' });
 
-    hourInput.focus();
+    hourInput.element().focus();
     expect(hourInput).toHaveFocus();
 
     keyDown('1', true);
@@ -444,10 +437,9 @@ describe('TimeInput', () => {
   });
 
   it('does not jump the next field when a value which can be extended to another valid value is entered', async () => {
-    const { container } = await render(<TimeInput {...defaultProps} />);
+    await render(<TimeInput {...defaultProps} />);
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0] as HTMLInputElement;
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
 
     await userEvent.type(hourInput, '1');
 
@@ -458,12 +450,11 @@ describe('TimeInput', () => {
     const onChange = vi.fn();
     const date = '22:17:03';
 
-    const { container } = await render(
+    await render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
     );
 
-    const customInputs = container.querySelectorAll('input[data-input]');
-    const hourInput = customInputs[0] as HTMLInputElement;
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
 
     await userEvent.fill(hourInput, '8');
 
@@ -475,11 +466,11 @@ describe('TimeInput', () => {
     const onChange = vi.fn();
     const date = '22:17:03';
 
-    const { container } = await render(
+    await render(
       <TimeInput {...defaultProps} maxDetail="second" onChange={onChange} value={date} />,
     );
 
-    const customInputs = Array.from(container.querySelectorAll('input[data-input]'));
+    const customInputs = page.getByRole('spinbutton').elements();
 
     for (const customInput of customInputs) {
       await userEvent.clear(customInput);
