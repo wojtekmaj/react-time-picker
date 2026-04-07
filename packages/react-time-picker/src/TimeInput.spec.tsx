@@ -120,7 +120,7 @@ describe('TimeInput', () => {
       <TimeInput {...defaultProps} maxDetail="second" value={date} />,
     );
 
-    rerender(<TimeInput {...defaultProps} maxDetail="second" value={null} />);
+    await rerender(<TimeInput {...defaultProps} maxDetail="second" value={null} />);
 
     const nativeInput = container.querySelector('input[type="time"]');
     const customInputs = page.getByRole('spinbutton');
