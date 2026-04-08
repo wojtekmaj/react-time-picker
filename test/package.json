@@ -25,7 +25,7 @@
     "react-time-picker": "workspace:packages/react-time-picker"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.2",
+    "@biomejs/biome": "2.4.10",
     "@types/react": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
     "typescript": "^6.0.2",
