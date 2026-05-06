@@ -199,14 +199,14 @@ export type TimePickerProps = {
    * @example new Date()
    * @example '22:15:00'
    */
-  maxTime?: string;
+  maxTime?: string | Date;
   /**
    * Minimum date that the user can select.
    *
    * @example new Date()
    * @example '22:15:00'
    */
-  minTime?: string;
+  minTime?: string | Date;
   /**
    * `aria-label` for the minute input.
    *
