@@ -131,6 +131,37 @@ describe('TimeInput', () => {
     expect(customInputs.nth(2)).toHaveAttribute('value', '');
   });
 
+  it('does not clear partial value when reopened with updated min/max props', async () => {
+    const { rerender } = await render(
+      <TimeInput
+        {...defaultProps}
+        isClockOpen={false}
+        maxDetail="second"
+        maxTime="23:59:59"
+        value={null}
+      />,
+    );
+
+    const hourInput = page.getByRole('spinbutton', { name: 'hour' });
+    const minuteInput = page.getByRole('spinbutton', { name: 'minute' });
+
+    await userEvent.fill(hourInput, '8');
+    await userEvent.fill(minuteInput, '17');
+
+    await rerender(
+      <TimeInput
+        {...defaultProps}
+        isClockOpen
+        maxDetail="second"
+        maxTime="23:59:58"
+        value={null}
+      />,
+    );
+
+    expect(hourInput).toHaveValue(8);
+    expect(minuteInput).toHaveValue(17);
+  });
+
   it('renders custom inputs in a proper order (12-hour format)', async () => {
     await render(<TimeInput {...defaultProps} maxDetail="second" />);
 

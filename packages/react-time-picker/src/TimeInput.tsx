@@ -160,6 +160,7 @@ export default function TimeInput({
   const secondInput = useRef<HTMLInputElement>(null);
   const [isClockOpen, setIsClockOpen] = useState(isClockOpenProps);
   const lastPressedKey = useRef<KeyboardEvent['key'] | undefined>(undefined);
+  const previousValueProps = useRef(valueProps);
 
   useEffect(() => {
     setIsClockOpen(isClockOpenProps);
@@ -175,13 +176,15 @@ export default function TimeInput({
       setMinute(getMinutes(nextValue).toString());
       setSecond(getSeconds(nextValue).toString());
       setValue(nextValue);
-    } else {
+    } else if (valueProps !== previousValueProps.current || valueProps != null) {
       setAmPm(null);
       setHour(null);
       setMinute(null);
       setSecond(null);
       setValue(null);
     }
+
+    previousValueProps.current = valueProps;
   }, [
     valueProps,
     minTime,
