@@ -361,12 +361,12 @@ export default function TimePicker(props: TimePickerProps): React.ReactElement {
     ...otherProps
   } = props;
 
-  const [isOpen, setIsOpen] = useState<boolean | null>(isOpenProps);
+  const [isOpen, setIsOpen] = useState<boolean | null>(isOpenProps ?? autoFocus ?? null);
   const wrapper = useRef<HTMLDivElement>(null);
   const clockWrapper = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setIsOpen(isOpenProps);
+    setIsOpen(isOpenProps ?? autoFocus ?? null);
   }, [isOpenProps]);
 
   function openClock({ reason }: { reason: OpenReason }) {
