@@ -96,5 +96,9 @@
     "url": "git+https://github.com/wojtekmaj/react-time-picker.git",
     "directory": "packages/react-time-picker"
   },
+  "homepage": "https://github.com/wojtekmaj/react-time-picker#readme",
+  "bugs": {
+    "url": "https://github.com/wojtekmaj/react-time-picker/issues"
+  },
   "funding": "https://github.com/wojtekmaj/react-time-picker?sponsor=1"
 }
