@@ -9,6 +9,7 @@ type AmPmProps = {
   autoFocus?: boolean;
   className: string;
   disabled?: boolean;
+  form?: string;
   inputRef?: React.RefObject<HTMLSelectElement | null>;
   locale?: string;
   maxTime?: string;
@@ -26,6 +27,7 @@ export default function AmPm({
   autoFocus,
   className,
   disabled,
+  form,
   inputRef,
   locale,
   maxTime,
@@ -50,6 +52,7 @@ export default function AmPm({
       data-input="true"
       data-select="true"
       disabled={disabled}
+      form={form}
       name={name}
       onChange={onChange}
       onKeyDown={onKeyDown}

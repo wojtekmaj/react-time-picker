@@ -103,6 +103,7 @@ type TimeInputProps = {
   amPmAriaLabel?: string;
   autoFocus?: boolean;
   className: string;
+  customInputsForm?: string;
   disabled?: boolean;
   format?: string;
   hourAriaLabel?: string;
@@ -128,6 +129,7 @@ export default function TimeInput({
   amPmAriaLabel,
   autoFocus,
   className,
+  customInputsForm,
   disabled,
   format,
   hourAriaLabel,
@@ -439,6 +441,7 @@ export default function TimeInput({
   const commonInputProps = {
     className,
     disabled,
+    form: customInputsForm,
     maxTime,
     minTime,
     onChange,

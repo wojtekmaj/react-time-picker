@@ -43,6 +43,32 @@ describe('TimePicker', () => {
     expect(nativeInput).toHaveAttribute('name', name);
   });
 
+  it('passes customInputsForm to custom inputs only', async () => {
+    const { container } = await render(
+      <form>
+        <TimePicker
+          {...defaultProps}
+          customInputsForm=""
+          format="h:mm:ss a"
+          maxDetail="second"
+          name="startTime"
+          value="22:15:30"
+        />
+      </form>,
+    );
+
+    const form = container.querySelector('form') as HTMLFormElement;
+    const customInputs = container.querySelectorAll('[data-input="true"]');
+
+    expect(customInputs).toHaveLength(4);
+
+    for (const customInput of customInputs) {
+      expect(customInput).toHaveAttribute('form', '');
+    }
+
+    expect(Array.from(new FormData(form).entries())).toEqual([['startTime', '22:15:30']]);
+  });
+
   it('passes autoFocus flag to TimeInput', async () => {
     await render(<TimePicker {...defaultProps} autoFocus />);
 

@@ -125,6 +125,12 @@ export type TimePickerProps = {
    */
   closeClock?: boolean;
   /**
+   * `form` attribute for the custom hour, minute, second, and AM/PM inputs.
+   *
+   * @example 'my-form'
+   */
+  customInputsForm?: string;
+  /**
    * `data-testid` attribute for the main React-Time-Picker `<div>` element.
    *
    * @example 'time-picker'
@@ -330,6 +336,7 @@ export default function TimePicker(props: TimePickerProps): React.ReactElement {
     clockAriaLabel,
     clockIcon = ClockIcon,
     closeClock: shouldCloseClockOnSelect = true,
+    customInputsForm,
     'data-testid': dataTestid,
     hourAriaLabel,
     hourPlaceholder,
@@ -521,6 +528,7 @@ export default function TimePicker(props: TimePickerProps): React.ReactElement {
           {...placeholderProps}
           autoFocus={autoFocus}
           className={`${baseClassName}__inputGroup`}
+          customInputsForm={customInputsForm}
           disabled={disabled}
           format={format}
           isClockOpen={isOpen}
