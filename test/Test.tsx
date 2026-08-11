@@ -4,9 +4,9 @@ import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 import { getHoursMinutesSeconds } from '@wojtekmaj/date-utils';
 
-import ValidityOptions from './ValidityOptions.js';
-import MaxDetailOptions from './MaxDetailOptions.js';
 import LocaleOptions from './LocaleOptions.js';
+import MaxDetailOptions from './MaxDetailOptions.js';
+import ValidityOptions from './ValidityOptions.js';
 import ValueOptions from './ValueOptions.js';
 import ViewOptions from './ViewOptions.js';
 
