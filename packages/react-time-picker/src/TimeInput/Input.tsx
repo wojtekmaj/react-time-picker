@@ -51,6 +51,7 @@ function updateInputWidthOnLoad(element: HTMLInputElement) {
   }
 
   window.addEventListener('load', onLoad);
+  return () => window.removeEventListener('load', onLoad);
 }
 
 function updateInputWidthOnFontLoad(element: HTMLInputElement) {
@@ -75,6 +76,7 @@ function updateInputWidthOnFontLoad(element: HTMLInputElement) {
   }
 
   document.fonts.addEventListener('loadingdone', onLoadingDone);
+  return () => document.fonts.removeEventListener('loadingdone', onLoadingDone);
 }
 
 function getSelectionString(input: HTMLInputElement) {
@@ -155,8 +157,12 @@ export default function Input({
     }
 
     updateInputWidth(inputRef.current);
-    updateInputWidthOnLoad(inputRef.current);
-    updateInputWidthOnFontLoad(inputRef.current);
+    const removeLoadListener = updateInputWidthOnLoad(inputRef.current);
+    const removeFontListener = updateInputWidthOnFontLoad(inputRef.current);
+    return () => {
+      removeLoadListener?.();
+      removeFontListener?.();
+    };
   }, [inputRef, value]);
 
   const hasLeadingZero =
