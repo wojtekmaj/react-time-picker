@@ -327,6 +327,40 @@ describe('TimePicker', () => {
     expect(clock).not.toBeInTheDocument();
   });
 
+  it.each`
+    renderInPortal
+    ${false}
+    ${true}
+  `(
+    'does not render Clock component when given disabled & isOpen flags (portal: $renderInPortal)',
+    async ({ renderInPortal }) => {
+      const portalContainer = renderInPortal ? document.body : undefined;
+      const props = { ...defaultProps, isOpen: true, portalContainer };
+
+      const { container, rerender } = await render(<TimePicker {...props} disabled />);
+
+      const widgetContainer = portalContainer || container;
+
+      expect(widgetContainer.querySelector('.react-clock')).not.toBeInTheDocument();
+      expect(page.getByTestId('clock-button')).toHaveAttribute('aria-expanded', 'false');
+
+      await rerender(<TimePicker {...props} />);
+
+      expect(widgetContainer.querySelector('.react-clock')).toBeInTheDocument();
+      expect(page.getByTestId('clock-button')).toHaveAttribute('aria-expanded', 'true');
+
+      await rerender(<TimePicker {...props} disabled />);
+
+      expect(widgetContainer.querySelector('.react-clock')).not.toBeInTheDocument();
+      expect(page.getByTestId('clock-button')).toHaveAttribute('aria-expanded', 'false');
+
+      await rerender(<TimePicker {...props} />);
+
+      expect(widgetContainer.querySelector('.react-clock')).toBeInTheDocument();
+      expect(page.getByTestId('clock-button')).toHaveAttribute('aria-expanded', 'true');
+    },
+  );
+
   it('opens Clock component when given isOpen flag by changing props', async () => {
     const { container, rerender } = await render(<TimePicker {...defaultProps} />);
 

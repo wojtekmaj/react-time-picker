@@ -368,7 +368,8 @@ export default function TimePicker(props: TimePickerProps): React.ReactElement {
     ...otherProps
   } = props;
 
-  const [isOpen, setIsOpen] = useState<boolean | null>(isOpenProps);
+  const [isOpenState, setIsOpen] = useState<boolean | null>(isOpenProps);
+  const isOpen = disabled ? null : isOpenState;
   const wrapper = useRef<HTMLDivElement>(null);
   const clockWrapper = useRef<HTMLDivElement>(null);
 
